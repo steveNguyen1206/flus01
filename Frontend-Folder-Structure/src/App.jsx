@@ -1,9 +1,14 @@
 import Routers from './Routers/Routers'
-import { Header } from './layout'
+import { Header, Footer } from './layout'
 
 function App() {
 
-  return Header();
+  return (
+    <html>
+      <Header/>
+      <Footer/>
+    </html>
+  );
 }
 
 export default App
