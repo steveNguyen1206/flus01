@@ -1,0 +1,15 @@
+@import url("../../assets/variables.css");
+
+.white-button{
+    background-color: var(--white);
+    border: 2px solid var(--accent);
+    border-radius: 30px;
+    width: 100px;
+    color: var(--accent);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: var(--medium-font-size);
+    font-family: "Inter-bold", Helvetica;
+}
+
