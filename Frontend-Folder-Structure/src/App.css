@@ -14,3 +14,9 @@
       font-weight: 800;
       src: local('Inter'), url(./fonts/Inter/Inter-Black.ttf) format('truetype');
   }
+
+  @font-face {
+    font-family: 'Lemon';
+    font-weight: 800;
+    src: local('Lemon'), url(./fonts/Lemon/Lemon-Regular.ttf) format('truetype');
+}

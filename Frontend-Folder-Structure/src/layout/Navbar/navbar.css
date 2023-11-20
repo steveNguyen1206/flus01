@@ -4,6 +4,9 @@
     width: 100%;
 }
 
+.col{
+    margin-top: 0;
+}
 .nav_text{
     width: auto;
     height: 50px;

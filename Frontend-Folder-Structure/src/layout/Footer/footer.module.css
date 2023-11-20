@@ -3,12 +3,12 @@
     background-color: #fff;
 }
 
-.box {
-    position: absolute;
+.footer {
     bottom: 10%;
     height: 300px;
     width: 100%;
     background-color: #fff;
+    position: relative;
 }
 
 .overlapgroup {
