@@ -62,4 +62,6 @@ db.contact.belongsTo(db.user, {
   onUpdate: 'CASCADE'
 })
 
+
+
 module.exports = db;
