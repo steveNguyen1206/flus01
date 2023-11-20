@@ -17,6 +17,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       delivery_description: {
         type: Sequelize.STRING(512)
+      },
+      imgage_post_urls: {
+        type: Sequelize.STRING(1024)
       }
     });
   
