@@ -27,6 +27,11 @@ db.image_freelancer = require("./image_freelancer.model.js")(sequelize, Sequeliz
 db.contact = require("./contact.model.js")(sequelize, Sequelize);
 db.subcategories = require("./subcategory.model.js")(sequelize, Sequelize);
 
+db.transactions = require("./transaction.model.js")(sequelize, Sequelize);
+db.projects = require("./project.model.js")(sequelize, Sequelize);
+db.issues = require("./issue.model.js")(sequelize, Sequelize);
+
+
 db.subcategories.belongsTo(db.categories, {
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
@@ -58,6 +63,45 @@ db.contact.belongsTo(db.freelancer_post, {
 
 db.contact.belongsTo(db.user, {
   foreignKey: 'client_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.transactions.belongsTo(db.user, {
+  foreignKey: 'sender_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'RESTRICT'
+})
+
+db.transactions.belongsTo(db.user, {
+  foreignKey: 'receiver_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'RESTRICT'
+})
+
+db.transactions.belongsTo(db.projects, {
+  foreignKey: 'project_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'RESTRICT'
+})
+
+
+db.user.belongsToMany(db.categories, {through: 'user_subcategory'})
+db.subcategories.belongsToMany(db.user, {through: 'user_subcategory'})
+
+db.issues.belongsTo(db.user, {
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.issues.belongsTo(db.projects, {
+  foreignKey: 'project_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.projects.hasOne(db.subcategories, {
+  foreignKey: 'tag_id',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })

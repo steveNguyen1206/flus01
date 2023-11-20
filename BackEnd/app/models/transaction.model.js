@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Transactions = sequelize.define("transaction", {
+    const Transaction = sequelize.define("transaction", {
       amount: {
         type: Sequelize.DOUBLE,
         allowNull: false
@@ -12,6 +12,6 @@ module.exports = (sequelize, Sequelize) => {
       
     });
   
-    return Transactions;
+    return Transaction;
   };
   
