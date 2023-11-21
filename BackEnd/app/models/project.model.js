@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.TINYINT,
         allowNull: false
       },
       

@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(50)
       },
       user_type: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.TINYINT
       },	
       email: {
         type: Sequelize.STRING()

@@ -12,15 +12,15 @@ module.exports = (sequelize, Sequelize) => {
         type:  Sequelize.DATEONLY
       },
       budget_min: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
         allowNull: false
       },
       budget_max: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
         allowNull: false
       },
       status: {
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.TINYINT,
         default: true
       },
       imgage_post_urls: {

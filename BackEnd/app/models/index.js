@@ -26,15 +26,16 @@ db.freelancer_post = require("./freelancer_post.model.js")(sequelize, Sequelize)
 // db.image_freelancer = require("./image_freelancer.model.js")(sequelize, Sequelize);
 db.contact = require("./contact.model.js")(sequelize, Sequelize);
 db.subcategories = require("./subcategory.model.js")(sequelize, Sequelize);
-db.bid = require("./Bid.model.js")(sequelize, Sequelize);
+db.bid = require("./bid.model.js")(sequelize, Sequelize);
 db.comment_proj = require("./Comment_proj.model.js")(sequelize, Sequelize);
 // db.image = require("./Image.model.js")(sequelize, Sequelize);
-db.project_post = require("./Project_post.model.js")(sequelize, Sequelize);
+db.project_post = require("./project_post.model.js")(sequelize, Sequelize);
 db.review = require("./Review.model.js")(sequelize, Sequelize);
 
 db.transactions = require("./transaction.model.js")(sequelize, Sequelize);
 db.projects = require("./project.model.js")(sequelize, Sequelize);
 db.issues = require("./issue.model.js")(sequelize, Sequelize);
+db.payment_accounts = require("./payment_account.model.js")(sequelize, Sequelize);
 
 
 db.subcategories.belongsTo(db.categories, {
@@ -43,7 +44,7 @@ db.subcategories.belongsTo(db.categories, {
 })
 
 db.freelancer_post.belongsTo(db.subcategories, {
-  foreignKey: 'skill',
+  foreignKey: 'skill_tag',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })
@@ -92,6 +93,11 @@ db.transactions.belongsTo(db.projects, {
   onUpdate: 'RESTRICT'
 })
 
+db.payment_accounts.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
 
 db.user.belongsToMany(db.categories, {through: 'user_subcategory'})
 db.subcategories.belongsToMany(db.user, {through: 'user_subcategory'})
@@ -188,6 +194,12 @@ db.review.belongsTo(db.user, {
 
 db.review.belongsTo(db.user, {
   foreignKey: 'user_reviewed',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.project_post.belongsTo(db.subcategories, {
+  foreignKey: 'tag_id',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })
