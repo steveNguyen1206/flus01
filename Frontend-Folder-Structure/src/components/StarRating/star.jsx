@@ -1,7 +1,7 @@
 import React from 'react'
 import "./star.css"
 import Rating from 'react-rating';
-import starFull from "../../assets/StarRating/starFull.png"
+import starFull from "../../assets/StarRating/starFullGreen.png"
 import starEmpty from "../../assets/StarRating/starEmpty.png"
 
 
