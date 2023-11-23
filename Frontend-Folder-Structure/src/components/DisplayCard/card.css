@@ -3,8 +3,8 @@
   
   .ctn {
     height: 177px;
-    left: 4%;
-    position: absolute;
+    margin-left: 4%;
+    position: relative;
     margin-top: 3%;
     /* top: 258px; */
     width: 934px;
