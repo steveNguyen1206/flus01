@@ -54,12 +54,47 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.findAllbyProfileName = (req, res) => {};
-
 // Find a single User with an id
-exports.findOnebyId = (req, res) => {};
+exports.findOnebyId = (req, res) => {
+  const id = req.params.id;
 
-exports.findOnebyAccountName = (req, res) => {};
+  User.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find User with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving User with id=" + id
+      });
+    });
+};
+
+exports.findOnebyAccountName = (req, res) => {
+  const account_name = req.params.account_name;
+  var condition = account_name ? { account_name: { [Op.eq]: `${account_name}` } } : null;
+
+  User.findOne({where: {condition }})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find User with account_name=${account_name}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving User with account_name=" + account_name
+      });
+    });
+};
 
 // Update a User by the id in the request
 exports.update = (req, res) => {

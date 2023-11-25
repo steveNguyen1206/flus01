@@ -9,11 +9,11 @@ module.exports = app => {
     // Retrieve all Users
     router.get("/", user.findAll);
   
-    // // Retrieve all published Tutorials
-    // router.get("/published", tutorials.findAllPublished);
-  
-    // // Retrieve a single Tutorial with id
-    // router.get("/:id", tutorials.findOne);
+    // Retrieve a single User with id
+    router.get("/:id", user.findOnebyId);
+
+    // Retrieve a single User with account_name
+    router.get("/:account_name", user.findOnebyAccountName);
   
     // Update a Tutorial with id
     router.put("/:id", user.update);
