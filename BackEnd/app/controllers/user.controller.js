@@ -4,9 +4,6 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new User
 exports.create = (req, res) => {
-  console.log("Body: ", req.body)
-
-  /*
   // Validate request
   if (!req.body.account_name) {
     res.status(400).send({
@@ -17,7 +14,7 @@ exports.create = (req, res) => {
 
   const user = {
     account_name: req.body.account_name,
-    // password: req.body.password,
+    password: req.body.password,
     profile_name: req.body.profile_name,
     phone_number: req.body.phone_number,
     nationality: req.body.nationality,
@@ -38,12 +35,14 @@ exports.create = (req, res) => {
           err.message || "Some error occurred while creating the User."
       });
     });
-    */
 };
 
 // Retrieve all User from the database
 exports.findAll = (req, res) => {
-  Tutorial.findAll()
+  const profile_name = req.query.profile_name;
+  var condition = profile_name ? { profile_name: { [Op.like]: `%${profile_name}%` } } : null;
+
+  User.findAll({where : condition})
     .then(data => {
       res.send(data);
     })
