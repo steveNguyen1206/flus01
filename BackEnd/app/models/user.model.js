@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
       account_name: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
+        unique: true
       }, 
       password: {
         type: Sequelize.STRING(50),
@@ -13,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },	
       phone_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING(15)
       },
       nationality: {
         type: Sequelize.STRING(50)
