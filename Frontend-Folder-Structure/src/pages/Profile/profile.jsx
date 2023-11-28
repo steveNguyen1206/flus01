@@ -6,11 +6,13 @@ import facebookicon from '../../assets/SocialIcon/facebook.png'
 import instaicon from '../../assets/SocialIcon/insta.png'
 import linkedinicon from '../../assets/SocialIcon/linkedin.png'
 import editIcon from '../../assets/editProfileIcon.png'
-import { EmptyTab, StarRating } from '@/components'
+import { EmptyTab, StarRating, Tag } from '@/components'
+import { SignUp } from '@/pages'
 
 const profile = () => {
     return(
         <div className="profile">
+            <SignUp/>
             <div className="overlap">
                 <div className="profile-info-section">
                     <div className="cover-avatar-section">
@@ -63,29 +65,14 @@ const profile = () => {
                 <div className="overlap-6">
                     <div className="frame-2">
                     <div className="text-wrapper-7">My Job Tags:</div>
-                    <div className="overlap-7">
-                        <div className="overlap-group-wrapper">
-                        <div className="overlap-rating-bar">
-                            <div className="ellipse-4" />
-                            <div className="text-wrapper-8">Web Design</div>
-                        </div>
-                        </div>
-                        <div className="div-wrapper">
-                        <div className="overlap-rating-bar">
-                            <div className="ellipse-4" />
-                            <div className="text-wrapper-8">Photography</div>
-                        </div>
-                        </div>
-                        <div className="group-3">
-                        <div className="overlap-8">
-                            <div className="ellipse-4" />
-                            <div className="text-wrapper-9">Backend Development</div>
-                        </div>
-                        </div>
-                        <div className="group-4">
-                        <div className="overlap-9">
-                            <div className="text-wrapper-10">Bakery</div>
-                        </div>
+                    <div className="tag-box">
+                        <div className="tag-box-inner">
+                            <Tag string={"Web Developer"}/>
+                            <Tag string={"Web"}/>
+                            <Tag string={"Web Design"}/>
+                            <Tag string={"Chief of Technology"}/>
+                            <Tag string={"Chief of Technology"}/>
+                            <Tag string={"Chief of Technology"}/>
                         </div>
                     </div>
                     </div>
@@ -108,114 +95,14 @@ const profile = () => {
                                 <div className="text-wrapper-11">My Payment Account</div>
                             </div>
                         </div>
-                        <EmptyTab/>
+                        <div className='main-tab-container'>
+                            <EmptyTab/>
+                        </div>
                     
-                    {/* <div className="scroll-bar">
-                        <div className="rectangle-3" />
-                    </div> */}
-                    
-                    {/* <div className="ctn-post">
-                        <div className="overlap-15">
-                        <div className="img-2">
-                            <div className="overlap-group-3">
-                            <div className="text-wrapper-12">Image</div>
-                            </div>
-                        </div>
-                        <div className="gr-tags">
-                            <div className="gr">
-                            <div className="overlap-group-4">
-                                <div className="text-wrapper-13">AI</div>
-                            </div>
-                            </div>
-                            <div className="gr-tag">
-                            <div className="overlap-12">
-                                <div className="text-wrapper-14">UI/UX</div>
-                            </div>
-                            </div>
-                        </div>
-                        <p className="detail-text"> Detail text here hjhjhjhj <br /> Hello everyone, my name is Duy Khang Ho. This job is hard... </p>
-                        <div className="gr-title">
-                            <div className="overlap-13">
-                            <p className="p">This is a long header / title ...</p>
-                            </div>
-                        </div>
-                        <div className="budget">$500-700</div>
-                        <div className="group-11">
-                            <div className="overlap-14">
-                            <div className="text-wrapper-15">Go to Project</div>
-                            </div>
-                        </div>
-                        </div>
-                        <div className="ctn-2">
-                        <div className="overlap-11">
-                            <div className="img-2">
-                            <div className="overlap-group-3">
-                                <div className="text-wrapper-12">Image</div>
-                            </div>
-                            </div>
-                            <div className="gr-tags">
-                            <div className="gr">
-                                <div className="overlap-group-4">
-                                <div className="text-wrapper-13">AI</div>
-                                </div>
-                            </div>
-                            <div className="gr-tag">
-                                <div className="overlap-12">
-                                <div className="text-wrapper-14">UI/UX</div>
-                                </div>
-                            </div>
-                            </div>
-                            <p className="detail-text"> Detail text here hjhjhjhj <br /> Hello everyone, my name is Duy Khang Ho. This job is hard... </p>
-                            <div className="gr-title">
-                            <div className="overlap-13">
-                                <p className="p">This is a long header / title ...</p>
-                            </div>
-                            </div>
-                            <div className="budget">$500-700</div>
-                            <div className="group-11">
-                            <div className="overlap-14">
-                                <div className="text-wrapper-15">Go to Project</div>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
-                    </div> */}
                     </div>
                 </div>
                 </div>
-                {/* <div className="ctn-3">
-                <div className="overlap-11">
-                    <div className="img-2">
-                    <div className="overlap-group-3">
-                        <div className="text-wrapper-12">Image</div>
-                    </div>
-                    </div>
-                    <div className="gr-tags">
-                    <div className="gr">
-                        <div className="overlap-group-4">
-                        <div className="text-wrapper-13">AI</div>
-                        </div>
-                    </div>
-                    <div className="gr-tag">
-                        <div className="overlap-12">
-                        <div className="text-wrapper-14">UI/UX</div>
-                        </div>
-                    </div>
-                    </div>
-                    <p className="detail-text"> Detail text here hjhjhjhj <br /> Hello everyone, my name is Duy Khang Ho. This job is hard... </p>
-                    <div className="gr-title">
-                    <div className="overlap-13">
-                        <p className="p">This is a long header / title ...</p>
-                    </div>
-                    </div>
-                    <div className="budget">$500-700</div>
-                    <div className="group-11">
-                    <div className="overlap-14">
-                        <div className="text-wrapper-15">Go to Project</div>
-                    </div>
-                    </div>
-                </div>
-                </div> */}
+                
             </div>
         </div>
     );

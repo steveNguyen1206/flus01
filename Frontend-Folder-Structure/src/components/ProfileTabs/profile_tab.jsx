@@ -7,9 +7,10 @@ import { SmallProj } from '@/components'
 const EmptyTab = () => {
     return(
         <div className='tab'>
-            <div className="scroll-bar">
-                <div className="rectangle-3" />
-            </div>
+            <SmallProj/>
+            <SmallProj/>
+            <SmallProj/>
+            <SmallProj/>
             <SmallProj/>
         </div>
        

@@ -6,3 +6,7 @@ export { default as ToolTip } from "./ToolTip";
 export {default as StarRating} from "./StarRating/star"
 export {SmallProj as SmallProj } from "./DisplayCard/card"
 export {EmptyTab as EmptyTab} from './ProfileTabs/profile_tab'
+export {Tag as Tag} from './Tag/tag'
+export {default as SignUpTabFirst} from './SignUpTabs/signup_tab_first'
+export {default as SignUpTabSecond} from './SignUpTabs/signup_tab_second'
+export {default as SignUpTabThird} from './SignUpTabs/signup_tab_third'

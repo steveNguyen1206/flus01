@@ -12,6 +12,19 @@
     min-width: 1500px;
   }
   
+  .main-tab-container{
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px #00000040;
+    height: 889px;
+    left: 356px;
+    position: absolute;
+    top: 0;
+    width: 1037px;
+    overflow: hidden;
+  }
   /* .profile .div {
     background-color: #ffffff;
     height: 2079px;
@@ -117,6 +130,7 @@
   
   .social-row{
     position: relative;
+    width: 60%;
   }
   .social-row > .col{
     justify-content: left;
@@ -210,56 +224,26 @@
     top: 16px;
   }
   
-  .profile .overlap-7 {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0px 4px 4px #00000040;
+  .profile .tag-box {
+    overflow-y: hidden;
     height: 204px;
     left: 30px;
     position: absolute;
     top: 52px;
     width: 321px;
-  }
-  
-  .profile .overlap-group-wrapper {
-    height: 35px;
-    left: 16px;
-    position: absolute;
-    top: 19px;
-    width: 166px;
-  }
-  
-  .profile .overlap-rating-bar {
-    background-color: #15a919;
-    border-radius: 30px;
-    height: 35px;
-    position: relative;
-    width: 164px;
-  }
-  
-  .profile .ellipse-4 {
     background-color: #ffffff;
-    border-radius: 4px;
-    height: 8px;
-    left: 11px;
-    position: absolute;
-    top: 13px;
-    width: 8px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 4px #00000040;
+    z-index: 1;
+  }
+
+  .tag-box-inner{
+    overflow-y: scroll;
+    z-index: 1;
+    height: 204px;
+    width: 321px;
   }
   
-  .profile .text-wrapper-8 {
-    color: #ffffff;
-    font-family: "Inter-Regular", Helvetica;
-    font-size: 16.4px;
-    font-weight: 400;
-    left: 37px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 9px;
-    white-space: nowrap;
-    width: 112px;
-  }
   
   .profile .div-wrapper {
     height: 35px;

@@ -1,14 +1,18 @@
 import Routers from './Routers/Routers'
 import { Header, Footer } from './layout'
-import { Home, Profile } from './pages';
+import { Home, Profile, SignUp, LogIn } from './pages';
+
 
 function App() {
 
   return (
     <div style={{width:"100%", height:"100%"}}>
-      <Header/>
+      {/* <Header/> */}
       <Profile/>
-      <Footer/>
+      {/* <SignUp/> */}
+      {/* <Footer/> */}
+      {/* <LogIn/> */}
+
     </div>
       
   );
