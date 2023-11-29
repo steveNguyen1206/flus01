@@ -3,7 +3,7 @@ import styles from './footer.module.css'
 
 const Footer = () => {
   return (
-    <div className={styles.box}>
+    <div className={styles.footer}>
       <div className={styles.overlapgroup}>
         <div className='row' style={{ margin:"0", display: "flex", height:"100%", width:"100%"}}>
           <div className='col' style={{display: "flex",alignItems:'center', justifyContent:"center"}}>

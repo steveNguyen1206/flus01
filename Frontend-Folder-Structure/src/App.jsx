@@ -1,14 +1,22 @@
 import Routers from './Routers/Routers'
 import WhiteButton from './components/Button/WhiteButton';
 import { Header, Footer } from './layout'
-import Login from './pages/Login'
-import Job from './pages/Job'
-import Post from './components/JobPost';
-import Filter from './components/Filter';
+import { Home, Profile, SignUp, LogIn } from './pages';
+
 
 function App() {
 
-  return <Job/>
+  return (
+    <div style={{width:"100%", height:"100%"}}>
+      {/* <Header/> */}
+      <Profile/>
+      {/* <SignUp/> */}
+      {/* <Footer/> */}
+      {/* <LogIn/> */}
+
+    </div>
+      
+  );
 }
 
 export default App

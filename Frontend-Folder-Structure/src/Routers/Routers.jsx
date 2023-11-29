@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, Login, Payment, Shop, SignUp } from '@/pages';
+import { Home, LogIn, Payment, Profile, Shop, SignUp } from '@/pages';
 import { Navbar } from '@/layout';
 
 const Routers = () => {
@@ -9,10 +9,11 @@ const Routers = () => {
         <Navbar/>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<LogIn />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/sign-up" element={<SignUp />}/>
+          <Route path="/profile" element={<Profile/>}/>
           {/* <Route path="*" element={<ErrorPage />} /> */}
         </Routes>
       </Router>
