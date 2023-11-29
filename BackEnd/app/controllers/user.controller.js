@@ -2,41 +2,6 @@ const db = require("../models");
 const User = db.user;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new User
-exports.create = (req, res) => {
-  // Validate request
-  if (!req.body.account_name) {
-    res.status(400).send({
-      message: "Account name can not be empty!",
-    });
-    return;
-  }
-
-  const user = {
-    account_name: req.body.account_name,
-    password: req.body.password,
-    profile_name: req.body.profile_name,
-    phone_number: req.body.phone_number,
-    nationality: req.body.nationality,
-    user_type: req.body.user_type,
-    email: req.body.email,
-    avt_url: req.body.avt_url,
-    social_link: req.body.social_link
-  }
-
-  // Save User in the database
-  User.create(user)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
-      });
-    });
-};
-
 // Retrieve all User from the database
 exports.findAll = (req, res) => {
   const profile_name = req.query.profile_name;
@@ -92,6 +57,27 @@ exports.findOnebyAccountName = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Error retrieving User with account_name=" + account_name
+      });
+    });
+};
+
+exports.findOnebyEmail = (req, res) => {
+  const email = req.params.email;
+  var condition = email ? { email: { [Op.eq]: `${email}` } } : null;
+
+  User.findOne({where: {condition }})
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find User with email=${email}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving User with email=${email}"
       });
     });
 };

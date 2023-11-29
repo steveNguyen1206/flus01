@@ -1,28 +1,23 @@
-module.exports = app => {
-    const user = require("../controllers/user.controller.js");
-  
-    var router = require("express").Router();
-  
-    // Create a new User
-    router.post("/", user.create);
-  
-    // Retrieve all Users
-    router.get("/", user.findAll);
-  
-    // Retrieve a single User with id
-    router.get("/:id", user.findOnebyId);
+const { authJwt } = require("../middleware");
+const user_controller = require("../controllers/user.controller.js");
 
-    // Retrieve a single User with account_name
-    router.get("/:account_name", user.findOnebyAccountName);
+module.exports = (app) => {
+  var router = require("express").Router();
+
+  // Retrieve all Users
+  router.get("/", user_controller.findAll);
+
+  // Retrieve a single User with id
+  router.get("/:id", user_controller.findOnebyId);
+
+  // Retrieve a single User with account_name
+  router.get("/:account_name", user_controller.findOnebyAccountName);
   
-    // Update a Tutorial with id
-    router.put("/:id", user.update);
-  
-    // // Delete a Tutorial with id
-    // router.delete("/:id", tutorials.delete);
-  
-    // // Delete all Tutorials
-    // router.delete("/", tutorials.deleteAll);
-  
-    app.use('/api/user', router);
-  };
+  // Retrieve a single User with email
+  router.get("/:email", user_controller.findOnebyEmail);
+
+  // Update a User with id
+  router.put("/:id", user_controller.update);
+
+  app.use("/api/user", router);
+};
