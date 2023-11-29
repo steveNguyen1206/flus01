@@ -15,7 +15,6 @@ function App() {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <Routers />
-
     </PayPalScriptProvider>
     // <div style={{width:"100%", height:"100%"}}>
     //   {/* <Header/> */}
