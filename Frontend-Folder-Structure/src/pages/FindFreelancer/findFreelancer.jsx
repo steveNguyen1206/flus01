@@ -1,11 +1,12 @@
 import React from 'react';
-import './Job.css';
+import './findfreelancer.css';
 import Search from '@/components/Search';
 import { Header, Footer } from '@/layout';
-import Post from '@/components/JobPost';
+import Post from '@/components/JobPost/Post';
 import Filter from '@/components/Filter';
+import { FreelancerPost } from '@/components/JobPost';
 
-const index = () => {
+const FindFreelancer = () => {
   return (
     <>
       <div className="job-page">
@@ -28,13 +29,13 @@ const index = () => {
         </div>
 
         <div className="c-container">
-          <div className="left">
+          <div className="left-job">
             <Filter />
           </div>
-          <div className="right">
-            <Post />
-            <Post />
-            <Post />
+          <div className="right-job">
+            <FreelancerPost />
+            <FreelancerPost />
+            <FreelancerPost />
           </div>
         </div>
       </div>
@@ -42,4 +43,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default FindFreelancer;

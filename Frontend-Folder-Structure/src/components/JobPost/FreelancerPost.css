@@ -59,6 +59,8 @@
 }
 
 .tag{
+  margin-left: 110px;
+  margin-top: 5px;
   border-radius: 8px;
   margin-bottom: 10px;
   border: 2px solid var(--accent, #12C418);
@@ -66,11 +68,6 @@
   color: var(--accent, #12C418);
   text-align: center; 
   width: 70px;
-}
-
-.tags .tag{
-  margin-left: 0;
-  margin-right: 0;
 }
 
 .detail {
@@ -134,6 +131,7 @@
   width: 80px;
   background-color: var(--primary);
   border: none;
+  margin-bottom: 10px;
 }
 
 .wish button{
@@ -160,15 +158,6 @@
   align-items: center;
 }
 
-.wish img{
-  background-color: rgb(238, 238, 238);
-}
-
-.tags{
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-  justify-content: flex-start;
-  gap: 3px;
-  margin-left: 110px;
-}
+.num-reviews {
+    text-align: center;
+  }
