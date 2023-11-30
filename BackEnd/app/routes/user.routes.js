@@ -11,10 +11,10 @@ module.exports = (app) => {
   router.get("/:id", user_controller.findOnebyId);
 
   // Retrieve a single User with account_name
-  router.get("/:account_name", user_controller.findOnebyAccountName);
+  router.get("/account_name/:account_name", user_controller.findOnebyAccountName);
   
   // Retrieve a single User with email
-  router.get("/:email", user_controller.findOnebyEmail);
+  router.get("/email/:email", user_controller.findOnebyEmail);
 
   // Update a User with id
   router.put("/:id", user_controller.update);

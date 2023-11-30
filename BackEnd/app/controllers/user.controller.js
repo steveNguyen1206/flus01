@@ -44,7 +44,7 @@ exports.findOnebyAccountName = (req, res) => {
   const account_name = req.params.account_name;
   var condition = account_name ? { account_name: { [Op.eq]: `${account_name}` } } : null;
 
-  User.findOne({where: {condition }})
+  User.findOne({where: condition })
     .then(data => {
       if (data) {
         res.send(data);
@@ -65,7 +65,7 @@ exports.findOnebyEmail = (req, res) => {
   const email = req.params.email;
   var condition = email ? { email: { [Op.eq]: `${email}` } } : null;
 
-  User.findOne({where: {condition }})
+  User.findOne({where: condition })
     .then(data => {
       if (data) {
         res.send(data);
