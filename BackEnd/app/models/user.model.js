@@ -2,24 +2,26 @@ module.exports = (sequelize, Sequelize) => {
     const User = sequelize.define("user", {
       account_name: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
+        unique: true
       }, 
       password: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(512),
         allowNull: false
       },
       profile_name: {
-        type: Sequelize.STRING(50),
-        allowNull: false
+        type: Sequelize.STRING(50)
       },	
       phone_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING(15)
       },
       nationality: {
         type: Sequelize.STRING(50)
       },
       user_type: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.TINYINT
+        // 1: user
+        // 2: admin
       },	
       email: {
         type: Sequelize.STRING()
