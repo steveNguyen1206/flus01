@@ -14,7 +14,7 @@ const Routers = () => {
           {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/sign-up" element={<SignUp />}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/profile/:id" element={<Profile/>}/>
           <Route path='/paypal-demo' element={<PayPalDemo/>} />
           {/* <Route path="*" element={<ErrorPage />} /> */}
         </Routes>
