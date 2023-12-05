@@ -3,6 +3,7 @@ import styles from './header.module.css'
 import { Navbar } from '..'
 import logo from '../../assets/logo.png'
 import avatar_green from '../../assets/avatar_green.png'
+import { StarRating } from '@/components'
 
 const Header = () => {
   const signin = 0;

@@ -6,13 +6,12 @@ import facebookicon from '../../assets/SocialIcon/facebook.png'
 import instaicon from '../../assets/SocialIcon/insta.png'
 import linkedinicon from '../../assets/SocialIcon/linkedin.png'
 import editIcon from '../../assets/editProfileIcon.png'
-import { EmptyTab, StarRating, Tag } from '@/components'
-import { SignUp } from '@/pages'
+import { BankTab, EmptyTab, StarRating, Tag } from '@/components'
+import { LogIn, SignUp } from '@/pages'
 
 const profile = () => {
     return(
         <div className="profile">
-            <SignUp/>
             <div className="overlap">
                 <div className="profile-info-section">
                     <div className="cover-avatar-section">
@@ -97,6 +96,7 @@ const profile = () => {
                         </div>
                         <div className='main-tab-container'>
                             <EmptyTab/>
+                            {/* <BankTab/> */}
                         </div>
                     
                     </div>

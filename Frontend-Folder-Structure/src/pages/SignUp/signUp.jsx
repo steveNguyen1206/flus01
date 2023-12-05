@@ -15,7 +15,8 @@ const SignUp = () => {
           </div>
         
         {/* <SignUpTabFirst/> */}
-          <SignUpTabThird/>
+        {/* <SignUpTabSecond/> */}
+          {/* <SignUpTabThird/> */}
         </div>
       </div>
     </div>
