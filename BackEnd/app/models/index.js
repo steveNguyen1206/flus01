@@ -31,6 +31,7 @@ db.comment_proj = require("./Comment_proj.model.js")(sequelize, Sequelize);
 db.image = require("./Image.model.js")(sequelize, Sequelize);
 db.project_post = require("./Project_post.model.js")(sequelize, Sequelize);
 db.review = require("./Review.model.js")(sequelize, Sequelize);
+db.otp = require("./OTP.model.js")(sequelize, Sequelize);
 
 db.subcategories.belongsTo(db.categories, {
   onDelete: 'CASCADE',

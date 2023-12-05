@@ -27,7 +27,8 @@
     "mysql2": "^2.3.3",
     "node-fetch": "^2.7.0",
     "sequelize": "^6.32.0",
-    "textflow.js": "^0.1.4"
+    "textflow.js": "^0.1.4",
+    "twilio": "^4.19.3"
   },
   "devDependencies": {
     "dotenv": "^16.3.1"
