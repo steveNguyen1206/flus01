@@ -1,41 +1,54 @@
 import http from "./http-common";
 
-const getAll = () => {
+const findAll = () => {
   return http.get("/user");
 };
 
-const get = id => {
+// findOnebyId
+const findOnebyId = id => {
   return http.get(`/user/${id}`);
 };
 
-const create = data => {
-  return http.post("/user", data);
+const signup = data => {
+  return http.post("/auth/signup", data);
+};
+
+const signin = data => {
+  return http.post("/auth/signin", data);
 };
 
 const update = (id, data) => {
   return http.put(`/user/${id}`, data);
 };
 
-const remove = id => {
-  return http.delete(`/user/${id}`);
+// const remove = id => {
+//   return http.delete(`/user/${id}`);
+// };
+
+// const removeAll = () => {
+//   return http.delete(`/user`);
+// };
+
+// const findByTitle = title => {
+//   return http.get(`/user?title=${title}`);
+// };
+
+const findOnebyAccountName = account_name => {
+  return http.get(`/user/account_name/${account_name}`);
 };
 
-const removeAll = () => {
-  return http.delete(`/user`);
-};
-
-const findByTitle = title => {
-  return http.get(`/user?title=${title}`);
+const findOnebyEmail = account_name => {
+  return http.get(`/user/email/${email}`);
 };
 
 const userDataService = {
-  getAll,
-  get,
-  create,
+  findAll,
+  findOnebyId,
+  signup,
+  signin,
   update,
-  remove,
-  removeAll,
-  findByTitle
+  findOnebyAccountName,
+  findOnebyEmail,
 };
 
 export default userDataService;
