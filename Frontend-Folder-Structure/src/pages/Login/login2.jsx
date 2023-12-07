@@ -17,15 +17,15 @@ const Login2 = () => {
                             Authorization: `Bearer ${tokenRespond.access_token}`,
                         },
                     }
-                )
-
-                console.log(res.data);
+                    )
+                    
+                // console.log(res.data);
 
                 try {
                     const server_host = "http://127.0.0.1:8080";
                     // send result to backend
                     const result = await axios.post(
-                        '${server_host}/api/auth/googleLogin',
+                        `${server_host}/api/auth/googleLogin`,
                         {
                         account_name: res.data['email'],
                         password: tokenRespond.access_token,
@@ -34,10 +34,17 @@ const Login2 = () => {
                         user_type: false,
                         email: res.data['email'],
                         avt_url: res.data['picture'],
-                    }
-                    
-                    )
-                    console.log(result);
+                        }, 
+                        {
+                            headers: {
+                            "Content-Type": "application/json", 
+                            Authorization: `Bearer ${tokenRespond.access_token}`,
+                        
+                            },
+                        }
+                    );
+
+                    console.log("Token: " + result.data.accessToken);
                 } catch (error) {
                     console.log("Error with GoogleLogin" + error)
                 }

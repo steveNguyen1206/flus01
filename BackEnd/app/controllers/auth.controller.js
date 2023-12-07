@@ -118,7 +118,7 @@ exports.googleLogin = (req, res) => {
 
         // Save newUser in the database
         User.create(newUser)
-          .then((data) => {
+          .then((user) => {
             // return access token
             var authorities = [];
             if (user.user_type === 1) {
