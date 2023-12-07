@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Projects = sequelize.define("project", {
+    const Project = sequelize.define("project", {
         project_name: {
         type: Sequelize.STRING(50),
         allowNull: false
@@ -22,12 +22,12 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },
       status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.TINYINT,
         allowNull: false
       },
       
     });
   
-    return Projects;
+    return Project;
   };
   

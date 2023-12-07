@@ -13,15 +13,23 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(50)
       },	
       phone_number: {
+<<<<<<< HEAD
         type: Sequelize.STRING(15)
+=======
+        type: Sequelize.INTEGER,
+        allowNull: false
+>>>>>>> 0581da680bc9d6f9adf2982955bdf7e4b982a114
       },
       nationality: {
         type: Sequelize.STRING(50)
       },
       user_type: {
         type: Sequelize.TINYINT
+<<<<<<< HEAD
         // 1: user
         // 2: admin
+=======
+>>>>>>> 0581da680bc9d6f9adf2982955bdf7e4b982a114
       },	
       email: {
         type: Sequelize.STRING()

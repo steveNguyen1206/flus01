@@ -13,10 +13,10 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.DATEONLY
       },
       budget: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DOUBLE
       },
       status: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.TINYINT
       }
     });
   
