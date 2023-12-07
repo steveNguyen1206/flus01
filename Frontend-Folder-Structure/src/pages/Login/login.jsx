@@ -31,6 +31,8 @@ const LogIn = () => {
         if(response.status == 200)
         {
           var id = response.data.id;
+
+          // jwt lưu lại accesstoken (local storage của trình duyệt và gửi kèm token theo các truy vấn tiếp theo)
           navigate(`/profile/${id}`)
         }
         console.log(response.data);
