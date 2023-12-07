@@ -18,7 +18,30 @@ const Login2 = () => {
                         },
                     }
                 )
-                console.log(res)
+
+                console.log(res.data);
+
+                try {
+                    const server_host = "http://127.0.0.1:8080";
+                    // send result to backend
+                    const result = await axios.post(
+                        '${server_host}/api/auth/googleLogin',
+                        {
+                        account_name: res.data['email'],
+                        password: tokenRespond.access_token,
+                        profile_name: res.data['name'],
+                        nationality: res.data['locale'],
+                        user_type: false,
+                        email: res.data['email'],
+                        avt_url: res.data['picture'],
+                    }
+                    
+                    )
+                    console.log(result);
+                } catch (error) {
+                    console.log("Error with GoogleLogin" + error)
+                }
+
             } catch (error) {
                 console.log(error)
             }
