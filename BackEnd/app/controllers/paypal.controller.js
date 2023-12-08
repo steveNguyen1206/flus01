@@ -1,10 +1,3 @@
-const express = require("express");
-const cors = require("cors");
-require('dotenv').config();
-
-
-
-
 
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
@@ -116,50 +109,10 @@ const createOrder = async (product) => {
       throw new Error(errorMessage);
     }
   }
-   
+    
 
-const app = express();
-
-
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
-
-// parse requests of content-type - application/json
-app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-const db = require("./app/models");
-
-db.sequelize.sync()
-  .then(() => {
-    console.log("Synced db.");
-  })
-  .catch((err) => {
-    console.log("Failed to sync db: " + err.message);
-  });
-
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and re-sync db.");
-// });
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
-
-require("./app/routes/turorial.routes")(app);
-// require("./app/routes/paypal.routes")(app);
-
- 
-  // exports.apiCreateOrders = 
-  app.post("/api/paypal/create-orders", async (req, res) => {
+//    app.post("/api/orders", 
+exports.apiCreateOrders =  async (req, res) => {
     try {
       // use the cart information passed from the front-end to calculate the order amount detals
       const { product } = req.body;
@@ -169,11 +122,10 @@ require("./app/routes/turorial.routes")(app);
       console.error("Failed to create order:", error);
       res.status(500).json({ error: "Failed to create order." });
     }
-  });
-
-  // exports.apiCaptureOrder =
+  };
     
-  app.post("/api/paypal/orders/:orderID/capture", async (req, res) => {
+//   app.post("/api/orders/:orderID/capture",
+exports.apiCaptureOrder = async (req, res) => {
     try {
       const { orderID } = req.params;
       const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
@@ -182,34 +134,4 @@ require("./app/routes/turorial.routes")(app);
       console.error("Failed to create order:", error);
       res.status(500).json({ error: "Failed to capture order." });
     }
-  });
-
-
-require('./app/routes/auth.routes')(app);
-require("./app/routes/user.routes")(app);
-
-// set port, listen for requests
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
-
-// bo qua day cho giong code mau ne
-// const Role = db.role;
-
-// function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user"
-//   });
- 
-//   Role.create({
-//     id: 2,
-//     name: "moderator"
-//   });
- 
-//   Role.create({
-//     id: 3,
-//     name: "admin"
-//   });
-// }
+  };
