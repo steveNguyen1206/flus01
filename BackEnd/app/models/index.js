@@ -65,6 +65,8 @@ db.contact.belongsTo(db.user, {
   onUpdate: 'CASCADE'
 })
 
+//-----------------------------
+
 
 db.transactions.belongsTo(db.user, {
   foreignKey: 'sender_id',
@@ -84,11 +86,11 @@ db.transactions.belongsTo(db.projects, {
   onUpdate: 'RESTRICT'
 })
 
-db.payment_accounts.belongsTo(db.user, {
-  foreignKey: 'user_id',
-  onDelete: 'CASCADE',
-  onUpdate: 'CASCADE'
-})
+// db.payment_accounts.belongsTo(db.user, {
+//   foreignKey: 'user_id',
+//   onDelete: 'CASCADE',
+//   onUpdate: 'CASCADE'
+// })
 
 db.user.belongsToMany(db.categories, {through: 'user_subcategory'})
 db.subcategories.belongsToMany(db.user, {through: 'user_subcategory'})
