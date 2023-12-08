@@ -3,9 +3,6 @@ const cors = require("cors");
 require('dotenv').config();
 
 
-
-
-
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const fetch = require("node-fetch");
@@ -187,6 +184,7 @@ require("./app/routes/turorial.routes")(app);
 
 require('./app/routes/auth.routes')(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/sms.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

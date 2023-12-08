@@ -26,6 +26,12 @@ db.freelancer_post = require("./freelancer_post.model.js")(sequelize, Sequelize)
 db.image_freelancer = require("./image_freelancer.model.js")(sequelize, Sequelize);
 db.contact = require("./contact.model.js")(sequelize, Sequelize);
 db.subcategories = require("./subcategory.model.js")(sequelize, Sequelize);
+db.bid = require("./Bid.model.js")(sequelize, Sequelize);
+db.comment_proj = require("./Comment_proj.model.js")(sequelize, Sequelize);
+db.image = require("./Image.model.js")(sequelize, Sequelize);
+db.project_post = require("./Project_post.model.js")(sequelize, Sequelize);
+db.review = require("./Review.model.js")(sequelize, Sequelize);
+db.otp = require("./OTP.model.js")(sequelize, Sequelize);
 
 db.subcategories.belongsTo(db.categories, {
   onDelete: 'CASCADE',
@@ -58,6 +64,54 @@ db.contact.belongsTo(db.freelancer_post, {
 
 db.contact.belongsTo(db.user, {
   foreignKey: 'client_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.bid.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.bid.belongsTo(db.project_post, {
+  foreignKey: 'proj_post_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.comment_proj.belongsTo(db.project_post, {
+  foreignKey: 'proj_post_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.comment_proj.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.project_post.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.project_post.belongsTo(db.image, {
+  foreignKey: 'img_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.review.belongsTo(db.user, {
+  foreignKey: 'user_review',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.review.belongsTo(db.user, {
+  foreignKey: 'user_reviewed',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })

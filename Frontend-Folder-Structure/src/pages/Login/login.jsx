@@ -1,8 +1,45 @@
-import React from 'react'
+import React, {useState}from 'react'
 import "./login.css"
 import exitButton from '../../assets/exitButton.png'
 import googleIcon from '../../assets/SocialIcon/google.png'
+import authServices from '@/services/authServices'
+import { useNavigate } from 'react-router'
+
 const LogIn = () => {
+  const InititalLoginPayload = {
+    userName: "",
+    userPassword: "",
+  }
+
+  let navigate = useNavigate();
+  
+  const [loginPayload, setLoginPayload] = useState(InititalLoginPayload)
+
+  const handleInputChange =  event => {
+    const {name, value} = event.target;
+    setLoginPayload({...loginPayload, [name]: value})
+  }
+
+  const signin = () => {
+    var data = {
+      account_name: loginPayload.userName,
+      password: loginPayload.userPassword
+    };
+
+    authServices.signin(data)
+      .then(response => {
+        if(response.status == 200)
+        {
+          var id = response.data.id;
+          navigate(`/profile/${id}`)
+        }
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   return (
     <div style={{zIndex:"100",height:"100%", width:"100%",backgroundColor:"rgba(256, 256, 256, 0.8)", position:"absolute"}}>
       <div className="pop-up-sign-in">
@@ -15,16 +52,30 @@ const LogIn = () => {
         <div className='info-field'>
           <div className="input-container">
             <label for="inputUsername" class="form-label">Username</label>
-            <input id="inputUsername" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+            <input 
+            id="inputUsername" 
+            name='userName' 
+            type="text" 
+            class="form-control" 
+            placeholder="Username" 
+            aria-label="Username" 
+            aria-describedby="basic-addon1"
+            onChange={handleInputChange}/>
           </div>
           <div className="input-container">
             <label for="inputPassword5" class="form-label">Password</label>
-            <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock"/>
+            <input 
+            type="password"  
+            name='userPassword' 
+            id="inputPassword5" 
+            class="form-control" 
+            aria-describedby="passwordHelpBlock"
+            onChange={handleInputChange}/>
           </div>
 
           <div className="sign-in-button">
             <div className="div-wrapper">
-              <div className="text-wrapper-2">Sign in</div>
+              <div className="text-wrapper-2" onClick={signin}>Sign in</div>
             </div>
           </div>
 
