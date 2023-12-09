@@ -1,6 +1,6 @@
 import React from 'react'
 import './home.css'
-import { Button, Inputs, Modal, ToolTip } from '@/components'
+import { Inputs, Modal, ToolTip } from '@/components'
 import { Header, Footer, Navbar } from '@/layout'
 import banner from '../../assets/banner.jpg'
 import human from '../../assets/Human.png'

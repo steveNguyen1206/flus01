@@ -19,5 +19,8 @@ module.exports = (app) => {
   // Update a User with id
   router.put("/:id", user_controller.update);
 
+  // Update avatar of a user
+  router.put("/avatar/:id", user_controller.updateAvatar);
+
   app.use("/api/user", router);
 };

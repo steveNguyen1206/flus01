@@ -34,7 +34,7 @@ const profile = () => {
 
   const getUserProfile = (id) => {
     userDataService
-      .get(id)
+      .findOnebyId(id)
       .then((response) => {
         setUserProfile(response.data);
         console.log(response.data);

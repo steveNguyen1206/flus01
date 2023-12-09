@@ -22,6 +22,7 @@ module.exports = function(app) {
   );
 
   router.post("/signin", auth_controller.signin);
+  router.post("/googleLogin", auth_controller.googleLogin);
 
   app.use("/api/auth", router);
 };
