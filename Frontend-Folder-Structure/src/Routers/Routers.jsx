@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Login2 } from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Login2, AvatarFE } from '@/pages';
 import { Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -24,6 +24,7 @@ const Routers = () => {
           <Route path="/profile" element={<Profile/>}/>
           <Route path='/paypal-demo' element={<PayPalDemo/>} />
           {/* <Route path="*" element={<ErrorPage />} /> */}
+          <Route path="/avatarFE" element={<AvatarFE />} />
         </Routes>
       </Router>
       </GoogleOAuthProvider>

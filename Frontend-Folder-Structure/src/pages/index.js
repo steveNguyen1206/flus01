@@ -6,3 +6,4 @@ export {default as SignUp} from "./SignUp/signUp";
 export { default as LogIn } from "./Login/login";
 export { default as Login2 } from "./Login/login2";
 export {default as Profile} from "./Profile/profile"
+export {default as AvatarFE} from "./Profile/avatarFE"
