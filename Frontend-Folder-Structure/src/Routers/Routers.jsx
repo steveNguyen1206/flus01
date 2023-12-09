@@ -1,6 +1,7 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Payment, Profile, Shop, SignUp } from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp } from '@/pages';
 import { Navbar } from '@/layout';
+import { PayPalDemo } from '@/pages/Payment';
 
 const Routers = () => {
   return (
@@ -10,10 +11,11 @@ const Routers = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/payment" element={<Payment />} />
+          {/* <Route path="/payment" element={<Payment />} /> */}
           <Route path="/shop" element={<Shop />} />
           <Route path="/sign-up" element={<SignUp />}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/profile/:id" element={<Profile/>}/>
+          <Route path='/paypal-demo' element={<PayPalDemo/>} />
           {/* <Route path="*" element={<ErrorPage />} /> */}
         </Routes>
       </Router>

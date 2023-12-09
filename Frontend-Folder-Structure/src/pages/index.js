@@ -1,6 +1,6 @@
 
 export { default as Home } from "./Home/home";
-export { default as Payment } from "./Payment";
+export { PayPalDemo, PayPalPayment } from "./Payment";
 export { default as Shop } from "./Shop";
 export {default as SignUp} from "./SignUp/signUp";
 export { default as LogIn } from "./Login/login";

@@ -12,7 +12,9 @@
     "rest",
     "api",
     "sequelize",
-    "mysql"
+    "mysql",
+    "jwt",
+    "authentication"
   ],
   "author": "bezkoder",
   "license": "ISC",
@@ -20,7 +22,10 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.32.0"
+    "node-fetch": "^2.7.0",
+    "sequelize": "^6.32.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
   },
   "devDependencies": {
     "dotenv": "^16.3.1"
