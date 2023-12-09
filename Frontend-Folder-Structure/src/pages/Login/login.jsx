@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './login.css';
+import './login1.css';
 import exitButton from '../../assets/exitButton.png';
 import googleIcon from '../../assets/SocialIcon/google.png';
 import authServices from '@/services/authServices';
