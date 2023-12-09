@@ -19,7 +19,7 @@ const Login2 = () => {
                     }
                     )
                     
-                // console.log(res.data);
+                console.log(res.data);
 
                 try {
                     const server_host = "http://127.0.0.1:8080";
@@ -28,7 +28,8 @@ const Login2 = () => {
                         `${server_host}/api/auth/googleLogin`,
                         {
                         account_name: res.data['email'],
-                        password: tokenRespond.access_token,
+                        // password: tokenRespond.access_token,
+                        password: res.data['sub'],
                         profile_name: res.data['name'],
                         nationality: res.data['locale'],
                         user_type: false,

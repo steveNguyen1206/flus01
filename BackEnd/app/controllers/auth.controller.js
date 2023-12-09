@@ -158,6 +158,8 @@ exports.googleLogin = (req, res) => {
         });
       } else {
         // check password
+        console.log("password meomeomeo -----> ",bcrypt.hashSync(req.body.password, 8))
+        console.log("user password meomeomeo -----> ",user.password)
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           user.password
