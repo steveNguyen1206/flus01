@@ -1,6 +1,6 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import { Home, LogIn, Profile, Shop, SignUp, Project} from '@/pages';
-import { Navbar } from '@/layout';
+import { Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 // import { Login2 } from '@/pages/Login/login2';
@@ -9,7 +9,7 @@ const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
       <Router>
-        <Navbar />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />

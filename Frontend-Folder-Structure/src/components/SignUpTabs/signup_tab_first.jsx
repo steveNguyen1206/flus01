@@ -97,11 +97,11 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
         />
       </div>
 
-      <button onClick={handleSignUpClick} className="sign-up-button">
+      <div onClick={handleSignUpClick} className="sign-up-button">
         <div className="div-wrapper">
           <div className="text-wrapper-2">Sign up</div>
         </div>
-      </button>
+      </div>
 
       <div className="or-sign-up-using-wrapper">or continue with</div>
       <div className="frame-2">

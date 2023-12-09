@@ -49,7 +49,7 @@ const LogIn = () => {
         height: '100%',
         width: '100%',
         backgroundColor: 'rgba(256, 256, 256, 0.8)',
-        position: 'absolute',
+        display:'block'
       }}
     >
       <div className="pop-up-sign-in">
