@@ -1,0 +1,20 @@
+.root{
+    color: #fff;
+    max-width: 100%;
+    width: 100%;
+}
+
+.col{
+    margin-top: 0;
+}
+.nav_text{
+    width: auto;
+    height: 50px;
+    position: relative;
+    color: white;
+    font-size: 22;
+    font-weight: 800;
+    font-family: Inter-Black;
+    align-items: center;
+    display: flex;
+}

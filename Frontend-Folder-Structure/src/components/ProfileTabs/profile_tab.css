@@ -1,0 +1,15 @@
+.tab {
+    overflow-y: scroll;
+    height: 889px;
+    width: 1037px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .link-to-bank-text-wrap{
+    font-size: 20px;
+    font-weight: 800;
+    margin-top: 3%;
+    font-family: 'Inter', sans-serif;
+  }
+  

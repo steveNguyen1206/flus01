@@ -1,0 +1,174 @@
+@import url("../../assets/variables.css");
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.post-container{
+  height: 280px;
+  width: 880px;
+  border: 3px solid #000;
+  border-radius: 12px;
+  display: flex;
+}
+
+
+.pprofile{
+  display: flex;
+}
+
+.pprofile img{
+  margin: 10px;
+  height: 80px;
+  width: 80px;
+}
+
+.plocation img{
+  height: 10px;
+  width: 22px;
+  margin-top: 20px;
+}
+
+.pname {
+  margin-top: 15px;
+  margin-left: 10px;
+
+}
+
+.pusername {
+  margin-top: 12px;
+}
+
+
+.pname{
+  margin-right: 10px;
+  font-size: var(--medium-font-size);
+  font-family: Inter-Bold, sans-serif;
+  font-weight: 600;
+}
+
+.ptitle{
+  display: flex;
+  margin-left: 110px;
+  margin-top: -57px;
+  font-size: var(--medium-font-size);
+  font-family: Inter-Bold, sans-serif;
+  font-weight: 700;
+}
+
+.tag{
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 2px solid var(--accent, #12C418);
+  background: var(--WHITE, #FFF); 
+  color: var(--accent, #12C418);
+  text-align: center; 
+  width: 70px;
+}
+
+.tags .tag{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.detail {
+  max-width: 600px;
+  max-height: 140px;
+  margin-left: 70px;
+  text-align: left;
+
+}
+
+.detail-header{
+  margin-left: 70px;
+  text-align: left;
+  margin-top: 0px;
+}
+
+.previews{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 200px;
+  margin-top: 30px;
+}
+
+.rating{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.rating-container{
+  align-items: center;
+  text-align: center;
+  padding-top: 9px;
+}
+
+.pstars{
+  width: 200px;
+}
+
+
+.pprice{
+  text-align: right;
+  font-size: var(--xlarge-font-size);
+  font-family: Inter-Bold, sans-serif;
+  font-weight: 700;
+}
+
+.btn-p{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  width: 200px;
+}
+
+.btn-bid button{
+  height: 40px;
+  width: 80px;
+  background-color: var(--primary);
+  border: none;
+}
+
+.wish button{
+  background-color: #FFF;
+  border: none;
+}
+
+.rating img{
+  height: 15px;
+  width: 15px;
+}
+
+.rating p{
+  margin: 0;
+}
+
+
+.pbid{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 70px;
+  align-items: center;
+}
+
+.wish img{
+  background-color: rgb(238, 238, 238);
+}
+
+.tags{
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: flex-start;
+  gap: 3px;
+  margin-left: 110px;
+}
