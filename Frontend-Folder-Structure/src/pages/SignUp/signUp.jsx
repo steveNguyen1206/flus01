@@ -25,8 +25,7 @@ const SignUp = () => {
     email: '',
     phone: '',
     realName: '',
-    country: '',
-    city: '',
+    nationality: '',
     code: '',
   };
 
@@ -42,14 +41,7 @@ const SignUp = () => {
 
   return (
     <div
-      style={{
-        zIndex: '100',
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'rgba(256, 256, 256, 0.8)',
-        position: 'static',
-        display: 'inline-block'
-      }}
+      className='main-container'
     >
       <div className="pop-up-sign-up">
         <div className="signup-wrapper">

@@ -23,8 +23,7 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
     email: '',
     phone: '',
     realName: '',
-    country: '',
-    city: '',
+    nationality: '',
   });
 
   const isValidForm = () => {
@@ -32,8 +31,7 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
       email: isValidEmail(signUpPayload.email) ? '' : 'Invalid email address.',
       phone: isValidPhone(signUpPayload.phone) ? '' : 'Invalid phone number.',
       realName: signUpPayload.realName ? '' : 'User\'s name is required.',
-      country: signUpPayload.country ? '' : 'Country is required.',
-      city: signUpPayload.city ? '' : 'Province/City is required.',
+      nationality: signUpPayload.nationality ? '' : 'Nationality is required.',
     };
     setError(errors);
     return !Object.values(errors).some((error) => error !== '');
@@ -93,42 +91,20 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
         />
         <div className="error-message">{error.realName}</div>
       </div>
-      <div className="row input-container">
-        <div className="col">
-          <div className="input-container-1">
-            <label htmlFor="inputCountry" className="form-label">
-              Country
-            </label>
-            <input
-              type="text"
-              name="country"
-              id="inputCountry"
-              className="form-control"
-              value={signUpPayload.country}
-              aria-describedby="passwordHelpBlock"
-              onChange={handleChange}
-            />
-            <div className="error-message">{error.country}</div>
-          </div>
-        </div>
-
-        <div className="col">
-          <div className="input-container-1">
-            <label htmlFor="inputCity" className="form-label">
-              Province/City
-            </label>
-            <input
-              type="text"
-              id="inputCity"
-              value={signUpPayload.city}
-              className="form-control"
-              name="city"
-              aria-describedby="passwordHelpBlock"
-              onChange={handleChange}
-            />
-            <div className="error-message">{error.city}</div>
-          </div>
-        </div>
+      <div className="input-container">
+        <label htmlFor="inputName" className="form-label">
+          Nationality
+        </label>
+        <input
+          type="text"
+          id="inputName"
+          className="form-control"
+          name="nationality"
+          aria-describedby="passwordHelpBlock"
+          value={signUpPayload.nationality}
+          onChange={handleChange}
+        />
+        <div className="error-message">{error.nationality}</div>
       </div>
 
       <button onClick={handleVerifyClick} className="sign-up-button">
