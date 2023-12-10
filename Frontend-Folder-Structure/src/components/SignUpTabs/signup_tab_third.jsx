@@ -37,7 +37,7 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
       phone_number: signUpPayload.phone,
       code: signUpPayload.code,
     };
-
+    console.log("frontend: ",smsMessage);
     smsAuthenService.verifyCode(smsMessage).then((response) => {
       if (response.status == 200) {
         signin();
@@ -48,7 +48,8 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
       }
     })
     .catch((e) => {
-      console.log("SmsAuthenService error");
+      console.log("eRROR:", e.message);
+      
     });
     
   };

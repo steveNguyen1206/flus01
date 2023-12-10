@@ -1,6 +1,7 @@
 import http from "./http-common";
 
 const sendCode = (data) => {
+  console.log(data);
   return http.post("/sms/send-code", data);
 };
 

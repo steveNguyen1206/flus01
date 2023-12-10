@@ -40,8 +40,21 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
 
   const handleVerifyClick = () => {
     if (isValidForm()) {
-      smsAuthenService.sendCode(signUpPayload.phone);
-      setTab(3);
+      console.log(signUpPayload.phone);
+      var phoneNum = {
+        phone_number: signUpPayload.phone,
+      }
+      smsAuthenService.sendCode(phoneNum).then(response => {
+        if(response.status == 200)
+        {
+          setTab(3);
+          
+        }
+      })
+      .catch(e => {
+        console.log("SmsAuthenService error (client): ", e);
+      });
+     
     } else {
       console.log('Form is not valid. Please check the errors.');
     }
