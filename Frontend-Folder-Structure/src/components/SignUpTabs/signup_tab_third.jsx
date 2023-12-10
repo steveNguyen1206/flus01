@@ -1,8 +1,14 @@
 import React from 'react';
 import './signup_tab_third.css';
-import authServices from '@/services/authServices'
-const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) => {
+import authServices from '@/services/authServices';
+import smsServices from '@/services/smsServices';
 
+const SignUpTabThird = ({
+  setTab,
+  signUpPayload,
+  setSignUpPayload,
+  onSignUp,
+}) => {
   const signin = () => {
     var data = {
       account_name: signUpPayload.userName,
@@ -12,28 +18,41 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
       nationality: signUpPayload.country,
       user_type: 1,
       email: signUpPayload.email,
-      avt_url: "https://imgur.com/gallery/ApNKGxs",
-      social_link: "https://imgur.com/gallery/ApNKGxs",
+      avt_url: 'https://imgur.com/gallery/ApNKGxs',
+      social_link: 'https://imgur.com/gallery/ApNKGxs',
     };
 
-    // console.log(data)
-    authServices.signup(data)
-      .then(response => {
-        if(response.status == 200)
-        {
-          console.log("Sign up successfully")
-          
+    authServices
+      .signup(data)
+      .then((response) => {
+        if (response.status == 200) {
+          console.log('Sign up successfully');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
+  let data2 = {
+    phone_number: signUpPayload.phone,
+    code: signUpPayload.code,
+  };
 
   const handleEnterClick = () => {
-    signin();
-    onSignUp();
+    smsServices
+      .verifyCode(data2)
+      .then((response) => {
+        if (response.status == 200) {
+          console.log('Verify code successfully');
+          // document.cookie = `accessToken=${response.data.accessToken}; path=/`;
+          signin();
+          onSignUp();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -45,10 +64,14 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
         <input
           id="inputUsername"
           type="text"
-          name='code'
+          name="code"
           className="form-control"
           placeholder="Enter code we send to your phone number..."
           aria-label="Username"
+          value={signUpPayload.code}
+          onChange={(e) =>
+            setSignUpPayload({ ...signUpPayload, code: e.target.value })
+          }
           aria-describedby="basic-addon1"
         />
       </div>
@@ -58,7 +81,12 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
           <div className="text-wrapper-2">Back</div>
         </div>
       </button>
-      <button onClick={() => {handleEnterClick()}} className="sign-up-button row">
+      <button
+        onClick={() => {
+          handleEnterClick();
+        }}
+        className="sign-up-button row"
+      >
         <div className="div-wrapper-n">
           <div className="text-wrapper-2-n">Enter</div>
         </div>

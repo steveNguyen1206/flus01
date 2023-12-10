@@ -67,6 +67,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="basic-addon1"
           onChange={handleChange}
         />
+         <div className="error-message">{error.userName}</div>
       </div>
       <div className="input-container">
         <label for="inputPassword5" class="form-label">
@@ -81,7 +82,9 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="passwordHelpBlock"
           onChange={handleChange}
         />
+        
       </div>
+      <div className="error-message">{error.userPassword}</div>
       <div className="input-container">
         <label for="inputPassword6" class="form-label">
           Reconfirm Password
@@ -95,6 +98,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="passwordHelpBlock"
           onChange={handleChange}
         />
+        <div className="error-message">{error.confirmPassword}</div>
       </div>
 
       <button onClick={handleSignUpClick} className="sign-up-button">

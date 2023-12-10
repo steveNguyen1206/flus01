@@ -25,8 +25,7 @@ const SignUp = () => {
     email: '',
     phone: '',
     realName: '',
-    country: '',
-    city: '',
+    nationality: '',
     code: '',
   };
 
@@ -35,8 +34,6 @@ const SignUp = () => {
   const [signUpPayload, setSignUpPayload] = useState(initSignUpPayload);
 
   const handleSignUp = () => {
-    // Perform signup action here using signUpPayload
-    console.log('Perform signup:', signUpPayload);
     navigate(`/login`);
   };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import './signup_tab_second.css';
 import googleIcon from '../../assets/SocialIcon/google.png';
 import { useState } from 'react';
+import smsServices from '@/services/smsServices';
 
 const isValidEmail = (email) => {
   return email.includes('@');
@@ -23,25 +24,38 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
     email: '',
     phone: '',
     realName: '',
-    country: '',
-    city: '',
+    nationality: '',
   });
 
   const isValidForm = () => {
     const errors = {
       email: isValidEmail(signUpPayload.email) ? '' : 'Invalid email address.',
       phone: isValidPhone(signUpPayload.phone) ? '' : 'Invalid phone number.',
-      realName: signUpPayload.realName ? '' : 'User\'s name is required.',
-      country: signUpPayload.country ? '' : 'Country is required.',
-      city: signUpPayload.city ? '' : 'Province/City is required.',
+      realName: signUpPayload.realName ? '' : "User's name is required.",
+      nationality: signUpPayload.nationality ? '' : 'nationality is required.',
     };
     setError(errors);
     return !Object.values(errors).some((error) => error !== '');
   };
 
+  
+  let data = {
+    phone_number: signUpPayload.phone,
+  }
+
   const handleVerifyClick = () => {
     if (isValidForm()) {
       setTab(3);
+      smsServices
+        .sendCode(data)
+        .then((response) => {
+          if (response.status == 200) {
+            console.log('Send SMS successfully');
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } else {
       console.log('Form is not valid. Please check the errors.');
     }
@@ -96,37 +110,19 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
       <div className="row input-container">
         <div className="col">
           <div className="input-container-1">
-            <label htmlFor="inputCountry" className="form-label">
-              Country
+            <label htmlFor="inputnationality" className="form-label">
+              Nationality
             </label>
             <input
               type="text"
-              name="country"
-              id="inputCountry"
+              name="nationality"
+              id="inputnationality"
               className="form-control"
-              value={signUpPayload.country}
+              value={signUpPayload.nationality}
               aria-describedby="passwordHelpBlock"
               onChange={handleChange}
             />
-            <div className="error-message">{error.country}</div>
-          </div>
-        </div>
-
-        <div className="col">
-          <div className="input-container-1">
-            <label htmlFor="inputCity" className="form-label">
-              Province/City
-            </label>
-            <input
-              type="text"
-              id="inputCity"
-              value={signUpPayload.city}
-              className="form-control"
-              name="city"
-              aria-describedby="passwordHelpBlock"
-              onChange={handleChange}
-            />
-            <div className="error-message">{error.city}</div>
+            <div className="error-message">{error.nationality}</div>
           </div>
         </div>
       </div>
