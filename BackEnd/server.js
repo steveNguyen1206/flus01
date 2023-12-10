@@ -3,6 +3,9 @@ const cors = require("cors");
 require('dotenv').config();
 
 
+
+
+
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const fetch = require("node-fetch");
@@ -118,7 +121,6 @@ const createOrder = async (product) => {
 const app = express();
 
 
-
 var corsOptions = {
   origin: "http://localhost:8081"
 };
@@ -152,34 +154,7 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/turorial.routes")(app);
-// require("./app/routes/paypal.routes")(app);
-
- 
-  // exports.apiCreateOrders = 
-  app.post("/api/paypal/create-orders", async (req, res) => {
-    try {
-      // use the cart information passed from the front-end to calculate the order amount detals
-      const { product } = req.body;
-      const { jsonResponse, httpStatusCode } = await createOrder(product);
-      res.status(httpStatusCode).json(jsonResponse);
-    } catch (error) {
-      console.error("Failed to create order:", error);
-      res.status(500).json({ error: "Failed to create order." });
-    }
-  });
-
-  // exports.apiCaptureOrder =
-    
-  app.post("/api/paypal/orders/:orderID/capture", async (req, res) => {
-    try {
-      const { orderID } = req.params;
-      const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
-      res.status(httpStatusCode).json(jsonResponse);
-    } catch (error) {
-      console.error("Failed to create order:", error);
-      res.status(500).json({ error: "Failed to capture order." });
-    }
-  });
+require("./app/routes/paypal.routes")(app);
 
 
 require('./app/routes/auth.routes')(app);

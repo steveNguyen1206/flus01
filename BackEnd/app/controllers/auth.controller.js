@@ -96,7 +96,7 @@ exports.googleLogin = (req, res) => {
     });
     return;
   }
-
+  console.log("req: " + req.body.account_name + " " + req.body.password);
   // find user in database
   User.findOne({
     where: {
@@ -105,6 +105,7 @@ exports.googleLogin = (req, res) => {
   })
     .then((user) => {
       if (!user) {
+        console.log("IM IN" + req.body.account_name + " " + req.body.password);
         // if not found, create new user
         const newUser = {
           account_name: req.body.account_name,
@@ -119,6 +120,7 @@ exports.googleLogin = (req, res) => {
         // Save newUser in the database
         User.create(newUser)
           .then((user) => {
+            console.log("END CREATE1: " + user.account_name + " " + user.password);
             // return access token
             var authorities = [];
             if (user.user_type === 1) {
@@ -126,13 +128,13 @@ exports.googleLogin = (req, res) => {
             } else if (user.user_type === 2) {
               authorities.push("ROLE_ADMIN");
             }
-
+            console.log("END CREATE2: " + user.account_name + " " + user.password);
             // create token
             const token = jwt.sign({ id: user.id }, config.secret, {
               algorithm: "HS256",
               expiresIn: 86400, // 24 hours
             });
-
+            console.log("END CREATE3: " + user.account_name + " " + user.password);
             // return user info
             res.status(200).send({
               id: user.id,
@@ -141,16 +143,18 @@ exports.googleLogin = (req, res) => {
               roles: authorities,
               accessToken: token,
             });
+            console.log("END CREATE4: " + user.account_name + " " + user.password);
           })
           .catch((err) => {
             res.status(500).send({
               message:
                 err.message || "Some error occurred while creating the User.",
             });
+            return;
           });
 
         // find newUser in database
-
+        console.log("i: " + req.body.account_name + " " + req.body.password);
         user = User.findOne({
           where: {
             account_name: req.body.account_name,
@@ -158,6 +162,8 @@ exports.googleLogin = (req, res) => {
         });
       } else {
         // check password
+        console.log("password meomeomeo -----> ",bcrypt.hashSync(req.body.password, 8))
+        console.log("user password meomeomeo -----> ",user.password)
         var passwordIsValid = bcrypt.compareSync(
           req.body.password,
           user.password

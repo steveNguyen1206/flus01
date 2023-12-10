@@ -1,8 +1,7 @@
 import React from 'react';
 import './signup_tab_third.css';
 import authServices from '@/services/authServices';
-import smsServices from '@/services/smsServices';
-
+import smsAuthenService from '@/services/smsAuthen';
 const SignUpTabThird = ({
   setTab,
   signUpPayload,
@@ -34,54 +33,60 @@ const SignUpTabThird = ({
       });
   };
 
-  let data2 = {
-    phone_number: signUpPayload.phone,
-    code: signUpPayload.code,
+  const error = {
+    code: '',
   };
 
   const handleEnterClick = () => {
-    smsServices
-      .verifyCode(data2)
+    const smsMessage = {
+      phone_number: signUpPayload.phone,
+      code: signUpPayload.code,
+    };
+    console.log('frontend: ', smsMessage);
+    smsAuthenService
+      .verifyCode(smsMessage)
       .then((response) => {
         if (response.status == 200) {
-          console.log('Verify code successfully');
-          // document.cookie = `accessToken=${response.data.accessToken}; path=/`;
           signin();
           onSignUp();
+        } else {
+          console.log('Error: ', response.message);
+          error.code = 'Code is not correct';
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.log('eRROR:', e.message);
+        error.code = 'Code is not correct';
       });
   };
 
   return (
     <div className="info-field">
       <div className="input-container">
-        <label htmlFor="inputUsername" className="form-label">
+        <label htmlFor="inputSMSCode" className="form-label">
           CODE
         </label>
         <input
-          id="inputUsername"
+          id="inputSMSCode"
           type="text"
           name="code"
           className="form-control"
           placeholder="Enter code we send to your phone number..."
-          aria-label="Username"
-          value={signUpPayload.code}
+          aria-label=""
+          aria-describedby="basic-addon1"
           onChange={(e) =>
             setSignUpPayload({ ...signUpPayload, code: e.target.value })
           }
-          aria-describedby="basic-addon1"
         />
+        <div className="error-message">{error.code}</div>
       </div>
 
-      <button onClick={() => setTab(2)} className="sign-up-button row">
+      <div onClick={() => setTab(2)} className="sign-up-button row">
         <div className="div-wrapper-b">
           <div className="text-wrapper-2">Back</div>
         </div>
-      </button>
-      <button
+      </div>
+      <div
         onClick={() => {
           handleEnterClick();
         }}
@@ -90,7 +95,7 @@ const SignUpTabThird = ({
         <div className="div-wrapper-n">
           <div className="text-wrapper-2-n">Enter</div>
         </div>
-      </button>
+      </div>
     </div>
   );
 };

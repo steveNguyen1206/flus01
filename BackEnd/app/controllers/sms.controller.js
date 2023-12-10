@@ -10,6 +10,7 @@ const generateOTP = () => {
 };
 
 const sendCode = async (req, res) => {
+  console.log(req.body);
   const { phone_number } = req.body;
 
   try {
@@ -45,6 +46,7 @@ const sendCode = async (req, res) => {
 
 const verifyCode = async (req, res) => {
   const { phone_number, code } = req.body;
+  console.log("backend: ",req.body);
 
   try {
     // Retrieve the stored OTP code associated with the phone number from your database

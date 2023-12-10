@@ -13,21 +13,24 @@ import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
 
 const profile = () => {
+
   const { id } = useParams();
   let navigate = useNavigate();
 
   const initialProfileState = {
-    id: 1,
-    account_name: 'HDK01',
-    profile_name: 'Ho Duy Vy',
-    phone_number: '5550143',
-    nationality: 'VietNam',
+    id: '',
+    account_name: '',
+    profile_name: '',
+    phone_number: '',
+    nationality: '',
     user_type: 0,
-    email: 'khang01@gmail.com',
-    avt_url: 'https://www.sanrio.com.hk/_ul/character_profile_kuromi.png',
-    social_link: 'https://www.facebook.com/hinhthanh1203',
+    email: '',
+    avt_url: '',
+    social_link: '',
   };
+
   const [userProfile, setUserProfile] = useState(initialProfileState);
+
 
   const getUserProfile = (id) => {
     userDataService
@@ -48,6 +51,8 @@ const profile = () => {
   return (
     <div>
       {userProfile ? (
+
+        
         <div className="profile">
           <div className="overlap">
             <div className="profile-info-section">
@@ -95,7 +100,11 @@ const profile = () => {
                 </div>
               </div>
               <div className="rating-bar">
+
+
                 <StarRating rating={4.6} />
+
+
                 <div className="text-wrapper-6">4.6</div>
               </div>
             </div>
@@ -145,7 +154,9 @@ const profile = () => {
         </div>
       ) : (
         <div>
+
           <SignUp />
+
         </div>
       )}
     </div>

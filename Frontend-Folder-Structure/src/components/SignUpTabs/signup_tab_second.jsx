@@ -2,15 +2,28 @@ import React from 'react';
 import './signup_tab_second.css';
 import googleIcon from '../../assets/SocialIcon/google.png';
 import { useState } from 'react';
-import smsServices from '@/services/smsServices';
+import smsAuthenService from '@/services/smsAuthen';
 
 const isValidEmail = (email) => {
-  return email.includes('@');
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 };
 
 const isValidPhone = (phone) => {
-  return phone.length >= 10;
+  const phoneRegex = /^\d{4,}$/;
+  return phoneRegex.test(phone);
 };
+
+const isValidName = (name) => {
+  const nameRegex = /^[a-zA-Z\s]*$/;
+  return nameRegex.test(name);
+};
+
+const isValidNationaity = (nationality) => {
+  const nationalityRegex = /^[a-zA-Z\s]*$/;
+  return nationalityRegex.test(nationality);
+}
+
 
 const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
   const handleChange = (event) => {
@@ -31,30 +44,28 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
     const errors = {
       email: isValidEmail(signUpPayload.email) ? '' : 'Invalid email address.',
       phone: isValidPhone(signUpPayload.phone) ? '' : 'Invalid phone number.',
-      realName: signUpPayload.realName ? '' : "User's name is required.",
-      nationality: signUpPayload.nationality ? '' : 'nationality is required.',
+      realName: isValidName(signUpPayload.realName) ? '' : 'Invalid name.',
+      nationality: isValidNationaity(signUpPayload.nationality) ? '' : 'Invalid nationality.',
     };
     setError(errors);
     return !Object.values(errors).some((error) => error !== '');
   };
 
-  
-  let data = {
-    phone_number: signUpPayload.phone,
-  }
-
   const handleVerifyClick = () => {
     if (isValidForm()) {
-      setTab(3);
-      smsServices
-        .sendCode(data)
+      console.log(signUpPayload.phone);
+      var phoneNum = {
+        phone_number: signUpPayload.phone,
+      };
+      smsAuthenService
+        .sendCode(phoneNum)
         .then((response) => {
           if (response.status == 200) {
-            console.log('Send SMS successfully');
+            setTab(3);
           }
         })
         .catch((e) => {
-          console.log(e);
+          console.log('SmsAuthenService error (client): ', e);
         });
     } else {
       console.log('Form is not valid. Please check the errors.');
@@ -107,24 +118,20 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
         />
         <div className="error-message">{error.realName}</div>
       </div>
-      <div className="row input-container">
-        <div className="col">
-          <div className="input-container-1">
-            <label htmlFor="inputnationality" className="form-label">
-              Nationality
-            </label>
-            <input
-              type="text"
-              name="nationality"
-              id="inputnationality"
-              className="form-control"
-              value={signUpPayload.nationality}
-              aria-describedby="passwordHelpBlock"
-              onChange={handleChange}
-            />
-            <div className="error-message">{error.nationality}</div>
-          </div>
-        </div>
+      <div className="input-container">
+        <label htmlFor="inputName" className="form-label">
+          Nationality
+        </label>
+        <input
+          type="text"
+          id="inputName"
+          className="form-control"
+          name="nationality"
+          aria-describedby="passwordHelpBlock"
+          value={signUpPayload.nationality}
+          onChange={handleChange}
+        />
+        <div className="error-message">{error.nationality}</div>
       </div>
 
       <button onClick={handleVerifyClick} className="sign-up-button">

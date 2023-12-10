@@ -3,8 +3,16 @@ import styles from './header.module.css'
 import { Navbar } from '..'
 import logo from '../../assets/logo.png'
 import avatar_green from '../../assets/avatar_green.png'
+import { StarRating } from '@/components'
+import { useNavigate } from 'react-router';
 
 const Header = () => {
+  let navigate = useNavigate();
+  const routeChange = (path_url) => {
+    let path = path_url;
+    navigate(path);
+  }
+
   const signin = 0;
   return (
     <div className={styles.header}>
@@ -15,8 +23,8 @@ const Header = () => {
           <img src={avatar_green}  style={{objectFit:"cover",height:"100%", margin:"1%",border: "1px solid #000", borderRadius:"50.964px", boxSizing:"border-box"}}/>
         ) : (
           <div style={{display: "flex",flexWrap:"wrap" , alignContent:"center",width:"100%"}}>
-            <div id='login_button-201123' className='btn btn-light'>Login</div>
-            <div id='Signup_button-201123' className='btn btn-light' style={{marginLeft:"3%"}}>Signup</div>
+            <div id='login_button-201123' className='btn btn-light'  onClick={event =>  window.location.href='/login'} >Login</div>
+            <div id='Signup_button-201123' className='btn btn-light'  onClick={event =>  window.location.href='/signup'} style={{marginLeft:"3%"}}>Signup</div>
           </div>
         )}
       </div>

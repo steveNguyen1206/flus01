@@ -13,15 +13,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING(50)
       },	
       phone_number: {
-        type: Sequelize.STRING(15)
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       nationality: {
         type: Sequelize.STRING(50)
       },
       user_type: {
         type: Sequelize.TINYINT
-        // 1: user
-        // 2: admin
       },	
       email: {
         type: Sequelize.STRING()

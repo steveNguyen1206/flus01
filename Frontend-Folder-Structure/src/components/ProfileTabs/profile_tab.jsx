@@ -23,11 +23,15 @@ const BankTab = () => {
             <div className="scroll-bar">
                 <div className="rectangle-3" />
             </div>
-            <SmallProj/>
+            <div className='link-to-bank-text-wrap'>
+               Link to Payment Account
+            </div>
+            <div className='row'>
+            </div>
         </div>
        
     );
 }
 
-export {EmptyTab}
+export {EmptyTab, BankTab}
 
