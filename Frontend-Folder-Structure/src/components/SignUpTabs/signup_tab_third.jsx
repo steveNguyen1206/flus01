@@ -1,6 +1,7 @@
 import React from 'react';
 import './signup_tab_third.css';
 import authServices from '@/services/authServices'
+import smsAuthenService from '@/services/smsAuthen'
 const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) => {
 
   const signin = () => {
@@ -32,37 +33,57 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
 
 
   const handleEnterClick = () => {
-    signin();
-    onSignUp();
+    const smsMessage = {
+      phone_number: signUpPayload.phone,
+      code: signUpPayload.code,
+    };
+
+    smsAuthenService.verifyCode(smsMessage).then((response) => {
+      if (response.status == 200) {
+        signin();
+        onSignUp();
+      }
+      else {
+        console.log("Error: ", response.message);
+      }
+    })
+    .catch((e) => {
+      console.log("SmsAuthenService error");
+    });
+    
   };
+  
 
   return (
     <div className="info-field">
       <div className="input-container">
-        <label htmlFor="inputUsername" className="form-label">
+        <label htmlFor="inputSMSCode" className="form-label">
           CODE
         </label>
         <input
-          id="inputUsername"
+          id="inputSMSCode"
           type="text"
           name='code'
           className="form-control"
           placeholder="Enter code we send to your phone number..."
-          aria-label="Username"
+          aria-label=""
           aria-describedby="basic-addon1"
+          onChange={(e) =>
+            setSignUpPayload({ ...signUpPayload, code: e.target.value })
+          }
         />
       </div>
 
-      <button onClick={() => setTab(2)} className="sign-up-button row">
+      <div onClick={() => setTab(2)} className="sign-up-button row">
         <div className="div-wrapper-b">
           <div className="text-wrapper-2">Back</div>
         </div>
-      </button>
-      <button onClick={() => {handleEnterClick()}} className="sign-up-button row">
+      </div>
+      <div onClick={() => {handleEnterClick()}} className="sign-up-button row" >
         <div className="div-wrapper-n">
           <div className="text-wrapper-2-n">Enter</div>
         </div>
-      </button>
+      </div>
     </div>
   );
 };

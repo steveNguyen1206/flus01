@@ -2,6 +2,7 @@ import React from 'react';
 import './signup_tab_second.css';
 import googleIcon from '../../assets/SocialIcon/google.png';
 import { useState } from 'react';
+import smsAuthenService from '@/services/smsAuthen';
 
 const isValidEmail = (email) => {
   return email.includes('@');
@@ -39,6 +40,7 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
 
   const handleVerifyClick = () => {
     if (isValidForm()) {
+      smsAuthenService.sendCode(signUpPayload.phone);
       setTab(3);
     } else {
       console.log('Form is not valid. Please check the errors.');
