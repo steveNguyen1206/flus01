@@ -37,7 +37,7 @@ const PayPalPayment = () => {
         // Order is created on the server and the order id is returned
         // console.log(data)
         try {
-          const response = paymentServices.createOrder(payload);
+          const response = await paymentServices.createOrder(payload);
           console.log(response.data); // Log the response data
           const order = response.data;
           return order.id;
@@ -50,7 +50,7 @@ const PayPalPayment = () => {
 
       const onApprove = async (data) => {
         try {
-          const response = await paymentServices.createOrder(data)
+          const response = await paymentServices.onAprrove(data)
           console.log("Payment successful", response.data); // Log the response data
           setPaySuccess(true);
           return response.data;
@@ -60,6 +60,7 @@ const PayPalPayment = () => {
           throw error;
         }
       };
+
 
       const createPayoutBacth = async () => {
         try {
