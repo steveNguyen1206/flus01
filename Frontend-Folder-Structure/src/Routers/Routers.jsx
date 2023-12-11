@@ -8,7 +8,7 @@ import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
 import Job from '@/pages/Job/job';
 const Routers = () => {
   return (
-    <GoogleOAuthProvider clientId="889944876427-iopa5bnoall08gfrpa40m6bbks248oan.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
       <Router>
         <Header />
         <Routes>

@@ -53,18 +53,18 @@ const LogIn = () => {
       });
   };
   const googleLogIn = useGoogleLogin({
-    onSuccess: async (tokenRespond) => {
-      try {
-        const res = await axios.get(
-          'https://www.googleapis.com/oauth2/v3/userinfo',
-          {
-            headers: {
-              Authorization: `Bearer ${tokenRespond.access_token}`,
-            },
-          }
-        );
-
-        console.log(res.data);
+    onSuccess: async(tokenRespond) => {
+        try {
+            const res = await axios.get(
+                'https://www.googleapis.com/oauth2/v3/userinfo',
+                {
+                    headers: {
+                        Authorization: `Bearer ${tokenRespond.access_token}`,
+                    },
+                }
+                )
+                
+            console.log("MY DATA", res.data);
 
         try {
           const server_host = 'http://127.0.0.1:8080';
