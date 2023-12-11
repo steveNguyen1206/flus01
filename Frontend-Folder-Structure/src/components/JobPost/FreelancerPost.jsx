@@ -10,16 +10,16 @@ const FreelancerPost = () => (
       <div className="pheader">
         <div className="pprofile">
           <img src={profileimage} alt="profile" />
-          <div className="pname">Nguyen Thi Truc </div>
-          <div className="pusername">(cogai20)</div>
-          <div className="plocation">
+          <div className="ppname">Nguyen Thi Truc </div>
+          <div className="ppusername">(cogai20)</div>
+          <div className="pplocation">
             <img src={vietnam} alt="vietnam" />
           </div>
         </div>
         <div className="ptitle">
           SEO, Link Building, Marketing, Google Adwords, WordPress
         </div>
-        <div className="tag">UI/UX</div>
+        <div className="ptag">UI/UX</div>
       </div>
       <div className="details">
         <div className="detail-header">Detail text here everyone.</div>

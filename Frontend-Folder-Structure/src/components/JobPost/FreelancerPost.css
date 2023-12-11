@@ -25,19 +25,21 @@
   width: 80px;
 }
 
-.plocation img{
-  height: 10px;
+.pplocation img{
+  height: 15px;
   width: 22px;
   margin-top: 20px;
 }
 
-.pname {
+.ppname {
   margin-top: 15px;
   margin-left: 10px;
-
+  font-size: 15px;
+  font-weight: 600;
+  font-family: Inter-Bold, sans-serif;
 }
 
-.pusername {
+.ppusername {
   margin-top: 12px;
 }
 
@@ -58,7 +60,7 @@
   font-weight: 700;
 }
 
-.tag{
+.ptag{
   margin-left: 110px;
   margin-top: 5px;
   border-radius: 8px;
@@ -68,6 +70,8 @@
   color: var(--accent, #12C418);
   text-align: center; 
   width: 70px;
+  font-family: Inter-Bold, sans-serif;
+  font-weight: 500;
 }
 
 .detail {

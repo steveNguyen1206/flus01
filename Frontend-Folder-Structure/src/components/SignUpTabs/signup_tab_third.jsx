@@ -51,12 +51,12 @@ const SignUpTabThird = ({
           onSignUp();
         } else {
           console.log('Error: ', response.message);
-          error.code = 'Code is not correct';
+          error.code = 'Code is not correct, please try again';
         }
       })
       .catch((e) => {
         console.log('eRROR:', e.message);
-        error.code = 'Code is not correct';
+        error.code = 'Code is not correct, please try again';
       });
   };
 
