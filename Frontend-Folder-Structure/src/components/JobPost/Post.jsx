@@ -12,20 +12,20 @@ const Post = () => (
       <div className="pheader">
         <div className="pprofile">
           <img src={profileimage} alt="profile" />
-          <div className="pname">Nguyen Thi Truc </div>
-          <div className="pusername">(cogai20)</div>
-          <div className="plocation">
+          <div className="ptname">Nguyen Thi Truc </div>
+          <div className="ptusername">(cogai20)</div>
+          <div className="pplocation">
             <img src={vietnam} alt="vietnam" />
           </div>
         </div>
-        <div className="ptitle">
+
+        <div className="pttitle">
           SEO, Link Building, Marketing, Google Adwords, WordPress
         </div>
-        
-        <div className="tags">
-        <div className="tag">UI/UX</div>
-        <div className="tag">UI/UX</div>
 
+        <div className="pttags">
+          <div className="pttag">UI/UX</div>
+          <div className="pttag">UI/UX</div>
         </div>
       </div>
       <div className="details">
@@ -46,8 +46,6 @@ const Post = () => (
           <p>4.5</p>
           <StarRating rating={4.5} className="pstars" />
         </div>
-
-        
       </div>
       <div className="pbid">
         <div className="pprice">$500 - 700</div>

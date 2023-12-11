@@ -11,6 +11,17 @@ const verifyPassword = (password, confirmPassword) => {
   return password === confirmPassword;
 };
 
+const checkUserName = (userName) => {
+  if (userName.length == 0) {
+    return 'Username is required.';
+  } else if (userName.length < 6) {
+    return 'Username must be at least 6 characters.';
+  } else if (userName.length > 20) {
+    return 'Username must be less than 20 characters.';
+  }
+  return '';
+};
+
 const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
   const handleChange = (event) => {
     setSignUpPayload({
@@ -27,7 +38,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
 
   const isValidForm = () => {
     const errors = {
-      userName: signUpPayload.userName ? '' : 'Username is required.',
+      userName: checkUserName(signUpPayload.userName),
       userPassword: isValidPassword(signUpPayload.userPassword)
         ? ''
         : 'Password must be at least 8 characters.',
@@ -67,6 +78,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="basic-addon1"
           onChange={handleChange}
         />
+        <div className="error-message">{error.userName}</div>
       </div>
       <div className="input-container">
         <label for="inputPassword5" class="form-label">
@@ -81,6 +93,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="passwordHelpBlock"
           onChange={handleChange}
         />
+        <div className="error-message">{error.userPassword}</div>
       </div>
       <div className="input-container">
         <label for="inputPassword6" class="form-label">
@@ -95,6 +108,7 @@ const signUpTabFirst = ({ setTab, signUpPayload, setSignUpPayload }) => {
           aria-describedby="passwordHelpBlock"
           onChange={handleChange}
         />
+        <div className="error-message">{error.confirmPassword}</div>
       </div>
 
       <div onClick={handleSignUpClick} className="sign-up-button">
