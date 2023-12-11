@@ -4,11 +4,10 @@ import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
-const clientId = process.env.GG_CLIENT_ID;
 
 const Routers = () => {
   return (
-    <GoogleOAuthProvider clientId= {clientId}>
+    <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
       <Router>
         <Header />
         <Routes>
