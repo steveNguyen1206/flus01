@@ -4,6 +4,7 @@
     width: 1037px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
 
   .link-to-bank-text-wrap{
