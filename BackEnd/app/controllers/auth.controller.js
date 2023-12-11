@@ -111,10 +111,12 @@ exports.googleLogin = (req, res) => {
           account_name: req.body.account_name,
           password: bcrypt.hashSync(req.body.password, 8),
           profile_name: req.body.profile_name,
+          phone_number: "",
           nationality: req.body.nationality,
           user_type: req.body.user_type,
           email: req.body.email,
           avt_url: req.body.avt_url,
+          social_link: "",
         };
 
         // Save newUser in the database
@@ -146,6 +148,8 @@ exports.googleLogin = (req, res) => {
             console.log("END CREATE4: " + user.account_name + " " + user.password);
           })
           .catch((err) => {
+           
+            console.log("err: ", "Error create user in db");
             res.status(500).send({
               message:
                 err.message || "Some error occurred while creating the User.",
