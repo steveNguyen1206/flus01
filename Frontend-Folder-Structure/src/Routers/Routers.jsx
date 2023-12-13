@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Admin} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -22,9 +22,10 @@ const Routers = () => {
           <Route path="/project" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
+          <Route path="/admin" element={<Admin/>} />
             {/* Add more routes as needed */}
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </GoogleOAuthProvider>
   );

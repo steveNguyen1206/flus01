@@ -1,0 +1,474 @@
+@import url("../../assets/variables.css");
+.user-management {
+  background-color: #ffffff;
+  display: flex;
+  width: 100%;
+  min-height: 700px;
+  height: 100%;
+}
+
+.user-management .group-12 {
+  background-color: #abf7ae5c;
+  box-shadow: 0px 4px 10px #0000001a;
+  left: 0;
+  position: relative;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-management .group-13 {
+  height: 26px;
+  margin-top: 15%;
+  position: relative;
+  padding-left: 25%;
+  padding-right: 25%;
+  width: 100%;
+
+}
+.user-management .text-wrapper-30 {
+  color: var(--collection-1-dark-text);
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18px;
+  font-weight: 800;
+  height: 29px;
+  left: 103px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+  top: 15px;
+}
+
+.user-management .sign-out-squre {
+  height: 24px;
+  
+}
+
+.user-management .overlap-8 {
+  height: 80%;
+  width: 100%;
+}
+
+.user-management .active-container {
+  background-color: #009203;
+  border-radius: 20px;
+  height: 80px;
+  width: 100%;
+}
+
+.user-management .frame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 10%;
+  position: relative;
+}
+
+.user-management .group-14 {
+  height: 80px;
+  position: relative;
+  width: 100%;
+  gap: 0;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.user-management .image-2 {
+  height: 40px;
+  left: 0;
+  object-fit: cover;
+  top: 0;
+}
+
+.user-management .text-wrapper-31 {
+  color: var(--collection-1-dark-text);
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18px;
+  font-weight: 800;
+  height: 29px;
+  left: 103px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-align: center;
+}
+
+
+.user-management .text-wrapper-active {
+  color: #ffffff;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 20px;
+  font-weight: 800;
+  height: 29px;
+  left: 133px;
+  letter-spacing: 0;
+  line-height: normal;
+  
+  text-align: center;
+}
+
+.spare-space{
+  width: 78%;
+  padding-left: 10px;
+  padding-right: 15px;
+}
+
+
+
+
+
+
+
+.UserTab{
+  height: 100%;
+  width: 100%;
+  padding-top: 3%;
+}
+
+.search-section{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+.user-management .search-area {
+  background-color: #fafcff;
+  border: 0.93px solid;
+  border-color: #989898;
+  border-radius: 7px;
+  height: 30px;
+  position: relative;
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 4px 10px #0000001a;
+}
+
+.user-management .text-wrapper {
+  color: black;
+  font-family: "Inter-Regular", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: normal;
+  opacity: 0.5;
+  /* Center the text horizontally */
+  margin: 0 auto;
+}
+
+.user-management .search-icon-instance {
+  height: 60%;
+  position: relative;
+  margin-right: 1%;
+}
+
+
+.user-management .gr-dropdown {
+  background-color: #fafcff;
+  border: 0.93px solid;
+  border-color: #989898;
+  border-radius: 7px;
+  height: 30px;
+  position: relative;
+  width: 150px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10%;
+  box-shadow: 0px 4px 10px #0000001a;
+}
+
+.user-management .caret-icon {
+  height: 9px;
+  margin-right: 5%;
+}
+
+.user-management .filter-text {
+  color: var(--collection-1-dark-text);
+  font-family: "Inter-Medium", Helvetica;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: normal;
+  opacity: 0.5;
+  margin-left: 5%;
+}
+
+.user-management .overlap-5 {
+  height: 100%;
+  width: 100%;
+  padding-top: 2%;
+  padding-left: 60px;
+  padding-right: 30px;
+  background-color: aqua;
+  box-sizing: border-box;
+}
+
+.user-management .rectangle {
+  background-color: var(--collection-1-WHITE);
+  height: 701px;
+  left: 1px;
+  position: absolute;
+  top: 0;
+  width: 989px;
+}
+*{
+  box-sizing: border-box;
+}
+
+
+.user-management .table-user {
+  height: 100%;
+  width: 100%;
+  padding-right: 30px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.user-management .table-head {
+  width: 83%;
+}
+
+
+.user-management .text-wrapper-27 {
+  color: var(--dark);
+  font-family: "Inter-Bold", Helvetica;
+  font-size: 18px;
+  font-weight: 700;
+  left: 177px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+  width: 139px;
+}
+
+
+
+.user-management .group {
+  height: 59px;
+  left: 598px;
+  position: absolute;
+  top: 1029px;
+  width: 609px;
+}
+
+.user-management .overlap {
+  height: 59px;
+  position: relative;
+  width: 611px;
+}
+
+.user-management .group-2 {
+  height: 59px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 611px;
+}
+
+.user-management .overlap-group-wrapper {
+  height: 59px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 70px;
+}
+
+.user-management .overlap-group-2 {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  position: relative;
+  width: 66px;
+}
+
+.user-management .text-wrapper-2 {
+  color: #cf4307;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  left: 27px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 18px;
+  width: 11px;
+}
+
+.user-management .text-wrapper-3 {
+  color: #009304;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  left: 27px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 18px;
+  width: 11px;
+}
+
+.user-management .carousel {
+  background-color: #009304;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 5.51px/5.33px;
+  height: 11px;
+  left: 488px;
+  position: absolute;
+  top: 48px;
+  width: 11px;
+}
+
+.user-management .carousel-icon {
+  background-color: #009304;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 5.51px/5.33px;
+  height: 11px;
+  left: 466px;
+  position: absolute;
+  top: 48px;
+  width: 11px;
+}
+
+.user-management .carousel-2 {
+  background-color: #009304;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 5.51px/5.33px;
+  height: 11px;
+  left: 445px;
+  position: absolute;
+  top: 48px;
+  width: 11px;
+}
+
+.user-management .group-3 {
+  height: 59px;
+  left: 118px;
+  position: absolute;
+  top: 0;
+  width: 184px;
+}
+
+.user-management .overlap-2 {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 66px;
+}
+
+.user-management .color {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  left: -1px;
+  position: absolute;
+  top: -1px;
+  width: 66px;
+}
+
+.user-management .text-wrapper-4 {
+  color: #009304;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  left: 27px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 17px;
+  width: 11px;
+}
+
+.user-management .div-wrapper {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  left: 114px;
+  position: absolute;
+  top: 0;
+  width: 66px;
+}
+
+.user-management .color-pallete {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  left: 344px;
+  position: absolute;
+  top: 0;
+  width: 66px;
+}
+
+.user-management .overlap-3 {
+  background-color: #ffffff;
+  border: 0.93px solid;
+  border-color: #000000;
+  border-radius: 33.06px/29.54px;
+  height: 59px;
+  left: 543px;
+  position: absolute;
+  top: 0;
+  width: 66px;
+}
+
+.user-management .text-wrapper-5 {
+  color: #009304;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  left: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 15px;
+  width: 24px;
+}
+
+.user-management .group-4 {
+  height: 24px;
+  left: 371px;
+  position: absolute;
+  top: 18px;
+  width: 13px;
+}
+
+.user-management .text-wrapper-6 {
+  color: #009304;
+  font-family: "Inter-ExtraBold", Helvetica;
+  font-size: 18.6px;
+  font-weight: 800;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  top: 0;
+  width: 11px;
+}
