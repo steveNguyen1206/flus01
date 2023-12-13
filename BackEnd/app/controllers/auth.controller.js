@@ -27,6 +27,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     avt_url: req.body.avt_url,
     social_link: req.body.social_link,
+    // reported_times: 3, // testing delete users by reported_times
   };
 
   // Save User in the database

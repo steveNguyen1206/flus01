@@ -22,5 +22,11 @@ module.exports = (app) => {
   // Update avatar of a user
   router.put("/avatar/:id", user_controller.updateAvatar);
 
+  // Delete a User with account_name
+  router.delete("/account_name", user_controller.deleteOnebyAccountName);
+
+  // Delete a User with reportedTimes
+  router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);
+
   app.use("/api/user", router);
 };
