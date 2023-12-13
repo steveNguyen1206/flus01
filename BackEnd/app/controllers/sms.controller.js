@@ -1,5 +1,5 @@
-const { ACCOUNT_SID, AUTH_TOKEN, TWILIO_PHONE_NUMBER } = process.env;
-const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
+const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER } = process.env;
+const client = require("twilio")(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const db = require("../models");
 const OTP = db.otp;

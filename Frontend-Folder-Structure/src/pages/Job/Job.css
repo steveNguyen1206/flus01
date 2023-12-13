@@ -51,10 +51,6 @@
     width: 100%;
 }
 
-.left-job{
-
-}
-
 .right-job{
     display: flex;
     flex-direction: column;
