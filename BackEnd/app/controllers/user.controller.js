@@ -85,6 +85,47 @@ exports.findOnebyEmail = (req, res) => {
     });
 };
 
+// Define the getPagination function
+function getPagination(page, size) {
+  // page > 0, size > 0
+  const limit = size;
+  const offset = (page - 1) * size;
+  return { limit, offset };
+}
+
+exports.findUsersbyPage = (req, res) => {
+  const { page, size } = req.body; // page: 1..n, size: 1..m  
+  const { limit, offset } = getPagination(page, size);
+
+  User.findAndCountAll({ limit, offset })
+  .then(data => {
+    const { rows: users, count: totalItems } = data;
+
+    // Extract only the necessary information from each user
+    const simplifiedUsers = users.map(user => ({
+      account_name: user.account_name,
+      profile_name: user.profile_name,
+      reported_times: user.reported_times,
+      created_at: user.created_at,
+    }));
+
+    const response = {
+      totalItems,
+      users: simplifiedUsers,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(totalItems / limit),
+    };
+
+    res.send(response);
+  })
+    .catch(err => {
+      res.status(500).send({
+        message:
+        err.message || "Some error occurred while retrieving users."
+      });
+    });
+};
+
 // Update a User by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
