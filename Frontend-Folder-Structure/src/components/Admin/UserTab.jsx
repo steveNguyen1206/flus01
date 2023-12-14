@@ -8,20 +8,30 @@ import Pagination from '@mui/material/Pagination';
 
 const UserTab = () => {
     const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+
+    const fetchUsers = async () => {
+        try {
+            const response = await userDataService.findUsersbyPage(page, 6);
+            console.log("RESPONSE: ", response.data);
+            const { users, totalPages } = response.data;
+            setUsers(users);
+            console.log(users);
+            setTotalPages(totalPages);
+            console.log(totalPages);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const response = await userDataService.findAll();
-                setUsers(response.data);
-                console.log(response.data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
         fetchUsers();
-    }, []);
+    }, [page]);
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
 
     return (
         <div className='UserTab'>
@@ -53,7 +63,9 @@ const UserTab = () => {
                 
             </div>
             <div className="pagination-section">
-                <Pagination count={10} variant="outlined" color="primary" size="large" />
+                <Pagination count={totalPages} variant="outlined" 
+                color="primary" size="large" 
+                page={page} onChange={handleChange}/>
             </div>
         </div>
     );

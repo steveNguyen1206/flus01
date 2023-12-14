@@ -94,8 +94,12 @@ function getPagination(page, size) {
 }
 
 exports.findUsersbyPage = (req, res) => {
-  const { page, size } = req.body; // page: 1..n, size: 1..m  
-  const { limit, offset } = getPagination(page, size);
+  
+  console.log("MY PARAMS:",req.params);
+  const {page, size} = req.params; // page: 1..n, size: 1..m  
+  console.log("FFFFFFFFFFFFFFFFFFFF","page: " + page + ", size: " + size);
+  
+  const { limit, offset } = getPagination(parseInt(page), parseInt(size));
 
   User.findAndCountAll({ limit, offset })
   .then(data => {
@@ -103,10 +107,12 @@ exports.findUsersbyPage = (req, res) => {
 
     // Extract only the necessary information from each user
     const simplifiedUsers = users.map(user => ({
+      id: user.id,
+      avt_url : user.avt_url,
       account_name: user.account_name,
       profile_name: user.profile_name,
       reported_times: user.reported_times,
-      created_at: user.created_at,
+      createdAt: user.createdAt,
     }));
 
     const response = {

@@ -63,8 +63,6 @@ const LogIn = () => {
                     },
                 }
                 )
-                
-            console.log("MY DATA", res.data);
 
         try {
           const server_host = 'http://127.0.0.1:8080';
