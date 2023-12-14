@@ -2,8 +2,8 @@ import React from "react";
 import "./CategoryBlock.css";
 
 
-const UserRow = (user) => {
-    const { profile_name, account_name, createdAt, reportedTimes } = user;
+const CategoryBlock = (category) => {
+    // const { profile_name, account_name, createdAt, reportedTimes } = user;
 
     return(
         <div className="group-wrapper">
@@ -12,4 +12,4 @@ const UserRow = (user) => {
     );
 };
 
-export default UserRow;
+export default CategoryBlock;

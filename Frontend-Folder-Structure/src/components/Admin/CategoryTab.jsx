@@ -39,4 +39,4 @@ const CategoryTab = () => {
     );
 };
 
-export default UserTab;
+export default CategoryTab;
