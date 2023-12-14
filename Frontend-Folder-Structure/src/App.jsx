@@ -4,6 +4,8 @@ import { Header, Footer } from './layout';
 import { Home, Profile, SignUp, LogIn } from './pages';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import Project from './pages/Project/project';
+import { AuthProvider, useAuth } from './AuthContext';
+
 
 function App() {
     const initialOptions = {
@@ -13,11 +15,12 @@ function App() {
   };
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
+    <AuthProvider>
+      <PayPalScriptProvider options={initialOptions}>
       <Routers/>
 
-    </PayPalScriptProvider>
-   
+      </PayPalScriptProvider>
+    </AuthProvider>
   
   );
 }

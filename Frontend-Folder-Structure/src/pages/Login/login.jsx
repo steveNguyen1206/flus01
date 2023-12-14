@@ -6,8 +6,11 @@ import authServices from '@/services/authServices';
 import { useNavigate } from 'react-router';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { AuthProvider, useAuth } from '../../AuthContext';
+
 
 const LogIn = () => {
+  const { setSignin } = useAuth();
   const InititalLoginPayload = {
     userName: '',
     userPassword: '',
@@ -38,9 +41,13 @@ const LogIn = () => {
       .then((response) => {
         if (response.status == 200) {
           var id = response.data.id;
+          localStorage.setItem('LOGINID',id);
+          localStorage.setItem('AUTH_TOKEN',response.data.accessToken);
+          localStorage.setItem('AVT', response.data.avt_url);
+          setSignin(true);
           navigate(`/profile/${id}`);
         }
-        console.log(response.data);
+        console.log(localStorage.getItem('AUTH_TOKEN'));
       })
       .catch((e) => {
         if (e.response && e.response.status === 404) {
@@ -86,8 +93,11 @@ const LogIn = () => {
               },
             }
           );
-
-          console.log('Token: ' + result.data.accessToken);
+          localStorage.setItem('LOGINID',result.data.id);
+          localStorage.setItem('AUTH_TOKEN',result.data.accessToken);
+          localStorage.setItem('AVT', result.data.avt_url);
+          console.log('Token: ' + result.data.accessToken + " " + result.data.id);
+          setSignin(true);
         } catch (error) {
           console.log('Error with GoogleLogin' + error);
         }
