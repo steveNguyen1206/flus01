@@ -28,7 +28,10 @@
     object-fit: cover;
     width: 40px;
   }
-  
+  .name{
+    text-align: left;
+    padding-right: 15px;
+  }
   .user-management .text-wrapper-7 {
     color: #000000;
     font-family: "Inter-Medium", Helvetica;
@@ -37,6 +40,7 @@
     letter-spacing: 0;
     line-height: normal;
     white-space: nowrap;
+    overflow-x: hidden;
   }
   
   .user-management .vector-wrapper {

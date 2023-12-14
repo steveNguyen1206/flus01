@@ -4,6 +4,7 @@ import { UserRow } from "..";
 import userDataService from '@/services/userDataServices';
 import search from '../../assets/search.png';
 import cavet from '../../assets/cavet.png';
+import Pagination from '@mui/material/Pagination';
 
 const UserTab = () => {
     const [users, setUsers] = useState([]);
@@ -38,7 +39,7 @@ const UserTab = () => {
             <div className="overlap-5">
                 <div className="table-head row">
                     <div className="col-1"></div>
-                    <div className="text-wrapper-27 col">User name</div>
+                    <div className="text-wrapper-27 col-3">User name</div>
                     <div className="text-wrapper-27 col">Name</div>
                     <div className="text-wrapper-27 col">Reported times</div>
                     <div className="text-wrapper-27 col">Registration Date</div>
@@ -50,6 +51,9 @@ const UserTab = () => {
                     ))}
                 </div>
                 
+            </div>
+            <div className="pagination-section">
+                <Pagination count={10} variant="outlined" color="primary" size="large" />
             </div>
         </div>
     );

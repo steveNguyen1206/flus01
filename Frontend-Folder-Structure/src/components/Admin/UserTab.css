@@ -118,7 +118,13 @@
     left: 177px;
     letter-spacing: 0;
     line-height: normal;
+    text-align: center;
     white-space: nowrap;
-    width: 139px;
+    /* width: 139px; */
+  }
+
+  .pagination-section{
+    display: flex;
+    justify-content: center;
   }
   
