@@ -48,17 +48,6 @@
   
   /* Add an Add category button here */
   
-  .category-management .filter-text {
-    color: var(--collection-1-dark-text);
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0;
-    line-height: normal;
-    opacity: 0.5;
-    margin-left: 5%;
-  }
-  
   .category-management .overlap-5 {
     width: 100%;
     height: 96%;

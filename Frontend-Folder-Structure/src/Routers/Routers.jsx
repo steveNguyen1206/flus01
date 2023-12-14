@@ -4,8 +4,8 @@ import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
-import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
-import Job from '@/pages/Job/job';
+// import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+// import Job from '@/pages/Job/job';
 const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">

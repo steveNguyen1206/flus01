@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./CategoryTab.css";
 import { CategoryBlock } from "..";
-import categoryDataService from '@/services/categoryDataServices';
+import categoryService from '@/services/categoryService';
 import search from '../../assets/search.png';
-import cavet from '../../assets/cavet.png';
 
 const CategoryTab = () => {
     const [categories, setCategories] = useState([]);
@@ -11,11 +10,11 @@ const CategoryTab = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                // const response = await categoryDataService.findAll();
-                // setCategories(response.data);
-                // console.log(response.data);
+                const response = await categoryService.findAll();
+                setCategories(response.data);
+                console.log(response.data);
             } catch (error) {
-                // console.error(error);
+                console.error(error);
             }
         };
 
