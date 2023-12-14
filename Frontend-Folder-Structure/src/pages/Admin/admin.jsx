@@ -13,9 +13,8 @@ import admin_comment_star_white from '../../assets/Admin/admin_comment_star_whit
 import admin_post_white from '../../assets/Admin/admin_post_white.png';
 import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
-import search from '../../assets/search.png';
-import cavet from '../../assets/cavet.png';
-import { UserRow } from '@/components';
+import { UserTab } from '@/components';
+
 
 const Admin = () => {
     
@@ -92,36 +91,7 @@ const Admin = () => {
                 </div>
             </div>
             <div className='spare-space'>
-                <div className='UserTab'>
-                    <div className='search-section'>
-                        <div className="search-area">
-                            <div className="text-wrapper">Search</div>
-                            <img className="search-icon-instance" src={search} />
-                        </div>                    
-                        <div className="gr-dropdown">
-                            <div className="filter-text">Reported times</div>
-                            <img className="caret-icon" src={cavet} />
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    <div className="overlap-5">
-                        <div className="table-head row">
-                            <div className="text-wrapper-27 col">User name</div>
-                            <div className="text-wrapper-27 col">Name</div>
-                            <div className="text-wrapper-27 col">Reported times</div>
-                            <div className="text-wrapper-27 col">Registration Date</div>
-                        </div>
-                        <div className="table-user">
-                            <UserRow/>
-                            <UserRow/>
-                        </div>
-                        
-                    </div>
-                
-                    
-                </div>
+                {activeGroup === 'users' && <UserTab />}
             </div>
             
         </div>

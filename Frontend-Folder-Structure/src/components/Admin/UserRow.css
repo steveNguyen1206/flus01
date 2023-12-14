@@ -3,7 +3,6 @@
     background-color: var(--collection-1-secondary);
     border-radius: 10px;
     height: 60px;
-    left: 1px;
     width: 100%;
     margin: 30px 10px;
   }
@@ -13,17 +12,21 @@
     height: 100%;
     position: relative;
     width: 100%;
+    --bs-gutter-x: 0;
+    background-color: #ABF7AE;
+    border-radius: 7px;
   }
   
 
-  
+  .ava{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .user-management .ellipse {
-    height: 55px;
-    left: 0;
+    height: 40px;
     object-fit: cover;
-    position: absolute;
-    top: 0;
-    width: 51px;
+    width: 40px;
   }
   
   .user-management .text-wrapper-7 {
@@ -31,73 +34,22 @@
     font-family: "Inter-Medium", Helvetica;
     font-size: 16px;
     font-weight: 500;
-    left: 220px;
     letter-spacing: 0;
     line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-  }
-  
-  .user-management .text-wrapper-8 {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 16px;
-    font-weight: 500;
-    left: 63px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    white-space: nowrap;
-  }
-  
-  .user-management .text-wrapper-9 {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 16px;
-    font-weight: 500;
-    left: 663px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 18px;
-    white-space: nowrap;
-  }
-  
-  .user-management .text-wrapper-10 {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 16px;
-    font-weight: 500;
-    left: 470px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
     white-space: nowrap;
   }
   
   .user-management .vector-wrapper {
     border-radius: 14.75px;
     height: 30px;
-    left: 832px;
-    position: absolute;
-    top: 15px;
   }
   
   
   .user-management .eye-light {
     height: 35px;
-    left: 879px !important;
-    position: absolute !important;
-    top: 12px !important;
     
   }
 
   .user-management .recycle-bin {
     height: 33px;
-    left: 922px;
-    position: absolute;
-    top: 11px;
   }
