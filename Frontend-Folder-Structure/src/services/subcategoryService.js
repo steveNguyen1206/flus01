@@ -1,7 +1,7 @@
 import http from "./http-common";
 
-const create = () => {
-    return http.post("/subcategory");
+const create = (data) => {
+    return http.post("/subcategory", DataTransferItem);
 };
 
 const findAll = () => {

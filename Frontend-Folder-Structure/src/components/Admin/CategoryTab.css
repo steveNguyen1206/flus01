@@ -1,3 +1,5 @@
+@import url("../../assets/variables.css");
+
 .CategotyTab{
     height: 100%;
     width: 100%;
@@ -6,13 +8,13 @@
   }
   
   .search-section{
+    margin-top: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    
+    justify-content: space-around;
   }
   
-  .category-management .search-area {
+  .search-area {
     background-color: #fafcff;
     border: 0.93px solid;
     border-color: #989898;
@@ -27,7 +29,7 @@
     box-shadow: 0px 4px 10px #0000001a;
   }
   
-  .category-management .text-wrapper {
+  .search-area .text-wrapper {
     color: black;
     font-family: "Inter-Regular", Helvetica;
     font-size: 18.6px;
@@ -39,7 +41,7 @@
     margin: 0 auto;
   }
   
-  .category-management .search-icon-instance {
+  .search-area .search-icon-instance {
     height: 60%;
     position: relative;
     margin-right: 1%;
@@ -47,18 +49,40 @@
   
   
   /* Add an Add category button here */
-  
-  .category-management .overlap-5 {
-    width: 100%;
-    height: 96%;
-    padding-top: 2%;
-    padding-left: 60px;
-    padding-right: 30px;
-    box-sizing: border-box;
+  .add-category-button {
+    background-color: var(--primary);
+    border-radius: 20px;
+    color: var(--white);
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
+    font-size: var(--medium-font-size);
+    font-family: "Inter-bold", Helvetica;
+  }
+
+  .add-category-button .text-wrapper {
+    color: var(--white);
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 15px;
+    font-weight: 800;
+    line-height: normal;
+    opacity: 1;
+    margin: 10px;
+
   }
   
   *{
     box-sizing: border-box;
   }
   
+  .category-gallery {
+    margin: 30px;
+    height: 70%;
+    width: 95%;
+    /* overflow-y: scroll;
+    overflow-x: hidden; */
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Two columns with equal width */
+    grid-gap: 20px; /* Gap between grid items */
+    }
