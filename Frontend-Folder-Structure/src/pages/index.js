@@ -7,3 +7,5 @@ export { default as LogIn } from "./Login/login";
 export { default as Project } from "./Project/project";
 export { default as Login2 } from "./Login/login2";
 export {default as Profile} from "./Profile/profile"
+export {default as FindFreelancer} from "./FindFreelancer/findFreelancer"
+export {default as Job} from "./Job/job"

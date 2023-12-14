@@ -1,5 +1,5 @@
 import React from 'react';
-import './findfreelancer.css';
+import './findFreelancer.css';
 import Search from '@/components/Search';
 import { Header, Footer } from '@/layout';
 import Post from '@/components/JobPost/Post';
@@ -33,6 +33,8 @@ const FindFreelancer = () => {
             <Filter />
           </div>
           <div className="right-job">
+            <FreelancerPost />
+            <FreelancerPost />
             <FreelancerPost />
             <FreelancerPost />
             <FreelancerPost />

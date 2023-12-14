@@ -1,9 +1,10 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
+// import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
 
 const Routers = () => {
   return (
@@ -19,6 +20,8 @@ const Routers = () => {
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/project/" element={<Project />} />
+          <Route path="/findFreelancer" element={<FindFreelancer />} />
+          <Route path="/job" element={<Job />} />
           {/* Add more routes as needed */}
         </Routes>
         <Footer />
