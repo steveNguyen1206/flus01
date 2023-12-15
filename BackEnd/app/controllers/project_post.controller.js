@@ -36,6 +36,30 @@ exports.createProjectPost = (req, res) => {
         });
 };
 
+// Find all Project_posts by user id and set their status to status param
+exports.findAndChangeStatus = (req, res) => {
+    const { userId, status } = req.params;
+
+    project_post.update({ status: status }, { where: { user_id: userId } })
+        .then(num => {
+            if (num > 0) {
+                res.send({
+                    message: "Project_posts status updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `No Project_posts found for user with id=${userId}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Project_posts status for user with id=" + userId
+            });
+        });
+};
+
+
 // Retrieve all Project_posts from the database.
 exports.findAllProjectPosts = (req, res) => {
     const {userId} = req.params;

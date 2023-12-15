@@ -37,6 +37,9 @@
     letter-spacing: 0;
     line-height: normal;
     opacity: 0.5;
+    width: 100%;
+    border: none;
+    text-align: center;
     /* Center the text horizontally */
     margin: 0 auto;
   }

@@ -12,5 +12,8 @@ module.exports = (app) => {
     // change status of many project_posts by list of project_post_id
     router.put("/changeStatus", projectPostController.changeStatus);
 
+    // Find and change status of project_posts by some criteria
+    router.put("/findAndChangeStatus/:userId&:status", projectPostController.findAndChangeStatus);
+
     app.use("/api/project_post", router);
 }
