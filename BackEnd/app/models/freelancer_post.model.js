@@ -20,7 +20,11 @@ module.exports = (sequelize, Sequelize) => {
       },
       imgage_post_urls: {
         type: Sequelize.STRING(1024)
-      }
+      }, 
+      status: {
+        type: Sequelize.TINYINT,
+        defaultValue: 1 // 1: active, 0: deactive
+      },
     });
   
     return Freelancer_post;
