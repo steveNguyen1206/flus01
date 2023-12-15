@@ -29,6 +29,7 @@ db.bid = require("./bid.model.js")(sequelize, Sequelize);
 db.comment_proj = require("./Comment_proj.model.js")(sequelize, Sequelize);
 db.project_post = require("./project_post.model.js")(sequelize, Sequelize);
 db.review = require("./Review.model.js")(sequelize, Sequelize);
+db.otp = require("./OTP.model.js")(sequelize, Sequelize);
 
 db.transactions = require("./transaction.model.js")(sequelize, Sequelize);
 db.projects = require("./project.model.js")(sequelize, Sequelize);

@@ -1,0 +1,212 @@
+@import url("../../assets/variables.css");
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+
+.pproject{
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+}
+
+.proj-title{
+    font-size: 42px;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: bold;
+    align-items: center;
+    text-align: center;
+}
+
+.border-proj-title{
+    width: 100%;
+    background-color: rgba(235, 232, 232, 0.50);
+    border-radius: 12px;
+}
+
+
+.tags{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.tag{
+    border: 2px solid var(--primary);
+    padding: 5px 20px;
+    border-radius: 8px;
+}
+
+.left-project{
+    width: 930px;
+    margin-left: 80px;
+    margin-top: 80px;
+
+}
+
+.proj-poster{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+    flex-direction: row;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.pname{
+    font-size: 26px;
+    font-family: "Inter-Bold", Helvetica;
+    align-items: center;
+    text-align: center;
+}
+
+.pusername{
+    font-size: 26px;
+    font-family: "Inter-Bold", Helvetica;
+    align-items: center;
+    text-align: center;
+}
+
+.proj-name{
+    display: flex;
+    gap: 2px;
+}
+
+.proj-name-rating .proj-rating img{
+    width: 20px;
+    height: 20px;
+}
+
+.proj-rating{
+    display: flex;
+    flex-direction: row;
+    margin-top: 4px;
+}
+
+.proj-rating p{
+    font-size: 16px;
+    font-family: "Inter-Bold", Helvetica;
+    align-items: center;
+    text-align: center;
+}
+
+.plocation img{
+    width: 45px;
+    height: 30px;
+    justify-content: center;
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.plocation {
+    display: flex;
+    align-items: center;
+}
+.rating-container{
+    width: 200px;
+}
+
+.proj-body{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-project{
+    width: 400px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button-edit{
+    background-color: red;
+    width: 135px;
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    align-self: flex-end;
+    justify-content: right;
+}
+
+.job-profile{
+    margin-top: 10px;
+    border-radius: 12px;
+    width: 400px;
+    height: 440px; 
+    border: 1px solid var(--primary);
+}
+
+
+.job-profile{
+    display: flex;
+    flex-direction: column;
+}
+
+.right-name{
+    display: flex;
+    flex-direction: column;
+    max-width: 160px;
+}
+
+.right-profile{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.right-name img{
+    width: 15px;
+    height: 15px;
+}
+
+.r-location img{
+    width: 28px;
+    height: 18px;
+}
+
+.right-rating{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-rating p{
+    font-size: 16px;
+    font-family: "Inter-Bold", Helvetica;
+    align-items: center;
+    text-align: center;
+    margin: 0;
+}
+
+.right-jobs{
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    gap: 10px;
+}
+
+.r-job{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: space-around;
+}
+
+
+
+
+

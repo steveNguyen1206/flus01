@@ -1,26 +1,34 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp } from '@/pages';
-import { Navbar } from '@/layout';
+import { Home, LogIn, Profile, Shop, SignUp, Project} from '@/pages';
+import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
-
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Login2 } from '@/pages';
+import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+import Job from '@/pages/Job/job';
+import { ProjectManagement } from '@/pages/ProjectManagement';
 const Routers = () => {
   return (
-    <div>
+    <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
       <Router>
-        <Navbar/>
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
-          {/* <Route path="/payment" element={<Payment />} /> */}
+          <Route path="/login2" element={<Login2 />} />
           <Route path="/shop" element={<Shop />} />
-          <Route path="/sign-up" element={<SignUp />}/>
-          <Route path="/profile/:id" element={<Profile/>}/>
-          <Route path='/paypal-demo' element={<PayPalDemo/>} />
-          {/* <Route path="*" element={<ErrorPage />} /> */}
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/paypal-demo" element={<PayPalDemo />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/findfreelancer" element={<FindFreelancer/>} />
+          <Route path="/job" element={<Job/>} />
+          <Route path="/project-manage" element={<ProjectManagement/>} />
+            {/* Add more routes as needed */}
         </Routes>
+        {/* <Footer /> */}
       </Router>
-    </div>
+    </GoogleOAuthProvider>
   );
 };
-
 export default Routers;
