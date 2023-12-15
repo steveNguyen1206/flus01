@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { media_upload, http } from "./http-common";
 
 const findAll = () => {
   return http.get("/user");
@@ -22,10 +22,12 @@ const update = (id, data) => {
 };
 
 const updateAvatar = (id, avatarFile) => {
+
+
   const formData = new FormData();
   formData.append('avatar', avatarFile);
-
-  return http.put(`/user/avatar/${id}`, formData);
+  console.log(avatarFile);
+  return media_upload.put(`/user/avatar/${id}`, formData);
 }
 
 // const remove = id => {

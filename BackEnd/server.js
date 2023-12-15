@@ -3,9 +3,6 @@ const cors = require("cors");
 require('dotenv').config();
 
 
-
-
-
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const fetch = require("node-fetch");
