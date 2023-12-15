@@ -26,7 +26,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the Subcategory."
             });
         });
 };
@@ -89,7 +89,7 @@ exports.update = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Category with id=" + id
+                message: "Error updating Subcategory with id=" + id
             });
         });
 };
@@ -118,6 +118,10 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+
+
+
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {

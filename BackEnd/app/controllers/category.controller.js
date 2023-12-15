@@ -1,5 +1,6 @@
 const db = require("../models");
 const Category = db.categories;
+const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Category
@@ -25,7 +26,7 @@ exports.create = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Tutorial."
+                    err.message || "Some error occurred while creating the Category."
             });
         });
 };
@@ -114,6 +115,26 @@ exports.delete = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message: "Could not delete Category with id=" + id
+            });
+        });
+};
+
+// Retrieve all Categories with their Subcategories from the database.
+exports.findAllCategoryInfo = (req, res) => {
+    Category.findAll({
+        include: [{
+            model: Subcategory,
+            attributes: ['id', 'name'],
+            foreignKey: 'category_id'
+        }]
+    })
+        .then(categories => {
+            console.log(categories);
+            res.send(categories);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving categories."
             });
         });
 };
