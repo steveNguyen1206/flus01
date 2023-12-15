@@ -10,7 +10,8 @@ const isValidEmail = (email) => {
 };
 
 const isValidPhone = (phone) => {
-  const phoneRegex = /^\d{4,}$/;
+  // the phone number must has 10 exactly digits
+  const phoneRegex = /^\d{10}$/;
   return phoneRegex.test(phone);
 };
 
@@ -57,16 +58,17 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
       var phoneNum = {
         phone_number: signUpPayload.phone,
       };
-      smsAuthenService
-        .sendCode(phoneNum)
-        .then((response) => {
-          if (response.status == 200) {
-            setTab(3);
-          }
-        })
-        .catch((e) => {
-          console.log('SmsAuthenService error (client): ', e);
-        });
+      setTab(3);
+      // smsAuthenService
+      //   .sendCode(phoneNum)
+      //   .then((response) => {
+      //     if (response.status == 200) {
+      //       setTab(3);
+      //     }
+      //   })
+      //   .catch((e) => {
+      //     console.log('SmsAuthenService error (client): ', e);
+      //   });
     } else {
       console.log('Form is not valid. Please check the errors.');
     }
