@@ -16,8 +16,9 @@ function App() {
     <AuthProvider>
       <PayPalScriptProvider options={initialOptions}>
       <Routers/>
-
+      
       </PayPalScriptProvider>
+   
     </AuthProvider>
   
   );

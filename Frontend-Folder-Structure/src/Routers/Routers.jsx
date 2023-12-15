@@ -5,6 +5,8 @@ import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+import Job from '@/pages/Job/job';
+import { ProjectManagement } from '@/pages/ProjectManagement';
 import { UpdateProject, NewProject } from '@/pages';
 const Routers = () => {
   return (
@@ -21,6 +23,8 @@ const Routers = () => {
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/project" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
+          <Route path="/job" element={<Job/>} />
+          <Route path="/project-manage" element={<ProjectManagement/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
