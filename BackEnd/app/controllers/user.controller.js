@@ -85,6 +85,47 @@ exports.findOnebyEmail = (req, res) => {
     });
 };
 
+// Define the getPagination function
+function getPagination(page, size) {
+  // page > 0, size > 0
+  const limit = size;
+  const offset = (page - 1) * size;
+  return { limit, offset };
+}
+
+exports.findUsersbyPage = (req, res) => {
+  const { page, size } = req.body; // page: 1..n, size: 1..m  
+  const { limit, offset } = getPagination(page, size);
+
+  User.findAndCountAll({ limit, offset })
+  .then(data => {
+    const { rows: users, count: totalItems } = data;
+
+    // Extract only the necessary information from each user
+    const simplifiedUsers = users.map(user => ({
+      account_name: user.account_name,
+      profile_name: user.profile_name,
+      reported_times: user.reported_times,
+      created_at: user.created_at,
+    }));
+
+    const response = {
+      totalItems,
+      users: simplifiedUsers,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(totalItems / limit),
+    };
+
+    res.send(response);
+  })
+    .catch(err => {
+      res.status(500).send({
+        message:
+        err.message || "Some error occurred while retrieving users."
+      });
+    });
+};
+
 // Update a User by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
@@ -159,3 +200,68 @@ exports.updateAvatar = (req, res) => {
     }
   });
 };
+
+// Delete a User with the specified account_name in the request
+exports.deleteOnebyAccountName = (req, res) => {
+  const { account_name } = req.body;
+  if (!account_name) {
+    res.status(400).send({
+      message: "Account_name can not be empty!"
+    });
+    return;
+  }
+
+  var condition = { account_name: { [Op.eq]: `${account_name}` } };
+
+  User.destroy({where: condition})
+    .then(num => {
+      if (num > 0) {
+        res.send({
+          message: `Deleted ${number} user(s) successfully!`
+        });
+      } else {
+        res.send({
+          message: `Cannot delete User with account_name=${account_name}. Maybe User was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete User with account_name=" + account_name
+      });
+    });
+
+  };
+
+// Delete a User with greater or equal the specified reportedTimes in the request
+exports.deleteOnebyReportedTimes = (req, res) => {
+  const { reported_times } = req.body;
+
+  if (!reported_times) {
+    res.status(400).send({
+      message: "Reported_times is invalid!"
+    });
+    return;
+  }
+
+  var condition = { reported_times: { [Op.gte]: `${reported_times}` } };
+
+  User.destroy({where: condition})
+    .then(num => {
+      if (num > 0) {
+        res.send({
+          message: `Deleted ${num} user(s) successfully!`
+        });
+      } else {
+        res.send({
+          message: `Cannot delete User with reported_times >= ${reported_times}. Maybe User was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete User with reported_times >= " + reported_times
+      });
+    });
+
+  }
