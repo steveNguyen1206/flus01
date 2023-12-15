@@ -39,8 +39,8 @@ const findOnebyEmail = email => {
   return http.get(`/user/email/${email}`);
 };
 
-const findUsersbyPage = (page, size) => {
-  return http.get(`/user/getusers/${page}&${size}`);
+const findUsersbyPage = (page, size, searchKey) => {
+  return http.get(`/user/getusers/${page}&${size}&${searchKey}`);
 };
 
 const removeUserByAccName = (accountName) => {

@@ -8,9 +8,6 @@ module.exports = (sequelize, Sequelize) => {
         type:  Sequelize.STRING(512),
         allowNull: false
       },
-      pushlish_time: {
-        type:  Sequelize.DATEONLY
-      },
       budget_min: {
         type: Sequelize.DOUBLE,
         allowNull: false
@@ -21,13 +18,12 @@ module.exports = (sequelize, Sequelize) => {
       },
       status: {
         type: Sequelize.TINYINT,
-        default: true
+        default: 1 // 1: active, 0: deactive
       },
       imgage_post_urls: {
         type: Sequelize.STRING(1024)
       }
     //   user_id: Reference to USER - OK
-    //   img_id: Reference to IMAGE - OK
     });
   
     return Project_post;
