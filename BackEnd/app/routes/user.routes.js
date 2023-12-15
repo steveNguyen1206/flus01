@@ -26,7 +26,7 @@ module.exports = (app) => {
   router.put("/avatar/:id", user_controller.updateAvatar);
 
   // Delete a User with account_name
-  router.delete("/account_name", user_controller.deleteOnebyAccountName);
+  router.delete("/deleteuser/:accountName", user_controller.deleteOnebyAccountName);
 
   // Delete a User with reportedTimes
   router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);

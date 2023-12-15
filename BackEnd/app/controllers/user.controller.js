@@ -209,35 +209,37 @@ exports.updateAvatar = (req, res) => {
 
 // Delete a User with the specified account_name in the request
 exports.deleteOnebyAccountName = (req, res) => {
-  const { account_name } = req.body;
-  if (!account_name) {
+  const { accountName } = req.params;
+
+  if (!accountName) {
     res.status(400).send({
       message: "Account_name can not be empty!"
     });
     return;
   }
 
-  var condition = { account_name: { [Op.eq]: `${account_name}` } };
-
+  var condition = { account_name: { [Op.eq]: `${accountName}` } };
+  console.log("condition: ", condition);
   User.destroy({where: condition})
-    .then(num => {
-      if (num > 0) {
-        res.send({
-          message: `Deleted ${number} user(s) successfully!`
-        });
-      } else {
-        res.send({
-          message: `Cannot delete User with account_name=${account_name}. Maybe User was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete User with account_name=" + account_name
+  .then(num => {
+    if (num > 0) {
+      res.send({
+        message: `Deleted ${num} user(s) successfully!`
       });
+    } else {
+      res.send({
+        message: `Cannot delete User with account_name=${accountName}. Maybe User was not found!`
+      });
+    }
+  })
+  .catch(err => {
+    console.error("Sequelize Error:", err);
+    res.status(500).send({
+      message: "Could not delete User with account_name=" + accountName
     });
+  });
 
-  };
+};
 
 // Delete a User with greater or equal the specified reportedTimes in the request
 exports.deleteOnebyReportedTimes = (req, res) => {

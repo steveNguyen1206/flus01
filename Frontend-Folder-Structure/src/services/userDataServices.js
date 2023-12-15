@@ -21,9 +21,7 @@ const update = (id, data) => {
   return http.put(`/user/${id}`, data);
 };
 
-// const remove = id => {
-//   return http.delete(`/user/${id}`);
-// };
+
 
 // const removeAll = () => {
 //   return http.delete(`/user`);
@@ -45,6 +43,11 @@ const findUsersbyPage = (page, size) => {
   return http.get(`/user/getusers/${page}&${size}`);
 };
 
+const removeUserByAccName = (accountName) => {
+  console.log("removeUserByAccName: ", accountName);
+  return http.delete(`/user/deleteuser/${accountName}`);
+};
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -54,6 +57,7 @@ const userDataService = {
   findOnebyAccountName,
   findOnebyEmail,
   findUsersbyPage,
+  removeUserByAccName,
 };
 
 export default userDataService;
