@@ -1,16 +1,21 @@
 import React from "react";
 import "./style.css";
+import { useProjectManageContext } from "./ProjectManageProvider";
 
 
 export const ProjectContent = () => {
+
+  const {project, setProject} = useProjectManageContext();
+
   return (
+
 
           <div className="project-content-container">
 
             <div className="content-container">
             <div className="project-content-title">
               <h4 className="label-text">Project name</h4>
-              <h4 className="title-text">Cao tốc bắc nam</h4>
+              <h4 className="title-text">{project.name}</h4>
             </div>
 
             <div className="row-container">
