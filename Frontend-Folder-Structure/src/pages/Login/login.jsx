@@ -38,6 +38,9 @@ const LogIn = () => {
       .then((response) => {
         if (response.status == 200) {
           var id = response.data.id;
+          // save id and token to cookie
+          document.cookie = `id=${id}`;
+          document.cookie = `token=${response.data.accessToken}`;
           navigate(`/profile/${id}`);
         }
         console.log(response.data);

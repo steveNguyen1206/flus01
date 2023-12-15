@@ -41,6 +41,10 @@ const findOnebyEmail = account_name => {
   return http.get(`/user/email/${email}`);
 };
 
+const getRating = id => {
+  return http.get(`/user/rating/${id}`);
+};
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -49,6 +53,7 @@ const userDataService = {
   update,
   findOnebyAccountName,
   findOnebyEmail,
+  getRating,
 };
 
 export default userDataService;

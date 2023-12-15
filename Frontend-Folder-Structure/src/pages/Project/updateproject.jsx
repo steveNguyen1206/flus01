@@ -5,18 +5,31 @@ import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
 
 const isValidTitle = (title) => {
+  if (!title) return true;
   const titleRegex = /^[a-zA-Z0-9\s]*$/;
   return titleRegex.test(title);
 };
 
 const isValidDetail = (detail) => {
+  if (!detail) return true;
   const detailRegex = /^.{10,}$/;
   return detailRegex.test(detail);
 };
 
 const isValidBudget = (budget) => {
+  if (!budget) return true;
   const budgetRegex = /^[0-9]*$/;
   return budgetRegex.test(budget) && budget > 0;
+};
+
+const isValidTag = (tag) => {
+  if (!tag) return true;
+  const tagRegex = /^[a-zA-Z0-9\s/\\]*$/;
+  return tagRegex.test(tag);
+};
+
+const isValidImage = (image) => {
+  return true;
 };
 
 const UpdateProject = () => {
@@ -26,6 +39,7 @@ const UpdateProject = () => {
     detail: '',
     budgetMin: '',
     budgetMax: '',
+    tag: '',
   });
 
   const initState = {
@@ -34,6 +48,7 @@ const UpdateProject = () => {
     detail: '',
     budgetMin: '',
     budgetMax: '',
+    tag: '',
   };
 
   const [fileName, setFileName] = useState('');
@@ -48,6 +63,94 @@ const UpdateProject = () => {
     const file = event.target.files[0];
     setFileName(file.name);
     setUpdateProject({ ...updateProject, image: file });
+  };
+
+  const validateForm = () => {
+    const newErrors = { ...error };
+
+    // Reset errors
+    newErrors.title = '';
+    newErrors.image = '';
+    newErrors.detail = '';
+    newErrors.budgetMin = '';
+    newErrors.budgetMax = '';
+    newErrors.tag = '';
+
+    let isValid = true;
+
+    if (!isValidTitle(updateProject.projectTitle)) {
+      newErrors.title =
+        'Invalid title. Title must be alphanumeric and not empty.';
+      isValid = false;
+    }
+
+    if (!isValidImage(updateProject.image)) {
+      newErrors.image = 'Please select an image.';
+      isValid = false;
+    }
+
+    if (!isValidDetail(updateProject.detail)) {
+      newErrors.detail = 'Project detail must have at least 10 characters.';
+      isValid = false;
+    }
+
+    if (!isValidTag(updateProject.tag)) {
+      newErrors.tag = 'Project tag must be a string.';
+      isValid = false;
+    }
+
+    if (Number(updateProject.budgetMin) > Number(updateProject.budgetMax)) {
+      newErrors.budgetMin =
+        'Minimum budget must be less than or equal to maximum budget.';
+      newErrors.budgetMax =
+        'Minimum budget must be less than or equal to maximum budget.';
+      isValid = false;
+    }
+
+    if (!isValidBudget(updateProject.budgetMin)) {
+      isValid = false;
+      newErrors.budgetMin =
+        'Invalid budget. Please enter a valid number greater than or equal to 0.';
+    }
+
+    if (!isValidBudget(updateProject.budgetMax)) {
+      isValid = false;
+      newErrors.budgetMax =
+        'Invalid budget. Please enter a valid number greater than or equal to 0.';
+    }
+
+    if (
+      (updateProject.budgetMin || updateProject.budgetMax) &&
+      (!updateProject.budgetMin || !updateProject.budgetMax)
+    ) {
+      newErrors.budgetMin =
+        'Both minimum and maximum budget must be updated together.';
+      newErrors.budgetMax =
+        'Both minimum and maximum budget must be updated together.';
+      isValid = false;
+    }
+
+    // if all fields are valid, isValid will be false
+    let allFieldsEmpty = true;
+    Object.keys(updateProject).forEach((key) => {
+      if (updateProject[key]) allFieldsEmpty = false;
+    });
+
+    if (allFieldsEmpty) {
+      newErrors.title = 'Please fill in at least one field.';
+      isValid = false;
+    }
+    setError(newErrors);
+    return isValid;
+  };
+
+  const handleUpdateClick = () => {
+    if (validateForm()) {
+      // Perform actions when the form is valid
+      console.log('Form is valid. Updating project...');
+    } else {
+      console.log('Form has errors. Please fix them.');
+    }
   };
 
   return (
@@ -65,8 +168,10 @@ const UpdateProject = () => {
           <input
             type="text"
             id="projectTitle"
-            name="projectTitle"
+            name="title"
             placeholder="Enter project title ..."
+            value={updateProject.title}
+            onChange={handleInputChange}
           />
           <div className="error-message">{error.title}</div>
         </div>
@@ -86,7 +191,7 @@ const UpdateProject = () => {
                 <input
                   type="file"
                   id="fileInput"
-                  name="addImage"
+                  name="image"
                   accept="image/*"
                   style={{ display: 'none' }}
                   onChange={handleFileChange}
@@ -101,40 +206,61 @@ const UpdateProject = () => {
           <div className="error-message">{error.image}</div>
         </div>
 
+        <div className="project-tag-input">
+          <label htmlFor="projectTag">Project Tag</label>
+          <input
+            type="text"
+            id="projectTag"
+            name="tag"
+            placeholder="Enter project tag ..."
+            value={updateProject.tag}
+            onChange={handleInputChange}
+          />
+          <div className="error-message">{error.tag}</div>
+        </div>
+
         <div className="project-detail-input">
           <label htmlFor="projectDetail">Project Detail</label>
           <textarea
             type="text"
             id="projectDetail"
-            name="projectDetail"
+            name="detail"
             placeholder="Enter project details ..."
+            onChange={handleInputChange}
+            value={updateProject.detail}
           />
           <div className="error-message">{error.detail}</div>
         </div>
 
-        <div className="budget-min-input">
-          <label htmlFor="budgetMin">Budget Min</label>
-          <input
-            type="text"
-            id="budgetMin"
-            name="budgetMin"
-            placeholder="Enter minimum budget ..."
-          />
-          <div className="error-message">{error.budgetMin}</div>
+        <div className="project-range-budget">
+          <div className="budget-min-input">
+            <label htmlFor="budgetMin">Budget Min</label>
+            <input
+              type="text"
+              id="budgetMin"
+              name="budgetMin"
+              placeholder="Enter minimum budget ..."
+              onChange={handleInputChange}
+              value={updateProject.budgetMin}
+            />
+            <div className="error-message">{error.budgetMin}</div>
+          </div>
+
+          <div className="budget-max-input">
+            <label htmlFor="budgetMax">Budget Max</label>
+            <input
+              type="text"
+              id="budgetMax"
+              name="budgetMax"
+              placeholder="Enter maximum budget ..."
+              onChange={handleInputChange}
+              value={updateProject.budgetMax}
+            />
+            <div className="error-message">{error.budgetMax}</div>
+          </div>
         </div>
 
-        <div className="budget-max-input">
-          <label htmlFor="budgetMax">Budget Max</label>
-          <input
-            type="text"
-            id="budgetMax"
-            name="budgetMax"
-            placeholder="Enter maximum budget ..."
-          />
-          <div className="error-message">{error.budgetMax}</div>
-        </div>
-
-        <WhiteButton name="Update Project" />
+        <WhiteButton name="Update Project" onClick={handleUpdateClick} />
       </div>
     </div>
   );

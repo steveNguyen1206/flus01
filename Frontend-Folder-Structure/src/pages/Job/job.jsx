@@ -4,8 +4,26 @@ import Search from '@/components/Search';
 import { Header, Footer } from '@/layout';
 import Post from '@/components/JobPost/Post';
 import Filter from '@/components/Filter';
+// get all project and poster info
+import getAllProject from '@/services/projectServices';
+import { useEffect, useState } from 'react';
 
 const Job = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  const fetchProjects = async () => {
+    try {
+      const projectsData = await getAllProject();
+      setProjects(projectsData);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
   return (
     <>
       <div className="job-page">
@@ -32,9 +50,24 @@ const Job = () => {
             <Filter />
           </div>
           <div className="right-job">
-            <Post />
-            <Post />
-            <Post />
+            {/* const Post = ({
+  projectId,
+  projectTitle,
+  projectTags,
+  projectDetail,
+  projectBudget,
+} */}
+
+            {projects.map((project) => (
+              <Post
+                key={project.project_id}
+                projectId={project.project_id}
+                projectTitle={project.project_name}
+                projectTags={project.project_tags}
+                projectDetail={project.project_detail}
+                projectBudget={project.project_budget}
+              />
+            ))}
           </div>
         </div>
       </div>

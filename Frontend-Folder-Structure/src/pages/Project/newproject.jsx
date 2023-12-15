@@ -3,23 +3,29 @@ import { WhiteButton } from '@/components';
 import './newproject.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
+import projectServices from '@/services/projectServices';
 
 const isValidTitle = (title) => {
-  // title must be a string or digit or space and not empty
+  if (!title) return false;
   const titleRegex = /^[a-zA-Z0-9\s]*$/;
   return titleRegex.test(title);
 };
 
 const isValidDetail = (detail) => {
-  // detail has at least 10 characters
   const detailRegex = /^.{10,}$/;
   return detailRegex.test(detail);
 };
 
 const isValidBudget = (budget) => {
-  // budget must be a number and greater than 0
+  if (budget === '') return false;
   const budgetRegex = /^[0-9]*$/;
   return budgetRegex.test(budget) && budget > 0;
+};
+
+const isValidTag = (tag) => {
+  if (!tag) return false;
+  const tagRegex = /^[a-zA-Z0-9\s/\\]*$/;
+  return tagRegex.test(tag);
 };
 
 const NewProject = () => {
@@ -29,6 +35,7 @@ const NewProject = () => {
     detail: '',
     budgetMin: '',
     budgetMax: '',
+    tag: '',
   });
 
   const initState = {
@@ -37,6 +44,7 @@ const NewProject = () => {
     detail: '',
     budgetMin: '',
     budgetMax: '',
+    tag: '',
   };
 
   const validateForm = () => {
@@ -60,12 +68,31 @@ const NewProject = () => {
       newErrors.image = '';
     }
 
+    // Validate tag
+    if (!isValidTag(newProject.tag)) {
+      newErrors.tag = 'Project tag must be a string.';
+      isValid = false;
+    } else {
+      newErrors.tag = '';
+    }
+
     // Validate detail
     if (!isValidDetail(newProject.detail)) {
       newErrors.detail = 'Project detail must have at least 10 characters.';
       isValid = false;
     } else {
       newErrors.detail = '';
+    }
+
+    if (Number(newProject.budgetMin) > Number(newProject.budgetMax)) {
+      newErrors.budgetMin =
+        'Invalid budget. Minimum budget must be less than maximum budget.';
+      newErrors.budgetMax =
+        'Invalid budget. Maximum budget must be greater than minimum budget.';
+      isValid = false;
+    } else {
+      newErrors.budgetMin = '';
+      newErrors.budgetMax = '';
     }
 
     // Validate budgetMin
@@ -81,10 +108,6 @@ const NewProject = () => {
     if (!isValidBudget(newProject.budgetMax)) {
       newErrors.budgetMax =
         'Invalid budget. Please enter a valid number greater than 0.';
-      isValid = false;
-    } else if (newProject.budgetMax < newProject.budgetMin) {
-      newErrors.budgetMax =
-        'Maximum budget must be greater than or equal to minimum budget.';
       isValid = false;
     } else {
       newErrors.budgetMax = '';
@@ -108,16 +131,20 @@ const NewProject = () => {
     setNewProject({ ...newProject, image: file });
   };
 
+
   const handleDoneClick = () => {
     if (validateForm()) {
-      // Perform actions when the form is valid
-      console.log('Form is valid. Submitting...');
+      projectServices.sendProject(newProject)
+        .then(() => {
+          console.log('Form is valid. Project submitted successfully.');
+        })
+        .catch((error) => {
+          console.error('Error submitting project:', error.message);
+        });
     } else {
       console.log('Form has errors. Please fix them.');
     }
   };
-
-  console.log(newProject);
 
   return (
     <div className="new-project-form">
@@ -141,7 +168,6 @@ const NewProject = () => {
           />
           <div className="error-message">{error.title}</div>
         </div>
-
         <div className="add-image-input">
           <label htmlFor="addImage">Add Image *</label>
           <div className="add-image-container">
@@ -157,10 +183,10 @@ const NewProject = () => {
                 <input
                   type="file"
                   id="fileInput"
-                  name="addImage"
+                  name="image"
                   accept="image/*"
-                  style={{ display: 'none' }} // Ẩn ô input
-                  onChange={handleFileChange} // Xử lý file sau khi được chọn
+                  style={{ display: 'none' }}
+                  onChange={handleFileChange}
                 />
                 {fileName && <p className="file-name">{fileName}</p>}
               </div>
@@ -171,7 +197,6 @@ const NewProject = () => {
           </div>
           <div className="error-message">{error.image}</div>
         </div>
-
         <div className="project-detail-input">
           <label htmlFor="projectDetail">Project Detail *</label>
           <textarea
@@ -184,33 +209,45 @@ const NewProject = () => {
           />
           <div className="error-message">{error.detail}</div>
         </div>
-
-        <div className="budget-min-input">
-          <label htmlFor="budgetMin">Budget Min *</label>
+        <div className="project-tag-input">
+          <label htmlFor="projectTag">Project Tag *</label>
           <input
             type="text"
-            id="budgetMin"
-            name="budgetMin"
-            placeholder="Enter minimum budget ..."
-            value={newProject.budgetMin}
+            id="projectTag"
+            name="tag"
+            placeholder="Enter project tag ..."
+            value={newProject.tag}
             onChange={handleInputChange}
           />
-          <div className="error-message">{error.budgetMin}</div>
+          <div className="error-message">{error.tag}</div>
         </div>
+        <div className="project-range-budget">
+          <div className="budget-min-input">
+            <label htmlFor="budgetMin">Budget Min *</label>
+            <input
+              type="text"
+              id="budgetMin"
+              name="budgetMin"
+              placeholder="Enter minimum budget ..."
+              value={newProject.budgetMin}
+              onChange={handleInputChange}
+            />
+            <div className="error-message">{error.budgetMin}</div>
+          </div>
 
-        <div className="budget-max-input">
-          <label htmlFor="budgetMax">Budget Max *</label>
-          <input
-            type="text"
-            id="budgetMax"
-            name="budgetMax"
-            placeholder="Enter maximum budget ..."
-            value={newProject.budgetMax}
-            onChange={handleInputChange}
-          />
-          <div className="error-message">{error.budgetMax}</div>
+          <div className="budget-max-input">
+            <label htmlFor="budgetMax">Budget Max *</label>
+            <input
+              type="text"
+              id="budgetMax"
+              name="budgetMax"
+              placeholder="Enter maximum budget ..."
+              value={newProject.budgetMax}
+              onChange={handleInputChange}
+            />
+            <div className="error-message">{error.budgetMax}</div>
+          </div>
         </div>
-
         <WhiteButton name="Done" onClick={handleDoneClick} />
       </div>
     </div>

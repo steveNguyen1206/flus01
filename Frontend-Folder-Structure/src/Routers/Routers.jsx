@@ -6,6 +6,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
 import { UpdateProject, NewProject } from '@/pages';
+import BidPopup from '@/pages/Bid';
+import { Bid } from '@/components';
+import Job from '@/pages/Job/job';
 const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
@@ -19,11 +22,15 @@ const Routers = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/paypal-demo" element={<PayPalDemo />} />
-          <Route path="/project" element={<Project />} />
+          <Route path="/project:id" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
+          <Route path="/bid" element={<Bid />} />
+          <Route path="/bidpopup" element={<BidPopup />} />
+          <Route path="/job" element={<Job />} />
+
             {/* Add more routes as needed */}
         </Routes>
         {/* <Footer /> */}
