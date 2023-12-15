@@ -5,12 +5,9 @@ import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
-<<<<<<< HEAD
 import Job from '@/pages/Job/job';
 import { ProjectManagement } from '@/pages/ProjectManagement';
-=======
 import { UpdateProject, NewProject } from '@/pages';
->>>>>>> 36fa39987cfa56710426036308251f8088571854
 const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
