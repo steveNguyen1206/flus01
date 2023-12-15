@@ -1,0 +1,167 @@
+@import url("../../assets/variables.css");
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.filter-container{
+    height: 600px;
+    width: 390px;
+    border: 3px solid var(--primary);
+}
+
+
+
+.header h2{
+    font-size: var(--xxlarge-font-size);
+    color: var(--primary);
+    font-family: Inter-Bold, sans-serif;
+    font-weight: 700;
+}
+
+.header{
+    padding: 20px 0px 5px 20px;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.filter{
+    color: var(--dark-gray);
+    background-color: var(--white);
+    opacity: 0.5;
+    border: 1px solid #000;
+    height: 50px;
+    width: 310px;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--large-font-size);
+    font-family: Inter-Medium, sans-serif;
+    border-radius: 8px;
+    border: 1px solid #CCC;
+    background: var(--WHITE, #FFF);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+    padding-left: 10px;
+}
+
+.salary-range{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 40px;
+}
+
+.salary-range p{
+    font-size: var(--large-font-size);
+    font-family: Inter-Medium, sans-serif;
+    color: var(--dark-gray);
+    font-weight: 600;
+}
+
+.salary-range input{
+    max-width: 240px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.salary-range input[type=range]::-webkit-slider-runnable-track {
+    background: var(--primary);
+  }
+  
+  .salary-range input[type=range]::-webkit-slider-thumb {
+    background: var(--primary);
+  }
+  
+  .salary-range input[type=range]::-moz-range-track {
+    background: var(--primary);
+  }
+  
+  .salary-range input[type=range]::-moz-range-thumb {
+    background: var(--primary);
+  }
+  
+  .salary-range input[type=range]::-ms-track {
+    background: var(--primary);
+  }
+  
+  .salary-range input[type=range]::-ms-thumb {
+    background: var(--primary);
+  }
+
+  .display{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 130px;
+  }
+
+  .from, .to{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+  .lower, .upper{
+    font-size: var(--large-font-size);
+    font-family: Inter-Medium, sans-serif;
+    color: var(--dark-gray);
+    font-weight: 600;
+    height: 50px;
+    width: 100px;
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill{
+  border-radius: 30px;
+  background: var(--Primary, #15A919); 
+  color: var(--WHITE, #FFF);
+  padding: 5px 20px 5px 20px;
+  margin: 5px;
+  margin-top: 10px;
+}
+
+.skill-container{
+  display: flex;
+  height: 200px;
+  width: 300px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 40px;
+  overflow-y: auto;
+
+  border-radius: 15px;
+border: 1px solid #000;
+background: var(--WHITE, #FFF);
+box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
+}
+
+.values{
+  margin: 0;
+}
+
+
+  

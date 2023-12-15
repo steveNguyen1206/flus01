@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
 
-
 const app = express();
+
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -27,10 +27,10 @@ db.sequelize.sync()
     console.log("Failed to sync db: " + err.message);
   });
 
-// // drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// drop the table if it already exists
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 // simple route
 app.get("/", (req, res) => {
@@ -38,9 +38,39 @@ app.get("/", (req, res) => {
 });
 
 require("./app/routes/turorial.routes")(app);
+require("./app/routes/paypal.routes")(app);
+
+
+require('./app/routes/auth.routes')(app);
+require("./app/routes/user.routes")(app);
+// require("./app/routes/sms.routes")(app);
+
+require("./app/routes/freelancer_post.routes")(app);
+require("./app/routes/project_post.routes")(app);
+require("./app/routes/project.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
+// bo qua day cho giong code mau ne
+// const Role = db.role;
+
+// function initial() {
+//   Role.create({
+//     id: 1,
+//     name: "user"
+//   });
+ 
+//   Role.create({
+//     id: 2,
+//     name: "moderator"
+//   });
+ 
+//   Role.create({
+//     id: 3,
+//     name: "admin"
+//   });
+// }

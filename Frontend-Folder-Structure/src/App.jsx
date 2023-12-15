@@ -1,13 +1,27 @@
-import Routers from './Routers/Routers'
+import Routers from './Routers/Routers';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import Project from './pages/Project/project';
+import { AuthProvider, useAuth } from './AuthContext';
+
 
 function App() {
+  const initialOptions = {
+    clientId:
+      'AadvtuhlBaRav1YVav2ERuNZa_70rjR4OEMm2p1A1MOmSGGRKD-YVErNXjBXGOWLM56qySteKDfbMjek',
+    currency: 'USD',
+    intent: 'capture',
+  };
 
   return (
-    <div style={{textAlign:'center', width:'100vw'}}>
-      <h1>Konnect with Ahsan</h1>
-      <Routers />
-    </div>
-  )
+    <AuthProvider>
+      <PayPalScriptProvider options={initialOptions}>
+      <Routers/>
+      
+      </PayPalScriptProvider>
+   
+    </AuthProvider>
+  
+  );
 }
 
-export default App
+export default App;

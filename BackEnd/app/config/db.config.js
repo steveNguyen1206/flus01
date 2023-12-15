@@ -1,5 +1,4 @@
 const myPassword = process.env.DATABASE_PASSWORD;
-console.log(myPassword)
 
 module.exports = {
   HOST: "localhost",

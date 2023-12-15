@@ -1,12 +1,14 @@
 import React from 'react'
 import styles from './payment.module.css'
+import PayPalPayment from './paypalpayment'
+import PayPalDemo from './paypaldemo';
 
-const index = () => {
-  return (
-    <div>
-      Payment
-    </div>
-  )
-}
+// const Payment = () => {
+//   return (
+//     <div>
+//       Payment
+//     </div>
+//   )
+// }
 
-export default index
+export {PayPalPayment, PayPalDemo};

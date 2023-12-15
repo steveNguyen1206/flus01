@@ -1,0 +1,81 @@
+@import url("../../assets/variables.css");
+
+.content{
+    height: 100%;
+    width: 100%;
+}
+
+.job-page{
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start;
+    min-height: 700px;
+    height: 100%;
+    background-color: #eee;
+    margin-top: 20px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    height: 50px;
+    width: 100%;
+}
+
+.btn-new-post {
+    background-color: var(--primary);
+    font-size: var(--medium-font-size);
+    box-shadow: 0px 4px 4px #00000040;
+    border-radius: 8px;
+    height: 55px;
+    width: 200px;
+}
+
+.sort {
+    height: 55px;
+    width: 200px;
+    text-align: center;
+    border-radius: 12.323px; 
+    border: 3px solid var(--Primary, #15A919);
+    background: var(--WHITE, #FFF); 
+    font-size: var(--medium-font-size);
+    color: var(--primary)
+
+}
+
+.c-container{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    width: 100%;
+
+}
+
+
+.right-job{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: scroll;
+    height: 640px;
+    background-color: #fff;
+    padding: 30px;
+    
+}
+
+.post-container{
+    margin: 10px;
+}
+
+.containerp{
+    background-color: #fff;
+    padding-bottom: 20px;
+    
+}
+
+
+.left-job{
+    margin-left: 20px;
+}

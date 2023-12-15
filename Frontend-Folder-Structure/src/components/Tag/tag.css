@@ -1,0 +1,40 @@
+
+.profile .tag-container {
+    height: 35px;
+    left: 16px;
+    position: relative;
+    margin-top: 9px;
+    min-width: 166px;
+    width: fit-content;
+  }
+  
+  .profile .tag-wrapper {
+    background-color: #15a919;
+    border-radius: 30px;
+    height: 35px;
+    position: relative;
+    min-width: fit-content;
+  }
+  
+  .profile .ellipse-4 {
+    background-color: #ffffff;
+    border-radius: 4px;
+    height: 8px;
+    left: 11px;
+    position: relative;
+    top: 13px;
+    width: 8px;
+  }
+  
+  .profile .text-wrapper-8 {
+    color: #ffffff;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 16.4px;
+    font-weight: 400;
+    left: 37px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: relative;
+    white-space: nowrap;
+    min-width: 10px;
+  }
