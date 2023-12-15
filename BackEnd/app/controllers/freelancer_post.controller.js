@@ -1,5 +1,7 @@
 const db = require("../models");
 const Freelancer_post = db.freelancer_post;
+const User = db.user;
+const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Freelancer_post
@@ -23,7 +25,7 @@ exports.create = (req, res) => {
         revision_number: req.body.revision_number,
         delivery_description: req.body.delivery_description,
         imgage_post_urls: req.body.imgage_post_urls,
-        skill: req.body.skill
+        skill_tag: req.body.skill_tag
     };
     // console.log(category);
     // Save Freelancer_post in the database
@@ -143,3 +145,47 @@ exports.delete = (req, res) => {
 //             });
 //         });
 // };
+
+exports.findAllPosts = (req, res) => {
+    const freelancer_id = req.query.freelancer_id;
+    var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
+
+    Freelancer_post.findAll({
+        attributes: [
+            'id',
+            'about_me',
+            'skill_description',
+            'lowset_price',
+            'delivery_due',
+            'revision_number',
+            'delivery_description',
+            'imgage_post_urls',
+            'createdAt',
+            'updatedAt',
+            'skill_tag',
+            'freelancer_id',
+            'user.id', // Thuộc tính từ bảng User
+            'user.account_name', // Thuộc tính từ bảng User
+            'subcategory.subcategory_name', // Thuộc tính từ bảng Subcategory
+        ],
+        where: condition,
+        include: [
+            {
+                model: User,
+                attributes: [], // Bỏ qua lấy tất cả các thuộc tính của User
+            },
+            {
+                model: Subcategory,
+                attributes: [], // Bỏ qua lấy tất cả các thuộc tính của Subcategory
+            },
+        ],
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving data."
+            });
+        });
+};

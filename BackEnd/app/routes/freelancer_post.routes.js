@@ -8,6 +8,8 @@ module.exports = app => {
   
     // Retrieve all freelancer_post
     router.get("/", freelancer_post.findAll);
+
+    router.get("/allposts", freelancer_post.findAllPosts);
   
     // // Retrieve all published Category
     // router.get("/published", category.findAllPublished);

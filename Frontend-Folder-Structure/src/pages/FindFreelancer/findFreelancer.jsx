@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './findFreelancer.css';
 import Search from '@/components/Search';
 import { Header, Footer } from '@/layout';
@@ -14,7 +14,7 @@ const FindFreelancer = () => {
           <div className="containerp">
             <div className="topbar">
               <div className="button">
-                <button className="btn-new-post">+ New Post</button>
+                <button className="btn-new-post" onClick={event =>  window.location.href='/createFreelancerPost'}>+ New Post</button>
               </div>
               <Search />
               <select className="sort">

@@ -21,6 +21,13 @@ const update = (id, data) => {
   return http.put(`/user/${id}`, data);
 };
 
+const updateAvatar = (id, avatarFile) => {
+  const formData = new FormData();
+  formData.append('avatar', avatarFile);
+
+  return http.put(`/user/avatar/${id}`, formData);
+}
+
 // const remove = id => {
 //   return http.delete(`/user/${id}`);
 // };
@@ -49,6 +56,7 @@ const userDataService = {
   update,
   findOnebyAccountName,
   findOnebyEmail,
+  updateAvatar
 };
 
 export default userDataService;
