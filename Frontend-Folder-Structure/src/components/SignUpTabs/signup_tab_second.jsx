@@ -10,7 +10,8 @@ const isValidEmail = (email) => {
 };
 
 const isValidPhone = (phone) => {
-  const phoneRegex = /^\d{4,}$/;
+  // the phone number must has 10 exactly digits
+  const phoneRegex = /^\d{10}$/;
   return phoneRegex.test(phone);
 };
 
