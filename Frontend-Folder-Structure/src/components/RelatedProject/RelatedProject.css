@@ -1,0 +1,72 @@
+.related-project{
+    height: 260px;
+    width: 420px;
+    border: 3px solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.related-project-header{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.related-image img{
+    height: 70px;
+    width: 70px;
+}
+
+
+.related-detail-name{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.related-name{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}
+
+.related-name img{
+    height: 18px;
+    width: 24px;
+}
+
+.related-name p{
+    margin: 0;
+}
+
+.related-detail{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.related-detail-left{
+    max-width: 240px;
+    align-items: left;
+    text-align: left;
+}
+
+.related-detail-right{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.button-wish{
+    border: none;
+}
+.button-wish img{
+    background-color: #fff;
+}

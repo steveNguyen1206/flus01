@@ -164,7 +164,6 @@ const LogIn = () => {
                 src={googleIcon}
                 onClick={() => googleLogIn()}
               />
-              {/* <img className="img" alt="Ellipse" src={} /> */}
             </div>
           </div>
         </div>
