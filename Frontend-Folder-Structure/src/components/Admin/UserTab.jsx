@@ -42,6 +42,11 @@ const UserTab = () => {
     const handleSearchChange = (event) => {
         setSearchKey(event.target.value);
     };
+    useEffect(() => {
+        if(searchKey === "") {
+            fetchUsers();
+        }
+    }, [searchKey]);
 
     return (
         <div className='UserTab'>

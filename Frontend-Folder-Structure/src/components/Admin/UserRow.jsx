@@ -35,10 +35,8 @@ const UserRow = ({ user, refreshUsers, setRefreshUsers }) => {
     };
     
     const [active, setActive] = useState(status); // State to trigger refresh
-    console.log("Status: ",id, status, account_name);
     const handleChangeStatus = () => {
         const newStatus = active === 0 ? 1 : 0; // Change the logic based on your requirements
-        console.log("New status before send: ", newStatus);
         userDataService.changeStatusByID(id, newStatus)
             .then((response) => {
                 console.log("Status changed: ", newStatus);
