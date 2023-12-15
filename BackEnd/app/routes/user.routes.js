@@ -16,8 +16,8 @@ module.exports = (app) => {
   // Retrieve a single User with email
   router.get("/email/:email", user_controller.findOnebyEmail);
 
-  // Retrieve users in a page
-  router.get("/getusers/page", user_controller.findUsersbyPage);
+  // Route to get users by page and size
+  router.get('/getusers/:page&:size&:searchKey', user_controller.findUsersbyPage);
 
   // Update a User with id
   router.put("/:id", user_controller.update);
@@ -26,7 +26,7 @@ module.exports = (app) => {
   router.put("/avatar/:id", user_controller.updateAvatar);
 
   // Delete a User with account_name
-  router.delete("/account_name", user_controller.deleteOnebyAccountName);
+  router.delete("/deleteuser/:accountName", user_controller.deleteOnebyAccountName);
 
   // Delete a User with reportedTimes
   router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);

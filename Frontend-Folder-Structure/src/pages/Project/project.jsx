@@ -13,7 +13,7 @@ import line from '../../assets/line.png';
 import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
 import RelatedProject from '@/components/RelatedProject/RelatedProject';
-import { Carousel } from 'react-bootstrap';
+import {Carousel} from 'react-bootstrap';
 const Project = () => {
   let projectTitle = 'Create a simple ecommerce store in VTEX';
 

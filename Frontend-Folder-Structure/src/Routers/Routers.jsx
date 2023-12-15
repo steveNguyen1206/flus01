@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, Skill} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Skill, Admin} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -10,7 +10,7 @@ const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
       <Router>
-        {/* <Header /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
@@ -24,9 +24,10 @@ const Routers = () => {
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
+          <Route path="/admin" element={<Admin/>} />
             {/* Add more routes as needed */}
         </Routes>
-        {/* <Footer /> */}
+        <Footer />
       </Router>
     </GoogleOAuthProvider>
   );
