@@ -17,7 +17,7 @@ module.exports = (app) => {
   router.get("/email/:email", user_controller.findOnebyEmail);
 
   // Route to get users by page and size
-  router.get('/getusers/:page&:size', user_controller.findUsersbyPage);
+  router.get('/getusers/:page&:size&:searchKey', user_controller.findUsersbyPage);
 
   // Update a User with id
   router.put("/:id", user_controller.update);

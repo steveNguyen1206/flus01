@@ -96,12 +96,16 @@ function getPagination(page, size) {
 exports.findUsersbyPage = (req, res) => {
   
   console.log("MY PARAMS:",req.params);
-  const {page, size} = req.params; // page: 1..n, size: 1..m  
-  console.log("FFFFFFFFFFFFFFFFFFFF","page: " + page + ", size: " + size);
+  const {page, size, searchKey} = req.params; // page: 1..n, size: 1..m  
+  console.log("FFFFFFFFFFFFFFFFFFFF","page: " + page + ", size: " + size + ", searchKey: " + searchKey);
+  
+  // codition to check searchKey in account_name or profile_name
+  var condition = searchKey ? { [Op.or]: [{ account_name: { [Op.like]: `%${searchKey}%` } }, { profile_name: { [Op.like]: `%${searchKey}%` } }] } : null;
   
   const { limit, offset } = getPagination(parseInt(page), parseInt(size));
 
-  User.findAndCountAll({ limit, offset })
+  // Find all users with condition by page
+  User.findAndCountAll({ where: condition, limit, offset })
   .then(data => {
     const { rows: users, count: totalItems } = data;
 
