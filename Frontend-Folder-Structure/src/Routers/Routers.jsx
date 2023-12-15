@@ -5,7 +5,7 @@ import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
-import { UpdateProject } from '@/pages';
+import { UpdateProject, NewProject } from '@/pages';
 const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
@@ -23,6 +23,7 @@ const Routers = () => {
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
+          <Route path="/newproject" element={<NewProject />} />
             {/* Add more routes as needed */}
         </Routes>
         {/* <Footer /> */}

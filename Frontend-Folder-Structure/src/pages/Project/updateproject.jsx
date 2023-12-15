@@ -4,6 +4,21 @@ import './updateproject.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
 
+const isValidTitle = (title) => {
+  const titleRegex = /^[a-zA-Z0-9\s]*$/;
+  return titleRegex.test(title);
+};
+
+const isValidDetail = (detail) => {
+  const detailRegex = /^.{10,}$/;
+  return detailRegex.test(detail);
+};
+
+const isValidBudget = (budget) => {
+  const budgetRegex = /^[0-9]*$/;
+  return budgetRegex.test(budget) && budget > 0;
+};
+
 const UpdateProject = () => {
   const [error, setError] = useState({
     title: '',
@@ -13,11 +28,26 @@ const UpdateProject = () => {
     budgetMax: '',
   });
 
+  const initState = {
+    title: '',
+    image: '',
+    detail: '',
+    budgetMin: '',
+    budgetMax: '',
+  };
+
   const [fileName, setFileName] = useState('');
+  const [updateProject, setUpdateProject] = useState(initState);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUpdateProject({ ...updateProject, [name]: value });
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setFileName(file.name); 
+    setFileName(file.name);
+    setUpdateProject({ ...updateProject, image: file });
   };
 
   return (
