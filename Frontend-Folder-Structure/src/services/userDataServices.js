@@ -49,6 +49,12 @@ const removeUserByAccName = (accountName) => {
   return http.delete(`/user/deleteuser/${accountName}`);
 };
 
+// ...existing code...
+
+const changeStatusByID = (id, status) => {
+  return http.put(`/user/status/${id}&${status}`);
+};
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -59,6 +65,8 @@ const userDataService = {
   findOnebyEmail,
   findUsersbyPage,
   removeUserByAccName,
+  changeStatusByID, // Add the new service function here
 };
+
 
 export default userDataService;

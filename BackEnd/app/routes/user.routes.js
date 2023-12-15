@@ -32,5 +32,8 @@ module.exports = (app) => {
   // Delete a User with reportedTimes
   router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);
 
+  // Update the status of a User by id and status param
+  router.put("/status/:id&:status", user_controller.changeStatusByID);
+
   app.use("/api/user", router);
 };

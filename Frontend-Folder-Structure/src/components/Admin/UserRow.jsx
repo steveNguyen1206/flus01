@@ -1,14 +1,17 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./userRow.css";
 import recycleBin from "../../assets/recycleBin.png";
 import banUser from "../../assets/banUser.png";
+import banUserActive from "../../assets/banUser_active.png";
 import eyeLight from "../../assets/eyeLight.png";
 import avatar_green from "../../assets/avatar_green.png";
 import userDataService from "../../services/userDataServices";
 
 const UserRow = ({ user, refreshUsers, setRefreshUsers }) => {
-    const { avt_url, profile_name, account_name, createdAt, reported_times, id } = user;
+    
+    const { avt_url, profile_name, account_name, createdAt, reported_times, id, status } = user;
     const date = new Date(createdAt);
     const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
@@ -30,6 +33,26 @@ const UserRow = ({ user, refreshUsers, setRefreshUsers }) => {
     const handleViewProfile = () => {
         navigate(`/profile/${id}`);
     };
+    
+    const [active, setActive] = useState(status); // State to trigger refresh
+    console.log("Status: ",id, status, account_name);
+    const handleChangeStatus = () => {
+        const newStatus = active === 0 ? 1 : 0; // Change the logic based on your requirements
+        console.log("New status before send: ", newStatus);
+        userDataService.changeStatusByID(id, newStatus)
+            .then((response) => {
+                console.log("Status changed: ", newStatus);
+                setActive(newStatus);
+                setRefreshUsers((prev) => !prev);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    // useEffect(() => {
+    //     status=active;
+    // }, [active]);
 
     return (
         <div className="group-wrapper">
@@ -38,11 +61,11 @@ const UserRow = ({ user, refreshUsers, setRefreshUsers }) => {
                     <img className="ellipse" alt="avatar" src={avatarSrc} />
                 </div>
                 <div className="text-wrapper-7 col-3 name">{account_name}</div>
-                <div className="text-wrapper-7 col-3 name">{profile_name}</div>
+                <div className="text-wrapper-7 col-3 profilename">{profile_name}</div>
                 <div className="text-wrapper-7 col-1">{reported_times}</div>
                 <div className="text-wrapper-7 col">{formattedDate}</div>
                 <div className="col">
-                    <img className="vector-wrapper" src={banUser} />
+                    <img className="ban-icon" src={active === 0 ? banUserActive : banUser} onClick={handleChangeStatus} />
                     <img className="recycle-bin" alt="Recycle bin" src={recycleBin} onClick={handleRemoveUser} />
                     <img className="eye-light" src={eyeLight} onClick={handleViewProfile} />
                 </div>
