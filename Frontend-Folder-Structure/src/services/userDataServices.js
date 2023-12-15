@@ -40,6 +40,7 @@ const findOnebyEmail = email => {
 };
 
 const findUsersbyPage = (page, size, searchKey) => {
+  console.log("findUsersbyPage: ", page, size, searchKey);
   return http.get(`/user/getusers/${page}&${size}&${searchKey}`);
 };
 

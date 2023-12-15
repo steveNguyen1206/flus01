@@ -9,8 +9,11 @@ module.exports = (app) => {
     // Retrieve all Freelancer_posts (belongs to a user) from the database
     router.get("/findAll/:userId", freelancerPostController.findAllFreelancerPosts);
 
-    // change status of many freelancer_posts by list of freelancer_post_id
+    // Change status of many freelancer_posts by list of freelancer_post_id
     router.put("/changeStatus", freelancerPostController.changeStatus);
+
+    // Find and change status of freelancer_posts by some criteria
+    router.put("/findAndChangeStatus/:userId&:status", freelancerPostController.findAndChangeStatus);
 
     app.use("/api/freelancer_post", router);
 }
