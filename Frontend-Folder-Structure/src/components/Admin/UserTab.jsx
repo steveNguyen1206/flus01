@@ -10,6 +10,7 @@ const UserTab = () => {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [refreshUsers, setRefreshUsers] = useState(false); // State to trigger refresh
 
     const fetchUsers = async () => {
         try {
@@ -17,9 +18,7 @@ const UserTab = () => {
             console.log("RESPONSE: ", response.data);
             const { users, totalPages } = response.data;
             setUsers(users);
-            console.log(users);
             setTotalPages(totalPages);
-            console.log(totalPages);
         } catch (error) {
             console.error(error);
         }
@@ -27,7 +26,7 @@ const UserTab = () => {
 
     useEffect(() => {
         fetchUsers();
-    }, [page]);
+      }, [page, refreshUsers]); // Include refreshUsers in the dependency array
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -57,7 +56,8 @@ const UserTab = () => {
                 </div>
                 <div className="table-user">
                     {users.map(user => (
-                        <UserRow key={user.id} user={user} />
+                        <UserRow key={user.id} user={user} refreshUsers={refreshUsers}
+                        setRefreshUsers={setRefreshUsers} />
                     ))}
                 </div>
                 
