@@ -122,22 +122,21 @@ exports.delete = (req, res) => {
 // Retrieve all Categories with their Subcategories from the database.
 exports.findAllCategoryInfo = (req, res) => {
     Category.findAll({
-        include: [{
-            model: Subcategory,
-            attributes: ['id', 'name'],
-            foreignKey: 'category_id'
-        }]
+      include: [{
+        model: Subcategory,
+        attributes: ['id', 'name']
+      }]
     })
-        .then(categories => {
-            console.log(categories);
-            res.send(categories);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving categories."
-            });
+      .then(categories => {
+        console.log(categories);
+        res.send(categories);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || "Some error occurred while retrieving categories."
         });
-};
+      });
+  };
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {
