@@ -51,6 +51,15 @@ db.subcategories.belongsTo(db.categories, {
   onUpdate: "CASCADE",
 });
 
+db.categories.hasMany(db.subcategories, {
+  foreignKey: {
+    name: "categoryId",
+    allowNull: false,
+  },
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
 db.freelancer_post.belongsTo(db.subcategories, {
   foreignKey: "skill_tag",
   onDelete: "CASCADE",

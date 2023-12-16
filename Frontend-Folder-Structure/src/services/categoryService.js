@@ -21,12 +21,17 @@ const deleteCategory = id => {
   return http.delete(`/category/${id}`);
 };
 
+const findAllwithSubcate = () => {
+  return http.get(`/category/all`);
+}
+
 const categoryService = {
     create,
     findAll,
     findOne,
     update,
     deleteCategory,
+    findAllwithSubcate,
 };
 
 export default categoryService;
