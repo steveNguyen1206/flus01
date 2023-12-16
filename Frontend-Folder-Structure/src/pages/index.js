@@ -9,5 +9,6 @@ export { default as Login2 } from "./Login/login2";
 export {default as Profile} from "./Profile/profile"
 export {default as FindFreelancer} from "./FindFreelancer/findFreelancer"
 export {default as CreateFreelancerPost} from "./FindFreelancer/createFreelancerPost"
+export {default as UpdateFreelancerPost} from "./FindFreelancer/updateFreelancerPost"
 export {default as Job} from "./Job/job"
 export {default as UpdateAvatarForm} from "./Profile/updateAvatarForm"

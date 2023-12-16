@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import './createFreelancerPost.css';
+import './createFreelancerPost';
 import exitButton from '../../assets/exitButton.png';
 import googleIcon from '../../assets/SocialIcon/google.png';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import subcategoryService from '@/services/subcategoryService';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
 
-const CreateFreelancerPost = () => {
+const UpdateFreelancerPost = () => {
+    const { id } = useParams();
+    console.log(id);
   const initialSkills = [
     {
       'id': '',
@@ -20,7 +22,6 @@ const CreateFreelancerPost = () => {
   const [aboutMe, setAboutMe] = useState('');
   const [aboutProduct, setAboutProduct] = useState('');
   const [lowestPrice, setLowestPrice] = useState('');
-  // const [skillTag, setSkillTag] = useState('');
   const [imagePostUrls, setImagePostUrls] = useState('');
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const CreateFreelancerPost = () => {
       });
   }
 
-  const handleCreate = () => {
+  const handleUpdate = (id) => {
     const freelancerPostData = {
       freelancer_id: 3,
       about_me: aboutMe,
@@ -48,24 +49,26 @@ const CreateFreelancerPost = () => {
       imgage_post_urls: imagePostUrls,
       skill_tag: document.getElementById("filter").value
     };
+    console.log(freelancerPostData);
+    // Kiểm tra các trường input trước khi gửi yêu cầu cập nhật
 
-    freelancer_post_Service.create(freelancerPostData)
+    freelancer_post_Service
+      .update(id, freelancerPostData)
       .then(response => {
         console.log(response.data);
-        // Thực hiện các hành động sau khi thành công
+        // Thực hiện các hành động sau khi cập nhật thành công
       })
       .catch(error => {
         console.log(error);
         // Xử lý lỗi nếu cần
       });
   };
-
   return (
     <div className='main-container'>
       <div className="pop-up-new-post">
         <div className="signin-wrapper">
           <div className="navigation">
-            <div className="header-popup-text">New post</div>
+            <div className="header-popup-text">Update post</div>
           </div>
 
           <div className="info-field">
@@ -150,8 +153,8 @@ const CreateFreelancerPost = () => {
 
             <div className="sign-in-button">
               <div className="div-wrapper">
-                <button onClick={handleCreate}>
-                  Post
+                <button onClick={handleUpdate}>
+                  Update
                 </button>
               </div>
             </div>
@@ -160,6 +163,5 @@ const CreateFreelancerPost = () => {
       </div>
     </div>
   );
-};
-
-export default CreateFreelancerPost;
+                }
+export default UpdateFreelancerPost;

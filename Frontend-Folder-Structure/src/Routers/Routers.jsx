@@ -5,6 +5,7 @@ import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import CreateFreelancerPost from '@/pages/FindFreelancer/createFreelancerPost';
+import UpdateFreelancerPost from '@/pages/FindFreelancer/updateFreelancerPost';
 // import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
 
 const Routers = () => {
@@ -24,6 +25,7 @@ const Routers = () => {
           <Route path="/project/" element={<Project />} />
           <Route path="/findFreelancer" element={<FindFreelancer />} />
           <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} />
+          <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} />
           <Route path="/job" element={<Job />} />
           {/* Add more routes as needed */}
         </Routes>
