@@ -10,7 +10,7 @@ import freelancer_post_Service from '@/services/freelancer_post_Service';
 
 const UpdateFreelancerPost = () => {
     const { id } = useParams();
-    console.log(id);
+    // console.log(id);
   const initialSkills = [
     {
       'id': '',
