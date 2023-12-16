@@ -182,7 +182,21 @@ try {
   const b64 = Buffer.from(req.file.buffer).toString("base64");
   let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
   const cldRes = await handleUpload(dataURI);
-
+  console.log(cldRes);
+  const avatarUrl = cldRes.secure_url;
+  User.update({ avt_url: avatarUrl }, { where: { id: id } })
+                .then(num => {
+                  if (num == 1) {
+                    res.send({
+                      message: "User avatar was updated successfully.",
+                      avatarUrl: avatarUrl
+                    });
+                  } else {
+                    res.send({
+                      message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+                    });
+                  }
+                })
 
   res.json(cldRes);
 } catch (error) {

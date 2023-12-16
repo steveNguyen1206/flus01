@@ -151,34 +151,18 @@ exports.findAllPosts = (req, res) => {
     var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
 
     Freelancer_post.findAll({
-        attributes: [
-            'id',
-            'about_me',
-            'skill_description',
-            'lowset_price',
-            'delivery_due',
-            'revision_number',
-            'delivery_description',
-            'imgage_post_urls',
-            'createdAt',
-            'updatedAt',
-            'skill_tag',
-            'freelancer_id',
-            'user.id', // Thuộc tính từ bảng User
-            'user.account_name', // Thuộc tính từ bảng User
-            'subcategory.subcategory_name', // Thuộc tính từ bảng Subcategory
-        ],
         where: condition,
         include: [
             {
                 model: User,
-                attributes: [], // Bỏ qua lấy tất cả các thuộc tính của User
+                attributes: ['id', 'account_name', 'profile_name', 'avt_url'],
             },
             {
                 model: Subcategory,
-                attributes: [], // Bỏ qua lấy tất cả các thuộc tính của Subcategory
+                attributes: ['id', 'subcategory_name'],
             },
         ],
+
     })
         .then(data => {
             res.send(data);
