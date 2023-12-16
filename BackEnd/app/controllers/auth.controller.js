@@ -90,7 +90,7 @@ exports.signin = (req, res) => {
     });
 };
 
-exports.googleLogin = (req, res) => {
+exports.googleSignup = (req, res) => {
   if (!req.body.account_name || !req.body.password) {
     res.status(400).send({
       message: "Account name and Password can not be empty!",
@@ -98,7 +98,6 @@ exports.googleLogin = (req, res) => {
     return;
   }
   console.log("req: " + req.body.account_name + " " + req.body.password);
-  // find user in database
   User.findOne({
     where: {
       account_name: req.body.account_name,
@@ -165,7 +164,25 @@ exports.googleLogin = (req, res) => {
             account_name: req.body.account_name,
           },
         });
-      } else {
+      } 
+    })
+};
+
+exports.googleLogin = (req, res) => {
+  if (!req.body.account_name || !req.body.password) {
+    res.status(400).send({
+      message: "Account name and Password can not be empty!",
+    });
+    return;
+  }
+  console.log("req: " + req.body.account_name + " " + req.body.password);
+  // find user in database
+  User.findOne({
+    where: {
+      account_name: req.body.account_name,
+    },
+  })
+    .then((user) => {
         // check password
         console.log("password meomeomeo -----> ",bcrypt.hashSync(req.body.password, 8))
         console.log("user password meomeomeo -----> ",user.password)
@@ -205,7 +222,7 @@ exports.googleLogin = (req, res) => {
           accessToken: token,
         });
       }
-    })
+    )
     .catch((err) => {
       // return error
       res.status(500).send({ message: err.message });

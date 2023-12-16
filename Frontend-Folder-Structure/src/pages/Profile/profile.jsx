@@ -33,6 +33,7 @@ const profile = () => {
 
 
   const getUserProfile = (id) => {
+    //kiem tra dang nhap chua
     userDataService
       .findOnebyId(id)
       .then((response) => {

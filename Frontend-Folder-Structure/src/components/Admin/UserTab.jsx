@@ -50,7 +50,7 @@ const UserTab = () => {
 
     return (
         <div className='UserTab'>
-            <div className='search-section'>
+            <div className='user-search-section'>
                 <div className="search-area">
                     <input
                         type="text"
