@@ -76,8 +76,8 @@
     margin: 30px;
     height: 70%;
     width: 95%;
-    /* overflow-y: scroll;
-    overflow-x: hidden; */
+    overflow-y: scroll;
+    overflow-x: hidden;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; /* Two columns with equal width */

@@ -121,8 +121,8 @@ exports.delete = (req, res) => {
 
 // Retrieve all Categories with their Subcategories from the database.
 exports.findAllCategoryInfo = (req, res) => {
-  const {searchKey} = req.params;
-
+  const searchKey = (req.params.searchKey ? req.params.searchKey : "");
+  
   console.log("############################ search key: ." + searchKey + ".");
   
   Category.findAll({
