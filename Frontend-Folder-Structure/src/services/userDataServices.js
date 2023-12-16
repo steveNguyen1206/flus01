@@ -40,6 +40,7 @@ const findOnebyEmail = email => {
 };
 
 const findUsersbyPage = (page, size, searchKey) => {
+  console.log("findUsersbyPage: ", page, size, searchKey);
   return http.get(`/user/getusers/${page}&${size}&${searchKey}`);
 };
 
@@ -48,6 +49,14 @@ const removeUserByAccName = (accountName) => {
   return http.delete(`/user/deleteuser/${accountName}`);
 };
 
+<<<<<<< HEAD
+=======
+// ...existing code...
+
+const changeStatusByID = (id, status) => {
+  return http.put(`/user/status/${id}&${status}`);
+};
+>>>>>>> 49d05c152067e400f63a9c8ebc6e13b6cbf397e2
 
 const userDataService = {
   findAll,
@@ -59,6 +68,8 @@ const userDataService = {
   findOnebyEmail,
   findUsersbyPage,
   removeUserByAccName,
+  changeStatusByID, // Add the new service function here
 };
+
 
 export default userDataService;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import http from "./http-common";
 
 
@@ -78,3 +79,17 @@ const projectServices= {
 };
 
 export default projectServices;
+=======
+import http from "../http-common";
+
+const findAndChangeStatus = (user_id, status) => {
+    return http.get("/project_post/findAndChangeStatus/" + user_id + "&" + status);
+};
+
+const projectPostService = {
+    findAndChangeStatus,
+};
+  
+export default projectPostService;
+  
+>>>>>>> 49d05c152067e400f63a9c8ebc6e13b6cbf397e2

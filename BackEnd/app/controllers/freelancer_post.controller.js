@@ -38,6 +38,30 @@ exports.createFreelancerPost = (req, res) => {
         });
 };
 
+// Find all Freelancer_posts by user id and change their status
+exports.findAndChangeStatus = (req, res) => {
+    const { userId, status } = req.params;
+    const condition = userId ? { freelancer_id: { [Op.eq]: `${userId}` } } : null;
+
+    freelancer_post.update({ status: status }, { where: condition })
+        .then(num => {
+            if (num > 0) {
+                res.send({
+                    message: "Status of Freelancer_posts was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `No Freelancer_posts found for user id=${userId}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating status of Freelancer_posts for user id=" + userId
+            });
+        });
+};
+
 // Retrieve all Freelancer_posts from the database.
 exports.findAllFreelancerPosts = (req, res) => {
     const {userId} = req.params;
