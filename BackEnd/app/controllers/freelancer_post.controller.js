@@ -81,7 +81,9 @@ exports.findOne = (req, res) => {
 
 // Update a Category by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+    const id = req.body.id;
+    console.log("id: ", id)
+    console.log("req.body: ", req.body)
 
     Freelancer_post.update(req.body, {
         where: { id: id }

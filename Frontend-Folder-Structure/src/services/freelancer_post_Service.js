@@ -4,8 +4,8 @@ const create = data => {
     return http.post("/freelancer_post", data);
 }
 
-const update = (id, data) => {
-    return http.put(`/freelancer_post/${id}`, data);
+const update = (data) => {
+    return http.put(`/freelancer_post`, data);
 }
 
 const allposts = () => {

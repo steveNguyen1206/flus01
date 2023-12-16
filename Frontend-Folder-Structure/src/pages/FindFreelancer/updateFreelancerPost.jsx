@@ -9,7 +9,7 @@ import subcategoryService from '@/services/subcategoryService';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
 
 const UpdateFreelancerPost = () => {
-    const { id } = useParams();
+    // const { id } = useParams();
     // console.log(id);
   const initialSkills = [
     {
@@ -42,6 +42,7 @@ const UpdateFreelancerPost = () => {
 
   const handleUpdate = (id) => {
     const freelancerPostData = {
+      id: 1,
       freelancer_id: 3,
       about_me: aboutMe,
       skill_description: aboutProduct,
@@ -53,7 +54,7 @@ const UpdateFreelancerPost = () => {
     // Kiểm tra các trường input trước khi gửi yêu cầu cập nhật
 
     freelancer_post_Service
-      .update(id, freelancerPostData)
+      .update(freelancerPostData)
       .then(response => {
         console.log(response.data);
         // Thực hiện các hành động sau khi cập nhật thành công
