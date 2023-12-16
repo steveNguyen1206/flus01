@@ -1,11 +1,11 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, Skill, Admin} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Skill, Admin, FindFreelancer, Job} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
-import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
-import Job from '@/pages/Job/job';
+// import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+// import Job from '@/pages/Job/job';
 import { ProjectManagement } from '@/pages/ProjectManagement';
 import { UpdateProject, NewProject } from '@/pages';
 import BidPopup from '@/pages/Bid';

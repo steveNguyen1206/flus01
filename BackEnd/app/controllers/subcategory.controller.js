@@ -1,24 +1,11 @@
 const db = require("../models");
-const category = db.category;
-const subcategory = db.subcategories;
+const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
-
-
-exports.getNameSubcategory = (req, res) => {
-    const { id } = req.params;
-    subcategory.findByPk(id)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({ message: err.message || "Some error occurred while retrieving category." });
-        });
-}
 
 // Create and Save a new Category
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.name) {
+    if (!req.body.subcategory_name) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -26,29 +13,30 @@ exports.create = (req, res) => {
     }
 
     // Create a Category
-    const category = {
-        name: req.body.name
+    const subcategory = {
+        subcategory_name: req.body.subcategory_name,
+        categoryId: req.body.categoryId
     };
-    console.log(category);
+    // console.log(category);
     // Save Category in the database
-    Category.create(category)
+    Subcategory.create(subcategory)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Category."
+                    err.message || "Some error occurred while creating the Subcategory."
             });
         });
 };
 
 // Retrieve all Category from the database.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    const subcategory_name = req.query.subcategory_name;
+    var condition = subcategory_name ? { subcategory_name: { [Op.like]: `%${subcategory_name}%` } } : null;
 
-    Category.findAll({ where: condition })
+    Subcategory.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
@@ -64,7 +52,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Category.findByPk(id)
+    Subcategory.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -85,23 +73,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Category.update(req.body, {
+    Subcategory.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Category was updated successfully."
+                    message: "Subcategory was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Category with id=${id}. Maybe Category was not found or req.body is empty!`
+                    message: `Cannot update Subcategory with id=${id}. Maybe Subcategory was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Category with id=" + id
+                message: "Error updating Subcategory with id=" + id
             });
         });
 };
@@ -110,46 +98,30 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    Category.destroy({
+    Subcategory.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Category was deleted successfully!"
+                    message: "Subcategory was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Category with id=${id}. Maybe Category was not found!`
+                    message: `Cannot delete Subcategory with id=${id}. Maybe Subcategory was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Category with id=" + id
+                message: "Could not delete Subcategory with id=" + id
             });
         });
 };
 
-// Retrieve all Categories with their Subcategories from the database.
-exports.findAllCategoryInfo = (req, res) => {
-    Category.findAll({
-        include: [{
-            model: Subcategory,
-            attributes: ['id', 'name'],
-            foreignKey: 'category_id'
-        }]
-    })
-        .then(categories => {
-            console.log(categories);
-            res.send(categories);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving categories."
-            });
-        });
-};
+
+
+
 
 // // Delete all Tutorials from the database.
 // exports.deleteAll = (req, res) => {

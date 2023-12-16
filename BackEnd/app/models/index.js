@@ -39,9 +39,10 @@ db.payment_accounts = require("./payment_account.model.js")(sequelize, Sequelize
 
 
 db.subcategories.belongsTo(db.categories, {
+  foreignKey: 'categoryId',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
-})
+});
 
 db.freelancer_post.belongsTo(db.subcategories, {
   foreignKey: 'skill_tag',

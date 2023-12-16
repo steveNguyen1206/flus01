@@ -16,6 +16,7 @@ import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
 import { UserTab } from '@/components';
 import { useAuth } from '../../AuthContext';
+import { CategoryTab } from '@/components';
 
 
 const Admin = () => {
@@ -103,8 +104,10 @@ const Admin = () => {
             </div>
             <div className='spare-space'>
                 {activeGroup === 'users' && <UserTab />}
+                {activeGroup === 'categories' && <CategoryTab />}
+                {/* Add new tab here */}
             </div>
-            
+
         </div>
     );
 };
