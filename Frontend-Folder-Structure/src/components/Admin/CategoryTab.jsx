@@ -7,20 +7,36 @@ import { data } from 'jquery';
 
 const CategoryTab = () => {
   const [categories, setCategories] = useState([]);
+  const [searchKey, setSearchKey] = useState(""); // State for search key
+
+  const fetchCategories = async () => {
+    try {
+      const response = await categoryService.findAllwithSubcate(searchKey.toString());
+      setCategories(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await categoryService.findAllwithSubcate("3");
-        setCategories(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
     fetchCategories();
   }, []);
+
+  const handleSearchKeyPress = (event) => {
+    if (event.key === "Enter") {
+        fetchCategories();
+    }
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchKey(event.target.value);
+  };
+  useEffect(() => {
+    if(searchKey === "") {
+        fetchCategories();
+    }
+  }, [searchKey]);
 
   return (
     <div className="CategoryTab">
@@ -28,12 +44,19 @@ const CategoryTab = () => {
       <div className="search-section">
         {/* Search box */}
         <div className="search-area">
-          <div className="text-wrapper">Search Categories</div>
-          <img className="search-icon-instance" src={search} />
+            <input 
+              className="text-wrapper" 
+              type="text" 
+              placeholder="Search Categories" 
+              value={searchKey}
+              onChange={handleSearchChange}
+              onKeyDown={handleSearchKeyPress}
+              />
+          <img className="search-icon-instance" src={search} onClick={fetchCategories}/>
         </div>
         {/* Add category button */}
         <div className="add-category-button">
-          <div className="text-wrapper">Add new category</div>
+          New category
         </div>
       </div>
 

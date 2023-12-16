@@ -123,7 +123,7 @@ exports.delete = (req, res) => {
 exports.findAllCategoryInfo = (req, res) => {
   const {searchKey} = req.params;
 
-  console.log("############################ search key: " + searchKey);
+  console.log("############################ search key: ." + searchKey + ".");
   
   Category.findAll({
     where:{
