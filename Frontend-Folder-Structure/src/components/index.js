@@ -15,3 +15,5 @@ export {default as CategoryBlock} from './Admin/CategoryBlock'
 export {default as CategoryTab} from './Admin/CategoryTab'
 export {default as WhiteButton} from './Button'
 export {default as Bid} from './Bid/bid'
+
+export {default as AddCategory} from './Admin/admin_category_add'

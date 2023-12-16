@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CategoryTab.css';
-import { CategoryBlock } from '..';
+import { AddCategory, CategoryBlock } from '..';
 import categoryService from '@/services/categoryService';
 import search from '../../assets/search.png';
 import { data } from 'jquery';
@@ -42,6 +42,8 @@ const CategoryTab = () => {
 
   return (
     <div className="CategoryTab">
+      {showAddCategory && <AddCategory m_state={showAddCategory}
+      m_function={setShowAddCategory}/>}
       {/* Add search box and Add category button */}
       <div className="search-section">
         {/* Search box */}
@@ -69,7 +71,7 @@ const CategoryTab = () => {
         </button>
       </div>
 
-      {/* Add category galery here */}
+      {/* Add category gallery here */}
       <div className="category-gallery">
         {categories.map((category) => (
           // console.log(category),
@@ -79,5 +81,6 @@ const CategoryTab = () => {
     </div>
   );
 };
+       
 
 export default CategoryTab;
