@@ -1,0 +1,56 @@
+.component {
+    background-color: #fff5d6;
+    border-radius: 12.32px;
+    height: 395px;
+    position: relative;
+    width: 998px;
+  }
+  
+  .component .container-with-words {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 32.9px;
+    font-weight: 700;
+    left: 34px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 31px;
+    white-space: nowrap;
+    width: 350px;
+  }
+  
+  .component .text-wrapper {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 24.6px;
+    font-weight: 300;
+    left: 35px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 90px;
+    width: 435px;
+  }
+  
+  .component .div {
+    color: #000000;
+    font-family: "Inter", Helvetica;
+    font-size: 24.6px;
+    font-weight: 300;
+    left: 533px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 90px;
+    width: 435px;
+  }
+  
+  .component .line {
+    height: 301px;
+    left: 498px;
+    position: absolute;
+    top: 71px;
+    width: 4px;
+  }
+  

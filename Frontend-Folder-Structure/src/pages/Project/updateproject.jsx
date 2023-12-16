@@ -3,6 +3,7 @@ import { WhiteButton } from '@/components';
 import './updateproject.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
+import projectServices from '@/services/projectPostServices';
 
 const isValidTitle = (title) => {
   if (!title) return true;
@@ -32,7 +33,8 @@ const isValidImage = (image) => {
   return true;
 };
 
-const UpdateProject = () => {
+const UpdateProject = ({ isOpen, onClose, projectId, onUpdate}) => {
+  const [showOverlay, setShowOverlay] = useState(isOpen);
   const [error, setError] = useState({
     title: '',
     image: '',
@@ -144,125 +146,154 @@ const UpdateProject = () => {
     return isValid;
   };
 
+  const data = {
+    title: updateProject.title,
+    image: updateProject.image,
+    detail: updateProject.detail,
+    budgetMin: updateProject.budgetMin,
+    budgetMax: updateProject.budgetMax,
+    tag: updateProject.tag,
+    id: projectId,
+  };
+
   const handleUpdateClick = () => {
     if (validateForm()) {
-      // Perform actions when the form is valid
-      console.log('Form is valid. Updating project...');
+      console.log(data);
+      projectServices
+        .updateProject(data)
+        .then(() => {
+          console.log('Form is valid. Project submitted successfully.');
+          setShowOverlay(false);
+          onUpdate();
+          if (onClose) {
+            onClose();
+          }
+        })
+        .catch((error) => {
+          console.error('Error submitting project:', error.message);
+        });
     } else {
       console.log('Form has errors. Please fix them.');
     }
   };
 
   return (
-    <div className="update-project-form">
-      <button className="exit-button">
-        <img src={exitButton} alt="Exit" />
-      </button>
-      <div className="update-project-header">
-        <p>UPDATE PROJECT</p>
-      </div>
-
-      <div className="update-project-body">
-        <div className="project-title-input">
-          <label htmlFor="projectTitle">Project Title</label>
-          <input
-            type="text"
-            id="projectTitle"
-            name="title"
-            placeholder="Enter project title ..."
-            value={updateProject.title}
-            onChange={handleInputChange}
-          />
-          <div className="error-message">{error.title}</div>
+    <>
+      {showOverlay && <div className="overlay" />}
+      <div className="update-project-form">
+        <button onClick={onClose} className="exit-button">
+          <img src={exitButton} alt="Exit" />
+        </button>
+        <div className="update-project-header">
+          <p>UPDATE PROJECT</p>
         </div>
 
-        <div className="add-image-input">
-          <label htmlFor="addImage">Add Image</label>
-          <div className="add-image-container">
-            <div className="file-input-container">
-              <img className="upload-icon" src={UploadIcon} alt="Upload Icon" />
-              <div className="file-input-text">
-                <p>
-                  Drag & drop files <span className="browse-text">or</span>
-                  <label htmlFor="fileInput" className="browse-label">
-                    Browse
-                  </label>
-                </p>
-                <input
-                  type="file"
-                  id="fileInput"
-                  name="image"
-                  accept="image/*"
-                  style={{ display: 'none' }}
-                  onChange={handleFileChange}
+        <div className="update-project-body">
+          <div className="project-title-input">
+            <label htmlFor="projectTitle">Project Title</label>
+            <input
+              type="text"
+              id="projectTitle"
+              name="title"
+              placeholder="Enter project title ..."
+              value={updateProject.title}
+              onChange={handleInputChange}
+            />
+            <div className="error-message">{error.title}</div>
+          </div>
+
+          <div className="add-image-input">
+            <label htmlFor="addImage">Add Image</label>
+            <div className="add-image-container">
+              <div className="file-input-container">
+                <img
+                  className="upload-icon"
+                  src={UploadIcon}
+                  alt="Upload Icon"
                 />
-                {fileName && <p className="file-name">{fileName}</p>}
+                <div className="file-input-text">
+                  <p>
+                    Drag & drop files <span className="browse-text">or</span>
+                    <label htmlFor="fileInput" className="browse-label">
+                      Browse
+                    </label>
+                  </p>
+                  <input
+                    type="file"
+                    id="fileInput"
+                    name="image"
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    onChange={handleFileChange}
+                  />
+                  {fileName && <p className="file-name">{fileName}</p>}
+                </div>
               </div>
+              <p className="supported-formats">
+                Supported formats: JPEG, PNG, JPG
+              </p>
             </div>
-            <p className="supported-formats">
-              Supported formats: JPEG, PNG, JPG
-            </p>
+            <div className="error-message">{error.image}</div>
           </div>
-          <div className="error-message">{error.image}</div>
-        </div>
 
-        <div className="project-tag-input">
-          <label htmlFor="projectTag">Project Tag</label>
-          <input
-            type="text"
-            id="projectTag"
-            name="tag"
-            placeholder="Enter project tag ..."
-            value={updateProject.tag}
-            onChange={handleInputChange}
-          />
-          <div className="error-message">{error.tag}</div>
-        </div>
-
-        <div className="project-detail-input">
-          <label htmlFor="projectDetail">Project Detail</label>
-          <textarea
-            type="text"
-            id="projectDetail"
-            name="detail"
-            placeholder="Enter project details ..."
-            onChange={handleInputChange}
-            value={updateProject.detail}
-          />
-          <div className="error-message">{error.detail}</div>
-        </div>
-
-        <div className="project-range-budget">
-          <div className="budget-min-input">
-            <label htmlFor="budgetMin">Budget Min</label>
+          <div className="project-tag-input">
+            <label htmlFor="projectTag">Project Tag</label>
             <input
               type="text"
-              id="budgetMin"
-              name="budgetMin"
-              placeholder="Enter minimum budget ..."
+              id="projectTag"
+              name="tag"
+              placeholder="Enter project tag ..."
+              value={updateProject.tag}
               onChange={handleInputChange}
-              value={updateProject.budgetMin}
             />
-            <div className="error-message">{error.budgetMin}</div>
+            <div className="error-message">{error.tag}</div>
           </div>
 
-          <div className="budget-max-input">
-            <label htmlFor="budgetMax">Budget Max</label>
-            <input
+          <div className="project-detail-input">
+            <label htmlFor="projectDetail">Project Detail</label>
+            <textarea
               type="text"
-              id="budgetMax"
-              name="budgetMax"
-              placeholder="Enter maximum budget ..."
+              id="projectDetail"
+              name="detail"
+              placeholder="Enter project details ..."
               onChange={handleInputChange}
-              value={updateProject.budgetMax}
+              value={updateProject.detail}
             />
-            <div className="error-message">{error.budgetMax}</div>
+            <div className="error-message">{error.detail}</div>
           </div>
-        </div>
 
-        <WhiteButton name="Update Project" onClick={handleUpdateClick} />
+          <div className="project-range-budget">
+            <div className="budget-min-input">
+              <label htmlFor="budgetMin">Budget Min</label>
+              <input
+                type="text"
+                id="budgetMin"
+                name="budgetMin"
+                placeholder="Enter minimum budget ..."
+                onChange={handleInputChange}
+                value={updateProject.budgetMin}
+              />
+              <div className="error-message">{error.budgetMin}</div>
+            </div>
+
+            <div className="budget-max-input">
+              <label htmlFor="budgetMax">Budget Max</label>
+              <input
+                type="text"
+                id="budgetMax"
+                name="budgetMax"
+                placeholder="Enter maximum budget ..."
+                onChange={handleInputChange}
+                value={updateProject.budgetMax}
+              />
+              <div className="error-message">{error.budgetMax}</div>
+            </div>
+          </div>
+
+          <WhiteButton name="Update Project" onClick={handleUpdateClick} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

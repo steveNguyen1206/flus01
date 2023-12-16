@@ -1,5 +1,8 @@
 import Routers from './Routers/Routers';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import Project from './pages/Project/project';
+import { AuthProvider, useAuth } from './AuthContext';
+
 
 function App() {
   const initialOptions = {
@@ -10,9 +13,14 @@ function App() {
   };
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
-      <Routers />
-    </PayPalScriptProvider>
+    <AuthProvider>
+      <PayPalScriptProvider options={initialOptions}>
+      <Routers/>
+      
+      </PayPalScriptProvider>
+   
+    </AuthProvider>
+  
   );
 }
 

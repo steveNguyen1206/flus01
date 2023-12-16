@@ -8,3 +8,4 @@ export { Project, NewProject, UpdateProject} from "./Project";
 export { default as Login2 } from "./Login/login2";
 export {default as Profile} from "./Profile/profile"
 export {default as Skill} from "./Skill/skill"
+export {default as Admin} from "./Admin/admin"

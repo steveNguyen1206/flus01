@@ -3,18 +3,23 @@ import './Post.css';
 import vietnam from '../../assets/vietnam.png';
 import heart from '../../assets/heart-active.png';
 import { StarRating } from '..';
-import getOwnerProject from '../../services/projectServices';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import getRating from '../../services/authServices';
+import userDataService from '../../services/userDataServices';
+import reviewServices from '../../services/reviewServices';
+import categoryServices from '../../services/categoryServices';
 
 const Post = ({
   projectId,
   projectTitle,
-  projectTags,
+  projectTagsId,
   projectDetail,
   projectBudget,
+  userID,
+  handleBidClick,
 }) => {
+  const navigate = useNavigate();
+
   // first, get owner project
   const [ownerProject, setOwnerProject] = useState([]);
 
@@ -22,32 +27,52 @@ const Post = ({
     fetchOwnerProject();
   }, [projectId]);
 
+  // get User info from id
   const fetchOwnerProject = async () => {
     try {
-      const ownerProjectData = await getOwnerProject(projectId);
-      setOwnerProject(ownerProjectData);
+      const ownerProjectData = await userDataService.findOnebyId(userID);
+      setOwnerProject(ownerProjectData.data);
+      // console.log("user data: ",ownerProjectData.data);
     } catch (error) {
-      console.error('Error fetching owner project:', error);
+      console.error('Error fetching projects:', error);
     }
   };
 
-  let owner = {
-    account_name: '',
-    avt_url: '',
-    profile_name: '',
-    rating: '',
+  // get project tags from id
+  const [projectTags, setProjectTags] = useState([]);
+
+  useEffect(() => {
+    fetchProjectTags();
+  }, [projectTagsId]);
+
+  const fetchProjectTags = async () => {
+    const projectTagsData = await categoryServices.getNamefromId(projectTagsId);
+    // console.log(projectTagsData.data.subcategory_name);
+
+    const projectTagsArray = projectTagsData.data.subcategory_name.includes(',')
+      ? projectTagsData.data.subcategory_name.split(',')
+      : [projectTagsData.data.subcategory_name];
+    setProjectTags(projectTagsArray);
+    // console.log('project tags array: ', projectTagsArray);
   };
 
-  // update owner info
-  if (ownerProject) {
-    owner.account_name = ownerProject.account_name;
-    owner.avt_url = ownerProject.avt_url;
-    owner.profile_name = ownerProject.profile_name;
-    owner.rating = getRating(ownerProject.rating);
-  }
+  // get client rating of owner project
+  const [owner, setOwner] = useState([]);
 
-  const handleBidClick = () => {
-    console.log('Bid clicked');
+  useEffect(() => {
+    fetchOwnerRating();
+  }, [ownerProject]);
+
+  const fetchOwnerRating = async () => {
+    try {
+      const ownerRatingData = await reviewServices.getRatingClient(
+        ownerProject.id
+      );
+      setOwner(ownerRatingData.data);
+      // console.log(ownerRatingData.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
   };
 
   return (
@@ -55,9 +80,10 @@ const Post = ({
       <div className="left-post">
         <div className="pheader">
           <div className="pprofile">
-            <img src={owner.avt_url} alt="profile" />
-            <div className="ptname">{owner.account_name}</div>
-            <div className="ptusername">({owner.profile_name})</div>
+            {/* {console.log('owner project: ', ownerProject)} */}
+            <img src={ownerProject.avt_url} alt="profile" />
+            <div className="ptname">{ownerProject.account_name}</div>
+            <div className="ptusername">({ownerProject.profile_name})</div>
             <div className="pplocation">
               <img src={vietnam} alt="vietnam" />
             </div>
@@ -66,8 +92,9 @@ const Post = ({
           <div className="pttitle">{projectTitle}</div>
 
           <div className="pttags">
-            {projectTags.map((tag) => (
-              <div className="pttag">{tag}</div>
+            {/* {console.log('project tags: ', projectTags)} */}
+            {projectTags.map((subcategory_name) => (
+              <div className="pttag">{subcategory_name}</div>
             ))}
           </div>
         </div>
@@ -82,8 +109,11 @@ const Post = ({
       <div className="right-post">
         <div className="previews">
           <div className="rating">
-            <p>{owner.rating}</p>
-            <StarRating rating={parseFloat(owner.rating)} className="pstars" />
+            <p>{owner.averageStar}</p>
+            <StarRating
+              rating={parseFloat(owner.averageStar)}
+              className="pstars"
+            />
           </div>
         </div>
         <div className="pbid">
@@ -91,7 +121,7 @@ const Post = ({
             ${`${projectBudget[0]} - ${projectBudget[1]}`}
           </div>
           <div className="btn-p">
-            <div className="btn-bid">
+            <div className="btn-bid-project">
               <button onClick={handleBidClick}>Bid</button>
             </div>
             <div className="wish">
