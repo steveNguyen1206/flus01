@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CategoryTab.css';
-import { CategoryBlock } from '..';
+import { AddCategory, CategoryBlock } from '..';
 import categoryService from '@/services/categoryService';
 import search from '../../assets/search.png';
 import { data } from 'jquery';
@@ -130,25 +130,33 @@ const CategoryTab = () => {
       ],
     },
   ];
-  // const [categories, setCategories] = useState([]);
+// const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     try {
-  //       const response = await categoryService.findAll();
-  //       // setCategories(response.data);
-  //       // console.log(response.data);
+// useEffect(() => {
+//   const fetchCategories = async () => {
+//     try {
+//       const response = await categoryService.findAll();
+//       // setCategories(response.data);
+//       // console.log(response.data);
 
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
 
-  //   fetchCategories();
-  // }, []);
+//   fetchCategories();
+// }, []);
+
+  const [showAddCategory, setShowAddCategory] = useState(true);
+
+  const handleAddCategoryClick = () => {
+    setShowAddCategory(true);
+  };
 
   return (
     <div className="CategoryTab">
+      {showAddCategory && <AddCategory m_state={showAddCategory}
+      m_function={setShowAddCategory}/>}
       {/* Add search box and Add category button */}
       <div className="search-section">
         {/* Search box */}
@@ -157,12 +165,12 @@ const CategoryTab = () => {
           <img className="search-icon-instance" src={search} />
         </div>
         {/* Add category button */}
-        <div className="add-category-button">
+        <div className="add-category-button" onClick={handleAddCategoryClick}>
           <div className="text-wrapper">Add new category</div>
         </div>
       </div>
 
-      {/* Add category galery here */}
+      {/* Add category gallery here */}
       <div className="category-gallery">
         {categories.map((category) => (
           // console.log(category),
@@ -172,5 +180,6 @@ const CategoryTab = () => {
     </div>
   );
 };
+       
 
 export default CategoryTab;
