@@ -7,11 +7,13 @@ import { data } from 'jquery';
 
 const CategoryTab = () => {
   const [categories, setCategories] = useState([]);
-  const [searchKey, setSearchKey] = useState(""); // State for search key
+  const [searchKey, setSearchKey] = useState(''); // State for search key
 
   const fetchCategories = async () => {
     try {
-      const response = await categoryService.findAllwithSubcate(searchKey.toString());
+      const response = await categoryService.findAllwithSubcate(
+        searchKey.toString()
+      );
       setCategories(response.data);
       console.log(response.data);
     } catch (error) {
@@ -24,8 +26,8 @@ const CategoryTab = () => {
   }, []);
 
   const handleSearchKeyPress = (event) => {
-    if (event.key === "Enter") {
-        fetchCategories();
+    if (event.key === 'Enter') {
+      fetchCategories();
     }
   };
 
@@ -33,8 +35,8 @@ const CategoryTab = () => {
     setSearchKey(event.target.value);
   };
   useEffect(() => {
-    if(searchKey === "") {
-        fetchCategories();
+    if (searchKey === '') {
+      fetchCategories();
     }
   }, [searchKey]);
 
@@ -44,20 +46,27 @@ const CategoryTab = () => {
       <div className="search-section">
         {/* Search box */}
         <div className="search-area">
-            <input 
-              className="text-wrapper" 
-              type="text" 
-              placeholder="Search Categories" 
-              value={searchKey}
-              onChange={handleSearchChange}
-              onKeyDown={handleSearchKeyPress}
-              />
-          <img className="search-icon-instance" src={search} onClick={fetchCategories}/>
+          <input
+            className="text-wrapper"
+            type="text"
+            placeholder="Search Categories"
+            value={searchKey}
+            onChange={handleSearchChange}
+            onKeyDown={handleSearchKeyPress}
+          />
+          <img
+            className="search-icon-instance"
+            src={search}
+            onClick={fetchCategories}
+          />
         </div>
         {/* Add category button */}
-        <div className="add-category-button">
-          New category
-        </div>
+        <button 
+          className="add-category-button"
+          // onClick={}
+          >
+            New category
+        </button>
       </div>
 
       {/* Add category galery here */}
