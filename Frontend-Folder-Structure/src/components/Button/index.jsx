@@ -1,12 +1,3 @@
-import WhiteButton from './WhiteButton';
-import React from 'react'
+import WhiteButton from "./WhiteButton";
 
-const index = () => {
-  return (
-    <div>
-      <WhiteButton/>
-    </div>
-  )
-}
-
-export default index
+export default WhiteButton;

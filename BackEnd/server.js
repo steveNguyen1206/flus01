@@ -164,6 +164,9 @@ require("./app/routes/category.routes")(app);
 require("./app/routes/subcategory.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
 
+require("./app/routes/freelancer_post.routes")(app);
+require("./app/routes/project_post.routes")(app);
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

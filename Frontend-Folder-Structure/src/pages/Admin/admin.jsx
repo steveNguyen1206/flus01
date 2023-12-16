@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import './admin.css';
 import admin_dashboard from '../../assets/Admin/admin_dashboard.png';
 import admin_users from '../../assets/Admin/admin_users.png';
@@ -15,6 +16,7 @@ import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
 import { UserTab } from '@/components';
 import { CategoryTab } from '@/components';
+import { useAuth } from '../../AuthContext';
 
 
 const Admin = () => {
@@ -24,6 +26,15 @@ const Admin = () => {
     const handleGroupClick = (group) => {
         setActiveGroup(group);
     };
+    const navigate = useNavigate();
+    const { setSignin } = useAuth();
+    const handleSignOut = () => {
+        localStorage.removeItem('AUTH_TOKEN');
+        localStorage.removeItem('LOGINID');
+        localStorage.removeItem('AVT');
+        setSignin(false);
+        navigate('/');
+    }
 
     return (
         <div className="user-management">
@@ -86,7 +97,7 @@ const Admin = () => {
                         </div>
                     </div>
                 </div>
-                <div className="group-13 row">
+                <div className="group-13 row" onClick={handleSignOut}>
                     <img className="sign-out-squre col-md-auto" src={signout} />
                     <div className="text-wrapper-30 col">Log out</div>
                 </div>

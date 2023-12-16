@@ -94,37 +94,48 @@ function getPagination(page, size) {
 }
 
 exports.findUsersbyPage = (req, res) => {
-  const { page, size } = req.body; // page: 1..n, size: 1..m  
-  const { limit, offset } = getPagination(page, size);
+  
+  console.log("\nMY PARAMS:",req.params);
+  const {page, size, searchKey} = req.params; // page: 1..n, size: 1..m  
+  console.log("FFFFFFFFFFFFFFFFFFFF","page: " + page + ", size: " + size + ", searchKey: " + searchKey);
+  
+  // condition to check searchKey in account_name or profile_name
+  var condition = (searchKey && searchKey !== 'undefined' && searchKey !== "") ? { [Op.or]: [{ account_name: { [Op.like]: `%${searchKey}%` } }, { profile_name: { [Op.like]: `%${searchKey}%` } }] } : null;
 
-  User.findAndCountAll({ limit, offset })
-  .then(data => {
-    const { rows: users, count: totalItems } = data;
+  const { limit, offset } = getPagination(parseInt(page), parseInt(size));
 
-    // Extract only the necessary information from each user
-    const simplifiedUsers = users.map(user => ({
-      account_name: user.account_name,
-      profile_name: user.profile_name,
-      reported_times: user.reported_times,
-      created_at: user.created_at,
-    }));
+  // Find all users with condition by page
+  User.findAndCountAll({ where: condition, limit, offset })
+    .then(data => {
+      const { rows: users, count: totalItems } = data;
 
-    const response = {
-      totalItems,
-      users: simplifiedUsers,
-      currentPage: parseInt(page),
-      totalPages: Math.ceil(totalItems / limit),
-    };
+      // Extract only the necessary information from each user
+      const simplifiedUsers = users.map(user => ({
+        id: user.id,
+        avt_url: user.avt_url,
+        account_name: user.account_name,
+        profile_name: user.profile_name,
+        reported_times: user.reported_times,
+        createdAt: user.createdAt,
+        status: user.status,
+      }));
 
-    res.send(response);
-  })
+      const response = {
+        totalItems,
+        users: simplifiedUsers,
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(totalItems / limit),
+      };
+
+      res.send(response);
+    })
     .catch(err => {
       res.status(500).send({
         message:
-        err.message || "Some error occurred while retrieving users."
+          err.message || "Some error occurred while retrieving users."
       });
     });
-};
+  };
 
 // Update a User by the id in the request
 exports.update = (req, res) => {
@@ -203,35 +214,37 @@ exports.updateAvatar = (req, res) => {
 
 // Delete a User with the specified account_name in the request
 exports.deleteOnebyAccountName = (req, res) => {
-  const { account_name } = req.body;
-  if (!account_name) {
+  const { accountName } = req.params;
+
+  if (!accountName) {
     res.status(400).send({
       message: "Account_name can not be empty!"
     });
     return;
   }
 
-  var condition = { account_name: { [Op.eq]: `${account_name}` } };
-
+  var condition = { account_name: { [Op.eq]: `${accountName}` } };
+  console.log("condition: ", condition);
   User.destroy({where: condition})
-    .then(num => {
-      if (num > 0) {
-        res.send({
-          message: `Deleted ${number} user(s) successfully!`
-        });
-      } else {
-        res.send({
-          message: `Cannot delete User with account_name=${account_name}. Maybe User was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete User with account_name=" + account_name
+  .then(num => {
+    if (num > 0) {
+      res.send({
+        message: `Deleted ${num} user(s) successfully!`
       });
+    } else {
+      res.send({
+        message: `Cannot delete User with account_name=${accountName}. Maybe User was not found!`
+      });
+    }
+  })
+  .catch(err => {
+    console.error("Sequelize Error:", err);
+    res.status(500).send({
+      message: "Could not delete User with account_name=" + accountName
     });
+  });
 
-  };
+};
 
 // Delete a User with greater or equal the specified reportedTimes in the request
 exports.deleteOnebyReportedTimes = (req, res) => {
@@ -265,3 +278,35 @@ exports.deleteOnebyReportedTimes = (req, res) => {
     });
 
   }
+
+
+// Change user status by user id and status param
+exports.changeStatusByID = (req, res) => {
+  const { id, status } = req.params;
+
+  if (!id || parseInt(status) < 0 || parseInt(status) > 2) {
+    res.status(400).send({
+      message: "Invalid user id or status!"
+    });
+    return;
+  }
+
+  User.update({ status }, { where: { id } })
+    .then(num => {
+      if (num[0] === 1) {
+        res.send({
+          message: "User status updated successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot update User with id=${id}. Maybe User was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      console.error("Sequelize Error:", err);
+      res.status(500).send({
+        message: "Could not update User with id=" + id
+      });
+    });
+};

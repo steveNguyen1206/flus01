@@ -1,5 +1,3 @@
-
-export { default as WhiteButton } from "./Button";
 export { default as Inputs } from "./Inputs";
 export { default as Modal } from "./Modal";
 export { default as ToolTip } from "./ToolTip";
@@ -15,3 +13,5 @@ export {default as UserRow} from './Admin/UserRow'
 export {default as UserTab} from './Admin/UserTab'
 export {default as CategoryBlock} from './Admin/CategoryBlock'
 export {default as CategoryTab} from './Admin/CategoryTab'
+export {default as WhiteButton} from './Button'
+export {default as Bid} from './Bid/bid'

@@ -2,6 +2,11 @@ import React from 'react';
 import './signup_tab_third.css';
 import authServices from '@/services/authServices';
 import smsAuthenService from '@/services/smsAuthen';
+
+const convertToPhoneNumber = (phone) => {
+  return '+84' + phone.substring(1);
+};
+
 const SignUpTabThird = ({
   setTab,
   signUpPayload,
@@ -39,7 +44,7 @@ const SignUpTabThird = ({
 
   const handleEnterClick = () => {
     const smsMessage = {
-      phone_number: signUpPayload.phone,
+      phone_number: convertToPhoneNumber(signUpPayload.phone),
       code: signUpPayload.code,
     };
     console.log('frontend: ', smsMessage);
