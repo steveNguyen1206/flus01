@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/", category.findAll);
   
     // Retrieve all Categories with their Subcategories from the database.
-    router.get("/all", category.findAllCategoryInfo);
+    router.get("/all/:searchKey", category.findAllCategoryInfo);
 
     // // Retrieve all published Category
     // router.get("/published", category.findAllPublished);

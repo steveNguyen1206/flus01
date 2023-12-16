@@ -121,16 +121,31 @@ exports.delete = (req, res) => {
 
 // Retrieve all Categories with their Subcategories from the database.
 exports.findAllCategoryInfo = (req, res) => {
-  // const {searchKey} = req.params;
-  // const cateCondition = searchKey ? {name: {[Op.like]: `%${searchKey}%`}} : null;
-  // const subcateCondition = searchKey ? {subcategory_name: {[Op.like]: `%${searchKey}%`}} : null;
+  const {searchKey} = req.params;
+
+  console.log("############################ search key: " + searchKey);
+  
   Category.findAll({
-    // where: cateCondition,
+    where:{
+      [Op.or]: [
+        {
+          name: {
+            [Op.like]: `%${searchKey}%`,
+          },
+        },
+        {
+          '$subcategories.subcategory_name$': {
+            [Op.like]: `%${searchKey}%`,
+          },
+        },
+      ],
+    },
     include: [
       {
         model: Subcategory,
+        as: 'subcategories',
         attributes: ['id', 'subcategory_name'],
-        // attributes: ["id", "name"],
+        require: false
       },
     ],
   })

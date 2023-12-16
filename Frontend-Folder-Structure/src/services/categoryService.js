@@ -21,8 +21,8 @@ const deleteCategory = id => {
   return http.delete(`/category/${id}`);
 };
 
-const findAllwithSubcate = () => {
-  return http.get(`/category/all`);
+const findAllwithSubcate = (searchKey) => {
+  return http.get(`/category/all/${searchKey}`);
 }
 
 const categoryService = {
