@@ -1,10 +1,10 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, Admin, FindFreelancer, Job} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Admin, FindFreelancer, Job, Skill} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
-import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+// import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
 import { UpdateProject, NewProject } from '@/pages';
 const Routers = () => {
   return (

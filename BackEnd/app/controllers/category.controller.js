@@ -122,9 +122,11 @@ exports.delete = (req, res) => {
 // Retrieve all Categories with their Subcategories from the database.
 exports.findAllCategoryInfo = (req, res) => {
     Category.findAll({
-      include: [{
+      include:
+      [{
         model: Subcategory,
-        attributes: ['id', 'name']
+        attributes: ['id', 'subcategory_name'],
+        foreignKey: 'categoryId'
       }]
     })
       .then(categories => {
