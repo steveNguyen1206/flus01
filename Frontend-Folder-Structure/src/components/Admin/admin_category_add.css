@@ -18,7 +18,6 @@
       width: 100%;
       position: absolute;
       z-index: 1000;
-      width: 100%;
       top: 150px;
       opacity: 1;
     }
@@ -27,7 +26,7 @@
       background-color: #ffffff;
       border: 1px solid;
       border-color: #000000;
-      height: 400px;
+      height: 300px;
       width: 50%;
       position: relative;
       width: 409px;
@@ -121,3 +120,16 @@
     padding-left: 7%;
     }
     
+    .err-mesage {
+    color: red;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: left;
+    width: 100%;
+    margin-top: 5%;
+    margin-left: 20%;
+
+    }

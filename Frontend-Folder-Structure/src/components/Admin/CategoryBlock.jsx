@@ -28,7 +28,7 @@ const CategoryBlock = ({category}) => {
     const list_subcat = category.subcategories;
 
     return(
-        <div className="row category-wrapper">
+        <div className="align-elements category-wrapper">
             {/* Add name and pencil here */}
             <div className="name-wrapper">
                 <div className="name">{name}</div>

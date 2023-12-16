@@ -81,5 +81,5 @@
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; /* Two columns with equal width */
-    grid-gap: 20px; /* Gap between grid items */
+    grid-gap: 10px; /* Gap between grid items */
     }

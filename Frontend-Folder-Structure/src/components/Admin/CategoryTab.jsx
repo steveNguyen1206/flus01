@@ -8,6 +8,7 @@ import { data } from 'jquery';
 const CategoryTab = () => {
   const [categories, setCategories] = useState([]);
   const [searchKey, setSearchKey] = useState(''); // State for search key
+  const [showAddCategory, setShowAddCategory] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -33,6 +34,7 @@ const CategoryTab = () => {
 
   const handleSearchChange = (event) => {
     setSearchKey(event.target.value);
+    console.log(searchKey);
   };
   useEffect(() => {
     if (searchKey === '') {
@@ -40,10 +42,14 @@ const CategoryTab = () => {
     }
   }, [searchKey]);
 
+  const handleAddCategoryClick = () => {
+    setShowAddCategory(true);
+  };
+
   return (
     <div className="CategoryTab">
       {showAddCategory && <AddCategory m_state={showAddCategory}
-      m_function={setShowAddCategory}/>}
+      m_function={setShowAddCategory} fetchFunction={fetchCategories}/>}
       {/* Add search box and Add category button */}
       <div className="search-section">
         {/* Search box */}
@@ -65,7 +71,7 @@ const CategoryTab = () => {
         {/* Add category button */}
         <button 
           className="add-category-button"
-          // onClick={}
+          onClick={handleAddCategoryClick}
           >
             New category
         </button>
