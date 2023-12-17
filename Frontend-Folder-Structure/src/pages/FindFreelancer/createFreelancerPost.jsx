@@ -41,7 +41,7 @@ const CreateFreelancerPost = () => {
 
   const handleCreate = () => {
     const freelancerPostData = {
-      freelancer_id: 3,
+      freelancer_id: 1,
       about_me: aboutMe,
       skill_description: aboutProduct,
       lowset_price: lowestPrice,

@@ -7,14 +7,13 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Freelancer_post
 exports.create = (req, res) => {
     // Validate request
-    console.log("Meof meos meo meof meo");
-    if (!req.body.freelancer_id) {
+    if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    console.log(req.body.freelancer_id);
+    // console.log(req.body.freelancer_id);
     // Create a freelancer_post
     const freelancer_post = {
         freelancer_id: req.body.freelancer_id,
@@ -41,6 +40,31 @@ exports.create = (req, res) => {
         });
 };
 
+
+// Find all Freelancer_posts by user id and change their status
+exports.findAndChangeStatus = (req, res) => {
+    const { userId, status } = req.params;
+    const condition = userId ? { freelancer_id: { [Op.eq]: `${userId}` } } : null;
+
+    Freelancer_post.update({ status: status }, { where: condition })
+        .then(num => {
+            if (num > 0) {
+                res.send({
+                    message: "Status of Freelancer_posts was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `No Freelancer_posts found for user id=${userId}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating status of Freelancer_posts for user id=" + userId
+            });
+        });
+};
+
 // Retrieve all Freelancer_post from the database.
 exports.findAll = (req, res) => {
     const freelancer_id = req.query.freelancer_id;
@@ -54,6 +78,30 @@ exports.findAll = (req, res) => {
             res.status(500).send({
                 message:
                     err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+
+// change status of many freelancer_posts by list of freelancer_post_id
+exports.changeStatus = (req, res) => {
+    const { freelancer_post_id_list, status } = req.body;
+    const condition = freelancer_post_id_list ? { freelancer_post_id: { [Op.in]: `${freelancer_post_id_list}` } } : null;
+    Freelancer_post.update({ status: status }, { where: condition })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Freelancer_post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Freelancer_post with id=${freelancer_post_id}. Maybe Freelancer_post was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+            message: "Error updating Freelancer_post with id=" + freelancer_post_id
             });
         });
 };
@@ -80,39 +128,74 @@ exports.findOne = (req, res) => {
 };
 
 // Update a Category by the id in the request
+// exports.update = (req, res) => {
+//     // const id = req.params.id;
+//     console.log(req.body);
+//     const id = req.body.id;
+//     console.log(id);
+//     var condition = id ? { id: { [Op.eq]: `${id}` } } : null;
+
+//     // const change = {
+//     //     skill_description: "this is a skill description"
+//     // }
+
+//     const skill_description = "this is a skill description"
+
+//     Freelancer_post.update({skill_description}, {
+//         where: { id }
+//     })
+//         .then(num => {
+//             if (num == 1) {
+//                 res.send({
+//                     message: "Freelancer_post was updated successfully."
+//                 });
+//             } else {
+//                 res.send({
+//                     message: `Cannot update Freelancer_post with id=${id}. Maybe Freelancer_post was not found or req.body is empty!`
+//                 });
+//             }
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: "Error updating Freelancer_post with id=" + id
+//             });
+//         });
+// };
+
+
+// /project_post/update
 exports.update = (req, res) => {
-    // const id = req.params.id;
-    console.log(req.body);
     const id = req.body.id;
-    console.log(id);
-    var condition = id ? { id: { [Op.eq]: `${id}` } } : null;
-
-    // const change = {
-    //     skill_description: "this is a skill description"
-    // }
-
-    const skill_description = "this is a skill description"
-
-    Freelancer_post.update({skill_description}, {
-        where: { id }
+  
+    const updatedData = Object.keys(req.body)
+      .filter(key => key !== 'id' && key !== 'imgage') // Don't check if req.body[key] is truthy
+      .reduce((obj, key) => {
+        obj[key] = req.body[key];
+        return obj;
+      }, {});
+  
+    Freelancer_post.update(updatedData, {
+      where: { id: id }
     })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Freelancer_post was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update Freelancer_post with id=${id}. Maybe Freelancer_post was not found or req.body is empty!`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Freelancer_post with id=" + id
-            });
+      .then(num => {
+        // console.log(num);
+        // if (num[0] > 0) {
+          res.send({
+            message: "project_post was updated successfully."
+          });
+        }
+
+        // } else {
+        //   res.send({
+        //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+        //   });
+      )
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating project_post with id=" + id
         });
-};
+      });
+  };
 
 // Delete a Category with the specified id in the request
 exports.delete = (req, res) => {

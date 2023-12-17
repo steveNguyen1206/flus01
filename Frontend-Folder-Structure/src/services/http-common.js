@@ -13,3 +13,4 @@ export const media_upload =  axios.create({
   }
 });
 
+export default http;

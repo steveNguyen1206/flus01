@@ -6,51 +6,53 @@ import Post from '@/components/JobPost/Post';
 import Filter from '@/components/Filter';
 import { FreelancerPost } from '@/components/JobPost';
 import { useNavigate } from 'react-router';
+// import { FreelancerPostService } from '@/services';
+import freelancer_post_Service from '@/services/freelancer_post_Service';
+import NewPost from '@/pages/FreelancerPost/newPost';
 
 const FindFreelancer = () => {
-  const [posts, setPosts] = useState([]);
+  const navigate = useNavigate();
 
+  const [posts, setPosts] = useState([]);
   useEffect(() => {
-    // Fetch data from the API endpoint
-    fetch('http://localhost:8080/api/freelancer_post/allposts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
-      .catch(error => console.error('Error fetching data:', error));
+    fetchPosts();
   }, []);
 
-  // const post ={
-  //   "id": 2,
-  //   "about_me": "Detail text here everyone. Hello everyone, my name is Duy Khang Ho. This job is hard... Detail text here everyone text here everyone Hello everyone, my name is Duy Khang Ho. This job is hard... Detail text here ever... Detail text here everyone text here everyone Hello everyone, my name is Duy Khang Ho.",
-  //   "skill_description": "I am very very skillful",
-  //   "lowset_price": 80,
-  //   "delivery_due": 3,
-  //   "revision_number": 1,
-  //   "delivery_description": "This is a delivery description",
-  //   "imgage_post_urls": "https://www.interviewbit.com/blog/wp-content/uploads/2021/12/Python-Developer-Skills.png",
-  //   "createdAt": "2023-12-13T05:10:54.000Z",
-  //   "updatedAt": "2023-12-16T02:03:41.000Z",
-  //   "skill_tag": 2,
-  //   "freelancer_id": 2,
-  //   "user": {
-  //     "id": 2,
-  //     "account_name": "HoaVien",
-  //     "profile_name": "HoaVien2003",
-  //     "avt_url": "https://i.pinimg.com/564x/fa/00/54/fa0054b302f8ed3ccd829c39e12a19db.jpg"
-  //   },
-  //   "subcategory": {
-  //     "id": 2,
-  //     "subcategory_name": "Illustrator"
-  //   }
-  // }
+  const fetchPosts = async () => {
+    try {
+      const postsData = await freelancer_post_Service.allposts();
+      setPosts(postsData.data);
+      console.log('data', postsData.data);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleNewPost = () => {
+    setIsOpen(true);
+  };
+  const [isChange, setIsChange] = useState(false);
+
+  // useEffect(() => {
+  //   // Fetch data from the API endpoint
+  //   fetch('http://localhost:8080/api/freelancer_post/allposts')
+  //     .then(response => response.json())
+  //     .then(data => setPosts(data))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
+
 
   return (
     <>
+    {isOpen && <NewPost isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />}
       <div className="job-page">
         <div className="content">
           <div className="containerp">
             <div className="topbar">
               <div className="button">
-                <button className="btn-new-post" onClick={event =>  window.location.href='/createFreelancerPost'}>+ New Post</button>
+                {/* <button className="btn-new-post" onClick={event =>  window.location.href='/createFreelancerPost'}>+ New Post</button> */}
+                <button className="btn-new-post" onClick={handleNewPost}>+ New Post</button>
               </div>
               <Search />
               <select className="sort">
