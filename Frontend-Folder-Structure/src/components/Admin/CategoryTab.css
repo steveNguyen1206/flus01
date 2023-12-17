@@ -73,13 +73,14 @@
   }
   
   .category-gallery {
-    margin: 30px;
-    height: 70%;
+    margin-top: 30px;
+    margin-left: 30px;
+    height: 800px;
     width: 95%;
     overflow-y: scroll;
     overflow-x: hidden;
     box-sizing: border-box;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Two columns with equal width */
-    grid-gap: 10px; /* Gap between grid items */
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
     }

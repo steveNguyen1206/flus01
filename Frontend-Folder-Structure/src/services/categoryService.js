@@ -13,8 +13,8 @@ const findOne = id => {
   return http.get(`/category/${id}`);
 };
 
-const update = (id, data) => {
-  return http.put(`/category/${id}`, data);
+const update = (data) => {
+  return http.put(`/category`, data);
 };
 
 const deleteCategory = id => {

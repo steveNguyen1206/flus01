@@ -17,3 +17,6 @@ export {default as WhiteButton} from './Button'
 export {default as Bid} from './Bid/bid'
 
 export {default as AddCategory} from './Admin/admin_category_add'
+export {default as AddSubcategory} from './Admin/admin_subcategory_add'
+export {default as EditCategory} from './Admin/admin_category_edit'
+export {default as EditSubcategory} from './Admin/admin_subcategory_edit'

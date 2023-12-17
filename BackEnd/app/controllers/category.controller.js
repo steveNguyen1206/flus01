@@ -71,9 +71,16 @@ exports.findOne = (req, res) => {
 
 // Update a Category by the id in the request
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
 
-  Category.update(req.body, {
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
+
+  Category.update({name: req.body.name}, {
     where: { id: id },
   })
     .then((num) => {

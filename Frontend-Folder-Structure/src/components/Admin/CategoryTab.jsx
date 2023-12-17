@@ -81,7 +81,7 @@ const CategoryTab = () => {
       <div className="category-gallery">
         {categories.map((category) => (
           // console.log(category),
-          <CategoryBlock key={category.id} category={category} />
+          <CategoryBlock key={category.id} category={category} m_function={fetchCategories}/>
         ))}
       </div>
     </div>
