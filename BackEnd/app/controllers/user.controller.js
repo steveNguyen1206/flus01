@@ -114,7 +114,7 @@ exports.update = (req, res) => {
 
 exports.updateAvatar = async (req, res) => {
   const id = req.params.id;
-
+  console.log(req.params);
 //   upload.single("avatar")(req, res, function (err) {
 //     if (err instanceof multer.MulterError) {
 //       // A Multer error occurred during file upload
@@ -183,8 +183,9 @@ try {
   let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
   const cldRes = await handleUpload(dataURI);
   console.log(cldRes);
-  const avatarUrl = cldRes.secure_url;
-  User.update({ avt_url: avatarUrl }, { where: { id: id } })
+  const avt_url = cldRes.secure_url;
+  console.log(avt_url);
+  User.update({ avt_url }, { where: { id } })
                 .then(num => {
                   if (num == 1) {
                     res.send({

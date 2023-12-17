@@ -81,10 +81,20 @@ exports.findOne = (req, res) => {
 
 // Update a Category by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+    // const id = req.params.id;
+    console.log(req.body);
+    const id = req.body.id;
+    console.log(id);
+    var condition = id ? { id: { [Op.eq]: `${id}` } } : null;
 
-    Freelancer_post.update(req.body, {
-        where: { id: id }
+    // const change = {
+    //     skill_description: "this is a skill description"
+    // }
+
+    const skill_description = "this is a skill description"
+
+    Freelancer_post.update({skill_description}, {
+        where: { id }
     })
         .then(num => {
             if (num == 1) {
