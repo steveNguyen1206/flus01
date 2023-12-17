@@ -22,8 +22,6 @@ const update = (id, data) => {
 };
 
 const updateAvatar = (id, avatarFile) => {
-
-
   const formData = new FormData();
   formData.append('avatar', avatarFile);
   console.log(avatarFile);
