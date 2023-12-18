@@ -102,10 +102,10 @@ const profile = () => {
               <div className="rating-bar">
 
 
-                <StarRating rating={4.6} />
+                <StarRating rating={4.6} width={160} />
 
 
-                <div className="text-wrapper-6">4.6</div>
+                <div className="text-wrapper-6">{4.6}</div>
               </div>
             </div>
           </div>

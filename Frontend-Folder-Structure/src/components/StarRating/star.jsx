@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from  "./star.css"
+import "./star.css"
 import Rating from 'react-rating';
 import starFull from "../../assets/StarRating/starFullGreen.png"
 import starEmpty from "../../assets/StarRating/starEmpty.png"
