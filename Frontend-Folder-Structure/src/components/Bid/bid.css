@@ -95,10 +95,11 @@
 }
 
 .accept{
-    background-color: #A91E15;
+    background-color: #15A919;
 }
 
 .reject{
-    background-color: #15A919;
+    background-color: #A91E15;
+    
 }
 
