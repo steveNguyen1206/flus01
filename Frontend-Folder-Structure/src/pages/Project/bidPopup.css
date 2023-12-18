@@ -1,3 +1,13 @@
+.popup-container-background{
+    z-index: 90;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 .popup-container-bid {
     background-color: #ffffff;
     display: flex;
@@ -87,6 +97,7 @@
   overflow-y: scroll;
   border-color: #000000;
   overflow-x: hidden;
+  margin-bottom: 10px;
 }
   
   
