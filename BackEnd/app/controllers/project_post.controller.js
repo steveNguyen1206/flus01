@@ -4,7 +4,7 @@ const Op = db.Sequelize.Op;
 
 // Create and Save a new Project_post
 exports.createProjectPost = (req, res) => {
-    console.log(req.body);
+    console.log("body: ",req.body);
     // Validate request
     if (!req.body) {
         res.status(400).send({
@@ -130,33 +130,46 @@ exports.findOne = (req, res) => {
 // /project_post/update
 exports.update = (req, res) => {
     const id = req.body.id;
+    console.log(req.body);
   
-    const updatedData = Object.keys(req.body)
-      .filter(key => key !== 'id' && key !== 'image') // Don't check if req.body[key] is truthy
+    let preprocessData = req.body;
+    preprocessData.budget_min = parseFloat(preprocessData.budget_min);
+    preprocessData.budget_max = parseFloat(preprocessData.budget_max);
+    preprocessData.tag_id = Number(preprocessData.tag_id);
+    preprocessData.user_id = Number(preprocessData.user_id);
+    preprocessData.tag_id = Number(preprocessData.tag_id);
+
+    console.log(preprocessData);
+
+    const updatedData = Object.keys(preprocessData)
+      .filter(key => key !== 'id' && key !== 'image' && req.body[key])
       .reduce((obj, key) => {
         obj[key] = req.body[key];
         return obj;
       }, {});
+
+    console.log("updated", updatedData);
   
     project_post.update(updatedData, {
       where: { id: id }
     })
       .then(num => {
-        // console.log(num);
-        // if (num[0] > 0) {
+        if (num[0] > 0) {
           res.send({
             message: "project_post was updated successfully."
           });
+        } else {
+          res.send({
+            message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+          });
         }
-
-        // } else {
-        //   res.send({
-        //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
-        //   });
-      )
+      })
       .catch(err => {
+        console.log(err);
+
         res.status(500).send({
           message: "Error updating project_post with id=" + id
         });
       });
   };
+  

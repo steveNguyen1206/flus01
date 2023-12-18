@@ -22,7 +22,7 @@ module.exports = (app) => {
     router.get("/:id", projectPostController.findOne);
 
     // /project_post/update
-    router.post("/update", projectPostController.update);
+    router.put("/update", projectPostController.update);
 
     app.use("/api/project_post", router);
 }

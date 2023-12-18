@@ -16,7 +16,7 @@ import RelatedProject from '@/components/RelatedProject/RelatedProject';
 import { Carousel } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import projectServices from '@/services/projectPostServices';
+import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
@@ -41,7 +41,7 @@ const Project = () => {
   }, []);
 
   useEffect(() => {
-    projectServices.getProjectbyId(id).then((response) => {
+    projectPostServices.getProjectbyId(id).then((response) => {
       console.log('response: ', response);
       setProject(response.data);
     });

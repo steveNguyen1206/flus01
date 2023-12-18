@@ -14,22 +14,11 @@ const sendProject = async (data) => {
     formData.append('budget_max', data.budgetMax);
     formData.append('imgage_post_urls', "");
     formData.append('tag', data.tag);
+    
     formData.append('user_id', 1);
 
-    console.log(formData);
-  
-    try {
-      const response = await http.post('/project_post/create', formData, {
-        headers: {
-          ...http.defaults.headers,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('Error submitting project:', error);
-    }
-    
+
+
     return http.post("/project_post/create", formData);
   };
 
@@ -42,22 +31,10 @@ const updateProject = async (data) => {
     formData.append('budget_max', data.budgetMax);
     formData.append('image', data.image);
     formData.append('tag_id', data.tag);
-    formData.append("user_id", data.id);
-
-
-    try {
-      const response = await http.post('/project_post/update', formData, {
-        headers: {
-          ...http.defaults.headers,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('Error submitting project:', error);
-    }
+    formData.append("user_id", 1);
+    formData.append("id", data.id);
     
-    return http.post("/project_post/update", formData);
+    return http.put("/project_post/update", formData);
   };
 
 
@@ -69,7 +46,7 @@ const getProjectbyId = id => {
     return http.get(`/project_post/${id}`);
 }
 
-const projectServices= {
+const projectPostServices= {
     sendProject,
     getAllProjects,
     getProjectbyId,
@@ -77,4 +54,4 @@ const projectServices= {
     findOnebyId,
 };
 
-export default projectServices;
+export default projectPostServices;
