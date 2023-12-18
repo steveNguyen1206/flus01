@@ -13,8 +13,7 @@ const sendProject = async (data) => {
     formData.append('budget_min', data.budgetMin);
     formData.append('budget_max', data.budgetMax);
     formData.append('imgage_post_urls', "");
-    formData.append('tag', data.tag);
-    
+    formData.append('tag', data.tag); 
     formData.append('user_id', 1);
 
 
