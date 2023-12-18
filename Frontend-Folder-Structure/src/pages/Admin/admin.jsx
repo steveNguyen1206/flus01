@@ -15,8 +15,8 @@ import admin_post_white from '../../assets/Admin/admin_post_white.png';
 import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
 import { UserTab } from '@/components';
-import { useAuth } from '../../AuthContext';
 import { CategoryTab } from '@/components';
+import { useAuth } from '../../AuthContext';
 
 
 const Admin = () => {

@@ -6,148 +6,41 @@ import search from '../../assets/search.png';
 import { data } from 'jquery';
 
 const CategoryTab = () => {
-  const categories = [
-    {
-      id: 1,
-      name: 'Category 1',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Category 2',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Category 3',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: 'Category 4',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 5,
-      name: 'Category 5',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 6,
-      name: 'Category 6',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-      ],
-    },
-    {
-      id: 7,
-      name: 'Category 7',
-      num_subcat: 2,
-      list_subcat: [
-        {
-          id: 1,
-          name: 'Subcategory 1',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-        {
-          id: 2,
-          name: 'SubcategorySubcategory 2',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-        {
-          id: 2,
-          name: 'Subcategory 2',
-        },
-        
-      ],
-    },
-  ];
-// const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [searchKey, setSearchKey] = useState(''); // State for search key
+  const [showAddCategory, setShowAddCategory] = useState(false);
 
-// useEffect(() => {
-//   const fetchCategories = async () => {
-//     try {
-//       const response = await categoryService.findAll();
-//       // setCategories(response.data);
-//       // console.log(response.data);
+  const fetchCategories = async () => {
+    try {
+      const response = await categoryService.findAllwithSubcate(
+        searchKey.toString()
+      );
+      setCategories(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
-//   fetchCategories();
-// }, []);
+  const handleSearchKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      fetchCategories();
+    }
+  };
 
-  const [showAddCategory, setShowAddCategory] = useState(true);
+  const handleSearchChange = (event) => {
+    setSearchKey(event.target.value);
+    console.log(searchKey);
+  };
+  useEffect(() => {
+    if (searchKey === '') {
+      fetchCategories();
+    }
+  }, [searchKey]);
 
   const handleAddCategoryClick = () => {
     setShowAddCategory(true);
@@ -156,25 +49,39 @@ const CategoryTab = () => {
   return (
     <div className="CategoryTab">
       {showAddCategory && <AddCategory m_state={showAddCategory}
-      m_function={setShowAddCategory}/>}
+      m_function={setShowAddCategory} fetchFunction={fetchCategories}/>}
       {/* Add search box and Add category button */}
       <div className="search-section">
         {/* Search box */}
         <div className="search-area">
-          <div className="text-wrapper">Search Categories</div>
-          <img className="search-icon-instance" src={search} />
+          <input
+            className="text-wrapper"
+            type="text"
+            placeholder="Search Categories"
+            value={searchKey}
+            onChange={handleSearchChange}
+            onKeyDown={handleSearchKeyPress}
+          />
+          <img
+            className="search-icon-instance"
+            src={search}
+            onClick={fetchCategories}
+          />
         </div>
         {/* Add category button */}
-        <div className="add-category-button" onClick={handleAddCategoryClick}>
-          <div className="text-wrapper">Add new category</div>
-        </div>
+        <button 
+          className="add-category-button"
+          onClick={handleAddCategoryClick}
+          >
+            New category
+        </button>
       </div>
 
       {/* Add category gallery here */}
       <div className="category-gallery">
         {categories.map((category) => (
           // console.log(category),
-          <CategoryBlock key={category.id} category={category} />
+          <CategoryBlock key={category.id} category={category} m_function={fetchCategories}/>
         ))}
       </div>
     </div>

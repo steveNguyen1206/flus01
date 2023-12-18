@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, Skill, Admin, FindFreelancer, Job} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Admin, FindFreelancer, Job, Skill} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
