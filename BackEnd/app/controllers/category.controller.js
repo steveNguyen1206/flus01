@@ -1,12 +1,12 @@
 const db = require("../models");
-const category = db.category;
-const subcategory = db.subcategories;
+const Category = db.categories;
+const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
 
 
 exports.getNameSubcategory = (req, res) => {
     const { id } = req.params;
-    subcategory.findByPk(id)
+    Subcategory.findByPk(id)
         .then(data => {
             res.send(data);
         })
