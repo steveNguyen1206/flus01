@@ -37,6 +37,8 @@ db.projects = require("./project.model.js")(sequelize, Sequelize);
 db.issues = require("./issue.model.js")(sequelize, Sequelize);
 db.payment_accounts = require("./payment_account.model.js")(sequelize, Sequelize);
 
+db.user_wishlist = require("./user_wishlist.model.js")(sequelize, Sequelize);
+
 
 db.subcategories.belongsTo(db.categories, {
   onDelete: 'CASCADE',
@@ -195,6 +197,21 @@ db.review.belongsTo(db.user, {
 
 db.project_post.belongsTo(db.subcategories, {
   foreignKey: 'tag_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+
+// --------------------------------------------------------
+
+db.user_wishlist.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.user_wishlist.belongsTo(db.project_post, {
+  foreignKey: 'project_post_id',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })
