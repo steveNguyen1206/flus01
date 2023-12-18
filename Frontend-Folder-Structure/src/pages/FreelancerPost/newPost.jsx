@@ -6,7 +6,7 @@ import UploadIcon from '../../assets/UploadIcon.png';
 import projectServices from '@/services/projectPostServices';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
 import subcategoryService from '@/services/subcategoryService';
-
+import userDataService from '@/services/userDataServices';
 
 // const isValidTitle = (title) => {
 //   if (!title) return false;
@@ -64,6 +64,7 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
     delivery_due: '',
     imgage_post_urls: '',
     skill_tag: '',
+    image_file: null // Lấy file ảnh luôn
   };
 
   const validateForm = () => {
@@ -105,9 +106,15 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileName(file.name);
-    setNewPost({ ...newPost, image: file });
+    setNewPost({ ...newPost, image_file: file });
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  // const handleFileChange = (event) => {
+  //   setSelectedFile(event.target.files[0]);
+  // };
+  
   const handleDoneClick = () => {
     console.log('Done clicked.');
     newPost.skill_tag = document.getElementById("filter").value;
@@ -130,6 +137,22 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
     } else {
       console.log('Form has errors. Please fix them.');
     }
+
+    // if (selectedFile) {
+    //   const userId = 1;
+    //   userDataService.updateAvatar(userId, selectedFile)
+    //       .then(response => {
+    //           // Handle the response data
+    //           console.log(response);
+    //           console.log("ameomeo")
+    //       })
+    //       .catch(error => {
+    //           // Handle any errors
+    //           console.error(error);
+    //           console.log("ahuhu")
+
+    //       });
+    //     }
   };
 
 
@@ -192,6 +215,7 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
                     name="image"
                     accept="image/*"
                     style={{ display: 'none' }}
+                    defaultValue={newPost.image_file}
                     onChange={handleFileChange}
                   />
                   {fileName && <p className="file-name">{fileName}</p>}

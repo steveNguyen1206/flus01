@@ -19,14 +19,16 @@ const update = (data) => {
 
 const sendPost = async (data) => {
     let formData = new FormData();
-    console.log(data);
+    // const userId = 1;
+    // console.log(data);
+    formData.append('image_file', data.image_file); // này để lấy file ảnh
     console.log("data.about_me", data.about_me);
     formData.append('freelancer_id', "1");
     formData.append('about_me', data.about_me);
     formData.append('skill_description', data.skill_description);
     formData.append('lowset_price', data.lowset_price);
     formData.append('delivery_due', data.delivery_due);
-    formData.append('imgage_post_urls', "");
+    // formData.append('imgage_post_urls', "");
     formData.append('skill_tag', data.skill_tag);
 
     console.log(formData);
@@ -34,19 +36,19 @@ const sendPost = async (data) => {
         console.log(pair[0] + ', ' + pair[1]);
       }
   
-    try {
-      const response = await http.post('/freelancer_post', formData, {
-        headers: {
-          ...http.defaults.headers,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('Error submitting post:', error);
-    }
+    // try {
+    //   const response = await media_upload.post('/freelancer_post', formData, {
+    //     headers: {
+    //       ...media_upload.defaults.headers,
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   });
+    //   console.log(response.data);
+    // } catch (error) {
+    //   console.log('Error submitting post:', error);
+    // }
     
-    return http.post("/freelancer_post", formData);
+    return media_upload.post("/freelancer_post", formData);
   };
 
 

@@ -1,11 +1,15 @@
 const db = require("../models");
+const cloudinary = require("../config/cloudinary.config");
+const upload = require("../middleware/multer");
+const multer = require("multer");
 const Freelancer_post = db.freelancer_post;
 const User = db.user;
 const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Freelancer_post
-exports.create = (req, res) => {
+// exports.create = async (req, res) => {
+exports.create = async (req, res) => {
     // Validate request
     if (!req.body) {
         res.status(400).send({
@@ -13,31 +17,68 @@ exports.create = (req, res) => {
         });
         return;
     }
+    if (!req.files || !req.files.file) {
+        console.log("No file found!!!!")
+    }
+
+    async function handleUpload(file) {
+        const res = await cloudinary.uploader.upload(file, {
+            resource_type: "auto",
+        });
+
+        // console.log("abcdddddddddd")
+        return res;
+    }
+    // const img_url = '';
+    try {
+        // console.log(req);
+        // console.log(req.file);
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const cldRes = await handleUpload(dataURI);
+        console.log(cldRes.secure_url);
+        const img_url = cldRes.secure_url;
+        console.log("img_url: ", img_url)
+
+        const freelancer_post = {
+            freelancer_id: req.body.freelancer_id,
+            about_me: req.body.about_me,
+            skill_description: req.body.skill_description,
+            lowset_price: req.body.lowset_price,
+            delivery_due: req.body.delivery_due,
+            revision_number: req.body.revision_number,
+            delivery_description: req.body.delivery_description,
+            // imgage_post_urls: req.body.imgage_post_urls,
+            imgage_post_urls: img_url,
+            skill_tag: req.body.skill_tag
+        };
+        // console.log(category);
+        // Save Freelancer_post in the database
+        Freelancer_post.create(freelancer_post)
+            .then(data => {
+                // res.send(data);
+                return res.status(200).json({
+                    message: "Freelancer post was created successfully.",
+                    // avt_url: avt_url
+                  });
+            })
+            .catch(err => {
+                return res.status(500).json({
+                    message:
+                        err.message || 
+                        "Some error while creating freelancer post"
+                });
+            });
+
+    } catch (error) {
+        // console.log(error);
+    }
+    // console.log(img_url);
+
+
     // console.log(req.body.freelancer_id);
     // Create a freelancer_post
-    const freelancer_post = {
-        freelancer_id: req.body.freelancer_id,
-        about_me: req.body.about_me,
-        skill_description: req.body.skill_description,
-        lowset_price: req.body.lowset_price,
-        delivery_due: req.body.delivery_due,
-        revision_number: req.body.revision_number,
-        delivery_description: req.body.delivery_description,
-        imgage_post_urls: req.body.imgage_post_urls,
-        skill_tag: req.body.skill_tag
-    };
-    // console.log(category);
-    // Save Freelancer_post in the database
-    Freelancer_post.create(freelancer_post)
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the Tutorial."
-            });
-        });
+
 };
 
 
@@ -101,7 +142,7 @@ exports.changeStatus = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-            message: "Error updating Freelancer_post with id=" + freelancer_post_id
+                message: "Error updating Freelancer_post with id=" + freelancer_post_id
             });
         });
 };
@@ -166,36 +207,36 @@ exports.findOne = (req, res) => {
 // /project_post/update
 exports.update = (req, res) => {
     const id = req.body.id;
-  
+
     const updatedData = Object.keys(req.body)
-      .filter(key => key !== 'id' && key !== 'imgage') // Don't check if req.body[key] is truthy
-      .reduce((obj, key) => {
-        obj[key] = req.body[key];
-        return obj;
-      }, {});
-  
+        .filter(key => key !== 'id' && key !== 'imgage') // Don't check if req.body[key] is truthy
+        .reduce((obj, key) => {
+            obj[key] = req.body[key];
+            return obj;
+        }, {});
+
     Freelancer_post.update(updatedData, {
-      where: { id: id }
+        where: { id: id }
     })
-      .then(num => {
-        // console.log(num);
-        // if (num[0] > 0) {
-          res.send({
-            message: "project_post was updated successfully."
-          });
+        .then(num => {
+            // console.log(num);
+            // if (num[0] > 0) {
+            res.send({
+                message: "project_post was updated successfully."
+            });
         }
 
-        // } else {
-        //   res.send({
-        //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
-        //   });
-      )
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating project_post with id=" + id
+            // } else {
+            //   res.send({
+            //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+            //   });
+        )
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating project_post with id=" + id
+            });
         });
-      });
-  };
+};
 
 // Delete a Category with the specified id in the request
 exports.delete = (req, res) => {
