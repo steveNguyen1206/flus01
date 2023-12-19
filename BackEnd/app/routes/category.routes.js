@@ -1,11 +1,34 @@
-const { authJwt } = require("../middleware");
-const category_controller = require("../controllers/category.controller.js");
+module.exports = app => {
+    const category = require("../controllers/category.controller.js");
+  
+    var router = require("express").Router();
+  
+    // Create a new Category
+    router.post("/", category.create);
+  
+    // Retrieve all Category
+    router.get("/", category.findAll);
+  
+    // Retrieve all Categories with their Subcategories from the database.
+    router.get("/all/:searchKey", category.findAllCategoryInfo);
 
-module.exports = (app) => {
-  var router = require("express").Router();
+    router.get("/all/", category.findAllCategoryInfo);
 
-  // get name of subcategory by id /subcategory/get_name/${id}`
-    router.get("/get_name/:id", category_controller.getNameSubcategory);
-
-    app.use("/api/subcategory", router)
-};
+    // // Retrieve all published Category
+    // router.get("/published", category.findAllPublished);
+  
+    // Retrieve a single Category with id
+    router.get("/:id", category.findOne);
+  
+    // Update a Category with id
+    router.put("/", category.update);
+  
+    // Delete a Category with id
+    router.delete("/:id", category.delete);
+  
+    // // Delete all Tutorials
+    // router.delete("/", category.deleteAll);
+  
+    app.use('/api/category', router);
+  };
+  

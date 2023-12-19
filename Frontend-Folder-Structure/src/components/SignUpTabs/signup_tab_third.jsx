@@ -48,23 +48,23 @@ const SignUpTabThird = ({
       code: signUpPayload.code,
     };
     console.log('frontend: ', smsMessage);
-    signin();
-    onSignUp();
-    // smsAuthenService
-    //   .verifyCode(smsMessage)
-    //   .then((response) => {
-    //     if (response.status == 200) {
-    //       signin();
-    //       onSignUp();
-    //     } else {
-    //       console.log('Error: ', response.message);
-    //       error.code = 'Code is not correct, please try again';
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.log('eRROR:', e.message);
-    //     error.code = 'Code is not correct, please try again';
-    //   });
+    // signin();
+    // onSignUp();
+    smsAuthenService
+      .verifyCode(smsMessage)
+      .then((response) => {
+        if (response.status == 200) {
+          signin();
+          onSignUp();
+        } else {
+          console.log('Error: ', response.message);
+          error.code = 'Code is not correct, please try again';
+        }
+      })
+      .catch((e) => {
+        console.log('eRROR:', e.message);
+        error.code = 'Code is not correct, please try again';
+      });
   };
 
   return (

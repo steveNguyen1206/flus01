@@ -1,10 +1,33 @@
 const db = require("../models");
+const cloudinary = require("../config/cloudinary.config");
 const project_post = db.project_post;
 const Op = db.Sequelize.Op;
 
+
+
 // Create and Save a new Project_post
-exports.createProjectPost = (req, res) => {
-    console.log(req.body);
+async function handleUpload(file) {
+    const res = await cloudinary.uploader.upload(file, {
+        resource_type: "auto",
+    });
+    return res;
+}
+
+async function handleDelete(file) {
+    try {
+        const res = await cloudinary.uploader.destroy(file, {
+            resource_type: "image",
+        });
+        return res;
+    } catch (error) {
+        console.error("Error deleting image:", error);
+        throw error;
+    }
+}
+
+
+exports.create = async (req, res) => {
+    console.log("body: ",req.body);
     // Validate request
     if (!req.body) {
         res.status(400).send({
@@ -13,19 +36,27 @@ exports.createProjectPost = (req, res) => {
         return;
     }
 
-    // Create a Project_post
-    const projectPost = {
-        title: req.body.title,
-        detail: req.body.detail,
-        budget_min: req.body.budget_min,
-        budget_max: req.body.budget_max,
-        imgage_post_urls: "https://i.imgur.com/lf1OweZ.png",
-        user_id: req.body.user_id,
-        tag_id: 1,
-    };
-   
-    // Save Project_post in the database
-    project_post.create(projectPost)
+    console.log("req.file: ", req.file);
+
+    try {
+        const b64 = Buffer.from(req.file.buffer).toString("base64");
+        let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+        const cldRes = await handleUpload(dataURI);
+        console.log(cldRes.secure_url);
+        const img_url = cldRes.secure_url;
+        console.log("img_url: ", img_url)
+
+        const projectPost = {
+            title: req.body.title,
+            detail: req.body.detail,
+            budget_min: req.body.budget_min,
+            budget_max: req.body.budget_max,
+            imgage_post_urls: img_url,
+            user_id: req.body.user_id,
+            tag_id: 1,
+        };
+
+        project_post.create(projectPost)
         .then(data => {
         res.send(data);
         })
@@ -35,6 +66,10 @@ exports.createProjectPost = (req, res) => {
             err.message || "Some error occurred while creating the Project_post."
         });
         });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ message: err.message });
+    }
 };
 
 // Find all Project_posts by user id and set their status to status param
@@ -54,6 +89,7 @@ exports.findAndChangeStatus = (req, res) => {
             }
         })
         .catch(err => {
+            console.log(err);
             res.status(500).send({
                 message: "Error updating Project_posts status for user with id=" + userId
             });
@@ -152,35 +188,97 @@ exports.findOne = (req, res) => {
 };
 
 // /project_post/update
-exports.update = (req, res) => {
-    const id = req.body.id;
-  
-    const updatedData = Object.keys(req.body)
-      .filter(key => key !== 'id' && key !== 'image') // Don't check if req.body[key] is truthy
-      .reduce((obj, key) => {
-        obj[key] = req.body[key];
-        return obj;
-      }, {});
-  
-    project_post.update(updatedData, {
-      where: { id: id }
-    })
-      .then(num => {
-        // console.log(num);
-        // if (num[0] > 0) {
-          res.send({
-            message: "project_post was updated successfully."
-          });
-        }
+exports.update = async (req, res) => {
+    console.log("body: ", req.body);
 
-        // } else {
-        //   res.send({
-        //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
-        //   });
-      )
-      .catch(err => {
-        res.status(500).send({
-          message: "Error updating project_post with id=" + id
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
         });
-      });
-  };
+        return;
+    }
+
+    const id = req.params.id;
+
+    console.log("req.file: ", req.file);
+
+    try {
+        if (!req.file) {
+            // If no new image is provided, update without changing the existing image
+            const updatedData = Object.keys(req.body)
+                .filter(key => key !== 'id' && key !== 'imgage_post_urls' && req.body[key])
+                .reduce((obj, key) => {
+                    obj[key] = req.body[key];
+                    return obj;
+                }, {});
+
+            console.log("updated", updatedData);
+
+            const [num] = await project_post.update(updatedData, {
+                where: { id: id }
+            });
+
+            if (num > 0) {
+                res.send({
+                    message: "project_post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+                });
+            }
+        } else {
+            // If a new image is provided, update with the new image
+
+            // Get the old image url
+            const existingProject = await project_post.findByPk(id);
+            const oldUrl = existingProject.imgage_post_urls;
+
+            console.log("oldUrl: ", oldUrl);
+
+            // Delete old image
+            await handleDelete(oldUrl);
+
+            // Upload new image
+            const b64 = Buffer.from(req.file.buffer).toString("base64");
+            let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+            const cldRes = await handleUpload(dataURI);
+            console.log(cldRes.secure_url);
+            const img_url = cldRes.secure_url;
+            console.log("img_url: ", img_url);
+
+            // Update project_post with new data
+            const updatedData = Object.keys(req.body)
+            .filter(key => key !== 'id' && req.body[key])
+            .reduce((obj, key) => {
+                obj[key] = req.body[key];
+                return obj;
+            }, {});
+
+            updatedData.imgage_post_urls = img_url;
+
+            console.log("updated", updatedData);
+
+
+            const [num] = await project_post.update(updatedData, {
+                where: { id: id }
+            });
+
+            if (num > 0) {
+                res.send({
+                    message: "project_post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+                });
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: "Internal server error"
+        });
+    }
+};

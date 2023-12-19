@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { media_upload, http } from "./http-common";
 
 const findAll = () => {
   return http.get("/user");
@@ -20,6 +20,13 @@ const signin = data => {
 const update = (id, data) => {
   return http.put(`/user/${id}`, data);
 };
+
+const updateAvatar = (id, avatarFile) => {
+  const formData = new FormData();
+  formData.append('avatar', avatarFile);
+  console.log(avatarFile);
+  return media_upload.put(`/user/avatar/${id}`, formData);
+}
 
 
 
@@ -49,14 +56,10 @@ const removeUserByAccName = (accountName) => {
   return http.delete(`/user/deleteuser/${accountName}`);
 };
 
-<<<<<<< HEAD
-=======
-// ...existing code...
 
 const changeStatusByID = (id, status) => {
   return http.put(`/user/status/${id}&${status}`);
 };
->>>>>>> 49d05c152067e400f63a9c8ebc6e13b6cbf397e2
 
 const userDataService = {
   findAll,
