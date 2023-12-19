@@ -16,13 +16,17 @@ module.exports = app => {
     router.get("/:id", subcategory.findOne);
   
     // Update a Tutorial with id
-    router.put("/:id", subcategory.update);
+    router.put("/", subcategory.update);
   
     // Delete a Category with id
     router.delete("/:id", subcategory.delete);
   
     // // Delete all Tutorials
     // router.delete("/", category.deleteAll);
+
+    // get all subcategory of a project post
+    router.get("/get_name/:id", subcategory.findAllByProjectPostId);
+
   
     app.use('/api/subcategory', router);
   };

@@ -1,12 +1,9 @@
 import React from 'react';
 import vietnam from '../../assets/vietnam.png';
-import profileimage from '../../assets/profile_image.png';
 import heart from '../../assets/heart-active.png';
 import './project.css';
 import { StarRating } from '@/components';
-import img from '../../assets/Imgs.png';
 import dollar from '../../assets/dollars.png';
-import location from '../../assets/location.png';
 import delivery from '../../assets/delivery.png';
 import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
@@ -32,7 +29,6 @@ const Project = () => {
   const [user, setUser] = useState([]);
 
   // get user by id
-
   useEffect(() => {
     userDataService.findOnebyId(userId).then((response) => {
       console.log('response: ', response);
@@ -90,8 +86,20 @@ const Project = () => {
     setIsEditPopupOpen(true);
   };
 
-
   const [isChange, setIsChange] = useState(false);
+
+  useEffect(() => {
+    if (isChange) {
+      projectPostServices.getProjectbyId(id).then((response) => {
+        console.log('response: ', response);
+        setProject(response.data);
+      });
+      setIsChange(false);
+    }
+  }, [isChange]);
+  
+
+  console.log(isEditPopupOpen);
   return (
     <>
       {isEditPopupOpen && (
@@ -99,7 +107,9 @@ const Project = () => {
           isOpen={isEditPopupOpen}
           onClose={() => setIsEditPopupOpen(false)}
           projectId={id}
-          onUpdate={() => {setIsChange(!isChange)}}
+          onUpdate={() => {
+            setIsChange(!isChange);
+          }}
         />
       )}
       <div className="pproject">

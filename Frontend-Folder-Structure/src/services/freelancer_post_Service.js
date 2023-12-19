@@ -35,18 +35,6 @@ const sendPost = async (data) => {
     for (let pair of formData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
       }
-  
-    // try {
-    //   const response = await media_upload.post('/freelancer_post', formData, {
-    //     headers: {
-    //       ...media_upload.defaults.headers,
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   });
-    //   console.log(response.data);
-    // } catch (error) {
-    //   console.log('Error submitting post:', error);
-    // }
     
     return media_upload.post("/freelancer_post", formData);
   };

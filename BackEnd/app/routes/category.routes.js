@@ -9,6 +9,11 @@ module.exports = app => {
     // Retrieve all Category
     router.get("/", category.findAll);
   
+    // Retrieve all Categories with their Subcategories from the database.
+    router.get("/all/:searchKey", category.findAllCategoryInfo);
+
+    router.get("/all/", category.findAllCategoryInfo);
+
     // // Retrieve all published Category
     // router.get("/published", category.findAllPublished);
   
@@ -16,7 +21,7 @@ module.exports = app => {
     router.get("/:id", category.findOne);
   
     // Update a Category with id
-    router.put("/:id", category.update);
+    router.put("/", category.update);
   
     // Delete a Category with id
     router.delete("/:id", category.delete);

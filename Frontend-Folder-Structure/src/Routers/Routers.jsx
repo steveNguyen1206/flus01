@@ -1,15 +1,14 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job, UpdateAvatarForm} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, Admin, FindFreelancer, Job, Skill} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
-import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
-import Job from '@/pages/Job/job';
 import { ProjectManagement } from '@/pages/ProjectManagement';
 import { UpdateProject, NewProject } from '@/pages';
 import BidPopup from '@/pages/Bid';
 import { Bid } from '@/components';
+// import { UpdateAvatarForm } from '@/pages/Profile/updateAvatarForm';
 const Routers = () => {
   return (
     <GoogleOAuthProvider clientId="138372560551-k6qucf4eebnppht116rieqoa6bfm801b.apps.googleusercontent.com">
@@ -22,8 +21,9 @@ const Routers = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} />
+          {/* <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} /> */}
           <Route path="/paypal-demo" element={<PayPalDemo />} />
+          <Route path="/project/:id" element={<Project />} />
           <Route path="/project/:id" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
@@ -33,8 +33,8 @@ const Routers = () => {
           <Route path="/newproject" element={<NewProject />} />
           <Route path="/admin" element={<Admin/>} />
             <Route path="/findFreelancer" element={<FindFreelancer />} />
-          <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} />
-          <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} />
+          {/* <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} /> */}
+          {/* <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} /> */}
           <Route path="/job" element={<Job />} />
           {/* Add more routes as needed */}
         </Routes>

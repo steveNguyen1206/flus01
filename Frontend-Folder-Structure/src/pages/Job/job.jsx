@@ -37,6 +37,13 @@ const Job = () => {
 
   const [isChange, setIsChange] = useState(false);
 
+  useEffect(() => {
+    if (isChange) {
+      fetchProjects();
+      setIsChange(false);
+    }
+  }, [isChange]);
+
   return (
     <>
       {isOpen && <NewProject isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />}

@@ -63,16 +63,16 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
         phone_number: convertPhone(signUpPayload.phone),
       };
       setTab(3);
-      // smsAuthenService
-      //   .sendCode(phoneNum)
-      //   .then((response) => {
-      //     if (response.status == 200) {
-      //       setTab(3);
-      //     }
-      //   })
-      //   .catch((e) => {
-      //     console.log('SmsAuthenService error (client): ', e);
-      //   });
+      smsAuthenService
+        .sendCode(phoneNum)
+        .then((response) => {
+          if (response.status == 200) {
+            setTab(3);
+          }
+        })
+        .catch((e) => {
+          console.log('SmsAuthenService error (client): ', e);
+        });
     } else {
       console.log('Form is not valid. Please check the errors.');
     }

@@ -7,17 +7,20 @@ import projectPostServices from '@/services/projectPostServices';
 
 const isValidTitle = (title) => {
   if (!title) return true;
+  if (!title) return true;
   const titleRegex = /^[a-zA-Z0-9\s]*$/;
   return titleRegex.test(title);
 };
 
 const isValidDetail = (detail) => {
   if (!detail) return true;
+  if (!detail) return true;
   const detailRegex = /^.{10,}$/;
   return detailRegex.test(detail);
 };
 
 const isValidBudget = (budget) => {
+  if (!budget) return true;
   if (!budget) return true;
   const budgetRegex = /^[0-9]*$/;
   return budgetRegex.test(budget) && budget > 0;
@@ -33,7 +36,7 @@ const isValidImage = (image) => {
   return true;
 };
 
-const UpdateProject = ({ isOpen, onClose, projectId, onUpdate}) => {
+const UpdateProject = ({ isOpen, onClose, projectId, onUpdate }) => {
   const [showOverlay, setShowOverlay] = useState(isOpen);
   const [error, setError] = useState({
     title: '',
@@ -156,22 +159,20 @@ const UpdateProject = ({ isOpen, onClose, projectId, onUpdate}) => {
     id: projectId,
   };
 
-  const handleUpdateClick = () => {
+  const handleUpdateClick = async () => {
     if (validateForm()) {
       console.log(data);
-      projectPostServices
-        .updateProject(data)
-        .then(() => {
-          console.log('Form is valid. Project submitted successfully.');
-          setShowOverlay(false);
-          onUpdate();
-          if (onClose) {
-            onClose();
-          }
-        })
-        .catch((error) => {
-          console.error('Error submitting project:', error.message);
-        });
+      try {
+        await projectPostServices.updateProject(data);
+        console.log('Form is valid. Project submitted successfully.');
+        setShowOverlay(false);
+        onUpdate();
+        if (onClose) {
+          await onClose();
+        }
+      } catch (error) {
+        console.error('Error submitting project:', error.message);
+      }
     } else {
       console.log('Form has errors. Please fix them.');
     }
