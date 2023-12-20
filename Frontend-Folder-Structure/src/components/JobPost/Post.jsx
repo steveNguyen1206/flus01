@@ -2,12 +2,14 @@ import React from 'react';
 import './Post.css';
 import vietnam from '../../assets/vietnam.png';
 import heart from '../../assets/heart-active.png';
+import unactiveHeart from '../../assets/heart-unactive.png';
 import { StarRating } from '..';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import userDataService from '../../services/userDataServices';
 import reviewServices from '../../services/reviewServices';
 import categoryServices from '../../services/categoryServices';
+import projectPostWishlistServices from '../../services/projectPostWishlistServices';
 
 const Post = ({
   projectId,
@@ -18,8 +20,6 @@ const Post = ({
   userID,
   handleBidClick,
 }) => {
-  const navigate = useNavigate();
-
   // first, get owner project
   const [ownerProject, setOwnerProject] = useState([]);
 
@@ -75,6 +75,22 @@ const Post = ({
     }
   };
 
+  const [isLiked, setIsLiked] = useState(unactiveHeart);
+  const handleLikeClick = () => {
+    if (isLiked === unactiveHeart) {
+      projectPostWishlistServices.create(userID, projectId).then((response) => {
+        setIsLiked(heart);
+        console.log('response: ', response);
+      });
+    }
+    if (isLiked === heart) {
+      projectPostWishlistServices.remove(userID, projectId).then((response) => {
+        setIsLiked(unactiveHeart);
+        console.log('response: ', response);
+      });
+    }
+  };
+
   return (
     <div className="post-container">
       <div className="left-post">
@@ -125,8 +141,8 @@ const Post = ({
               <button onClick={handleBidClick}>Bid</button>
             </div>
             <div className="wish">
-              <button>
-                <img src={heart} alt="heart icon" />
+              <button onClick={handleLikeClick}>
+                <img src={isLiked} alt="heart icon" />
               </button>
             </div>
           </div>

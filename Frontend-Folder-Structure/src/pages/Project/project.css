@@ -331,6 +331,11 @@ margin-top: 30px;
     border: none;
 }
 
+.button-wish-project img{
+    height: 30px;
+    width: 30px;
+}
+
 .project-bid-list-info{
     display: flex;
     flex-direction: column;

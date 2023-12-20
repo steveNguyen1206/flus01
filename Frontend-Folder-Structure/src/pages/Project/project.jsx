@@ -18,11 +18,13 @@ import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
 import { UpdateProject } from '..';
+import BidPopup from '../Bid';
 
 const Project = () => {
   const { id } = useParams();
   console.log('id: ', id);
   const [project, setProject] = useState([]);
+  const [isOpenBid, setIsOpenBid] = useState(false);
 
   // const userId = localStorage.getItem('LOGINID')
   const userId = 1;
@@ -97,7 +99,6 @@ const Project = () => {
       setIsChange(false);
     }
   }, [isChange]);
-  
 
   console.log(isEditPopupOpen);
   return (
@@ -110,6 +111,13 @@ const Project = () => {
           onUpdate={() => {
             setIsChange(!isChange);
           }}
+        />
+      )}
+      {isOpenBid && (
+        <BidPopup
+          projectPostId={id}
+          isOpen={isOpenBid}
+          isClose={() => setIsOpenBid(false)}
         />
       )}
       <div className="pproject">
@@ -182,7 +190,7 @@ const Project = () => {
               <p>Related Projects</p>
             </div>
 
-            <div className="related-project-list">
+            {/* <div className="related-project-list">
               <Carousel>
                 <Carousel.Item>
                   <div className="related-project-item">
@@ -197,7 +205,7 @@ const Project = () => {
                   </div>
                 </Carousel.Item>
               </Carousel>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="right-project">
@@ -263,7 +271,14 @@ const Project = () => {
             </div>
 
             <div className="btn-bid-and-wish">
-              <button className="button-bid-project">Bid</button>
+              <button
+                onClick={() => {
+                  setIsOpenBid(true);
+                }}
+                className="button-bid-project"
+              >
+                Bid
+              </button>
               <button className="button-wish-project">
                 <img src={heart} alt="heart" />
               </button>

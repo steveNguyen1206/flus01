@@ -164,6 +164,7 @@ require("./app/routes/review.routes")(app);
 require("./app/routes/category.routes")(app);
 
 require("./app/routes/subcategory.routes")(app);
+require("./app/routes/wishlist.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -171,7 +171,9 @@
 }
 
 .wish img{
-  background-color: #FFF;   
+  background-color: #FFF;  
+  height: 30px;
+  width: 30px; 
 }
 
 .pttags{

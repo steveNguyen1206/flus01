@@ -11,11 +11,11 @@ import { NewProject } from '../Project/';
 
 const Job = () => {
   const navigate = useNavigate();
-  const [projects, setProjects] = useState([]);
 
-  useEffect(() => {
-    fetchProjects();
-  }, []);
+  const [projects, setProjects] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isChange, setIsChange] = useState(false);
+  const [searchTitle, setSearchTitle] = useState('');
 
   const fetchProjects = async () => {
     try {
@@ -27,15 +27,13 @@ const Job = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    fetchProjects();
+  }, []);
 
   const handleNewProject = () => {
     setIsOpen(true);
   };
-
-  
-
-  const [isChange, setIsChange] = useState(false);
 
   useEffect(() => {
     if (isChange) {
@@ -44,9 +42,25 @@ const Job = () => {
     }
   }, [isChange]);
 
+  const handleSearchChange = (event) => {
+    setSearchTitle(event.target.value);
+  };
+
+  const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(searchTitle.toLowerCase())
+  );
+
   return (
     <>
-      {isOpen && <NewProject isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />}
+      {isOpen && (
+        <NewProject
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          onUpdate={() => {
+            setIsChange(true);
+          }}
+        />
+      )}
 
       <div className="job-page">
         <div className="content">
@@ -57,7 +71,7 @@ const Job = () => {
                   + New Post
                 </button>
               </div>
-              <Search />
+              <Search  onSearchChange={handleSearchChange}/>
               <select className="sort">
                 <option value="" disabled defaultValue>
                   Sort
@@ -74,7 +88,7 @@ const Job = () => {
             <Filter />
           </div>
           <div className="right-job">
-            {projects.map((project) => (
+            {filteredProjects.map((project) => (
               <Post
                 key={project.id}
                 projectId={project.id}
