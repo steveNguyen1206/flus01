@@ -21,28 +21,23 @@
 
 .pprofile{
   display: flex;
+  align-items: center;
 }
 
 .pprofile img{
-  margin: 10px;
-  height: 80px;
-  width: 80px;
+  height: 40px;
+  object-fit: cover;
+  width: auto;
 }
 
 .plocation img{
   height: 10px;
-  width: 22px;
-  margin-top: 20px;
+  width: auto;
 }
 
 .pname {
-  margin-top: 15px;
   margin-left: 10px;
 
-}
-
-.pusername {
-  margin-top: 12px;
 }
 
 
@@ -53,40 +48,41 @@
   font-weight: 600;
 }
 
-
-/* .ptitle{
+.content-container{
+  width: 100%;
+  padding-left: 40px;
+  padding-right: 20px;
+  height: 100%;
+}
+.ptitle{
   display: flex;
-  margin-left: 110px;
-  margin-top: -57px;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 700;
-} */
+  font-size: 20px;
+}
 
-.tag{
-  margin-left: 110px;
+
+.post-tag{
   margin-top: 0px;
   border-radius: 8px;
   margin-bottom: 10px;
   border: 2px solid var(--accent, #12C418);
   background: var(--WHITE, #FFF); 
   color: var(--accent, #12C418);
-  text-align: center; 
-  width: 250px;
+  text-align: center;
+  width: fit-content;
+  padding: 0px 5px;
 }
 
-.detail {
+.detail-content {
   max-width: 600px;
-  max-height: 140px;
-  margin-left: 70px;
   text-align: left;
-
-}
-
-.detail-header{
-  margin-left: 70px;
-  text-align: left;
-  margin-top: 0px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  height: 100%;
+  overflow: hidden;
 }
 
 .previews{
@@ -97,19 +93,15 @@
   margin-top: 30px;
 }
 
-.rating{
+.rating-row{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   text-align: center;
   align-items: center;
+  height: 15px;
 }
 
-.rating-container{
-  align-items: center;
-  text-align: center;
-  padding-top: 9px;
-}
+
 
 .pstars{
   width: 200px;
@@ -118,6 +110,7 @@
 
 .pprice{
   text-align: right;
+  color: #12C418;
   font-size: var(--xlarge-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 700;
@@ -136,12 +129,13 @@
   width: 80px;
   background-color: var(--primary);
   border: none;
+  color: #FFF;
+  border-radius: 7px;
   margin-bottom: 10px;
 }
 
-.wish button{
-  background-color: #FFF;
-  border: none;
+.btn-bid button:active{
+  background-color: #066409;
 }
 
 .rating img{
@@ -163,6 +157,6 @@
   align-items: center;
 }
 
-.num-reviews {
+.num-reviews-wrapper {
     text-align: center;
   }
