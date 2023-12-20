@@ -3,8 +3,17 @@ import './FreelancerPost.css';
 import vietnam from '../../assets/vietnam.png';
 import profileimage from '../../assets/profile_image.png';
 import { StarRating } from '..';
+import eyeLight from '../../assets/eyeLight.png';
+import { useNavigate } from 'react-router';
 
 const FreelancerPost = ({post}) => {
+  const navigate = useNavigate();
+  
+  const handleClickPost = (postId) => {
+    console.log('post: ', postId);
+    navigate(`/findFreelancer/${postId}`)
+  }
+
   return (
   <div className="post-container">
     <div className="left-post">
@@ -54,10 +63,11 @@ const FreelancerPost = ({post}) => {
       </div>
       <div className="pbid">
         <div className="pprice">From ${post.lowset_price}</div>
-        <div className="btn-p">
+        <div className="btn-row">
           <div className="btn-bid">
             <button>Hire me</button>
           </div>
+          <img  src={eyeLight} onClick={() => handleClickPost(post.id)}/>
 
         </div>
       </div>

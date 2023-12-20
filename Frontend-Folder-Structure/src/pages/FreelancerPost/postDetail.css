@@ -20,6 +20,7 @@
     width: 100%;
     background-color: rgba(235, 232, 232, 0.50);
     border-radius: 12px;
+    margin-bottom: 20px;
 }
 
 .tags{
@@ -98,11 +99,9 @@
     margin-top: 4px;
 }
 
-.proj-stars-left{
+.proj-stars-user{
     align-items: center;
     text-align: center;
-    margin-bottom: 0;
-    margin-top: 10px;
 }
 
 .proj-rating-left p{

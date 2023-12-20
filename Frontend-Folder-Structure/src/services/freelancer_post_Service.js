@@ -72,7 +72,8 @@ const freelancer_post_Service = {
     update,
     allposts,
     sendPost,
-    updatePost
+    updatePost,
+    findOnebyId
 };
 
 export default freelancer_post_Service;

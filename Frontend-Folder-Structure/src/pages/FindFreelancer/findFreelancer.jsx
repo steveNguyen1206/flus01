@@ -35,9 +35,7 @@ const FindFreelancer = () => {
     setIsOpen(true);
   };
   const [isChange, setIsChange] = useState(false);
-  const hadleClickPost = (postId) => {
-    navigate(`/freelancer_post/${postId}`)
-  }
+  
   useEffect(() => {
     // Fetch data from the API endpoint
     fetch('http://localhost:8080/api/freelancer_post/allposts')
@@ -89,7 +87,7 @@ const FindFreelancer = () => {
               about_me={post.about_me}
               lowest_price={post.lowest_price}
               skill_description={post.skill_description}
-              // onClick={() => hadleClickPost(post.id)}
+              
             />
           ))}
           </div>

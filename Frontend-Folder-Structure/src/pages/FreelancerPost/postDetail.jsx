@@ -13,11 +13,11 @@ import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import projectServices from '@/services/projectPostServices';
+import freelancer_post_Service from '@/services/freelancer_post_Service';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { HirePopup, UpdateProject } from '..';
+import UpdatePost from './updatePost';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -38,7 +38,7 @@ const PostDetail = () => {
   }, []);
 
   useEffect(() => {
-    projectServices.getProjectbyId(id).then((response) => {
+    freelancer_post_Service.findOnebyId(id).then((response) => {
       console.log('response: ', response);
       setProject(response.data);
     });
@@ -99,7 +99,7 @@ const PostDetail = () => {
   return (
     <>
       {isEditPopupOpen && (
-        <UpdateProject
+        <UpdatePost
           isOpen={isEditPopupOpen}
           onClose={() => setIsEditPopupOpen(false)}
           projectId={id}
@@ -112,7 +112,8 @@ const PostDetail = () => {
           <div className="main-post">
             <div className="border-proj-title">
               <div className="proj-title">
-                <p>{project.title}</p>
+                {/* <p>{project.title}</p> */}
+                <p>Project title here</p>
               </div>
             </div>
             <div className="tags">
@@ -133,17 +134,19 @@ const PostDetail = () => {
                       <img src={vietnam} alt="vietnam" />
                     </div>
                   </div>
+                  
                   <div className="proj-rating-left">
                     <StarRating rating={owner.averageStar} width={160} />
-                    <div className="proj-stars-left">
-                      <p>{owner.averageStar}</p>
+                    <div className="proj-stars-user">
+                      {owner.averageStar}
                     </div>
                   </div>
                 </div>
               </div>
+              
+              <div className="proj-detail" style={{textAlign:"left"}}>{project.skill_description}</div>
               <div className="proj-body">
-                <div className="proj-detail">
-                  <p>{project.detail}</p>
+                <div >
                   <div className="wrapper-project-image">
                     <img
                       id="post-img"
@@ -181,21 +184,22 @@ const PostDetail = () => {
             <div className="project-detail-wrapper">
               <div className="detail-img">
                 <img src={delivery} alt="delivery" />
-                <p>5 Day Delivery</p>
+                <p>{project.delivery_due} Day Delivery</p>
               </div>
               <div className="detail-img">
                 <img src={revision} alt="revision" />
-                <p>2 Revision</p>
+                <p>{project.revision_number} Revision</p>
               </div>
               
             </div>
             <div className="detail-img">
-                <ul>
+                {/* <ul>
                   <li>1 concept included</li>
                   <li> Logo transparency</li>
                   <li>Vector file</li>
                   <li>Include social media kit</li>
-                </ul>
+                </ul> */}
+                {project.delivery_description}
               </div>
 
             <div className="btn-hire">

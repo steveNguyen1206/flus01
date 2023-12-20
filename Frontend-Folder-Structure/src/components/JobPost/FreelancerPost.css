@@ -116,12 +116,12 @@
   font-weight: 700;
 }
 
-.btn-p{
+.btn-row{
   margin-top: 15px;
   display: flex;
-  justify-content: space-around;
   text-align: center;
   width: 200px;
+  justify-content: center;
 }
 
 .btn-bid button{
@@ -160,3 +160,9 @@
 .num-reviews-wrapper {
     text-align: center;
   }
+
+.btn-row img{
+  height: 40px;
+  object-fit: cover;
+  margin-left: 15px;
+}
