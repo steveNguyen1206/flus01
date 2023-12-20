@@ -120,6 +120,7 @@ const Project = () => {
           isClose={() => setIsOpenBid(false)}
         />
       )}
+      <BidPopup/>
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -147,7 +148,7 @@ const Project = () => {
                     </div>
                   </div>
                   <div className="proj-rating-left">
-                    <StarRating rating={owner.averageStar} />
+                    <StarRating rating={owner.averageStar} width={200}/>
                     <div className="proj-stars-left">
                       <p>{owner.averageStar}</p>
                     </div>
