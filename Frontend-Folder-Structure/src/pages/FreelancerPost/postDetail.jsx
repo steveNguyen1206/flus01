@@ -1,7 +1,6 @@
 import React from 'react';
 import vietnam from '../../assets/vietnam.png';
 import profileimage from '../../assets/profile_image.png';
-import heart from '../../assets/heart-active.png';
 import './postDetail.css';
 import { StarRating } from '@/components';
 import img from '../../assets/Imgs.png';
@@ -19,6 +18,7 @@ import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
 import UpdatePost from './updatePost';
 import BidDetailPopup from '../Bid/bidDetailPopup';
+import HireFreelancer from '../FreelancerPost/hireFreelancer';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -113,7 +113,7 @@ const PostDetail = () => {
           onUpdate={() => {setIsChange(!isChange)}}
         />
       )}
-      {showHirePopup && <HirePopup setShowHirePopup={setShowHirePopup} /> }
+      {showHirePopup && <HireFreelancer setShowHirePopup={setShowHirePopup} /> }
       {showBidPopup && <BidDetailPopup setPopUpAppear={setShowBidPopup} /> }
       <div className="pproject">
         <div className="left-project">
