@@ -169,7 +169,21 @@ const PostDetail = () => {
             <div className="proj-line">
               <img src={line} alt="line" />
             </div>
+            <div className='about-me-section'>
+              <div className='section-title'>
+                About the seller
+              </div>
+              <div className='about-me-content'>
+                  {project.about_me}
+              </div>
+
+            </div>
+            <div className="proj-line">
+              <img src={line} alt="line" />
+            </div>
           </div>
+
+         
 
           <div className="comments">
             <div className="comment-title">

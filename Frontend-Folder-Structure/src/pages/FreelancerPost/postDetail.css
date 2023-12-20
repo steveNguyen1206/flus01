@@ -369,6 +369,18 @@ margin-top: 30px;
     max-height: 750px;
 }
 
+.section-title{
+    color: black;
+    font-family: "Inter-Bold", Helvetica;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: normal;
+    text-align: left;
+    width: auto;
+    height: auto;
+}
+
 .comments{
     margin-left: 80px;
 }

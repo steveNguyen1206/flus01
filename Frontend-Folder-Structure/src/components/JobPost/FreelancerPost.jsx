@@ -42,7 +42,7 @@ const FreelancerPost = ({post}) => {
             Khang Ho. This job is hard... Detail text here ever... Detail text
             here everyone text here everyone Hello everyone, my name is Duy Khang
             Ho. */}
-            {post.about_me}
+            {post.skill_description}
           </div>
         </div>
       </div>
