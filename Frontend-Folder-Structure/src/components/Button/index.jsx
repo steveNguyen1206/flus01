@@ -1,12 +1,12 @@
 import WhiteButton from './WhiteButton';
 import React from 'react'
 
-const index = () => {
+const index = ({text}) => {
   return (
     <div>
-      <WhiteButton/>
+      <WhiteButton text={text}/>
     </div>
   )
 }
 
-export default index
+export default index;

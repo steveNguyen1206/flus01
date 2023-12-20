@@ -160,6 +160,8 @@ require("./app/routes/sms.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/subcategory.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
+require("./app/routes/transaction.routes")(app);
+require("./app/routes/project.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

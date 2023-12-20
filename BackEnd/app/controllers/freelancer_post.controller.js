@@ -17,11 +17,11 @@ exports.create = async (req, res) => {
         });
         return;
     }
-    if (!req.files || !req.files.file) {
-        console.log("No file found!!!!")
-    }
+    // if (!req.files || !req.files.file) {
+    //     console.log("No file found!!!!")
+    // }
 
-    async function handleUpload(file) {
+    async function handleUpload(file) { // đưa lên cloud
         const res = await cloudinary.uploader.upload(file, {
             resource_type: "auto",
         });
@@ -33,6 +33,8 @@ exports.create = async (req, res) => {
     try {
         // console.log(req);
         // console.log(req.file);
+
+        // lấy link trên cloud
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
         const cldRes = await handleUpload(dataURI);
