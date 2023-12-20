@@ -1,10 +1,10 @@
 import React from "react";
-import "./bidPopup.css";
+import "./bidDetailPopup.css";
 import { Bid, StarRating } from "@/components";
 
 import BidDetailTag from "@/components/Bid/bidDetail";
 
-const BidPopup = ({setPopUpAppear}) => {
+const BidDetailPopup = ({setPopUpAppear}) => {
   
   const handleExitClick = () => {
     setPopUpAppear(false);
@@ -38,4 +38,4 @@ const BidPopup = ({setPopUpAppear}) => {
   );
 };
 
-export default BidPopup;
+export default BidDetailPopup;
