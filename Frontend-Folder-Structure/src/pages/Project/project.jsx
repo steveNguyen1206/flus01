@@ -17,7 +17,7 @@ import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { BidPopup, UpdateProject } from '..';
+import { BidDetailPopup, UpdateProject } from '..';
 import styles from './project.css?inline';
 
 const Project = () => {

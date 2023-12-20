@@ -18,6 +18,7 @@ import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
 import UpdatePost from './updatePost';
+import BidDetailPopup from '../Bid/bidDetailPopup';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -96,6 +97,12 @@ const PostDetail = () => {
     setShowHirePopup(true);
   };
 
+  const [showBidPopup, setShowBidPopup] = useState(false);
+
+  const handleViewDetail = () => {
+    setShowBidPopup(true);
+  };
+
   return (
     <>
       {isEditPopupOpen && (
@@ -107,6 +114,7 @@ const PostDetail = () => {
         />
       )}
       {showHirePopup && <HirePopup setShowHirePopup={setShowHirePopup} /> }
+      {showBidPopup && <BidDetailPopup setPopUpAppear={setShowBidPopup} /> }
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -210,7 +218,7 @@ const PostDetail = () => {
             </div>
           </div>
           <div className="project-bid-list-info">
-            <div className="view-detail">
+            <div className="view-detail" onClick={handleViewDetail}>
               <p>View details</p>
             </div>
             <p>4 Offers</p>
