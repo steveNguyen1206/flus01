@@ -41,7 +41,12 @@ const getProjectbyId = id => {
     return http.get(`/project_post/${id}`);
 }
 
-const projectPostServices= {
+const findAndChangeStatus = (user_id, status) => {
+    return http.get("/project_post/findAndChangeStatus/" + user_id + "&" + status);
+};
+
+const projectPostServices = {
+    findAndChangeStatus,
     sendProject,
     getAllProjects,
     getProjectbyId,

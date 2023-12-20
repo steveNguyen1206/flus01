@@ -17,7 +17,8 @@ import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { UpdateProject } from '..';
+import { BidPopup, UpdateProject } from '..';
+import styles from './project.css?inline';
 
 const Project = () => {
   const { id } = useParams();
@@ -112,6 +113,7 @@ const Project = () => {
           }}
         />
       )}
+      <BidPopup/>
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -139,7 +141,7 @@ const Project = () => {
                     </div>
                   </div>
                   <div className="proj-rating-left">
-                    <StarRating rating={owner.averageStar} />
+                    <StarRating rating={owner.averageStar} width={200}/>
                     <div className="proj-stars-left">
                       <p>{owner.averageStar}</p>
                     </div>

@@ -16,8 +16,8 @@
   z-index: 999;
 }
 
-.new-project-form {
-  width: 710px;
+.approve-offer-form {
+  width: 510px;
   max-height: 900px;
   border: 1px solid #000;
   border-radius: 20px;
@@ -31,16 +31,16 @@
   z-index: 1000;
 }
 
-.new-project-header {
-  width: 710px;
+.approve-offer-header {
+  width: 510px;
   height: 50px;
   background-color: var(--primary);
   box-shadow: 0px 3.72px 3.72px 0px rgba(0, 0, 0, 0.25);
   border-radius: 20px 20px 0px 0px;
 }
 
-.new-project-header p {
-  font-size: 36px;
+.approve-offer-header p {
+  font-size: 32px;
   text-align: center;
   color: var(--white);
   margin: 0;
@@ -49,7 +49,7 @@
   font-weight: bold;
 }
 
-.new-project-body {
+.approve-offer-body {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -60,20 +60,20 @@
   padding: 10px;
 }
 
-.new-project-body div {
+.approve-offer-body div {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.new-project-body div label {
+.approve-offer-body div label {
   font-size: 12px;
   font-family: "Inter-Regular", sans-serif;
   color: #666;
 }
 
-.new-project-body div input {
-  width: 650px;
+.approve-offer-body div input {
+  width: 420px;
   height: 30px;
   padding-left: 10px;
   padding-right: 10px;
@@ -86,13 +86,13 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.new-project-body div input:focus {
+.approve-offer-body div input:focus {
   outline: none;
   border: 1px solid var(--primary);
 }
 
-.new-project-body div textarea {
-  width: 650px;
+.approve-offer-body div textarea {
+  width: 420px;
   height: 70px !important;
   overflow-y: auto;
   padding-left: 10px;
@@ -108,7 +108,7 @@
   resize: none;
 }
 
-.new-project-body div textarea:focus {
+.approve-offer-body div textarea:focus {
   outline: none;
   border: 1px solid var(--primary);
 }
@@ -196,32 +196,33 @@
     margin: 0px;
 }
 
-.project-range-budget{
+.project-date{
   display: flex;
   flex-direction: row!important;
-  gap: 30px!important;
+  gap: 20px!important;
 }
 
 .budget-min-input input, .budget-max-input input{
   width: 310px!important;
+
 }
 
-.done-button{
-  background-color: var(--white);
-  border: 2px solid rgba(21, 169, 25, 1);
-  border-radius: 30px;
-  width: 100px;
-  color: var(--accent);
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: var(--medium-font-size);
-  font-family: "Inter-bold", Helvetica;
+.project-date div input {
+  width: 195px;
+  height: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  font-family: "Inter-Regular", sans-serif;
+  color: #666;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.done-button:active{
-  background-color: rgba(21, 169, 25, 1);
-  border-color: rgba(21, 169, 25, 1);
-  color: white;
-  
-}
+.accept-reject{
+    display: flex;
+    flex-direction: row!important;
+    gap: 80px!important;
+  }

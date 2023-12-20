@@ -29,21 +29,19 @@
   width: 80px;
 }
 
-.pplocation img{
-  height: 15px;
+.plocation img{
+  height: 10px;
   width: 22px;
   margin-top: 20px;
 }
 
-.ppname {
+.pname {
   margin-top: 15px;
   margin-left: 10px;
-  font-size: 15px;
-  font-weight: 600;
-  font-family: Inter-Bold, sans-serif;
+
 }
 
-.ppusername {
+.pusername {
   margin-top: 12px;
 }
 
@@ -65,7 +63,7 @@
   font-weight: 700;
 } */
 
-.ptag{
+.tag{
   margin-left: 110px;
   margin-top: 0px;
   border-radius: 8px;

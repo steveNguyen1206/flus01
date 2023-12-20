@@ -2,27 +2,24 @@ import React from 'react';
 import vietnam from '../../assets/vietnam.png';
 import profileimage from '../../assets/profile_image.png';
 import heart from '../../assets/heart-active.png';
-import './project.css';
+import './postDetail.css';
 import { StarRating } from '@/components';
 import img from '../../assets/Imgs.png';
 import dollar from '../../assets/dollars.png';
-import location from '../../assets/location.png';
+import revision from '../../assets/revision.png';
 import delivery from '../../assets/delivery.png';
-import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
 import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
-import RelatedProject from '@/components/RelatedProject/RelatedProject';
-import { Carousel } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import projectServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { UpdateProject } from '..';
+import { HirePopup, UpdateProject } from '..';
 
-const Post = () => {
+const PostDetail = () => {
   const { id } = useParams();
   console.log('id: ', id);
   const [project, setProject] = useState([]);
@@ -92,6 +89,13 @@ const Post = () => {
 
 
   const [isChange, setIsChange] = useState(false);
+
+  const [showHirePopup, setShowHirePopup] = useState(false);
+
+  const handleHireProject = () => {
+    setShowHirePopup(true);
+  };
+
   return (
     <>
       {isEditPopupOpen && (
@@ -102,6 +106,7 @@ const Post = () => {
           onUpdate={() => {setIsChange(!isChange)}}
         />
       )}
+      {showHirePopup && <HirePopup setShowHirePopup={setShowHirePopup} /> }
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -129,7 +134,7 @@ const Post = () => {
                     </div>
                   </div>
                   <div className="proj-rating-left">
-                    <StarRating rating={owner.averageStar} />
+                    <StarRating rating={owner.averageStar} width={160} />
                     <div className="proj-stars-left">
                       <p>{owner.averageStar}</p>
                     </div>
@@ -166,104 +171,45 @@ const Post = () => {
               <img src={line} alt="line" />
             </div>
           </div>
-
-          <div className="related-project-wrapper">
-            <div className="related-project-title">
-              <p>Related Projects</p>
-            </div>
-
-            <div className="related-project-list">
-              <Carousel>
-                <Carousel.Item>
-                  <div className="related-project-item">
-                    <RelatedProject />
-                    <RelatedProject />
-                  </div>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <div className="related-project-item">
-                    <RelatedProject />
-                    <RelatedProject />
-                  </div>
-                </Carousel.Item>
-              </Carousel>
-            </div>
-          </div>
         </div>
         <div className="right-project">
           <button onClick={handleEditProject} className="button-edit">
             Edit
           </button>
-          <div className="job-profile">
-            <div className="right-profile">
-              <img src={user.avt_url} alt="profile" />
-              <div className="project-name-wrapper-right">
-                <div className="project-name-right">
-                  <p>{user.account_name}</p>
-                </div>
-                <div className="project-username-right">
-                  <p>({user.profile_name})</p>
-                </div>
-                <div className="project-right-stars">
-                  <StarRating rating={owner.averageStar} />
-                  <p>{owner.averageStar}</p>
-                  <div className="project-right-nstars"></div>
-                </div>
-              </div>
-              <div className="project-location-right">
-                <img src={vietnam} alt="vietnam" />
-              </div>
-            </div>
-
-            <div className="project-jobs-right">
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
-              </div>
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
-              </div>
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
-              </div>
-            </div>
-
-            <div className="project-right-contact">
-              <WhiteButton name="Chat now" />
-              <WhiteButton name="View Profile" />
-            </div>
-          </div>
           <div className="project-info">
-            <h4>More about the project</h4>
-            <div className="project-detail">
-              <div className="project-detail-price">
-                <img src={dollar} alt="dollar" />
-                <p>${`${project.budget_min} - ${project.budget_max}`}</p>
-              </div>
-              {/* <div className="project-type">
-              <img src={location} alt="location" />
-              <p>Remote project</p>
-            </div> */}
-              <div className="project-time">
+            <h4>More about my job</h4>
+            <div className="project-detail-wrapper">
+              <div className="detail-img">
                 <img src={delivery} alt="delivery" />
                 <p>5 Day Delivery</p>
               </div>
+              <div className="detail-img">
+                <img src={revision} alt="revision" />
+                <p>2 Revision</p>
+              </div>
+              
             </div>
+            <div className="detail-img">
+                <ul>
+                  <li>1 concept included</li>
+                  <li> Logo transparency</li>
+                  <li>Vector file</li>
+                  <li>Include social media kit</li>
+                </ul>
+              </div>
 
-            <div className="btn-bid-and-wish">
-              <button className="button-bid-project">Bid</button>
-              <button className="button-wish-project">
-                <img src={heart} alt="heart" />
-              </button>
+            <div className="btn-hire">
+              <button className="button-hire-project" onClick={handleHireProject}>Hire me</button>
+              <div className="budget-wrapper">
+                {`$${100}`}
+              </div>
             </div>
           </div>
           <div className="project-bid-list-info">
             <div className="view-detail">
               <p>View details</p>
             </div>
-            <p>4 BID</p>
+            <p>4 Offers</p>
             <div className="proj-bid-list">
               <Bid />
               <Bid />
@@ -278,4 +224,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default PostDetail;

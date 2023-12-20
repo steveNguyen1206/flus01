@@ -292,8 +292,7 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
               <div className="error-message">{error.budgetMax}</div>
             </div>
           </div>
-          {/* <WhiteButton name="Done" onClick={handleDoneClick} /> */}
-          <button onClick={handleDoneClick}>Done</button>
+          <button className='done-button' onClick={handleDoneClick}>Done</button>
         </div>
       </div>
     </>
