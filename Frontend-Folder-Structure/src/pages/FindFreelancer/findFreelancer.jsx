@@ -89,7 +89,7 @@ const FindFreelancer = () => {
               about_me={post.about_me}
               lowest_price={post.lowest_price}
               skill_description={post.skill_description}
-              // onClick={() => hadleClickPost(post.id)}
+              
             />
           ))}
           </div>

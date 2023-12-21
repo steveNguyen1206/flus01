@@ -6,8 +6,11 @@ import authServices from '@/services/authServices';
 import { useNavigate } from 'react-router';
 import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { AuthProvider, useAuth } from '../../AuthContext';
+
 
 const LogIn = () => {
+  const { setSignin } = useAuth();
   const InititalLoginPayload = {
     userName: '',
     userPassword: '',
@@ -22,8 +25,12 @@ const LogIn = () => {
     setLoginPayload({ ...loginPayload, [name]: value });
   };
 
+  let error = {
+    username: '',
+    password: '',
+  };
+
   const signin = () => {
-    
     var data = {
       account_name: loginPayload.userName,
       password: loginPayload.userPassword,
@@ -34,14 +41,22 @@ const LogIn = () => {
       .then((response) => {
         if (response.status == 200) {
           var id = response.data.id;
-
-          // jwt lưu lại accesstoken (local storage của trình duyệt và gửi kèm token theo các truy vấn tiếp theo)
-          navigate(`/profile/${id}`)
+          localStorage.setItem('LOGINID',id);
+          localStorage.setItem('AUTH_TOKEN',response.data.accessToken);
+          localStorage.setItem('AVT', response.data.avt_url);
+          setSignin(true);
+          navigate(`/profile/${id}`);
         }
-        console.log(response.data);
+        console.log(localStorage.getItem('AUTH_TOKEN'));
       })
       .catch((e) => {
-        console.log(e);
+        if (e.response && e.response.status === 404) {
+          error.username = 'User Not found.';
+        } else if (e.response && e.response.status === 401) {
+          error.password = 'Invalid Password!';
+        } else {
+          console.log(e);
+        }
       });
   };
   const googleLogIn = useGoogleLogin({
@@ -55,48 +70,45 @@ const LogIn = () => {
                     },
                 }
                 )
-                
-            console.log("MY DATA", res.data);
 
-            try {
-                const server_host = "http://127.0.0.1:8080";
-                // send result to backend
-                const result = await axios.post(
-                    `${server_host}/api/auth/googleLogin`,
-                    {
-                    account_name: res.data['email'],
-                    // password: tokenRespond.access_token,
-                    password: res.data['sub'],
-                    profile_name: res.data['name'],
-                    nationality: res.data['locale'],
-                    user_type: false,
-                    email: res.data['email'],
-                    avt_url: res.data['picture'],
-                    }, 
-                    {
-                        headers: {
-                        "Content-Type": "application/json", 
-                        Authorization: `Bearer ${tokenRespond.access_token}`,
-                    
-                        },
-                    }
-                );
-
-                console.log("Token: " + result.data.accessToken);
-            } catch (error) {
-                console.log("Error with GoogleLogin" + error)
+        try {
+          const server_host = 'http://127.0.0.1:8080';
+          // send result to backend
+          const result = await axios.post(
+            `${server_host}/api/auth/googleLogin`,
+            {
+              account_name: res.data['email'],
+              // password: tokenRespond.access_token,
+              password: res.data['sub'],
+              profile_name: res.data['name'],
+              nationality: res.data['locale'],
+              user_type: false,
+              email: res.data['email'],
+              avt_url: res.data['picture'],
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${tokenRespond.access_token}`,
+              },
             }
-
+          );
+          localStorage.setItem('LOGINID',result.data.id);
+          localStorage.setItem('AUTH_TOKEN',result.data.accessToken);
+          localStorage.setItem('AVT', result.data.avt_url);
+          console.log('Token: ' + result.data.accessToken + " " + result.data.id);
+          setSignin(true);
         } catch (error) {
-            console.log(error)
+          console.log('Error with GoogleLogin' + error);
         }
-    }
+      } catch (error) {
+        console.log(error);
+      }
+    },
   });
 
   return (
-    <div
-      className='main-container'
-    >
+    <div className="main-container">
       <div className="pop-up-sign-in">
         <div className="signin-wrapper">
           <div className="navigation">
@@ -118,6 +130,8 @@ const LogIn = () => {
                 aria-describedby="basic-addon1"
                 onChange={handleInputChange}
               />
+
+              <div className="error-message">{error.username}</div>
             </div>
             <div className="input-container">
               <label for="inputPassword5" class="form-label">
@@ -131,6 +145,7 @@ const LogIn = () => {
                 aria-describedby="passwordHelpBlock"
                 onChange={handleInputChange}
               />
+              <div className="error-message">{error.password}</div>
             </div>
 
             <div className="sign-in-button">
@@ -143,8 +158,12 @@ const LogIn = () => {
 
             <div className="or-sign-in-using-wrapper">or continue with</div>
             <div className="frame-2">
-              <img className="ellipse" alt="Ellipse" src={googleIcon} onClick={() => googleLogIn()} />
-              {/* <img className="img" alt="Ellipse" src={} /> */}
+              <img
+                className="ellipse"
+                alt="Ellipse"
+                src={googleIcon}
+                onClick={() => googleLogIn()}
+              />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { http } from "./http-common";
 
-const create = () => {
-    return http.post("/subcategory");
+const create = (data) => {
+    return http.post("/subcategory", data);
 };
 
 const findAll = () => {
@@ -13,8 +13,8 @@ const findOne = id => {
   return http.get(`/subcategory/${id}`);
 };
 
-const update = (id, data) => {
-  return http.put(`/subcategory/${id}`, data);
+const update = (data) => {
+  return http.put(`/subcategory/`, data);
 };
 
 const deleteSubcategory = id => {

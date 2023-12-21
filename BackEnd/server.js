@@ -153,11 +153,16 @@ app.get("/", (req, res) => {
 require("./app/routes/turorial.routes")(app);
 require("./app/routes/paypal.routes")(app);
 
-
 require('./app/routes/auth.routes')(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/sms.routes")(app);
+
+require("./app/routes/freelancer_post.routes")(app);
+require("./app/routes/project_post.routes")(app);
+require("./app/routes/project.routes")(app);
+require("./app/routes/review.routes")(app);
 require("./app/routes/category.routes")(app);
+
 require("./app/routes/subcategory.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/transaction.routes")(app);

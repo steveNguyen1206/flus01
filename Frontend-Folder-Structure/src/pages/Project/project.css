@@ -129,9 +129,6 @@
     height: 18px!important;
 }
 
-.rating-container{
-    width: 200px;
-}
 
 .proj-body{
     display: flex;
@@ -411,6 +408,7 @@ margin-top: 30px;
     max-height: 420px;
     max-width: 890px;
 }
+
 
 
 

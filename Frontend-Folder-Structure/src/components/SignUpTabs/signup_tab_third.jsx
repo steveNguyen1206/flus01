@@ -1,9 +1,18 @@
 import React from 'react';
 import './signup_tab_third.css';
-import authServices from '@/services/authServices'
-import smsAuthenService from '@/services/smsAuthen'
-const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) => {
+import authServices from '@/services/authServices';
+import smsAuthenService from '@/services/smsAuthen';
 
+const convertToPhoneNumber = (phone) => {
+  return '+84' + phone.substring(1);
+};
+
+const SignUpTabThird = ({
+  setTab,
+  signUpPayload,
+  setSignUpPayload,
+  onSignUp,
+}) => {
   const signin = () => {
     var data = {
       account_name: signUpPayload.userName,
@@ -13,47 +22,50 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
       nationality: signUpPayload.country,
       user_type: 1,
       email: signUpPayload.email,
-      avt_url: "https://imgur.com/gallery/ApNKGxs",
-      social_link: "https://imgur.com/gallery/ApNKGxs",
+      avt_url: 'https://imgur.com/gallery/ApNKGxs',
+      social_link: 'https://imgur.com/gallery/ApNKGxs',
     };
 
-    // console.log(data)
-    authServices.signup(data)
-      .then(response => {
-        if(response.status == 200)
-        {
-          console.log("Sign up successfully")
-          
+    authServices
+      .signup(data)
+      .then((response) => {
+        if (response.status == 200) {
+          console.log('Sign up successfully');
         }
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
-  }
+  };
 
+  const error = {
+    code: '',
+  };
 
   const handleEnterClick = () => {
     const smsMessage = {
-      phone_number: signUpPayload.phone,
+      phone_number: convertToPhoneNumber(signUpPayload.phone),
       code: signUpPayload.code,
     };
-    console.log("frontend: ",smsMessage);
-    smsAuthenService.verifyCode(smsMessage).then((response) => {
-      if (response.status == 200) {
-        signin();
-        onSignUp();
-      }
-      else {
-        console.log("Error: ", response.message);
-      }
-    })
-    .catch((e) => {
-      console.log("eRROR:", e.message);
-      
-    });
-    
+    console.log('frontend: ', smsMessage);
+    // signin();
+    // onSignUp();
+    smsAuthenService
+      .verifyCode(smsMessage)
+      .then((response) => {
+        if (response.status == 200) {
+          signin();
+          onSignUp();
+        } else {
+          console.log('Error: ', response.message);
+          error.code = 'Code is not correct, please try again';
+        }
+      })
+      .catch((e) => {
+        console.log('eRROR:', e.message);
+        error.code = 'Code is not correct, please try again';
+      });
   };
-  
 
   return (
     <div className="info-field">
@@ -64,7 +76,7 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
         <input
           id="inputSMSCode"
           type="text"
-          name='code'
+          name="code"
           className="form-control"
           placeholder="Enter code we send to your phone number..."
           aria-label=""
@@ -73,6 +85,7 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
             setSignUpPayload({ ...signUpPayload, code: e.target.value })
           }
         />
+        <div className="error-message">{error.code}</div>
       </div>
 
       <div onClick={() => setTab(2)} className="sign-up-button row">
@@ -80,7 +93,12 @@ const SignUpTabThird = ({ setTab, signUpPayload, setSignUpPayload, onSignUp}) =>
           <div className="text-wrapper-2">Back</div>
         </div>
       </div>
-      <div onClick={() => {handleEnterClick()}} className="sign-up-button row" >
+      <div
+        onClick={() => {
+          handleEnterClick();
+        }}
+        className="sign-up-button row"
+      >
         <div className="div-wrapper-n">
           <div className="text-wrapper-2-n">Enter</div>
         </div>

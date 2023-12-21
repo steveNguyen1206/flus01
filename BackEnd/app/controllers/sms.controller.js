@@ -1,5 +1,5 @@
-const { ACCOUNT_SID, AUTH_TOKEN, TWILIO_PHONE_NUMBER } = process.env;
-const client = require("twilio")(ACCOUNT_SID, AUTH_TOKEN);
+const { TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER } = process.env;
+const client = require("twilio")(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 
 const db = require("../models");
 const OTP = db.otp;
@@ -27,15 +27,17 @@ const sendCode = async (req, res) => {
     // Generate OTP code
     const otp = generateOTP();
 
+    console.log("OTP: ", otp)
+
     // Store the generated OTP code in your database
     await OTP.create({ phone_number: phone_number, code: otp });
 
     // Send the OTP code to the user's phone number using Twilio
-    await client.messages.create({
-      body: `Your OTP is ${otp}`,
-      from: TWILIO_PHONE_NUMBER,
-      to: phone_number
-    });
+    // await client.messages.create({
+    //   body: `Your OTP is ${otp}`,
+    //   from: TWILIO_PHONE_NUMBER,
+    //   to: phone_number
+    // });
 
     return res.status(200).json({ message: "OTP sent successfully", phone_number });
   } catch (error) {

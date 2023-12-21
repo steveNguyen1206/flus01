@@ -6,13 +6,24 @@
   padding: 0;
 }
 
+.pplocation img{
+  height: 15px;
+  width: 22px;
+  margin-top: 20px;
+}
+
+
 .post-container{
   height: 280px;
   width: 880px;
   border: 3px solid #000;
   border-radius: 12px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+
+
 
 
 .pprofile{
@@ -25,20 +36,18 @@
   width: 80px;
 }
 
-.plocation img{
-  height: 10px;
-  width: 22px;
-  margin-top: 20px;
-}
 
-.pname {
+.ptname {
   margin-top: 15px;
   margin-left: 10px;
-
+  font-size: 18px;
+  font-family: Inter-Bold, sans-serif;
+  font-weight: 700;
 }
 
-.pusername {
+.ptusername {
   margin-top: 12px;
+  font-size: 19px;
 }
 
 
@@ -49,7 +58,7 @@
   font-weight: 600;
 }
 
-.ptitle{
+.pttitle{
   display: flex;
   margin-left: 110px;
   margin-top: -57px;
@@ -58,7 +67,7 @@
   font-weight: 700;
 }
 
-.tag{
+.pttag{
   border-radius: 8px;
   margin-bottom: 10px;
   border: 2px solid var(--accent, #12C418);
@@ -68,7 +77,7 @@
   width: 70px;
 }
 
-.tags .tag{
+.pttags .pttag{
   margin-left: 0;
   margin-right: 0;
 }
@@ -129,11 +138,12 @@
   width: 200px;
 }
 
-.btn-bid button{
+.btn-bid-project button{
   height: 40px;
   width: 80px;
   background-color: var(--primary);
   border: none;
+  border-radius: 8px;
 }
 
 .wish button{
@@ -161,14 +171,15 @@
 }
 
 .wish img{
-  background-color: rgb(238, 238, 238);
+  background-color: #FFF;   
 }
 
-.tags{
+.pttags{
   display: flex;
   flex-direction: row;
   align-items: left;
   justify-content: flex-start;
   gap: 3px;
   margin-left: 110px;
+  margin-top: 4px!important;
 }

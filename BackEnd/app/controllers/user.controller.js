@@ -85,6 +85,58 @@ exports.findOnebyEmail = (req, res) => {
     });
 };
 
+// Define the getPagination function
+function getPagination(page, size) {
+  // page > 0, size > 0
+  const limit = size;
+  const offset = (page - 1) * size;
+  return { limit, offset };
+}
+
+exports.findUsersbyPage = (req, res) => {
+  
+  console.log("\nMY PARAMS:",req.params);
+  const {page, size, searchKey} = req.params; // page: 1..n, size: 1..m  
+  console.log("FFFFFFFFFFFFFFFFFFFF","page: " + page + ", size: " + size + ", searchKey: " + searchKey);
+  
+  // condition to check searchKey in account_name or profile_name
+  var condition = (searchKey && searchKey !== 'undefined' && searchKey !== "") ? { [Op.or]: [{ account_name: { [Op.like]: `%${searchKey}%` } }, { profile_name: { [Op.like]: `%${searchKey}%` } }] } : null;
+
+  const { limit, offset } = getPagination(parseInt(page), parseInt(size));
+
+  // Find all users with condition by page
+  User.findAndCountAll({ where: condition, limit, offset })
+    .then(data => {
+      const { rows: users, count: totalItems } = data;
+
+      // Extract only the necessary information from each user
+      const simplifiedUsers = users.map(user => ({
+        id: user.id,
+        avt_url: user.avt_url,
+        account_name: user.account_name,
+        profile_name: user.profile_name,
+        reported_times: user.reported_times,
+        createdAt: user.createdAt,
+        status: user.status,
+      }));
+
+      const response = {
+        totalItems,
+        users: simplifiedUsers,
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(totalItems / limit),
+      };
+
+      res.send(response);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+  };
+
 // Update a User by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;

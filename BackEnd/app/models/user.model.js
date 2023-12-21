@@ -31,6 +31,14 @@ module.exports = (sequelize, Sequelize) => {
       social_link: {
         type: Sequelize.STRING(512)
       },
+      reported_times: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      status: {
+        type: Sequelize.TINYINT,
+        defaultValue: 1 // 0: banned, 1: active
+      },
     });
   
     return User;

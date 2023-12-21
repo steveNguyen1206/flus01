@@ -13,6 +13,7 @@
     min-height: 700px;
     height: 100%;
     background-color: #eee;
+    margin-top: 20px;
 }
 
 .topbar {
@@ -50,11 +51,9 @@
     justify-content: space-around;
     margin-top: 50px;
     width: 100%;
-}
-
-.left-job{
 
 }
+
 
 .right-job{
     display: flex;
@@ -62,8 +61,22 @@
     justify-content: space-between;
     overflow-y: scroll;
     height: 640px;
+    background-color: #fff;
+    padding: 30px;
+    
 }
 
 .post-container{
     margin: 10px;
+}
+
+.containerp{
+    background-color: #fff;
+    padding-bottom: 20px;
+    
+}
+
+
+.left-job{
+    margin-left: 20px;
 }

@@ -5,12 +5,30 @@ import { useState } from 'react';
 import smsAuthenService from '@/services/smsAuthen';
 
 const isValidEmail = (email) => {
-  return email.includes('@');
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
 };
 
 const isValidPhone = (phone) => {
-  return phone.length >= 10;
+  // the phone number must has 10 exactly digits
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phone);
 };
+
+const isValidName = (name) => {
+  const nameRegex = /^[a-zA-Z\s]*$/;
+  return nameRegex.test(name);
+};
+
+const isValidNationaity = (nationality) => {
+  const nationalityRegex = /^[a-zA-Z\s]*$/;
+  return nationalityRegex.test(nationality);
+}
+
+const convertPhone = (phone) => {
+  return '+84' + phone.substring(1);
+}
+
 
 const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
   const handleChange = (event) => {
@@ -31,8 +49,8 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
     const errors = {
       email: isValidEmail(signUpPayload.email) ? '' : 'Invalid email address.',
       phone: isValidPhone(signUpPayload.phone) ? '' : 'Invalid phone number.',
-      realName: signUpPayload.realName ? '' : 'User\'s name is required.',
-      nationality: signUpPayload.nationality ? '' : 'Nationality is required.',
+      realName: isValidName(signUpPayload.realName) ? '' : 'Invalid name.',
+      nationality: isValidNationaity(signUpPayload.nationality) ? '' : 'Invalid nationality.',
     };
     setError(errors);
     return !Object.values(errors).some((error) => error !== '');
@@ -42,19 +60,19 @@ const SignUpTabSecond = ({ setTab, signUpPayload, setSignUpPayload }) => {
     if (isValidForm()) {
       console.log(signUpPayload.phone);
       var phoneNum = {
-        phone_number: signUpPayload.phone,
-      }
-      smsAuthenService.sendCode(phoneNum).then(response => {
-        if(response.status == 200)
-        {
-          setTab(3);
-          
-        }
-      })
-      .catch(e => {
-        console.log("SmsAuthenService error (client): ", e);
-      });
-     
+        phone_number: convertPhone(signUpPayload.phone),
+      };
+      setTab(3);
+      smsAuthenService
+        .sendCode(phoneNum)
+        .then((response) => {
+          if (response.status == 200) {
+            setTab(3);
+          }
+        })
+        .catch((e) => {
+          console.log('SmsAuthenService error (client): ', e);
+        });
     } else {
       console.log('Form is not valid. Please check the errors.');
     }

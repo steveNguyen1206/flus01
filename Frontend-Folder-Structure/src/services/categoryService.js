@@ -1,7 +1,7 @@
 import { http } from "./http-common";
 
-const create = () => {
-    return http.post("/category");
+const create = (data) => {
+    return http.post("/category", data);
 };
 
 const findAll = () => {
@@ -13,13 +13,17 @@ const findOne = id => {
   return http.get(`/category/${id}`);
 };
 
-const update = (id, data) => {
-  return http.put(`/category/${id}`, data);
+const update = (data) => {
+  return http.put(`/category`, data);
 };
 
 const deleteCategory = id => {
   return http.delete(`/category/${id}`);
 };
+
+const findAllwithSubcate = (searchKey) => {
+  return http.get(`/category/all/${searchKey}`);
+}
 
 const categoryService = {
     create,
@@ -27,6 +31,7 @@ const categoryService = {
     findOne,
     update,
     deleteCategory,
+    findAllwithSubcate,
 };
 
 export default categoryService;
