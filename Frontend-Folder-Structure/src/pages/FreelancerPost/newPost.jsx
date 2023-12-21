@@ -176,7 +176,7 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
           <p>NEW POST</p>
         </div>
 
-        <div className="new-project-body">
+        <div className="new-post-body">
 
         <div className="project-title-input">
             <label htmlFor="projectTitle">Skill tag *</label>
@@ -229,10 +229,23 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
           </div>
 
           <div className="project-title-input">
-            <label htmlFor="projectTitle">About Me *</label>
+            <label htmlFor="projectTitle">Post's Title *</label>
             <input
               type="text"
               id="projectTitle"
+              name="title"
+              placeholder="Post's title"
+              defaultValue={newPost.title}
+              onChange={handleInputChange}
+            />
+            <div className="error-message">{error.title}</div>
+          </div>
+
+          <div className="project-title-input">
+            <label htmlFor="projectAboutMe">About Me *</label>
+            <input
+              type="text"
+              id="projectAboutMe"
               name="about_me"
               placeholder="Describe yourself here..."
               defaultValue={newPost.about_me}
@@ -265,8 +278,8 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
             />
             <div className="error-message">{error.tag}</div>
           </div> */}
-          <div className="project-range-budget">
-            <div className="budget-min-input">
+          <div className="post-range-budget">
+            <div className="post-budget-min-input">
               <label htmlFor="budgetMin">Lowest Price *</label>
               <input
                 type="text"
@@ -279,18 +292,43 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
               <div className="error-message">{error.budgetMin}</div>
             </div>
 
-            <div className="budget-max-input">
-              <label htmlFor="budgetMax">Delivery due *</label>
+            <div className="post-budget-min-input">
+              <label htmlFor="deliveryDue">Delivery due *</label>
               <input
                 type="text"
-                id="budgetMax"
+                id="deliveryDue"
                 name="delivery_due"
                 placeholder="Enter delivery due ..."
                 defaultValue={newPost.delivery_due}
                 onChange={handleInputChange}
               />
-              <div className="error-message">{error.budgetMax}</div>
+              <div className="error-message">{error.delivery_due}</div>
             </div>
+            <div className="post-budget-min-input">
+              <label htmlFor="revisionNum">Revision Number</label>
+              <input
+                type="numeric"
+                id="revisionNum"
+                name="revision_number"
+                placeholder="Enter revision number ..."
+                defaultValue={newPost.revision_number}
+                onChange={handleInputChange}
+              />
+              <div className="error-message">{error.revision_number}</div>
+            </div>
+          </div>
+          <div className="project-title-input">
+            <label htmlFor="projectDeliverDescript">Delivery Description</label>
+            
+            <textarea
+              type="text"
+              id="projectDeliverDescript"
+              name="delivery_description"
+              placeholder="Write more about how your products come to the client. Each line will be a list's item."
+              defaultValue={newPost.delivery_description}
+              onChange={handleInputChange}
+            />
+            <div className="error-message">{error.delivery_description}</div>
           </div>
           <button className='done-button' onClick={handleDoneClick}>Done</button>
         </div>

@@ -13,12 +13,13 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 800;
 }
 
 .new-project-form {
-  width: 710px;
-  max-height: 900px;
+  width: 750px;
+  height:650px;
+  /* max-height: 900px; */
   border: 1px solid #000;
   border-radius: 20px;
   align-items: center;
@@ -32,7 +33,7 @@
 }
 
 .new-project-header {
-  width: 710px;
+  width: 750px;
   height: 50px;
   background-color: var(--primary);
   box-shadow: 0px 3.72px 3.72px 0px rgba(0, 0, 0, 0.25);
@@ -49,7 +50,7 @@
   font-weight: bold;
 }
 
-.new-project-body {
+.new-post-body {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -58,21 +59,24 @@
   margin-right: 30px;
   align-items: center;
   padding: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 90%;
 }
 
-.new-project-body div {
+.new-post-body div {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.new-project-body div label {
+.new-post-body div label {
   font-size: 12px;
   font-family: "Inter-Regular", sans-serif;
   color: #666;
 }
 
-.new-project-body div input {
+.new-post-body>div>input {
   width: 650px;
   height: 30px;
   padding-left: 10px;
@@ -86,12 +90,12 @@
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.new-project-body div input:focus {
+.new-post-body div input:focus {
   outline: none;
   border: 1px solid var(--primary);
 }
 
-.new-project-body div textarea {
+.new-post-body div textarea {
   width: 650px;
   height: 70px !important;
   overflow-y: auto;
@@ -108,7 +112,7 @@
   resize: none;
 }
 
-.new-project-body div textarea:focus {
+.new-post-body div textarea:focus {
   outline: none;
   border: 1px solid var(--primary);
 }
@@ -196,14 +200,26 @@
     margin: 0px;
 }
 
-.project-range-budget{
+.post-range-budget{
   display: flex;
   flex-direction: row!important;
   gap: 30px!important;
+  width: 650px;
+  justify-content: center;
 }
 
-.budget-min-input input, .budget-max-input input{
-  width: 310px!important;
+.post-budget-min-input input, .budget-max-input input{
+  height: 30px;
+  width: 99%;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  font-family: "Inter-Regular", sans-serif;
+  color: #666;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .done-button{
