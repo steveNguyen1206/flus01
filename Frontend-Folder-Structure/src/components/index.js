@@ -13,10 +13,17 @@ export {default as UserRow} from './Admin/UserRow'
 export {default as UserTab} from './Admin/UserTab'
 export {default as CategoryBlock} from './Admin/CategoryBlock'
 export {default as CategoryTab} from './Admin/CategoryTab'
-export {default as WhiteButton} from './Button'
+
+export {default as WhiteButton} from './Button/WhiteButton'
+export {default as RedCloseButton} from "./Button/redCloseButton";
+export {default as DeleteButton} from "./Button/deleteButton";
+
 export {default as Bid} from './Bid/bid'
 
 export {default as AddCategory} from './Admin/admin_category_add'
 export {default as AddSubcategory} from './Admin/admin_subcategory_add'
 export {default as EditCategory} from './Admin/admin_category_edit'
 export {default as EditSubcategory} from './Admin/admin_subcategory_edit'
+
+export {default as PopupUpdateProfile} from './ProfileTabs/popup_update_profile'
+
