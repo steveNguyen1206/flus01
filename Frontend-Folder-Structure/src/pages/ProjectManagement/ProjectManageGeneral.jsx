@@ -4,12 +4,53 @@ import "./style.css";
 import { ProjectContent, ProjectConfigure } from ".";
 import { createContext, useContext, useState } from "react";
 import { useProjectManageContext } from "./ProjectManageProvider";
-
+import { useEffect } from "react";
+import projectService from "@/services/projectServices";
 
 
 export const ProjectManageGeneral = () => {
 
-  const {project, setProject} = useProjectManageContext();
+  const {project, setProject, isOwn} = useProjectManageContext();
+
+  const getMemberProject = (projectId) => {
+    projectService
+      .findMemberOnebyId(projectId, localStorage.getItem("AUTH_TOKEN"))
+      .then((response) => {
+        setProject(response.data);
+        console.log(response.data)
+        // console.log("test", isOwn);
+
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const getOwnerProject = (projectId) => {
+    projectService
+      .findOwnerOnebyId(projectId, localStorage.getItem("AUTH_TOKEN"))
+      .then((response) => {
+        setProject(response.data);
+        console.log(response.data)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    if (project.id) 
+    {
+      if(isOwn)
+        getOwnerProject(project.id)
+      else
+        getMemberProject(project.id)
+    };
+    console.log("effect", project.id)
+  }, []);
+
+
+
 
   return (
 
@@ -70,7 +111,7 @@ export const ProjectManageGeneral = () => {
 
         <div className="frame">
           <div className="project-title-container">
-            <h2 className="title-text --size-28 --color-white">{project.status == 0 ? "Confiugre Project" : project.name}</h2>
+            <h2 className="title-text --size-28 --color-white">{project.status == 0 ? "Confiugre Project" : project.project_name}</h2>
           </div>
           <div className="function-text-wraper">
             <h4 className="function-text --color-green">General</h4>
@@ -80,11 +121,14 @@ export const ProjectManageGeneral = () => {
           </div>
 
 
-            {project.status == 0 ? (
-                <ProjectConfigure/>
+            {project.status==0 ?
+            (
+              
+              isOwn ? <ProjectConfigure  /> : <>Project is under config. Contact your client for more infomation </>
             ) : (
-                <ProjectContent/>
-            )}
+              <ProjectContent />
+            )
+          }
         </div>
        
       </div>

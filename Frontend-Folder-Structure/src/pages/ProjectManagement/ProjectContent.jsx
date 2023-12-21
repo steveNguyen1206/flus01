@@ -15,18 +15,18 @@ export const ProjectContent = () => {
             <div className="content-container">
             <div className="project-content-title">
               <h4 className="label-text">Project name</h4>
-              <h4 className="title-text">{project.name}</h4>
+              <h4 className="title-text">{project.project_name}</h4>
             </div>
 
             <div className="row-container">
               <div className="field-container">
                 <div className="label-text">Date begin</div>
-                <div className="value-text">12/10/2023</div>
+                <div className="value-text">{project.start_day}</div>
               </div>
 
               <div className="field-container">
                 <div className="label-text">Date end</div>
-                <div className="value-text">12/10/2023</div>
+                <div className="value-text">{project.end_day}</div>
               </div>
             </div>
 

@@ -43,7 +43,7 @@ require("./app/routes/paypal.routes")(app);
 
 require('./app/routes/auth.routes')(app);
 require("./app/routes/user.routes")(app);
-// require("./app/routes/sms.routes")(app);
+require("./app/routes/sms.routes")(app);
 
 require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/project_post.routes")(app);

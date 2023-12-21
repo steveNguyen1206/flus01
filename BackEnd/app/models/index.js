@@ -133,12 +133,14 @@ db.projects.belongsTo(db.bid, {
 
 db.projects.belongsTo(db.user, {
   foreignKey: 'owner_id',
+  as: 'owner',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })
 
 db.projects.belongsTo(db.user, {
   foreignKey: 'member_id',
+  as: 'member',
   onDelete: 'CASCADE',
   onUpdate: 'CASCADE'
 })

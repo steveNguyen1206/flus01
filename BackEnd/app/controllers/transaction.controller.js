@@ -1,9 +1,11 @@
 const db = require("../models");
-const Tutorial = db.transactions;
+const Transaction = db.transactions;
 const Op = db.Sequelize.Op;
 
+TRAN_CONFIGURE_PAID = 1
+
 // Create and Save a new Tutorial
-exports.create = (req, res) => {
+exports.createTransaction = (req, res) => {
   // Validate request
   if (!req.body.title) {
     res.status(400).send({
@@ -14,13 +16,16 @@ exports.create = (req, res) => {
 
   // Create a Tutorial
   const transaction = {
-    title: req.body.title,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    amount: req.body.amount,
+    sender_id: req.body.sender,
+    receiver_id: req.body.receiver,
+    project_id: req.body.project_id,
+    transactionId: req.body.tranId,
+    transactionType: req.body.tranType,
   };
 
   // Save Tutorial in the database
-  Tutorial.create(tutorial)
+  Transaction.create(transaction)
     .then(data => {
       res.send(data);
     })
@@ -74,7 +79,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.update(req.body, {
+  Transaction.update(req.body, {
     where: { id: id }
   })
     .then(num => {

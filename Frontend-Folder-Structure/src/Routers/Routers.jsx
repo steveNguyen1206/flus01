@@ -20,11 +20,13 @@ const Routers = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/myprofile/:id"  element={<Profile access_token={localStorage.getItem('AUTH_TOKEN')} />} />
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/project" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
-          <Route path="/project-manage" element={<ProjectManagement/>} />
+          <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
+          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
