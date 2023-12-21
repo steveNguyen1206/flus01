@@ -18,12 +18,7 @@
     padding: 0.5rem;
 }
 
-.tags-container {
+.current-tags {
     height: 100px;
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
 }

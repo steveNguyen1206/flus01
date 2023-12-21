@@ -20,7 +20,7 @@ const UpdateTags = ({ user_id }) => {
       <UpdateButton button_name={"Add"}/>
     </div>
 
-    <div className='tags-container'>
+    <div className='current-tags'>
       <TagContainer list_tag={["tag1", "tag2"]}/>
     </div>
   

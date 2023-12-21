@@ -1,5 +1,5 @@
 import React from 'react';
-import './update_name_contacts.css';
+import './TagContainer.css';
 import { useState } from 'react';
 import { EditTag } from '..';
 
@@ -8,12 +8,9 @@ const TagContainer = ({ list_tag }) => {
 
     return (
         <div className='tag-container'>
-            <EditTag tag_name={"Truc Vy"} />
-            <EditTag tag_name={"Truc Vy ahjhj"} />
-            <EditTag tag_name={"Truc Vy"} />
-            <EditTag tag_name={"Truc Vy 154651545451554485"} />
-            <EditTag tag_name={"Truc Vy"} />
-            <EditTag tag_name={"Truc Vy"} />
+            {list_tag.map((tag) => (
+                <EditTag tag_name={tag} />
+            ))}
         </div>
     );
 };
