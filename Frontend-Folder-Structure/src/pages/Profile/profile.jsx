@@ -56,7 +56,7 @@ const profile = () => {
     <div>
       {/* Update Profile Popup */}
       {showUpdateProfile && <PopupUpdateProfile  m_state={showUpdateProfile}
-            m_function={setShowUpdateProfile} user_id={id}/>}
+            m_function={setShowUpdateProfile} user_profile={userProfile}/>}
 
       {userProfile ? (
         
