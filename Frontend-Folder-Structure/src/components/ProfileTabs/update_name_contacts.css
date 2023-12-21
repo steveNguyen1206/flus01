@@ -1,8 +1,9 @@
 @import url("../../assets/variables.css");
 
 .update-part-container {
+    box-sizing: border-box;
     width: 100%;
-    margin: 10px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -36,7 +36,7 @@ const PopupUpdateProfile = ({ m_state, m_function, user_profile }) => {
         </div>
 
         {/* Row 3: update other field */}
-        <div className='row'>        
+        <div className='multi-columns'>        
           {/* Column 3.1: Tags & Password*/}
           <div className='col split-to-two-row'>
             {/* Row 3.1.1: Tags*/}

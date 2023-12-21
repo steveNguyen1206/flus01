@@ -32,6 +32,8 @@ export {default as UpdatePassword} from './ProfileTabs/update_password'
 export {default as UpdateNameContacts} from './ProfileTabs/update_name_contacts'
 
 export {default as EditTextField} from './ProfileTabs/EditTextField'
+export {default as EditTag} from './ProfileTabs/EditTag'
 export {default as UpdateButton} from './ProfileTabs/UpdateButton'
+export {default as TagContainer} from './ProfileTabs/TagContainer'
 
 
