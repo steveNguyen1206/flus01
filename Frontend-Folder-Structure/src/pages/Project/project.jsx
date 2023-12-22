@@ -20,7 +20,7 @@ import projectServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { BidPopup, UpdateProject } from '..';
+import { BidDetailPopup, UpdateProject } from '..';
 import styles from './project.css?inline';
 
 const Project = () => {
@@ -91,6 +91,9 @@ const Project = () => {
     setIsEditPopupOpen(true);
   };
 
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+
 
   const [isChange, setIsChange] = useState(false);
   return (
@@ -103,7 +106,7 @@ const Project = () => {
           onUpdate={() => {setIsChange(!isChange)}}
         />
       )}
-      <BidPopup/>
+      {isDetailOpen && <BidDetailPopup setPopUpAppear={setIsDetailOpen}/>}
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -262,7 +265,7 @@ const Project = () => {
             </div>
           </div>
           <div className="project-bid-list-info">
-            <div className="view-detail">
+            <div className="view-detail" onClick={() => setIsDetailOpen(true)}>
               <p>View details</p>
             </div>
             <p>4 BID</p>

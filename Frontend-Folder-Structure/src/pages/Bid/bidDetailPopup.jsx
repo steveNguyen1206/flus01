@@ -2,7 +2,7 @@ import React from "react";
 import "./bidDetailPopup.css";
 import { Bid, StarRating } from "@/components";
 
-import BidDetailTag from "@/components/Bid/bidDetail";
+import BidDetailTag from "@/components/Bid/bidDetailTag";
 
 const BidDetailPopup = ({setPopUpAppear}) => {
   

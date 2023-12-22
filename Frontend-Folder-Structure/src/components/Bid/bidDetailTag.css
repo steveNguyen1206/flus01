@@ -1,19 +1,20 @@
 
-.popup-container-bid .bid {
-    height: 270px;
+.popup-container-bid .bid-contain {
     width: 90%;
     margin-right: 3%;
     margin-top: 3%;
+    border-radius: 12px;
+    border: 3px solid #15A919;
   }
   
   .popup-container-bid .overlap {
     background-color: #ffffff;
     border-radius: 12.32px;
-    height: 100%;
     position: relative;
     width: 100%;
     margin-top: 1%;
   }
+
 
   
   .popup-container-bid .group {
@@ -106,12 +107,26 @@
     font-weight: 300;
 
   }
+  .date-offer{
+    color: #000000;
+    font-style: bold;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: "Inter-Bold", Helvetica;
+  }
+  .date-text {
+    color: #009304;
+    font-family: "Inter-Bold", Helvetica;
+    font-weight: 300;
+
+  }
   
   .popup-container-bid .text-wrapper-3 {
     color: #009304;
     font-family: "Inter-Bold", Helvetica;
     font-size: 18px;
     font-weight: 700;
+    padding-left: 5%;
   }
   
   .popup-container-bid .budget-wrapper {
