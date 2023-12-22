@@ -1,8 +1,8 @@
 
 .popup-container-offer .offer {
-    height: 270px;
     width: 90%;
     margin-top: 3%;
+    max-height: 100%;
   }
   
   .popup-container-offer .overlap {
@@ -99,10 +99,39 @@
     padding-left: 5%;
     padding-right: 2%;
     margin-top: 3%;
+    height: auto;
   }
-  
-  .popup-container-offer .span {
+  .detail-text-container > span-1{
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical; 
+    overflow: hidden; 
+  }
+
+.job-name{
     color: #000000;
+    font-style: bold;
+    font-size: 20px;
+    font-weight: 800;
+    font-family: "Inter-Bold", Helvetica;
+    margin-bottom: 12px;
+
+}
+  .popup-container-offer .span, .span-1 {
+    color: #000000;
+    font-weight: 300;
+
+  }
+  .date-offer{
+    color: #000000;
+    font-style: bold;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: "Inter-Bold", Helvetica;
+  }
+  .date-text {
+    color: #009304;
+    font-family: "Inter-Bold", Helvetica;
     font-weight: 300;
 
   }
@@ -112,6 +141,7 @@
     font-family: "Inter-Bold", Helvetica;
     font-size: 18px;
     font-weight: 700;
+    padding-left: 5%;
   }
   
   .popup-container-offer .budget-wrapper {
