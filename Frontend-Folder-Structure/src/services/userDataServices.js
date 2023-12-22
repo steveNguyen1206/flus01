@@ -58,6 +58,10 @@ const changePassword = (data) => {
   return http.put(`/user/change_password`, data);
 };
 
+const updateNameAndSocialLink = (data) => {
+  return http.put(`/user/update_name_sociallink`, data);
+};
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -70,6 +74,7 @@ const userDataService = {
   removeUserByAccName,
   changeStatusByID, // Add the new service function here
   changePassword,
+  updateNameAndSocialLink
 };
 
 
