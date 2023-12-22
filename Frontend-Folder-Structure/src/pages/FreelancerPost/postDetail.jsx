@@ -17,7 +17,7 @@ import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
 import UpdatePost from './updatePost';
-import BidDetailPopup from '../Bid/bidDetailPopup';
+import OfferDetailPopup from './offerDetailPopup';
 import HireFreelancer from '../FreelancerPost/hireFreelancer';
 
 const PostDetail = () => {
@@ -97,10 +97,10 @@ const PostDetail = () => {
     setShowHirePopup(true);
   };
 
-  const [showBidPopup, setShowBidPopup] = useState(false);
+  const [showOfferPopup, setShowOfferPopup] = useState(false);
 
   const handleViewDetail = () => {
-    setShowBidPopup(true);
+    setShowOfferPopup(true);
   };
 
   return (
@@ -114,7 +114,7 @@ const PostDetail = () => {
         />
       )}
       {showHirePopup && <HireFreelancer setShowHirePopup={setShowHirePopup} /> }
-      {showBidPopup && <BidDetailPopup setPopUpAppear={setShowBidPopup} /> }
+      {showOfferPopup && <OfferDetailPopup setPopUpAppear={setShowOfferPopup} /> }
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
