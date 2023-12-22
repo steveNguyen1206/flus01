@@ -13,18 +13,44 @@ const UpdateTags = ({ user_id }) => {
     }
   ];
 
+  // get skills by user id
+  const [userSkills, setUserSkills] = useState(initialSkills);
+
+  useEffect(() => {
+    getUserSkills();
+  }, []);
+
+  // get all skills in database
+  const getUserSkills = () => {
+    // userSubcategoryServices
+    //   .findAllSkillsByUserId(user_id)
+    //   .then((response) => {
+    //     setUserSkills(response.data);
+    //     console.log("USER SKILL: " + response.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //     setErrorMessage(e.message);
+    //   });
+  }
+
   const [skills, setSkills] = useState(initialSkills);
 
   useEffect(() => {
     getSkills();
   }, []);
 
+  // get all skills in database
   const getSkills = () => {
     subcategoryService
       .findAll()
       .then((response) => {
-        setSkills(response.data);
-        console.log(response.data);
+        // remove skills that user already has
+        const filteredSkills = response.data.filter(skill => !userSkills.some(userSkill => userSkill.subcategory_name === skill.subcategory_name));
+        setSkills(filteredSkills);
+
+        // setSkills(response.data);
+        // console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -32,14 +58,13 @@ const UpdateTags = ({ user_id }) => {
       });
   }
 
-  const [value, setValue] = React.useState([0, 20000]);
-  const [selectedSkills, setSelectedSkills] = React.useState([]);
+  const [selectingSkill, setSelectingSkill] = React.useState({});
 
-  const handleFilterChange = (event) => {
+  const handleSelectingSkillChange = (event) => {
     const selectedOption = event.target.value;
-    console.log(selectedOption);
     if (selectedOption) {
-      setSelectedSkills((prevSkills) => [...prevSkills, selectedOption]);
+      setSelectingSkill(selectedOption);
+      console.log(selectingSkill);
     }
   };
 
@@ -48,7 +73,7 @@ const UpdateTags = ({ user_id }) => {
       <div className="title">Job Tags</div>
 
       <div className="add-a-tag">
-      <select className="input-tag" onChange={handleFilterChange}>
+      <select className="input-tag" onChange={handleSelectingSkillChange}>
         {skills.map(skill => (
           <option key={skill.id} value={skill.subcategory_name}>
             {skill.subcategory_name}

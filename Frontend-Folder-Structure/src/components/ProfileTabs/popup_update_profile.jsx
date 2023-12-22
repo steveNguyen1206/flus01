@@ -15,7 +15,7 @@ const PopupUpdateProfile = ({ m_state, m_function, user_profile }) => {
   // avt_url: '',
   // social_link: '',
 
-  const { user_id } = user_profile;
+  const user_id = user_profile.id;
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleCloseIconClick = () => {

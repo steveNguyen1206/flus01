@@ -54,6 +54,10 @@ const changeStatusByID = (id, status) => {
   return http.put(`/user/status/${id}&${status}`);
 };
 
+const changePassword = (data) => {
+  return http.put(`/user/change_password`, data);
+};
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -65,6 +69,7 @@ const userDataService = {
   findUsersbyPage,
   removeUserByAccName,
   changeStatusByID, // Add the new service function here
+  changePassword,
 };
 
 

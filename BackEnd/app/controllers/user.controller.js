@@ -5,6 +5,9 @@ const multer = require("multer");
 const User = db.user;
 const Op = db.Sequelize.Op;
 
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcryptjs");
+
 // Retrieve all User from the database
 exports.findAll = (req, res) => {
   const profile_name = req.query.profile_name;
@@ -310,3 +313,64 @@ exports.changeStatusByID = (req, res) => {
       });
     });
 };
+
+// Check correct password and update new password
+exports.changePassword = (req, res) => {
+  const { id, oldPassword, newPassword } = req.body;
+
+  if (!id || !oldPassword || !newPassword) {
+    res.status(400).send({
+      message: "Invalid user id or password!"
+    });
+    return;
+  }
+      
+  User.findByPk(id)
+    .then(user => {
+      if (!user) {
+        res.status(404).send({
+          message: `Cannot find User with id=${id}.`
+        });
+        return;
+      }
+
+      const passwordIsValid = bcrypt.compareSync(
+        oldPassword,
+        user.password
+      );
+
+      if (!passwordIsValid) {
+        res.status(401).send({
+          message: "Current password is incorrect!"
+        });
+        return;
+      }
+
+      const hashedPassword = bcrypt.hashSync(newPassword, 8);
+
+      User.update({ password: hashedPassword }, { where: { id } })
+        .then(num => {
+          if (num[0] === 1) {
+            res.send({
+              message: "User password updated successfully!"
+            });
+          } else {
+            res.send({
+              message: `Cannot update User password with id=${id}. Maybe User was not found!`
+            });
+          }
+        })
+        .catch(err => {
+          console.error("Sequelize Error:", err);
+          res.status(500).send({
+            message: "Could not update User with id=" + id
+          });
+        });
+    })
+    .catch(err => {
+      console.error("Sequelize Error:", err);
+      res.status(500).send({
+        message: "Error retrieving User with id=" + id
+      });
+    });
+}
