@@ -2,6 +2,7 @@ import './update_tags.css';
 import React, { useState, useEffect } from 'react';
 import { UpdateButton, TagContainer } from '@/components';
 import subcategoryService from '@/services/subcategoryService';
+import userSubcategoryService from '@/services/userSubcategoryServices';  
 
 const UpdateTags = ({ user_id }) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,13 +21,12 @@ const UpdateTags = ({ user_id }) => {
     getUserSkills();
   }, []);
 
-  // get all skills in database
+  // get all skills of an user
   const getUserSkills = () => {
-    // userSubcategoryServices
-    //   .findAllSkillsByUserId(user_id)
+    // userSubcategoryService.findAll(user_id)
     //   .then((response) => {
     //     setUserSkills(response.data);
-    //     console.log("USER SKILL: " + response.data);
+    //     console.log(response.data);
     //   })
     //   .catch((e) => {
     //     console.log(e);
