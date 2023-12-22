@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name || !req.body.description ) {
+  if (!req.body.name ) {
     res.status(400).send({
       message: "Missing information!"
     });
@@ -44,7 +44,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Tutorial.findAll({ where: condition })
+  Project.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
@@ -81,7 +81,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.update(req.body, {
+  Project.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -106,7 +106,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.destroy({
+  Project.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -129,7 +129,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-  Tutorial.destroy({
+  Project.destroy({
     where: {},
     truncate: false
   })
@@ -146,7 +146,7 @@ exports.deleteAll = (req, res) => {
 
 // find all published Tutorial
 exports.findAllPublished = (req, res) => {
-  Tutorial.findAll({ where: { published: true } })
+  Project.findAll({ where: { published: true } })
     .then(data => {
       res.send(data);
     })

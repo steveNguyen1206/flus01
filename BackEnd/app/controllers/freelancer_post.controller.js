@@ -52,20 +52,20 @@ exports.create = async (req, res) => {
         console.log("freelancer_post: ", freelancer_post)
         // Save Freelancer_post in the database
         Freelancer_post.create(freelancer_post)
-        .then(data => {
-            // res.send(data);
-            return res.status(200).json({
-                message: "Freelancer post was created successfully.",
-                // avt_url: avt_url
-              });
-        })
-        .catch(err => {
-            return res.status(500).json({
-                message:
-                    err.message || 
-                    "Some error while creating freelancer post"
+            .then(data => {
+                // res.send(data);
+                return res.status(200).json({
+                    message: "Freelancer post was created successfully.",
+                    // avt_url: avt_url
+                });
+            })
+            .catch(err => {
+                return res.status(500).json({
+                    message:
+                        err.message ||
+                        "Some error while creating freelancer post"
+                });
             });
-        });
 
     } catch (error) {
         console.log(error);
@@ -268,11 +268,11 @@ exports.update = async (req, res) => {
 
             // Update project_post with new data
             const updatedData = Object.keys(req.body)
-            .filter(key => key !== 'id' && req.body[key])
-            .reduce((obj, key) => {
-                obj[key] = req.body[key];
-                return obj;
-            }, {});
+                .filter(key => key !== 'id' && req.body[key])
+                .reduce((obj, key) => {
+                    obj[key] = req.body[key];
+                    return obj;
+                }, {});
 
             updatedData.imgage_post_urls = img_url;
 
@@ -351,7 +351,7 @@ exports.findAllPosts = (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'account_name', 'profile_name', 'avt_url'],
+                attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
             },
             {
                 model: Subcategory,
@@ -369,3 +369,28 @@ exports.findAllPosts = (req, res) => {
             });
         });
 };
+
+
+exports.getFreelancerEmail = (req, res) => {
+    const postId = req.params.id;
+  
+    Freelancer_post.findByPk(postId, {
+      include: {
+        model: User,
+        attributes: ['email'],
+      },
+    })
+      .then(freelancerPost => {
+        if (!freelancerPost) {
+          return res.status(404).json({ message: 'Freelancer post not found' });
+        }
+  
+        const email = freelancerPost.user.email;
+        return res.json(email);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving data.',
+        });
+      });
+  };

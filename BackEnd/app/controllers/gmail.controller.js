@@ -1,20 +1,20 @@
 const nodemailer = require('nodemailer');
 const db = require("../models");
-const User = db.User;
+const User = db.user;
 
-function sendEmail(req, res) {
-  const id = 5;
-
-  return new Promise(async (resolve, reject) => {
+const sendEmail = (req, res) => {
+  const email = req.body.email;
+  console.log("Email from sendEmail",email);
+  // return  {
     try {
       // Find the user by id
-      const user = await User.findByPk(id);
+      // const user = await User.findByPk(id);
 
-      if (!user) {
-        return reject({ message: `Cannot find User with id=${id}.` });
-      }
+      // if (!user) {
+      //   return reject({ message: `Cannot find User with id=${id}.` });
+      // }
 
-      const email = user.email; // Lấy email từ đối tượng user
+      // const email = user.email; // Lấy email từ đối tượng user
 
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -207,7 +207,7 @@ function sendEmail(req, res) {
         <div align="center">
           <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://www.unlayer.com" style="height:37px; v-text-anchor:middle; width:197px;" arcsize="11%"  stroke="f" fillcolor="#15a919"><w:anchorlock/><center style="color:#FFFFFF;"><![endif]-->
             <a href="ADD LINK HERE" target="_blank" class="v-button v-size-width v-font-size" style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #15a919; border-radius: 4px;-webkit-border-radius: 4px; -moz-border-radius: 4px; width:34%; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
-              <button style="display:block;padding:10px 20px;line-height:120%;"><strong><span style="font-size: 14px; line-height: 16.8px;">Check Now!</span></strong></button>
+              <span style="display:block;padding:10px 20px;line-height:120%;"><strong><span style="font-size: 14px; line-height: 16.8px;">Check Now!</span></strong></span>
             </a>
             <!--[if mso]></center></v:roundrect><![endif]-->
         </div>
@@ -265,14 +265,15 @@ function sendEmail(req, res) {
       };
 
       // Send the email
-      await transporter.sendMail(mailConfigs);
+      transporter.sendMail(mailConfigs);
 
-      return resolve({ message: "Email sent successfully" });
+      return res.status(200).json({ message: "Email sent successfully" });
     } catch (error) {
       console.error(error);
-      return reject({ message: "Failed to send email" });
+      return res.status(517).json({ message: "Failed to send email" });
     }
-  });
+  // }
+  // );
 }
 
 module.exports = {

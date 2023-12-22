@@ -72,6 +72,7 @@ const userDataService = {
   findUsersbyPage,
   removeUserByAccName,
   changeStatusByID, // Add the new service function here
+  updateAvatar
 };
 
 

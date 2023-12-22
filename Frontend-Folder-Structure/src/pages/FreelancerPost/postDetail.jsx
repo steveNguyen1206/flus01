@@ -120,8 +120,8 @@ const PostDetail = () => {
           <div className="main-post">
             <div className="border-proj-title">
               <div className="proj-title">
-                {/* <p>{project.title}</p> */}
-                <p>Project title here</p>
+                <p>{project.title}</p>
+                {/* <p>Project title here</p> */}
               </div>
             </div>
             <div className="tags">

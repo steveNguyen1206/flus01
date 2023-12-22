@@ -12,16 +12,16 @@ module.exports = app => {
     router.get("/", project.findAll);
   
     // Retrieve a single Tutorial with id
-    // router.get("/:id", project.findOne);
+    router.get("/:id", project.findOne);
   
     // Update a Tutorial with id
-    // router.put("/:id", project.update);
+    router.put("/:id", project.update);
   
     // Delete a Tutorial with id
-    // router.delete("/:id", project.delete);
+    router.delete("/:id", project.delete);
   
     // Delete all projects
-    // router.delete("/", project.deleteAll);
+    router.delete("/", project.deleteAll);
   
     app.use('/api/project',  router);
   };
