@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { media_upload, http } from "./http-common";
 
 const findAll = () => {
   return http.get("/user");
@@ -62,6 +62,18 @@ const updateNameAndSocialLink = (data) => {
   return http.put(`/user/update_name_sociallink`, data);
 };
 
+const updateAvatar = (user_id, selectedFile) => {
+  const formData = new FormData();
+  formData.append('avatar', selectedFile);
+  console.log(selectedFile);
+
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+
+  return media_upload.put(`/user/avatar/${user_id}`, formData);
+}
+
 const userDataService = {
   findAll,
   findOnebyId,
@@ -74,8 +86,12 @@ const userDataService = {
   removeUserByAccName,
   changeStatusByID, // Add the new service function here
   changePassword,
-  updateNameAndSocialLink
+  updateNameAndSocialLink,
+  updateAvatar
 };
 
 
 export default userDataService;
+
+
+

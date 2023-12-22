@@ -177,56 +177,45 @@ exports.update = (req, res) => {
     });
 };
 
-exports.updateAvatar = (req, res) => {
+exports.updateAvatar = async (req, res) => {
   const id = req.params.id;
+  console.log("###############UPLOAD AVATAR - id: ", id);
 
-  upload.single("avatar")(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      // A Multer error occurred during file upload
-      res.status(500).send({ message: "Multer error: " + err.message });
-    } else if (err) {
-      // An unknown error occurred during file upload
-      res.status(500).send({ message: "Unknown error: " + err.message });
-    } else {
-      // File upload successful
-      if (req.file) {
-        // Upload the file to Cloudinary
-        cloudinary.uploader.upload(req.file.path, (error, result) => {
-          if (error) {
-            // Error occurred during Cloudinary upload
-            res
-              .status(500)
-              .send({ message: "Cloudinary upload error: " + error.message });
-          } else {
-            // Cloudinary upload successful
-            const avatarUrl = result.secure_url;
+  async function handleUpload(file) {
+    const res = await cloudinary.uploader.upload(file, {
+      resource_type: "auto",
+    });
+    return res;
+  }
 
-            // Update the user's avt_url field with the Cloudinary URL
-            User.update({ avt_url: avatarUrl }, { where: { id: id } })
-              .then((num) => {
-                if (num == 1) {
-                  res.send({
-                    message: "User avatar was updated successfully.",
-                    avatarUrl: avatarUrl,
-                  });
-                } else {
-                  res.send({
-                    message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
-                  });
-                }
-              })
-              .catch((err) => {
-                res.status(500).send({
-                  message: "Error updating User with id=" + id,
-                });
-              });
-          }
+  try {
+    console.log(req);
+    console.log(req.file);
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+    const cldRes = await handleUpload(dataURI);
+    console.log(cldRes);
+    const avatarUrl = cldRes.secure_url;
+    User.update({ avt_url: avatarUrl }, { where: { id: id } }).then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "User avatar was updated successfully.",
+          avatarUrl: avatarUrl,
         });
       } else {
-        res.status(400).send({ message: "No file was uploaded." });
+        res.send({
+          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
+        });
       }
-    }
-  });
+    });
+
+    res.json(cldRes);
+  } catch (error) {
+    console.log(error);
+    res.send({
+      message: error.message,
+    });
+  }
 };
 
 // Delete a User with the specified account_name in the request
