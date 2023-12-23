@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WhiteButton } from '@/components';
 import './bid.css';
 import exitButton from '../../assets/exitButton.png';
 import bidServices from '@/services/bidServices';
+import subcategoryService from '@/services/subcategoryService';
 
 const isValidName = (name) => {
   console.log('name: ', name);
@@ -14,9 +15,7 @@ const isValidName = (name) => {
 
 const isValidSkill = (skill) => {
   if (skill === '') return false;
-  // skill is not empty and contains only letters
-  const skillRegex = /^[a-zA-Z\s]*$/;
-  return skillRegex.test(skill);
+  return true;
 };
 
 const isValidEmail = (email) => {
@@ -68,12 +67,29 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
     message: '',
     price: '',
     duration: '',
-    projectPostId: projectPostId,
+    proj_post_id: projectPostId,
     user_id: 1,
   };
 
   const [bid, setBid] = useState(initState);
   const [error, setError] = useState(initError);
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    getTags();
+  }, []);
+
+  const getTags = () => {
+    subcategoryService
+      .findAll()
+      .then((response) => {
+        setTags(response.data);
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -97,7 +113,7 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
 
     if (!isValidEmail(bid.email)) {
       isValid = false;
-      errors.email = 'Invalid email. Email must be not empty.';
+      errors.email = 'Invalid email. Email must have valid format.';
     }
 
     if (!isValidMessage(bid.message)) {
@@ -124,12 +140,12 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
   const handleDoneClick = () => {
     if (validateForm()) {
       console.log('bid: ', bid);
-      bidServices.
-        bidProject(bid)
+      bidServices
+        .bidProject(bid)
         .then(() => {
           console.log('Form is valid. Project submitted successfully.');
           setShowOverlay(false);
-          onUpdate();
+          isClose();
         })
         .catch((error) => {
           console.error('Error submitting project:', error.message);
@@ -138,6 +154,8 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
       console.log('Form has errors. Please fix them.');
     }
   };
+
+  console.log('bid: ', bid)
 
   return (
     <>
@@ -171,14 +189,29 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
           </div>
           <div className="freelancer-skill-input">
             <label htmlFor="freelancerSkill">Skill *</label>
-            <input
+            {/* <input
               type="text"
               id="freelancerSkill"
               name="skill"
               placeholder="Add skill tag"
               onChange={handleInputChange}
               value={bid.skill}
-            />
+            /> */}
+
+            <select
+              id="freelancerSkill"
+              name="skill"
+              value={bid.skill}
+              onChange={handleInputChange}
+            >
+              <option value="">Select skill tag</option>
+              {tags.map((tag) => (
+                <option key={tag.id} value={tag.id}>
+                  {tag.subcategory_name}
+                </option>
+              ))}
+            </select>
+
             <div className="error-message">{error.skill}</div>
           </div>
 

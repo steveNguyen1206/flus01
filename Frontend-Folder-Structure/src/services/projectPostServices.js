@@ -41,12 +41,17 @@ const getProjectbyId = id => {
     return http.get(`/project_post/${id}`);
 }
 
+
+
 const projectPostServices= {
     sendProject,
     getAllProjects,
     getProjectbyId,
     updateProject,
     findOnebyId,
+
 };
+
+
 
 export default projectPostServices;

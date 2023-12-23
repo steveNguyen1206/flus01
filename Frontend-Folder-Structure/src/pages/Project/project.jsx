@@ -4,7 +4,6 @@ import heart from '../../assets/heart-active.png';
 import './project.css';
 import { StarRating } from '@/components';
 import dollar from '../../assets/dollars.png';
-import delivery from '../../assets/delivery.png';
 import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
 import Comment from '@/components/Comment/Comment';
@@ -17,6 +16,7 @@ import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
 import { UpdateProject } from '..';
 import BidPopup from '../Bid';
+import { useNavigate } from 'react-router';
 
 const Project = () => {
   const { id } = useParams();
@@ -27,6 +27,8 @@ const Project = () => {
   // const userId = localStorage.getItem('LOGINID')
   const userId = 1;
   const [user, setUser] = useState([]);
+
+  const navigate = useNavigate();
 
   // get user by id
   useEffect(() => {
@@ -183,13 +185,13 @@ const Project = () => {
               <img src={line} alt="line" />
             </div>
           </div>
-
+          {/*
           <div className="related-project-wrapper">
             <div className="related-project-title">
               <p>Related Projects</p>
             </div>
 
-            {/* <div className="related-project-list">
+             <div className="related-project-list">
               <Carousel>
                 <Carousel.Item>
                   <div className="related-project-item">
@@ -204,8 +206,9 @@ const Project = () => {
                   </div>
                 </Carousel.Item>
               </Carousel>
-            </div> */}
+            </div> 
           </div>
+          */}
         </div>
         <div className="right-project">
           <button onClick={handleEditProject} className="button-edit">
@@ -234,7 +237,16 @@ const Project = () => {
 
             <div className="project-right-contact">
               <WhiteButton name="Chat now" />
-              <WhiteButton name="View Profile" />
+              <WhiteButton
+                name="View Profile"
+                // onClick={() => {
+                //   navigate(`/profile/${id}`);
+                // }}
+
+                onClick={() => {
+                  window.open(`/profile/${userId}`, '_blank');
+                }}
+              />
             </div>
           </div>
           <div className="project-info">
