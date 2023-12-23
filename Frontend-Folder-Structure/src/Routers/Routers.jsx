@@ -24,7 +24,6 @@ const Routers = () => {
           {/* <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} /> */}
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/project/:id" element={<Project />} />
-          <Route path="/project/:id" element={<Project />} />
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
           <Route path="/project-manage" element={<ProjectManagement/>} />

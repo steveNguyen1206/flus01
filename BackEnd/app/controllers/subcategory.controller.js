@@ -151,7 +151,6 @@ exports.delete = (req, res) => {
 
 
 
-//router.get("/get_name/:id", subcategory.findAllByProjectPostId);
 // get all subcategory of a project post
 exports.findAllByProjectPostId = (req, res) => {
   const id = req.params.id;

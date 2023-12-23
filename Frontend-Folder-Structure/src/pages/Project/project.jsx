@@ -9,8 +9,6 @@ import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
 import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
-import RelatedProject from '@/components/RelatedProject/RelatedProject';
-import { Carousel } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import projectPostServices from '@/services/projectPostServices';
@@ -100,7 +98,8 @@ const Project = () => {
     }
   }, [isChange]);
 
-  console.log(isEditPopupOpen);
+  console.log('abc', isOpenBid);
+
   return (
     <>
       {isEditPopupOpen && (
@@ -120,7 +119,6 @@ const Project = () => {
           isClose={() => setIsOpenBid(false)}
         />
       )}
-      <BidPopup/>
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -148,7 +146,7 @@ const Project = () => {
                     </div>
                   </div>
                   <div className="proj-rating-left">
-                    <StarRating rating={owner.averageStar} width={200}/>
+                    <StarRating rating={owner.averageStar} width={150} />
                     <div className="proj-stars-left">
                       <p>{owner.averageStar}</p>
                     </div>
@@ -224,28 +222,13 @@ const Project = () => {
                   <p>({user.profile_name})</p>
                 </div>
                 <div className="project-right-stars">
-                  <StarRating rating={owner.averageStar} />
+                  <StarRating rating={owner.averageStar} width={100} />
                   <p>{owner.averageStar}</p>
                   <div className="project-right-nstars"></div>
                 </div>
               </div>
               <div className="project-location-right">
                 <img src={vietnam} alt="vietnam" />
-              </div>
-            </div>
-
-            <div className="project-jobs-right">
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
-              </div>
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
-              </div>
-              <div className="project-job-right">
-                <p>Job</p>
-                <p> Your job here</p>
               </div>
             </div>
 
@@ -260,14 +243,6 @@ const Project = () => {
               <div className="project-detail-price">
                 <img src={dollar} alt="dollar" />
                 <p>${`${project.budget_min} - ${project.budget_max}`}</p>
-              </div>
-              {/* <div className="project-type">
-              <img src={location} alt="location" />
-              <p>Remote project</p>
-            </div> */}
-              <div className="project-time">
-                <img src={delivery} alt="delivery" />
-                <p>5 Day Delivery</p>
               </div>
             </div>
 

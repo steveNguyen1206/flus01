@@ -124,7 +124,8 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
   const handleDoneClick = () => {
     if (validateForm()) {
       console.log('bid: ', bid);
-      bidProject(bid)
+      bidServices.
+        bidProject(bid)
         .then(() => {
           console.log('Form is valid. Project submitted successfully.');
           setShowOverlay(false);

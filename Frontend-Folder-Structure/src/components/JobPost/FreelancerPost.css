@@ -99,14 +99,6 @@
   margin-top: 30px;
 }
 
-.rating{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: center;
-  align-items: center;
-}
-
 .rating-container{
   align-items: center;
   text-align: center;

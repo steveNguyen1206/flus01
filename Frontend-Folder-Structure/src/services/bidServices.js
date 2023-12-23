@@ -28,3 +28,5 @@ const bidService = {
     rejectBid,
 };
 
+export default bidService;
+

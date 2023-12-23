@@ -107,7 +107,7 @@
 .rating{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   text-align: center;
   align-items: center;
 }

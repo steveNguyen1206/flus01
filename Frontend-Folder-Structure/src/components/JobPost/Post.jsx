@@ -19,6 +19,7 @@ const Post = ({
   projectBudget,
   userID,
   handleBidClick,
+  ownerRating,
 }) => {
   // first, get owner project
   const [ownerProject, setOwnerProject] = useState([]);
@@ -47,32 +48,10 @@ const Post = ({
 
   const fetchProjectTags = async () => {
     const projectTagsData = await categoryServices.getNamefromId(projectTagsId);
-    // console.log(projectTagsData.data.subcategory_name);
+    console.log(projectTagsData.data.subcategory_name);
 
-    const projectTagsArray = projectTagsData.data.subcategory_name.includes(',')
-      ? projectTagsData.data.subcategory_name.split(',')
-      : [projectTagsData.data.subcategory_name];
-    setProjectTags(projectTagsArray);
-    // console.log('project tags array: ', projectTagsArray);
-  };
-
-  // get client rating of owner project
-  const [owner, setOwner] = useState([]);
-
-  useEffect(() => {
-    fetchOwnerRating();
-  }, [ownerProject]);
-
-  const fetchOwnerRating = async () => {
-    try {
-      const ownerRatingData = await reviewServices.getRatingClient(
-        ownerProject.id
-      );
-      setOwner(ownerRatingData.data);
-      // console.log(ownerRatingData.data);
-    } catch (error) {
-      console.error('Error fetching projects:', error);
-    }
+    setProjectTags(projectTagsData.data.subcategory_name);
+    // console.log('project tag: ', projectTagsData.data.subcategory_name);
   };
 
   const [isLiked, setIsLiked] = useState(unactiveHeart);
@@ -108,10 +87,7 @@ const Post = ({
           <div className="pttitle">{projectTitle}</div>
 
           <div className="pttags">
-            {/* {console.log('project tags: ', projectTags)} */}
-            {projectTags.map((subcategory_name) => (
-              <div className="pttag">{subcategory_name}</div>
-            ))}
+            <div className="pttag">{projectTags}</div>
           </div>
         </div>
         <div className="details">
@@ -125,9 +101,10 @@ const Post = ({
       <div className="right-post">
         <div className="previews">
           <div className="rating">
-            <p>{owner.averageStar}</p>
+            <p>{ownerRating}</p>
             <StarRating
-              rating={parseFloat(owner.averageStar)}
+              rating={parseFloat(ownerRating)}
+              width={100}
               className="pstars"
             />
           </div>

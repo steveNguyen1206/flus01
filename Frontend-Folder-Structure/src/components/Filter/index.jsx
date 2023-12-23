@@ -3,33 +3,13 @@ import React, { useState, useEffect } from 'react';
 import subcategoryService from '@/services/subcategoryService';
 import Slider from '@mui/material/Slider';
 import Box from '@mui/material/Box';
-import * as React from 'react';
 import exitButton from '../../assets/exitButton.png';
 
 function valuetext(value) {
   return `${value} $`;
 }
 
-const Filter = () => {
-  // const initialSkill = {
-  //   'id': '',
-  //   'subcategory_name': ''
-  // };
-
-  // const [skills, setSkills] = useState(initialSkill);
-
-  // const getSkills = () => {
-  //   subcategoryService
-  //     .findAll()
-  //     .then((response) => {
-  //       setSkills(response.data);
-  //       console.log(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }
-
+const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) => {
   const initialSkills = [
     {
       id: '',
@@ -55,8 +35,8 @@ const Filter = () => {
       });
   };
 
-  const [value, setValue] = React.useState([0, 20000]);
-  const [selectedSkills, setSelectedSkills] = React.useState([]);
+  const [value, setValue] = useState([0, 10000]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   const handleInputLowerChange = (event) => {
     setValue([
@@ -74,16 +54,36 @@ const Filter = () => {
 
   const handleChange = (event, [lower, upper]) => {
     setValue([lower, upper]);
+    onSelectedRangeChange([lower, upper]);
+  };
+
+
+  const getIdbyName = (name) => {
+    for (let i = 0; i < skills.length; i++) {
+      if (skills[i].subcategory_name === name) {
+        console.log("a", skills[i].id)
+        return skills[i].id;
+      }
+    }
   };
 
   const handleFilterChange = (event) => {
     const selectedOption = event.target.value;
     if (selectedOption) {
+      const selectedOptionId = getIdbyName(selectedOption);
       setSelectedSkills((prevSkills) => [...prevSkills, selectedOption]);
+      onSelectedTagsChange([...selectedTags, selectedOptionId]);
     }
   };
+
   const handleRemoveSkill = (index) => {
+    const removedTag = selectedSkills[index];
     setSelectedSkills((prevSkills) => prevSkills.filter((_, i) => i !== index));
+    const removedTagId = getIdbyName(removedTag);
+    onSelectedTagsChange(
+      selectedTags.filter((tagId) => tagId !== removedTagId)
+    );
+
   };
 
   return (
@@ -96,7 +96,7 @@ const Filter = () => {
           Add skills
         </option>
         {skills.map((skill) => (
-          <option key={skill.id} value={skill.id}>
+          <option key={skill.id} value={skill.subcategory_name}>
             {skill.subcategory_name}
           </option>
         ))}
