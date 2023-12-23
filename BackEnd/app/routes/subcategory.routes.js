@@ -23,6 +23,10 @@ module.exports = app => {
   
     // // Delete all Tutorials
     // router.delete("/", category.deleteAll);
+
+    // get all subcategory of a project post
+    router.get("/get_name/:id", subcategory.findAllByProjectPostId);
+
   
     app.use('/api/subcategory', router);
   };

@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { http } from "./http-common";
 
 const signin = (data) => {
   return http.post("/auth/signin", data);

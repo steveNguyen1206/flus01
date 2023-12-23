@@ -3,7 +3,7 @@ import { WhiteButton } from '@/components';
 import './newproject.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
-import projectServices from '@/services/projectPostServices';
+import projectPostServices from '@/services/projectPostServices';
 
 const isValidTitle = (title) => {
   if (!title) return false;
@@ -135,7 +135,7 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
 
   const handleDoneClick = () => {
     if (validateForm()) {
-      projectServices
+      projectPostServices
         .sendProject(newProject)
         .then(() => {
           console.log('Form is valid. Project submitted successfully.');

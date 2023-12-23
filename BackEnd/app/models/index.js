@@ -15,6 +15,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 
+
 const db = {};
 
 db.Sequelize = Sequelize;
@@ -42,6 +43,8 @@ db.payment_accounts = require("./payment_account.model.js")(
   sequelize,
   Sequelize
 );
+
+db.user_wishlist = require("./user_wishlist.model.js")(sequelize, Sequelize);
 
 db.subcategories.belongsTo(db.categories, {
   foreignKey: {
@@ -210,9 +213,24 @@ db.review.belongsTo(db.user, {
 });
 
 db.project_post.belongsTo(db.subcategories, {
-  foreignKey: "tag_id",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
+  foreignKey: 'tag_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+
+// --------------------------------------------------------
+
+db.user_wishlist.belongsTo(db.user, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.user_wishlist.belongsTo(db.project_post, {
+  foreignKey: 'project_post_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
 
 module.exports = db;

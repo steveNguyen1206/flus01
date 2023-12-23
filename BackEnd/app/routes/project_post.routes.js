@@ -1,10 +1,11 @@
+const { authJwt, upload } = require("../middleware");
 module.exports = (app) => {
     const projectPostController = require("../controllers/project_post.controller.js");
 
     var router = require("express").Router();
 
     // Create a new Project_post
-    router.post("/create", projectPostController.createProjectPost);
+    router.post("/",upload.single("image_file"), projectPostController.create);
 
     // Retrieve all Project_posts (belongs to a user) from the database
     router.get("/findAll/:userId", projectPostController.findAllProjectPosts);
@@ -25,7 +26,7 @@ module.exports = (app) => {
     router.get("/:id", projectPostController.findOne);
 
     // /project_post/update
-    router.post("/update", projectPostController.update);
+    router.put("/:id",upload.single("image_file"), projectPostController.update);
 
     app.use("/api/project_post", router);
 }

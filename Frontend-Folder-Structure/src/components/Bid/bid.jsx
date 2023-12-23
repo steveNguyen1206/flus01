@@ -34,9 +34,6 @@ const Bid = ({}) => {
         </div>
       </div>
       <div className="bid-body-detail">
-        <div className="bid-message">
-          <p>{message}</p>
-        </div>
         <div className="bid-price">
           <p>{price}</p>
         </div>

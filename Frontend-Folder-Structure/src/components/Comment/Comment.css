@@ -22,11 +22,13 @@
     gap: 20px;
     align-items: center;
 }
-
-.comment-star img{
+.comment-star{
+    height: 10px;
+}
+/* .comment-star img{
     width: 20px;
     height: 20px;
-}
+} */
 
 .commentator-name img{
     width: 30px;

@@ -1,5 +1,6 @@
-const { authJwt } = require("../middleware");
+const { authJwt, upload } = require("../middleware");
 const user_controller = require("../controllers/user.controller.js");
+
 
 module.exports = (app) => {
   var router = require("express").Router();
@@ -21,19 +22,19 @@ module.exports = (app) => {
   router.get('/getusers/:page&:size', user_controller.findUsersbyPage);
 
   // Update a User with id
-  router.put("/:id", user_controller.update);
+  router.put("/:id", user_controller.update); 
 
   // Update avatar of a user
-  router.put("/avatar/:id", user_controller.updateAvatar);
+  router.put("/avatar/:id", upload.single("avatar"), user_controller.updateAvatar);
 
   // Delete a User with account_name
-  router.delete("/deleteuser/:accountName", user_controller.deleteOnebyAccountName);
+  // router.delete("/deleteuser/:accountName", user_controller.deleteOnebyAccountName);
 
   // Delete a User with reportedTimes
-  router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);
+  // router.delete("/reported_times", user_controller.deleteOnebyReportedTimes);
 
   // Update the status of a User by id and status param
-  router.put("/status/:id&:status", user_controller.changeStatusByID);
+  // router.put("/status/:id&:status", user_controller.changeStatusByID);
 
   app.use("/api/user", router);
 };
