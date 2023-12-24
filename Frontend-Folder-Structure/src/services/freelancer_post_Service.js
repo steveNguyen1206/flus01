@@ -8,6 +8,7 @@ const findOnebyId = id => {
     return http.get(`/freelancer_post/${id}`);
 };
 
+
 // const create = data => {
 //     return http.post("/freelancer_post", data);
 // }
@@ -86,7 +87,7 @@ const freelancer_post_Service = {
     sendPost,
     updatePost,
     findOnebyId,
-    findFreelancerEmail
+    findFreelancerEmail,
 };
 
 export default freelancer_post_Service;

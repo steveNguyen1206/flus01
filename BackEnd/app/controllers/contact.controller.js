@@ -224,3 +224,69 @@ exports.findAllContact  = (req, res) => {
 //       });
 //     });
 // };
+
+exports.findAllBids = (req, res) => {
+  const post_id = req.params.freelancer_post_id;
+  console.log(post_id)
+  // var condition = freelancer_post_id ? { freelancer_post_id: { [Op.like]: `${freelancer_post_id}%` } } : null;
+
+  Contact.findAll({
+    where: {
+      freelancer_post_id: {
+        [Op.eq]: post_id
+      },
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
+      },
+    ],
+
+  })
+    .then(data => {
+      // res.send(data);
+      // const bid = {
+      //   client_account_name: data.user.account_name,
+      //   client_profile_name: data.user.profile_name,
+      //   client_avt_url: data.user.avt_url,
+      //   budget: data.budget,
+      // }
+
+      return res.json(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving findAllBids data."
+      });
+    });
+}
+
+
+// exports.findAllPosts = (req, res) => {
+//     const freelancer_id = req.query.freelancer_id;
+//     var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
+
+//     Freelancer_post.findAll({
+//         where: condition,
+//         include: [
+//             {
+//                 model: User,
+//                 attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
+//             },
+//             {
+//                 model: Subcategory,
+//                 attributes: ['id', 'subcategory_name'],
+//             },
+//         ],
+
+//     })
+//         .then(data => {
+//             res.send(data);
+//         })
+//         .catch(err => {
+//             res.status(500).send({
+//                 message: err.message || "Some error occurred while retrieving data."
+//             });
+//         });
+// };
