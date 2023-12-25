@@ -3,6 +3,7 @@ const Project = db.projects;
 const Op = db.Sequelize.Op;
 const User = db.Sequelize.user;
 const Transaction = db.transactions;
+const ProjectNoti = db.projects_notis;
 
 const {createTransaction} = require('../controllers/transaction.controller.js')
 
@@ -38,28 +39,23 @@ exports.create = (req, res) => {
   // Save Tutorial in the database
   Project.create(project)
     .then(project_data => {
+      const notification = {
+        title: "Project was created",
+        content: "This is the first begining of your project. Happy freelancing!",
+        creator_id:  req.body.owner,
+        project_id: project_data.id
+      }
 
-      // const transaction = {
-      //   amount: req.body.tran_amout,
-      //   sender_id: req.body.userId,
-      //   receiver_id: ADMIN_USER_ID,
-      //   project_id: project_data.id,
-      //   transactionId: req.body.tran_id,
-      //   type: req.body.tran_type
-      // }
-
-      // Transaction.create(transaction)
-      //   .then(data=> {
+      ProjectNoti.create(notification)
+        .then(noti_data=> {
           res.send(project_data);
-      //   })
-      //   .catch(err => {
-      //     res.status(500).send({
-      //       message:
-      //         err.message || "Some error occurred while creating the Transaction."
-      //     });
-      //   });
-
-
+        })
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while creating project notification."
+          });
+        });
     })
     .catch(err => {
       res.status(500).send({
@@ -106,16 +102,8 @@ exports.findMemberOne = (req, res) => {
     ]})
     .then(data => {
       if (data) {
-        if(data.member_id == req.userId || data.owner_id == req.userId)
-        {
           console.log(req.userId)
           res.send(data);
-        }
-      else {
-          res.status(404).send({
-            message: `Permission denied! You do not have access to this project.`
-          });
-        }
       } else {
         res.status(404).send({
           message: `Cannot find Project with id=${id}.`
@@ -148,16 +136,8 @@ exports.findOwnerOne = (req, res) => {
     ]})
     .then(data => {
       if (data) {
-        if(data.owner_id == req.userId)
-        {
           console.log(req.userId)
           res.send(data);
-        }
-      else {
-          res.status(404).send({
-            message: `Permission denied! You do not have access to this project.`
-          });
-        }
       } else {
         res.status(404).send({
           message: `Cannot find Project with id=${id}.`
@@ -173,41 +153,59 @@ exports.findOwnerOne = (req, res) => {
 
 // Update a project by the id in the request
 exports.update = (req, res) => {
-  const id = req.params.id;
+  const id = req.body.id;
+  console.log("tesst body id", id);
 
   const update = {
-    project_name: req.body.name,
-    project_description: req.body.description,
-    start_date: req.body.startDate,
-    end_date: req.body.endDate,
+    project_name: req.body.project_name,
+    project_description: req.body.project_description,
+    start_date: req.body.start_date,
+    end_date: req.body.end_date,
     budget: req.body.budget,
     status: req.body.status
     };
 
   Project.findByPk(id)
     .then(project_data => {
-      if(project_data.owner_id == req.userId)
-      {
-        Project.update(project, {
+        Project.update(update, {
           where: { id: id }
         })
           .then(num => {
             if (num == 1) {
               
               const transaction = {
-                amount: req.body.tran_amout,
+                amount: req.body.tran_amount,
                 sender_id: req.body.userId,
                 receiver_id: ADMIN_USER_ID,
                 project_id: project_data.id,
-                transactionId: req.body.tran_id,
+                transactionId: req.body.orderID,
                 type: req.body.tran_type
               }
 
               Transaction.create(transaction)
                 .then(trans_data=> {
-                  res.send({
-                    message: "Project was updated successfully."
-                  });
+
+                  const notification = {
+                    title: req.body.noti_title,
+                    content: req.body.noti_content,
+                    creator_id: req.body.userId,
+                    project_id: project_data.id
+                  }
+            
+                  ProjectNoti.create(notification)
+                    .then(noti_data=> {
+                      // res.send(project_data);
+                      res.send({
+                        message: "Project was updated successfully."
+                      });
+                    })
+                    .catch(err => {
+                      res.status(500).send({
+                        message:
+                          err.message || "Some error occurred while creating project notification."
+                      });
+                    });
+                  
                 })
                 .catch(err => {
                   res.status(500).send({
@@ -227,7 +225,6 @@ exports.update = (req, res) => {
               message: "Error updating project with id=" + id
             });
           });
-      }
   })
   
 };

@@ -10,19 +10,23 @@ export const ProjectManageProvider = ({own, projectId, children }) => {
     project_description: "",
     start_date: "12/10/2023",
     end_date: "1/1/2024",
-    budget: 10,
-    status: 0,
+    budget: '',
+    status: '-1',
   };
 
 
   const isOwn = own;
 
   const [project, setProject] = useState(initialProject);
+  const [projectTab, setProjectTab] = useState("general")
+
 
   const contextValue = {
     project,
     setProject,
     isOwn,
+    projectTab,
+    setProjectTab
   };
   console.log("project id", project.id);
 
