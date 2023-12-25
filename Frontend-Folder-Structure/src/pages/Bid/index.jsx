@@ -48,7 +48,7 @@ const isValidDuration = (duration) => {
   return durationRegex.test(duration);
 };
 
-const BidPopup = ({ isOpen, isClose, projectPostId }) => {
+const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
   const [showOverlay, setShowOverlay] = useState(isOpen);
 
   const initError = {
@@ -146,6 +146,7 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
           console.log('Form is valid. Project submitted successfully.');
           setShowOverlay(false);
           isClose();
+          onChange();
         })
         .catch((error) => {
           console.error('Error submitting project:', error.message);
@@ -164,6 +165,7 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
           onClick={() => {
             setShowOverlay(false);
             isClose();
+            onChange();
           }}
           className="exit-button"
         >
@@ -188,15 +190,6 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
           </div>
           <div className="freelancer-skill-input">
             <label htmlFor="freelancerSkill">Skill *</label>
-            {/* <input
-              type="text"
-              id="freelancerSkill"
-              name="skill"
-              placeholder="Add skill tag"
-              onChange={handleInputChange}
-              value={bid.skill}
-            /> */}
-
             <select
               id="freelancerSkill"
               name="skill"

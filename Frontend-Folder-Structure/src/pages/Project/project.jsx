@@ -4,6 +4,7 @@ import { StarRating, Bid } from '@/components';
 import WhiteButton from '@/components/Button/WhiteButton';
 import { BidDetailPopup, UpdateProject } from '..';
 import BidPopup from '../Bid';
+import CommentProject from '../../components/Comment/CommentProject';
 
 import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
@@ -23,10 +24,18 @@ const Project = () => {
   const { id } = useParams();
   const [project, setProject] = useState([]);
   const [isOpenBid, setIsOpenBid] = useState(false);
+  const [projectTags, setProjectTags] = useState([]);
+  const [user, setUser] = useState([]);
+  const [owner, setOwner] = useState([]);
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [isChange, setIsChange] = useState(false);
+  const [bidProject, setBidProject] = useState([]);
+  const [isLiked, setIsLiked] = useState('');
+  const [isChangeBid, setIsChangeBid] = useState(false);
 
   // const userId = localStorage.getItem('LOGINID')
   const userId = 1;
-  const [user, setUser] = useState([]);
 
   const navigate = useNavigate();
 
@@ -45,23 +54,29 @@ const Project = () => {
     });
   }, []);
 
-  const [projectTags, setProjectTags] = useState([]);
-
   useEffect(() => {
     fetchProjectTags();
   }, [id]);
+
+  useEffect(() => {
+    fetchOwnerRating();
+  }, [project.user_id]);
+
+  useEffect(() => {
+    if (isChange) {
+      projectPostServices.getProjectbyId(id).then((response) => {
+        console.log('response: ', response);
+        setProject(response.data);
+      });
+      setIsChange(false);
+    }
+  }, [isChange]);
 
   const fetchProjectTags = async () => {
     const projectTagsData = await categoryServices.getNamefromId(id);
     console.log(projectTagsData.data.subcategory_name);
     setProjectTags([projectTagsData.data.subcategory_name]);
   };
-
-  const [owner, setOwner] = useState([]);
-
-  useEffect(() => {
-    fetchOwnerRating();
-  }, [project.user_id]);
 
   const fetchOwnerRating = async () => {
     try {
@@ -75,29 +90,9 @@ const Project = () => {
     }
   };
 
-  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
-
   const handleEditProject = () => {
     setIsEditPopupOpen(true);
   };
-
-  const [isDetailOpen, setIsDetailOpen] = useState(false);
-
-  const [isChange, setIsChange] = useState(false);
-
-  useEffect(() => {
-    if (isChange) {
-      projectPostServices.getProjectbyId(id).then((response) => {
-        console.log('response: ', response);
-        setProject(response.data);
-      });
-      setIsChange(false);
-    }
-  }, [isChange]);
-
-  // get all bid of project, then count number of bid
-  const [bidProject, setBidProject] = useState([]);
-  const [isChangeBid, setIsChangeBid] = useState(false);
 
   const onChangeBid = () => {
     setIsChangeBid(!isChangeBid);
@@ -116,7 +111,6 @@ const Project = () => {
   const fetchBidProject = async () => {
     try {
       const bidProjectData = await bidServices.findBidByProjectId(id);
-      // ứng với mỗi bid, lấy ra user_id của người bid, sau đó lấy ra thông tin user(profileImage, username, rating)
       const bidProjectWithUser = await Promise.all(
         bidProjectData.data.map(async (bid) => {
           const userBidData = await userDataService.findOnebyId(bid.user_id);
@@ -139,8 +133,6 @@ const Project = () => {
     }
   };
   const bidNum = bidProject.length;
-
-  const [isLiked, setIsLiked] = useState('');
 
   // check if user liked this project
   useEffect(() => {
@@ -202,6 +194,9 @@ const Project = () => {
           projectPostId={id}
           isOpen={isOpenBid}
           isClose={() => setIsOpenBid(false)}
+          onChange={() => {
+            setIsChangeBid(!isChangeBid);
+          }}
         />
       )}
       <div className="pproject">
@@ -260,7 +255,9 @@ const Project = () => {
           <div className="comments">
             <div className="comment-title">
               <p>Comments</p>
-              <div className="proj-comment-detail">{/* <Comment /> */}</div>
+              <div className="proj-comment-detail">
+                <CommentProject project_post_id={id} user_id={userId} />
+              </div>
             </div>
             <div className="proj-line">
               <img src={line} alt="line" />

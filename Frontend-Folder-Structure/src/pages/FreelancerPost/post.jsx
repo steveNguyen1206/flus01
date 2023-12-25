@@ -10,7 +10,7 @@ import location from '../../assets/location.png';
 import delivery from '../../assets/delivery.png';
 import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
-import Comment from '@/components/Comment/Comment';
+import Comment from '@/components/Comment/CommentProject';
 import { Bid } from '@/components';
 import RelatedProject from '@/components/RelatedProject/RelatedProject';
 import { Carousel } from 'react-bootstrap';
@@ -90,7 +90,6 @@ const Post = () => {
     setIsEditPopupOpen(true);
   };
 
-
   const [isChange, setIsChange] = useState(false);
   return (
     <>
@@ -99,7 +98,9 @@ const Post = () => {
           isOpen={isEditPopupOpen}
           onClose={() => setIsEditPopupOpen(false)}
           projectId={id}
-          onUpdate={() => {setIsChange(!isChange)}}
+          onUpdate={() => {
+            setIsChange(!isChange);
+          }}
         />
       )}
       <div className="pproject">
