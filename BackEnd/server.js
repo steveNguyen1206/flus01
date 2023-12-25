@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require('dotenv').config();
+   
 
 const app = express();
 
@@ -42,15 +43,19 @@ require("./app/routes/paypal.routes")(app);
 
 require('./app/routes/auth.routes')(app);
 require("./app/routes/user.routes")(app);
-// require("./app/routes/sms.routes")(app);
-
+require("./app/routes/sms.routes")(app);
+require("./app/routes/gmail.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/project_post.routes")(app);
 require("./app/routes/project.routes")(app);
+require("./app/routes/project_report.routes")(app);
+require("./app/routes/project_notification.routes")(app);
 require("./app/routes/review.routes")(app);
 require("./app/routes/category.routes")(app);
-
+require("./app/routes/contact.routes")(app);
 require("./app/routes/subcategory.routes")(app);
+require("./app/routes/freelancer_post.routes")(app);
+require("./app/routes/project.routes")(app);
 require("./app/routes/user_subcategory.routes")(app);
 
 // set port, listen for requests

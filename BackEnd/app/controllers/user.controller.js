@@ -177,9 +177,17 @@ exports.update = (req, res) => {
     });
 };
 
+
+
 exports.updateAvatar = async (req, res) => {
-  const id = req.params.id;
-  console.log("###############UPLOAD AVATAR - id: ", id);
+  const id = 1;
+  console.log(req.params);
+
+  // đoạn code này để test upload hình ảnh lên cloud mà ko cập nhật lại bảng user, do chấn chưa đăng ký bằng sms đượt :>>
+  // cái này chạy được thì cái trên chạy đc, it should work :))
+  // lỗi nằm ở cái http-comment bên trong services bên frontend
+  // ban đầu cái header cuar http là 'applicationtype-json', trong khi muốn úp file thì header phải là 'multitype/data-form'
+  // nếu dùng cách viết ở trên (của viên thì trong file user.router cái router update avatar ko cần thêm middleware nữa, cách viết của chấn là đặt middle trong router á), xài cách của viên thì bỏ middlware trong router ra
 
   async function handleUpload(file) {
     const res = await cloudinary.uploader.upload(file, {
@@ -189,30 +197,48 @@ exports.updateAvatar = async (req, res) => {
   }
 
   try {
-    console.log(req);
-    console.log(req.file);
+    // console.log(req);
+    // console.log(req.file);
     const b64 = Buffer.from(req.file.buffer).toString("base64");
     let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
     const cldRes = await handleUpload(dataURI);
     console.log(cldRes);
-    const avatarUrl = cldRes.secure_url;
-    User.update({ avt_url: avatarUrl }, { where: { id: id } }).then((num) => {
-      if (num == 1) {
-        res.send({
-          message: "User avatar was updated successfully.",
-          avatarUrl: avatarUrl,
-        });
-      } else {
-        res.send({
-          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`,
-        });
-      }
-    });
+    const new_url = cldRes.secure_url;
+    console.log(new_url);
 
-    res.json(cldRes);
+    // User.update({ avt_url: new_url })
+
+    User.update({ avt_url: new_url },
+      { where: { id: id } }
+    )
+      .then(num => {
+        if (num == 1) {
+          return res.status(200).json({
+            message: "User avatar was updated successfully.",
+            // avt_url: avt_url
+          });
+        } else {
+          return res.status(502).json({
+            message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+          });
+        }
+        console.log(res)
+        // console.log("num ----------- ", num)
+      })
+      .catch(err => {
+        console.log("AVT UPDATEEEEEEEE: ", err.message);
+
+        return res.status(503).json({
+          message: "Huhuhuhuhuhuhuhuhuhuhuhuhuhuh"
+        });
+      })
+
+    // await User.save();
+
+    // res.json(cldRes);
   } catch (error) {
     console.log(error);
-    res.send({
+    return res.status(503).json({
       message: error.message,
     });
   }

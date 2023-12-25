@@ -1,12 +1,9 @@
 import React from 'react';
 import vietnam from '../../assets/vietnam.png';
-import profileimage from '../../assets/profile_image.png';
 import heart from '../../assets/heart-active.png';
 import './project.css';
 import { StarRating } from '@/components';
-import img from '../../assets/Imgs.png';
 import dollar from '../../assets/dollars.png';
-import location from '../../assets/location.png';
 import delivery from '../../assets/delivery.png';
 import WhiteButton from '@/components/Button/WhiteButton';
 import line from '../../assets/line.png';
@@ -16,11 +13,12 @@ import RelatedProject from '@/components/RelatedProject/RelatedProject';
 import { Carousel } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import projectServices from '@/services/projectPostServices';
+import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
 import categoryServices from '@/services/categoryServices';
 import reviewServices from '@/services/reviewServices';
-import { UpdateProject } from '..';
+import { BidDetailPopup, UpdateProject } from '..';
+import styles from './project.css?inline';
 
 const Project = () => {
   const { id } = useParams();
@@ -32,7 +30,6 @@ const Project = () => {
   const [user, setUser] = useState([]);
 
   // get user by id
-
   useEffect(() => {
     userDataService.findOnebyId(userId).then((response) => {
       console.log('response: ', response);
@@ -41,7 +38,7 @@ const Project = () => {
   }, []);
 
   useEffect(() => {
-    projectServices.getProjectbyId(id).then((response) => {
+    projectPostServices.getProjectbyId(id).then((response) => {
       console.log('response: ', response);
       setProject(response.data);
     });
@@ -90,8 +87,20 @@ const Project = () => {
     setIsEditPopupOpen(true);
   };
 
-
   const [isChange, setIsChange] = useState(false);
+
+  useEffect(() => {
+    if (isChange) {
+      projectPostServices.getProjectbyId(id).then((response) => {
+        console.log('response: ', response);
+        setProject(response.data);
+      });
+      setIsChange(false);
+    }
+  }, [isChange]);
+  
+
+  console.log(isEditPopupOpen);
   return (
     <>
       {isEditPopupOpen && (
@@ -99,9 +108,12 @@ const Project = () => {
           isOpen={isEditPopupOpen}
           onClose={() => setIsEditPopupOpen(false)}
           projectId={id}
-          onUpdate={() => {setIsChange(!isChange)}}
+          onUpdate={() => {
+            setIsChange(!isChange);
+          }}
         />
       )}
+      <BidPopup/>
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -129,7 +141,7 @@ const Project = () => {
                     </div>
                   </div>
                   <div className="proj-rating-left">
-                    <StarRating rating={owner.averageStar} />
+                    <StarRating rating={owner.averageStar} width={200}/>
                     <div className="proj-stars-left">
                       <p>{owner.averageStar}</p>
                     </div>

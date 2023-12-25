@@ -33,6 +33,7 @@
   "devDependencies": {
     "cloudinary": "^1.41.1",
     "dotenv": "^16.3.1",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7"
   }
 }

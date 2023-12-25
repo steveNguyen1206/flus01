@@ -1,36 +1,19 @@
-import http from "./http-common";
-
+import { media_upload, http } from "./http-common";
 
 const findOnebyId = id => {
     return http.get(`/project_post/${id}`);
   };
-
-  
 const sendProject = async (data) => {
     let formData = new FormData();
     formData.append('title', data.title);
     formData.append('detail', data.detail);
     formData.append('budget_min', data.budgetMin);
     formData.append('budget_max', data.budgetMax);
-    formData.append('imgage_post_urls', "");
-    formData.append('tag', data.tag);
+    formData.append('tag', data.tag); 
     formData.append('user_id', 1);
+    formData.append('image_file', data.image);
 
-    console.log(formData);
-  
-    try {
-      const response = await http.post('/project_post/create', formData, {
-        headers: {
-          ...http.defaults.headers,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('Error submitting project:', error);
-    }
-    
-    return http.post("/project_post/create", formData);
+    return media_upload.post("/project_post/", formData);
   };
 
 
@@ -40,24 +23,13 @@ const updateProject = async (data) => {
     formData.append('detail', data.detail);
     formData.append('budget_min', data.budgetMin);
     formData.append('budget_max', data.budgetMax);
-    formData.append('image', data.image);
-    formData.append('tag_id', data.tag);
-    formData.append("user_id", data.id);
+    formData.append('image_file', data.image);
+    formData.append('tag', data.tag);
+    formData.append("user_id", 1);
 
-
-    try {
-      const response = await http.post('/project_post/update', formData, {
-        headers: {
-          ...http.defaults.headers,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log('Error submitting project:', error);
-    }
+    console.log("formData: ", formData);
     
-    return http.post("/project_post/update", formData);
+    return media_upload.put(`/project_post/${data.id}`, formData);
   };
 
 
@@ -69,13 +41,11 @@ const getProjectbyId = id => {
     return http.get(`/project_post/${id}`);
 }
 
-
-
 const findAndChangeStatus = (user_id, status) => {
     return http.get("/project_post/findAndChangeStatus/" + user_id + "&" + status);
 };
 
-const projectPostService = {
+const projectPostServices = {
     findAndChangeStatus,
     sendProject,
     getAllProjects,
@@ -83,6 +53,5 @@ const projectPostService = {
     updateProject,
     findOnebyId,
 };
-  
 
-export default projectPostService;
+export default projectPostServices;

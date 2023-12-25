@@ -1,5 +1,6 @@
 const db = require("../models");
 const Subcategory = db.subcategories;
+const project_post = db.project_post;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Category
@@ -147,3 +148,45 @@ exports.delete = (req, res) => {
 //             });
 //         });
 // };
+
+
+
+//router.get("/get_name/:id", subcategory.findAllByProjectPostId);
+// get all subcategory of a project post
+exports.findAllByProjectPostId = (req, res) => {
+  const id = req.params.id;
+  // console.log(id);
+  // get tag_id of project post
+
+  console.log("id: " + id);
+
+  project_post.findByPk(id)
+  .then(data => {
+    if (!data) {
+      res.status(404).send({
+        message: `Cannot find Project Post with id=${id}.`
+      });
+    } else {
+      Subcategory.findByPk(data.tag_id)
+        .then(subcat => {
+          console.log(subcat);
+          if (!subcat) {
+            res.status(404).send({
+              message: `Cannot find Subcategory with id=${data.tag_id}.`
+            });
+          } else {
+            console.log(subcat.subcategory_name);
+            res.send({subcategory_name: subcat.subcategory_name});
+          }
+        })
+    }
+  })
+  .catch(err => {
+    res.status(500).send({
+      message: "Error retrieving Project Post with id=" + id
+    });
+  });
+
+ 
+
+};

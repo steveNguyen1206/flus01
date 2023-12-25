@@ -1,3 +1,4 @@
+
 export { default as Inputs } from "./Inputs";
 export { default as Modal } from "./Modal";
 export { default as ToolTip } from "./ToolTip";
@@ -19,7 +20,7 @@ export {default as RedCloseButton} from "./Button/redCloseButton";
 export {default as DeleteButton} from "./Button/deleteButton";
 
 export {default as Bid} from './Bid/bid'
-
+export {default as bidDetailTag} from './Bid/bidDetail'
 export {default as AddCategory} from './Admin/admin_category_add'
 export {default as AddSubcategory} from './Admin/admin_subcategory_add'
 export {default as EditCategory} from './Admin/admin_category_edit'

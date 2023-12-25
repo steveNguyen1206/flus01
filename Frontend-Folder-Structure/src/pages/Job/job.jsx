@@ -4,7 +4,7 @@ import Search from '@/components/Search';
 import { Header, Footer } from '@/layout';
 import Post from '@/components/JobPost/Post';
 import Filter from '@/components/Filter';
-import projectServices from '@/services/projectPostServices';
+import projectPostServices from '@/services/projectPostServices';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { NewProject } from '../Project/';
@@ -19,7 +19,7 @@ const Job = () => {
 
   const fetchProjects = async () => {
     try {
-      const projectsData = await projectServices.getAllProjects();
+      const projectsData = await projectPostServices.getAllProjects();
       setProjects(projectsData.data);
       console.log('data', projectsData.data);
     } catch (error) {
@@ -36,6 +36,13 @@ const Job = () => {
   
 
   const [isChange, setIsChange] = useState(false);
+
+  useEffect(() => {
+    if (isChange) {
+      fetchProjects();
+      setIsChange(false);
+    }
+  }, [isChange]);
 
   return (
     <>
