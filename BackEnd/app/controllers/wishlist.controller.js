@@ -1,5 +1,6 @@
 const db = require("../models");
 const Op = db.Sequelize.Op;
+const project_post = db.project_post;
 const user_wishlist = db.user_wishlist;
 
 
@@ -60,15 +61,30 @@ exports.findAllWishlistByUserId = (req, res) => {
     const { userId } = req.params;
     const condition = userId ? { user_id: { [Op.eq]: `${userId}` } } : null;
 
+
+    // get all wishlist by user id, then get all project post by project post id
     user_wishlist.findAll({ where: condition })
         .then(data => {
-        res.send(data);
+            console.log("data", data)
+            // get all project post id
+            const projectPostIdList = data.map(item => item.project_post_id);
+            // find all project post by project post id
+            project_post.findAll({ where: { id: { [Op.in]: projectPostIdList } } })
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message:
+                        err.message || "Some error occurred while retrieving wishlist."
+                    });
+                });
         })
         .catch(err => {
-        res.status(500).send({
-            message:
-            err.message || "Some error occurred while retrieving wishlist."
-        });
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while retrieving wishlist."
+            });
         });
 };
 

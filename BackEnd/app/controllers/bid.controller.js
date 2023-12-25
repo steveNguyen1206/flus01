@@ -40,4 +40,37 @@ exports.create = (req, res) => {
         });
 }
 
+exports.findBidByProjectId = (req, res) => {
+    const project_id = req.params.project_id;
+
+    Bid.findAll({ where: { proj_post_id: project_id, status: 0, } })
+        .then(data => {
+            res.status(200).send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while retrieving bids."
+            });
+        });
+}
+
+exports.changeBidStatus = (req, res) => {
+    const bid_id = req.params.bid_id;
+    const status = req.params.status;
+
+    Bid.update({ status: status }, { where: { id: bid_id } })
+        .then(data => {
+            res.status(200).send({
+                message: "Update bid status successfully."
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while updating bid status."
+            });
+        });
+}
+
 

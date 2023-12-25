@@ -54,7 +54,25 @@ const Post = ({
     // console.log('project tag: ', projectTagsData.data.subcategory_name);
   };
 
-  const [isLiked, setIsLiked] = useState(unactiveHeart);
+  const [isLiked, setIsLiked] = useState('');
+
+  // check if user liked this project
+  useEffect(() => {
+    projectPostWishlistServices
+      .isExisted(userID, projectId)
+      .then((response) => {
+        console.log('response: ', response);
+        if (response.data === true) {
+          setIsLiked(heart);
+        } else {
+          setIsLiked(unactiveHeart);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userID, projectId]);
+
   const handleLikeClick = () => {
     if (isLiked === unactiveHeart) {
       projectPostWishlistServices.create(userID, projectId).then((response) => {

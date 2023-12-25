@@ -155,7 +155,6 @@ const BidPopup = ({ isOpen, isClose, projectPostId }) => {
     }
   };
 
-  console.log('bid: ', bid)
 
   return (
     <>

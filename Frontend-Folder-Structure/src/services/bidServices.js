@@ -29,12 +29,27 @@ const rejectBid = (bid_id) => {
     return http.put("/bid/rejectBid/" + bid_id);
 }
 
+const getNumOfBid = (project_id) => {
+    return http.get("/bid/getNumOfBid/" + project_id);
+}
+
+const changeBidStatus = (bid_id, status) => {
+    return http.put("/bid/changeBidStatus/" + bid_id + "/" + status);
+}
+
+
+
+
+
+
 const bidService = {
     bidProject,
     findBidByProjectId,
     findBidByFreelancerId,
     acceptBid,
     rejectBid,
+    getNumOfBid,
+    changeBidStatus,
 };
 
 export default bidService;
