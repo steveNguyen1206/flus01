@@ -18,7 +18,7 @@ const Comment = () => {
           </div>
         </div>
         <div className="comment-star">
-          <StarRating rating={4} />
+          <StarRating rating={4} width={80} />
           <p>4.0</p>
           <div className="comment-time">
             <p>2 days ago</p>

@@ -1,12 +1,33 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './home.css'
 import { Inputs, Modal, ToolTip } from '@/components'
 import { Header, Footer, Navbar } from '@/layout'
 import banner from '../../assets/banner.jpg'
 import human from '../../assets/Human.png'
 import skill from '../../assets/skill.png'
+import { FreelancerPost, Post } from '@/components/JobPost'
+import freelancer_post_Service from '@/services/freelancer_post_Service'
 
 const index = () => {
+
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const postsData = await freelancer_post_Service.allposts();
+      const sortedPosts = postsData.data.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+      setPosts(sortedPosts);
+      console.log('data', sortedPosts);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
   return (
     <div className='homepage'>
        <div className="BannerSection">
@@ -27,7 +48,7 @@ const index = () => {
         </div>
       </div>
       <div className='CategorySection'>
-        <div className='category-wrapper'>
+        <div className='home-category-wrapper'>
           <div className="ctn-category">
             <div className="txt-category">Category</div>
           </div>
@@ -86,6 +107,24 @@ const index = () => {
         </div>
         
 
+      </div>
+      <div className='ProjectSection'>
+        <div className='project-header'>
+          Latest Freelancer Posts
+        </div>
+        <div className='project-container'>
+          {posts.map(post => (
+            <FreelancerPost 
+              key={post.id} post={post}
+              post_id={post.id}
+              freelancer_id={post.freelancer_id}
+              about_me={post.about_me}
+              lowest_price={post.lowest_price}
+              skill_description={post.skill_description}
+              
+            />
+          ))}
+        </div>
       </div>
 
     </div>
