@@ -46,7 +46,7 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         // console.log(newPost);
     };
     // console.log("mèo méo meo mèo meo")
-    const varCreate = 0
+    // const varCreate = 0
     const handleDoneClick = async () => {
 
         console.log('Done clicked.');
@@ -72,7 +72,7 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
                 .create(hireFreelancer)
                 .then(() => {
                     console.log('Form is valid. Post submitted successfully.');
-                    varCreate = 1
+                    // varCreate = 1
                     setShowOverlay(false);
                     onUpdate();
                     if (onClose) {

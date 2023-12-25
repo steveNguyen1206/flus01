@@ -6,7 +6,7 @@ import facebookicon from '../../assets/SocialIcon/facebook.png';
 import instaicon from '../../assets/SocialIcon/insta.png';
 import linkedinicon from '../../assets/SocialIcon/linkedin.png';
 import editIcon from '../../assets/editProfileIcon.png';
-import { EmptyTab, StarRating, Tag } from '@/components';
+import { EmptyTab, StarRating, Tag, PopupUpdateProfile } from '@/components';
 import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
@@ -32,7 +32,11 @@ const profile = ({access_token}) => {
   };
 
   const [userProfile, setUserProfile] = useState(initialProfileState);
+  const [showUpdateProfile, setShowUpdateProfile] = useState(true);
 
+  const handleUpdateProfile = () => {
+    setShowUpdateProfile(true);
+  };
 
   const getUserProfile = (id) => {
     userDataService
@@ -52,8 +56,11 @@ const profile = ({access_token}) => {
 
   return (
     <div>
-      {userProfile ? (
+      {/* Update Profile Popup */}
+      {showUpdateProfile && <PopupUpdateProfile  m_state={showUpdateProfile}
+            m_function={setShowUpdateProfile} user_profile={userProfile}/>}
 
+      {userProfile ? (
         
         <div className="profile">
           <div className="overlap">
@@ -78,6 +85,7 @@ const profile = ({access_token}) => {
                         className="image"
                         alt="edit profile"
                         src={editIcon}
+                        onClick={handleUpdateProfile}
                       />
                     </div>
                   </p>

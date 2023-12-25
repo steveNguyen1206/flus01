@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { http } from "./http-common";
 
 const getNamefromId = (id) => {
     return http.get(`/subcategory/get_name/${id}`);
