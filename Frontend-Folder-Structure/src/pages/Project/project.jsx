@@ -72,8 +72,9 @@ const Project = () => {
     }
   }, [isChange]);
 
+
   const fetchProjectTags = async () => {
-    const projectTagsData = await categoryServices.getNamefromId(id);
+    const projectTagsData = await categoryServices.getNamefromId(project.tag_id);
     console.log(projectTagsData.data.subcategory_name);
     setProjectTags([projectTagsData.data.subcategory_name]);
   };
@@ -290,9 +291,9 @@ const Project = () => {
             </div>
 
             <div className="project-right-contact">
-              <WhiteButton name="Chat now" />
+              <WhiteButton text="Chat now" />
               <WhiteButton
-                name="View Profile"
+                text="View Profile"
                 // onClick={() => {
                 //   navigate(`/profile/${id}`);
                 // }}

@@ -63,7 +63,7 @@
 
 .bid-price p{
     display: flex;
-    font-size: 20px;
+    font-size: 30px;
     color: var(--primary);
     align-items: center;
     justify-content: center;

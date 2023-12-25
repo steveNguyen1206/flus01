@@ -103,6 +103,7 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
       </select>
       <div className="overlay-container">
         <div className="skill-container">
+          
           {selectedSkills.map((skill, index) => (
             <div className="skill" key={index}>
               <p className="skill-name">{skill}</p>

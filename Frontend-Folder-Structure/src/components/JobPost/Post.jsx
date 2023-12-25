@@ -91,34 +91,29 @@ const Post = ({
   return (
     <div className="post-container">
       <div className="left-post">
-        <div className="pheader">
-          <div className="pprofile">
+        <div className="post-header">
+          <div className="post-profile">
             {/* {console.log('owner project: ', ownerProject)} */}
-            <img src={ownerProject.avt_url} alt="profile" />
-            <div className="ptname">{ownerProject.account_name}</div>
-            <div className="ptusername">({ownerProject.profile_name})</div>
-            <div className="pplocation">
+            <img className='img-post' src={ownerProject.avt_url} alt="profile" />
+            <div className="post-name">{ownerProject.account_name}</div>
+            <div className="post-username">({ownerProject.profile_name})</div>
+            <div className="post-location">
               <img src={vietnam} alt="vietnam" />
             </div>
           </div>
 
-          <div className="pttitle">{projectTitle}</div>
+          <div className="post-title">{projectTitle}</div>
 
-          <div className="pttags">
-            <div className="pttag">{projectTags}</div>
+          <div className="post-tags">
+            <div className="post-tag">{projectTags}</div>
           </div>
         </div>
-        <div className="details">
-          <div className="detail-header"></div>
-          <div className="detail">
-            <div className="pdetail">{projectDetail}</div>
-          </div>
-        </div>
+        <div className="post-detail">{projectDetail}</div>
       </div>
 
       <div className="right-post">
-        <div className="previews">
-          <div className="rating">
+        <div className="post-reviews">
+          <div className="post-rating">
             <p>{ownerRating}</p>
             <StarRating
               rating={parseFloat(ownerRating)}
@@ -127,15 +122,15 @@ const Post = ({
             />
           </div>
         </div>
-        <div className="pbid">
-          <div className="pprice">
+        <div className="post-bid">
+          <div className="post-price">
             ${`${projectBudget[0]} - ${projectBudget[1]}`}
           </div>
-          <div className="btn-p">
+          <div className="btn-bid-container">
             <div className="btn-bid-project">
               <button onClick={handleBidClick}>Bid</button>
             </div>
-            <div className="wish">
+            <div className="post-wish">
               <button onClick={handleLikeClick}>
                 <img src={isLiked} alt="heart icon" />
               </button>

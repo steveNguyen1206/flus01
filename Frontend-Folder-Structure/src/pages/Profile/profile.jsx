@@ -13,7 +13,9 @@ import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
 import { WishlistTab } from '@/components/ProfileTabs/profile_tab';
 
-const profile = () => {
+const profile = ({access_token}) => {
+  console.log(access_token)
+
   const { id } = useParams();
   let navigate = useNavigate();
 
@@ -27,6 +29,7 @@ const profile = () => {
     email: '',
     avt_url: '',
     social_link: '',
+    
   };
 
   const [userProfile, setUserProfile] = useState(initialProfileState);

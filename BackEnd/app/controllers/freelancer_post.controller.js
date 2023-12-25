@@ -15,29 +15,27 @@ exports.create = async (req, res) => {
         });
         return;
     }
-    if (!req.files || !req.files.file) {
-        console.log("No file found!!!!")
-    }
 
-    async function handleUpload(file) {
+    async function handleUpload(file) { // đưa lên cloud
         const res = await cloudinary.uploader.upload(file, {
             resource_type: "auto",
         });
 
-        // console.log("abcdddddddddd")
         return res;
     }
     // const img_url = '';
     try {
         // console.log(req);
         // console.log(req.file);
+
+        // lấy link trên cloud
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
         const cldRes = await handleUpload(dataURI);
         console.log(cldRes.secure_url);
         const img_url = cldRes.secure_url;
         console.log("img_url: ", img_url)
-
+        console.log("req.body: ", req.body)
         const freelancer_post = {
             freelancer_id: req.body.freelancer_id,
             about_me: req.body.about_me,
@@ -50,26 +48,30 @@ exports.create = async (req, res) => {
             imgage_post_urls: img_url,
             skill_tag: req.body.skill_tag
         };
-        // console.log(category);
+        console.log("freelancer_post: ", freelancer_post)
         // Save Freelancer_post in the database
         Freelancer_post.create(freelancer_post)
-            .then(data => {
-                // res.send(data);
-                return res.status(200).json({
-                    message: "Freelancer post was created successfully.",
-                    // avt_url: avt_url
-                  });
-            })
-            .catch(err => {
-                return res.status(500).json({
-                    message:
-                        err.message || 
-                        "Some error while creating freelancer post"
-                });
+        .then(data => {
+            // res.send(data);
+            return res.status(200).json({
+                message: "Freelancer post was created successfully.",
+                // avt_url: avt_url
+              });
+        })
+        .catch(err => {
+            return res.status(500).json({
+                message:
+                    err.message || 
+                    "Some error while creating freelancer post"
             });
+        });
 
     } catch (error) {
-        // console.log(error);
+        console.log(error);
+        res.status(500).json({
+            message:
+                "failed r huhu"
+        });
     }
     // console.log(img_url);
 

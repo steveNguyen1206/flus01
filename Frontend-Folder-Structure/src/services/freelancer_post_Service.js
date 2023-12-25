@@ -1,7 +1,8 @@
 import { media_upload, http } from "./http-common";
 
 const allposts = () => {
-    return http.get("/freelancer_post/allposts");
+  console.log("allposts");
+  return http.get("/freelancer_post/allposts");
 }
 
 const findOnebyId = id => {
@@ -72,7 +73,8 @@ const freelancer_post_Service = {
     update,
     allposts,
     sendPost,
-    updatePost
+    updatePost,
+    findOnebyId
 };
 
 export default freelancer_post_Service;

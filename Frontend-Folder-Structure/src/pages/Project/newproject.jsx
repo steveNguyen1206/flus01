@@ -280,7 +280,7 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
               <div className="error-message">{error.budgetMax}</div>
             </div>
           </div>
-          <WhiteButton name="Done" onClick={handleDoneClick} />
+          <WhiteButton text="Done" onClick={handleDoneClick} />
         </div>
       </div>
     </>

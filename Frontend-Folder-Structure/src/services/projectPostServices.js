@@ -9,10 +9,11 @@ const sendProject = async (data) => {
     formData.append('detail', data.detail);
     formData.append('budget_min', data.budgetMin);
     formData.append('budget_max', data.budgetMax);
-    formData.append('tag', data.tag); 
+    formData.append('tag_id', data.tag_id); 
     formData.append('user_id', 1);
     formData.append('image_file', data.image);
 
+    console.log("formData: ", formData);
     return media_upload.post("/project_post/", formData);
   };
 
@@ -24,8 +25,9 @@ const updateProject = async (data) => {
     formData.append('budget_min', data.budgetMin);
     formData.append('budget_max', data.budgetMax);
     formData.append('image_file', data.image);
-    formData.append('tag', data.tag);
+    formData.append('tag', data.tag_id);
     formData.append("user_id", 1);
+
 
     console.log("formData: ", formData);
     

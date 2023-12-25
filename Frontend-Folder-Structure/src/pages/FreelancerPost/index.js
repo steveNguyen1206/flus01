@@ -1,5 +1,6 @@
-import Post from "./post";
+import PostDetail from "./postDetail";
 import NewPost from "./newPost";  
 import UpdatePost from "./updatePost";
-
-export { Post, NewPost, UpdatePost };
+import HireFreelancer from "./hireFreelancer";
+import ApproveOffer from "./approveOffer";
+export { PostDetail, NewPost, UpdatePost, HireFreelancer, ApproveOffer };

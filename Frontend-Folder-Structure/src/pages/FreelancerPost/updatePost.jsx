@@ -54,17 +54,17 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
   };
 
   const [fileName, setFileName] = useState('');
-  const [updateProject, setUpdateProject] = useState(initState);
+  const [updatePost, setUpdatePost] = useState(initState);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUpdateProject({ ...updateProject, [name]: value });
+    setUpdatePost({ ...updatePost, [name]: value });
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setFileName(file.name);
-    setUpdateProject({ ...updateProject, image: file });
+    setUpdatePost({ ...updatePost, image: file });
   };
 
   const validateForm = () => {
@@ -80,28 +80,28 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
 
     let isValid = true;
 
-    if (!isValidTitle(updateProject.projectTitle)) {
+    if (!isValidTitle(updatePost.projectTitle)) {
       newErrors.title =
         'Invalid title. Title must be alphanumeric and not empty.';
       isValid = false;
     }
 
-    if (!isValidImage(updateProject.image)) {
+    if (!isValidImage(updatePost.image)) {
       newErrors.image = 'Please select an image.';
       isValid = false;
     }
 
-    if (!isValidDetail(updateProject.detail)) {
+    if (!isValidDetail(updatePost.detail)) {
       newErrors.detail = 'Project detail must have at least 10 characters.';
       isValid = false;
     }
 
-    if (!isValidTag(updateProject.tag)) {
+    if (!isValidTag(updatePost.tag)) {
       newErrors.tag = 'Project tag must be a string.';
       isValid = false;
     }
 
-    if (Number(updateProject.budgetMin) > Number(updateProject.budgetMax)) {
+    if (Number(updatePost.budgetMin) > Number(updatePost.budgetMax)) {
       newErrors.budgetMin =
         'Minimum budget must be less than or equal to maximum budget.';
       newErrors.budgetMax =
@@ -109,21 +109,21 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
       isValid = false;
     }
 
-    if (!isValidBudget(updateProject.budgetMin)) {
+    if (!isValidBudget(updatePost.budgetMin)) {
       isValid = false;
       newErrors.budgetMin =
         'Invalid budget. Please enter a valid number greater than or equal to 0.';
     }
 
-    if (!isValidBudget(updateProject.budgetMax)) {
+    if (!isValidBudget(updatePost.budgetMax)) {
       isValid = false;
       newErrors.budgetMax =
         'Invalid budget. Please enter a valid number greater than or equal to 0.';
     }
 
     if (
-      (updateProject.budgetMin || updateProject.budgetMax) &&
-      (!updateProject.budgetMin || !updateProject.budgetMax)
+      (updatePost.budgetMin || updatePost.budgetMax) &&
+      (!updatePost.budgetMin || !updatePost.budgetMax)
     ) {
       newErrors.budgetMin =
         'Both minimum and maximum budget must be updated together.';
@@ -134,8 +134,8 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
 
     // if all fields are valid, isValid will be false
     let allFieldsEmpty = true;
-    Object.keys(updateProject).forEach((key) => {
-      if (updateProject[key]) allFieldsEmpty = false;
+    Object.keys(updatePost).forEach((key) => {
+      if (updatePost[key]) allFieldsEmpty = false;
     });
 
     if (allFieldsEmpty) {
@@ -147,12 +147,12 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
   };
 
   const data = {
-    title: updateProject.title,
-    image: updateProject.image,
-    detail: updateProject.detail,
-    budgetMin: updateProject.budgetMin,
-    budgetMax: updateProject.budgetMax,
-    tag: updateProject.tag,
+    title: updatePost.title,
+    image: updatePost.image,
+    detail: updatePost.detail,
+    budgetMin: updatePost.budgetMin,
+    budgetMax: updatePost.budgetMax,
+    tag: updatePost.tag,
     id: projectId,
   };
 
@@ -160,7 +160,7 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
     if (validateForm()) {
       console.log(data);
       projectServices
-        .updateProject(data)
+        .updatePost(data)
         .then(() => {
           console.log('Form is valid. Project submitted successfully.');
           setShowOverlay(false);
@@ -185,18 +185,18 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
           <img src={exitButton} alt="Exit" />
         </button>
         <div className="update-project-header">
-          <p>UPDATE PROJECT</p>
+          <p>UPDATE JOB POST</p>
         </div>
 
         <div className="update-project-body">
           <div className="project-title-input">
-            <label htmlFor="projectTitle">Project Title</label>
+            <label htmlFor="projectTitle">Job Title</label>
             <input
               type="text"
               id="projectTitle"
               name="title"
               placeholder="Enter project title ..."
-              value={updateProject.title}
+              value={updatePost.title}
               onChange={handleInputChange}
             />
             <div className="error-message">{error.title}</div>
@@ -237,27 +237,27 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
           </div>
 
           <div className="project-tag-input">
-            <label htmlFor="projectTag">Project Tag</label>
+            <label htmlFor="projectTag">Job Tag</label>
             <input
               type="text"
               id="projectTag"
               name="tag"
               placeholder="Enter project tag ..."
-              value={updateProject.tag}
+              value={updatePost.tag}
               onChange={handleInputChange}
             />
             <div className="error-message">{error.tag}</div>
           </div>
 
           <div className="project-detail-input">
-            <label htmlFor="projectDetail">Project Detail</label>
+            <label htmlFor="projectDetail">Job Detail</label>
             <textarea
               type="text"
               id="projectDetail"
               name="detail"
               placeholder="Enter project details ..."
               onChange={handleInputChange}
-              value={updateProject.detail}
+              value={updatePost.detail}
             />
             <div className="error-message">{error.detail}</div>
           </div>
@@ -271,7 +271,7 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
                 name="budgetMin"
                 placeholder="Enter minimum budget ..."
                 onChange={handleInputChange}
-                value={updateProject.budgetMin}
+                value={updatePost.budgetMin}
               />
               <div className="error-message">{error.budgetMin}</div>
             </div>
@@ -284,13 +284,13 @@ const UpdatePost = ({ isOpen, onClose, projectId, onUpdate}) => {
                 name="budgetMax"
                 placeholder="Enter maximum budget ..."
                 onChange={handleInputChange}
-                value={updateProject.budgetMax}
+                value={updatePost.budgetMax}
               />
               <div className="error-message">{error.budgetMax}</div>
             </div>
           </div>
 
-          <WhiteButton name="Update Project" onClick={handleUpdateClick} />
+          <WhiteButton text="Update Project" onClick={handleUpdateClick} />
         </div>
       </div>
     </>

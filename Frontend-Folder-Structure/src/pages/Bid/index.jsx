@@ -118,7 +118,7 @@ const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
 
     if (!isValidMessage(bid.message)) {
       isValid = false;
-      errors.message = 'Invalid message. Message must be not empty.';
+      errors.message = 'Invalid message. Message must have at least 10 letters.';
     }
 
     if (!isValidPrice(bid.price)) {

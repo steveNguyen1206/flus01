@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router';
 // import { FreelancerPostService } from '@/services';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
 import NewPost from '@/pages/FreelancerPost/newPost';
+import HireFreelancer  from '@/pages/FreelancerPost/hireFreelancer';
+import  ApproveOffer  from '@/pages/FreelancerPost/approveOffer';
 
 const FindFreelancer = () => {
   const navigate = useNavigate();
@@ -33,20 +35,19 @@ const FindFreelancer = () => {
     setIsOpen(true);
   };
   const [isChange, setIsChange] = useState(false);
-  const hadleClickPost = (postId) => {
-    navigate(`/freelancer_post/${postId}`)
-  }
-  // useEffect(() => {
-  //   // Fetch data from the API endpoint
-  //   fetch('http://localhost:8080/api/freelancer_post/allposts')
-  //     .then(response => response.json())
-  //     .then(data => setPosts(data))
-  //     .catch(error => console.error('Error fetching data:', error));
-  // }, []);
+  
+  useEffect(() => {
+    // Fetch data from the API endpoint
+    fetch('http://localhost:8080/api/freelancer_post/allposts')
+      .then(response => response.json())
+      .then(data => setPosts(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
 
 
   return (
     <>
+    {/* {isOpen && <HireFreelancer isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />} */}
     {isOpen && <NewPost isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />}
       <div className="job-page">
         <div className="content">
@@ -79,13 +80,14 @@ const FindFreelancer = () => {
             <FreelancerPost post = {post}/>
             <FreelancerPost post = {post}/> */}
             {posts.map(post => (
-            <FreelancerPost key={post.id} post={post}
+            <FreelancerPost 
+              key={post.id} post={post}
               post_id={post.id}
               freelancer_id={post.freelancer_id}
               about_me={post.about_me}
               lowest_price={post.lowest_price}
               skill_description={post.skill_description}
-              // onClick={() => hadleClickPost(post.id)}
+              
             />
           ))}
           </div>

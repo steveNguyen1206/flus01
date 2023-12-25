@@ -23,7 +23,9 @@ const Job = () => {
   const fetchProjects = async () => {
     try {
       const projectsData = await projectPostServices.getAllProjects();
-      // Duyệt qua danh sách dự án và thêm trường đánh giá
+
+      console.log('projectsData', projectsData);
+
       const projectsWithRating = await Promise.all(
         projectsData.data.map(async (project) => {
           const ownerRatingData = await reviewServices.getRatingClient(
@@ -47,6 +49,8 @@ const Job = () => {
     fetchProjects();
   }, []);
 
+  console.log('projects', projects);
+
   const handleNewProject = () => {
     setIsOpen(true);
   };
@@ -62,7 +66,6 @@ const Job = () => {
     setSearchTitle(event.target.value);
   };
 
-  console.log(selectedTags);
 
   const filteredProjects = projects.filter(
     (project) =>
@@ -100,8 +103,7 @@ const Job = () => {
     setSelectedRange(newSelectedRange);
   };
 
-  console.log('selectedTags', selectedTags);
-  console.log('projects', projects);
+ 
 
   return (
     <>
