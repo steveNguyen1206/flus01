@@ -1,28 +1,30 @@
 module.exports = app => {
-    const transaction = require("../controllers/transaction.controller.js");
+    const contact = require("../controllers/contact.controller.js");
     
     var router = require("express").Router();
     
     // Create a new Category
-    router.post("/", transaction.create);
+    router.post("/", contact.create);
     
     // Retrieve all Category
-    router.get("/", transaction.findAll);
+    router.get("/", contact.findAll);
+
+    router.get("/allbids/:freelancer_post_id", contact.findAllBids);
     
     // // Retrieve all published Category
     // router.get("/published", category.findAllPublished);
     
     // Retrieve a single Category with id
-    router.get("/:id", transaction.findOne);
+    router.get("/:id", contact.findOne);
     
     // Update a Tutorial with id
-    router.put("/:id", transaction.update);
+    router.put("/:id", contact.update);
     
     // Delete a Category with id
-    router.delete("/:id", transaction.delete);
+    router.delete("/:id", contact.delete);
     
     // // Delete all Tutorials
     // router.delete("/", category.deleteAll);
     
-    app.use('/api/transaction', router);
+    app.use('/api/contact', router);
     }

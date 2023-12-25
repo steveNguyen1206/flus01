@@ -19,6 +19,7 @@ import reviewServices from '@/services/reviewServices';
 import UpdatePost from './updatePost';
 import OfferDetailPopup from './offerDetailPopup';
 import HireFreelancer from '../FreelancerPost/hireFreelancer';
+import contactService from '@/services/contactServices';
 
 const PostDetail = () => {
   const { id } = useParams();
@@ -103,6 +104,22 @@ const PostDetail = () => {
     setShowOfferPopup(true);
   };
 
+
+  const [bidOnes, setBidOnes] = useState([]);
+  useEffect(() => {
+    fetchBids();
+  }, []);
+
+  const fetchBids = async () => {
+    try {
+      const bidsData = await contactService.findAllBids(id);
+      setBidOnes(bidsData.data);
+      console.log('data', bidsData.data);
+    } catch (error) {
+      console.error('Error fetching Bid:', error);
+    }
+  };
+
   return (
     <>
       {isEditPopupOpen && (
@@ -120,8 +137,8 @@ const PostDetail = () => {
           <div className="main-post">
             <div className="border-proj-title">
               <div className="proj-title">
-                {/* <p>{project.title}</p> */}
-                <p>Project title here</p>
+                <p>{project.title}</p>
+                {/* <p>Project title here</p> */}
               </div>
             </div>
             <div className="tags">
@@ -237,11 +254,16 @@ const PostDetail = () => {
             </div>
             <p>4 Offers</p>
             <div className="proj-bid-list">
+
+              {bidOnes.map((bidOne) => (
+                <Bid bidOne = {bidOne}/>
+              ))}
+              
+              {/* <Bid />
               <Bid />
               <Bid />
               <Bid />
-              <Bid />
-              <Bid />
+              <Bid /> */}
             </div>
           </div>
         </div>

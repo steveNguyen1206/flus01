@@ -45,7 +45,7 @@ const LogIn = () => {
           localStorage.setItem('AUTH_TOKEN',response.data.accessToken);
           localStorage.setItem('AVT', response.data.avt_url);
           setSignin(true);
-          navigate(`/profile/${id}`);
+          navigate(`/myprofile/${id}`);
         }
         console.log(localStorage.getItem('AUTH_TOKEN'));
       })

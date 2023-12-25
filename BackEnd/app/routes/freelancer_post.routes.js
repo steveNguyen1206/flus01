@@ -17,6 +17,8 @@ module.exports = app => {
   
     // Retrieve a single freelancer_post with id
     router.get("/:id", freelancer_post.findOne);
+
+    router.get("/email/:id", freelancer_post.getFreelancerEmail);
   
     // Update a freelancer_post with id
     router.put("/update", freelancer_post.update);

@@ -38,6 +38,8 @@ db.otp = require("./OTP.model.js")(sequelize, Sequelize);
 
 db.transactions = require("./transaction.model.js")(sequelize, Sequelize);
 db.projects = require("./project.model.js")(sequelize, Sequelize);
+db.projects_reports = require("./project_report.model.js")(sequelize, Sequelize);
+db.projects_notis = require("./project_notification.model.js")(sequelize, Sequelize);
 db.issues = require("./issue.model.js")(sequelize, Sequelize);
 db.payment_accounts = require("./payment_account.model.js")(
   sequelize,
@@ -123,10 +125,36 @@ db.issues.belongsTo(db.user, {
 });
 
 db.issues.belongsTo(db.projects, {
-  foreignKey: "project_id",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
+  foreignKey: 'project_id',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE',
+  unique: true 
+})
+
+db.projects_reports.belongsTo(db.projects, {
+  foreignKey: {
+    name: "project_id",
+    unique: true
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.projects_notis.belongsTo(db.projects, {
+  foreignKey: {
+    name: "project_id",
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
+
+db.projects_notis.belongsTo(db.user, {
+  foreignKey: {
+    name: "creator_id",
+  },
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
 
 db.projects.belongsTo(db.subcategories, {
   foreignKey: "tag_id",
@@ -153,16 +181,18 @@ db.projects.belongsTo(db.bid, {
 });
 
 db.projects.belongsTo(db.user, {
-  foreignKey: "owner_id",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
+  foreignKey: 'owner_id',
+  as: 'owner',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
 
 db.projects.belongsTo(db.user, {
-  foreignKey: "member_id",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-});
+  foreignKey: 'member_id',
+  as: 'member',
+  onDelete: 'CASCADE',
+  onUpdate: 'CASCADE'
+})
 
 // --------------------------------------------------------
 db.bid.belongsTo(db.user, {
