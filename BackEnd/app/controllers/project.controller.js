@@ -12,7 +12,7 @@ ADMIN_USER_ID  = 1
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name || !req.body.description ) {
+  if (!req.body.name ) {
     res.status(400).send({
       message: "Missing information!"
     });
@@ -72,7 +72,7 @@ exports.findAll = (req, res) => {
   const title = req.query.title;
   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-  Tutorial.findAll({ where: condition })
+  Project.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
@@ -234,7 +234,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.destroy({
+  Project.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -257,7 +257,7 @@ exports.delete = (req, res) => {
 
 // Delete all Tutorials from the database.
 exports.deleteAll = (req, res) => {
-  Tutorial.destroy({
+  Project.destroy({
     where: {},
     truncate: false
   })
@@ -274,7 +274,7 @@ exports.deleteAll = (req, res) => {
 
 // find all published Tutorial
 exports.findAllPublished = (req, res) => {
-  Tutorial.findAll({ where: { published: true } })
+  Project.findAll({ where: { published: true } })
     .then(data => {
       res.send(data);
     })
@@ -282,6 +282,31 @@ exports.findAllPublished = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials."
+      });
+    });
+};
+
+exports.createNull = (req, res) => {
+
+  // Create a Project
+  const project = {
+    project_name: '',
+    project_description: '',
+    start_date: '01/01/2001',
+    end_date: '02/02/2002',
+    budget: 0,
+    status: 0,
+  };
+
+  // Save Project in the database
+  Project.create(project)
+    .then(data => {
+      return res.json(data.id)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
       });
     });
 };

@@ -27,9 +27,6 @@ exports.create = async (req, res) => {
     }
     // const img_url = '';
     try {
-        // console.log(req);
-        // console.log(req.file);
-
         // lấy link trên cloud
         const b64 = Buffer.from(req.file.buffer).toString("base64");
         let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
@@ -39,6 +36,7 @@ exports.create = async (req, res) => {
         console.log("img_url: ", img_url)
         console.log("req.body: ", req.body)
         const freelancer_post = {
+            title: req.body.title,
             freelancer_id: req.body.freelancer_id,
             about_me: req.body.about_me,
             skill_description: req.body.skill_description,
@@ -48,25 +46,26 @@ exports.create = async (req, res) => {
             delivery_description: req.body.delivery_description,
             // imgage_post_urls: req.body.imgage_post_urls,
             imgage_post_urls: img_url,
-            skill_tag: req.body.skill_tag
+            skill_tag: req.body.skill_tag,
+            status: 1
         };
         console.log("freelancer_post: ", freelancer_post)
         // Save Freelancer_post in the database
         Freelancer_post.create(freelancer_post)
-        .then(data => {
-            // res.send(data);
-            return res.status(200).json({
-                message: "Freelancer post was created successfully.",
-                // avt_url: avt_url
-              });
-        })
-        .catch(err => {
-            return res.status(500).json({
-                message:
-                    err.message || 
-                    "Some error while creating freelancer post"
+            .then(data => {
+                // res.send(data);
+                return res.status(200).json({
+                    message: "Freelancer post was created successfully.",
+                    // avt_url: avt_url
+                });
+            })
+            .catch(err => {
+                return res.status(500).json({
+                    message:
+                        err.message ||
+                        "Some error while creating freelancer post"
+                });
             });
-        });
 
     } catch (error) {
         console.log(error);
@@ -207,39 +206,100 @@ exports.findOne = (req, res) => {
 
 
 // /project_post/update
-exports.update = (req, res) => {
-    const id = req.body.id;
+exports.update = async (req, res) => {
+    console.log("body: ", req.body);
 
-    const updatedData = Object.keys(req.body)
-        .filter(key => key !== 'id' && key !== 'imgage') // Don't check if req.body[key] is truthy
-        .reduce((obj, key) => {
-            obj[key] = req.body[key];
-            return obj;
-        }, {});
-
-    Freelancer_post.update(updatedData, {
-        where: { id: id }
-    })
-        .then(num => {
-            // console.log(num);
-            // if (num[0] > 0) {
-            res.send({
-                message: "project_post was updated successfully."
-            });
-        }
-
-            // } else {
-            //   res.send({
-            //     message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
-            //   });
-        )
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating project_post with id=" + id
-            });
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content cannot be empty!"
         });
-};
+        return;
+    }
 
+    const id = req.params.id;
+
+    console.log("req.file: ", req.file);
+
+    try {
+        if (!req.file) {
+            // If no new image is provided, update without changing the existing image
+            const updatedData = Object.keys(req.body)
+                .filter(key => key !== 'id' && key !== 'imgage_post_urls' && req.body[key])
+                .reduce((obj, key) => {
+                    obj[key] = req.body[key];
+                    return obj;
+                }, {});
+
+            console.log("updated", updatedData);
+
+            const [num] = await Freelancer_post.update(updatedData, {
+                where: { id: id }
+            });
+
+            if (num > 0) {
+                res.send({
+                    message: "project_post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+                });
+            }
+        } else {
+            // If a new image is provided, update with the new image
+
+            // Get the old image url
+            const existingPost = await Freelancer_post.findByPk(id);
+            const oldUrl = existingPost.imgage_post_urls;
+
+            console.log("oldUrl: ", oldUrl);
+
+            // Delete old image
+            await handleDelete(oldUrl);
+
+            // Upload new image
+            const b64 = Buffer.from(req.file.buffer).toString("base64");
+            let dataURI = "data:" + req.file.mimetype + ";base64," + b64;
+            const cldRes = await handleUpload(dataURI);
+            console.log(cldRes.secure_url);
+            const img_url = cldRes.secure_url;
+            console.log("img_url: ", img_url);
+
+            // Update project_post with new data
+            const updatedData = Object.keys(req.body)
+                .filter(key => key !== 'id' && req.body[key])
+                .reduce((obj, key) => {
+                    obj[key] = req.body[key];
+                    return obj;
+                }, {});
+
+            updatedData.imgage_post_urls = img_url;
+
+            console.log("updated", updatedData);
+
+
+            const [num] = await project_post.update(updatedData, {
+                where: { id: id }
+            });
+
+            if (num > 0) {
+                res.send({
+                    message: "project_post was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+                });
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({
+            message: "Internal server error"
+        });
+    }
+};
 // Delete a Category with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
@@ -291,7 +351,7 @@ exports.findAllPosts = (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'account_name', 'profile_name', 'avt_url'],
+                attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
             },
             {
                 model: Subcategory,
@@ -309,3 +369,28 @@ exports.findAllPosts = (req, res) => {
             });
         });
 };
+
+
+exports.getFreelancerEmail = (req, res) => {
+    const postId = req.params.id;
+  
+    Freelancer_post.findByPk(postId, {
+      include: {
+        model: User,
+        attributes: ['email'],
+      },
+    })
+      .then(freelancerPost => {
+        if (!freelancerPost) {
+          return res.status(404).json({ message: 'Freelancer post not found' });
+        }
+  
+        const email = freelancerPost.user.email;
+        return res.json(email);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: err.message || 'Some error occurred while retrieving data.',
+        });
+      });
+  };
