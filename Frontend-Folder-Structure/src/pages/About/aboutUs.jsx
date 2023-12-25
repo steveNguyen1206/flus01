@@ -5,35 +5,37 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import avatar from "../../assets/avatar_green.png";
+import { StarRating } from "@/components";
+import human from "../../assets/Human.png";
+import { Carousel, CarouselItem } from "react-bootstrap";
 const AboutUs = () => {
 
   const carousel_settings = {
     dots: true,
     infinite: true,
     arrows: true, 
-    slidesToShow: 4,
+    slidesToShow: 3,
     slidesToScroll: 1,
-    swipeToSlide: true,
     autoplay: true,
-    autoplaySpeed: 1500
-    // responsive: [
-    //   {
-    //     breakpoint: 1024,
-    //     settings: {
-    //       slidesToShow: 2,
-    //       slidesToScroll: 1,
-    //       infinite: true,
-    //       dots: true,
-    //     },
-    //   },
-    //   {
-    //     breakpoint: 768,
-    //     settings: {
-    //       slidesToShow: 1,
-    //       slidesToScroll: 1,
-    //     },
-    //   },
-    // ],
+    autoplaySpeed: 1500,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   return (
     <div className="about-us">
@@ -108,6 +110,64 @@ const AboutUs = () => {
           
         </Slider>
       </div>
+      <div className="expert-review-section">
+        <Carousel data-bs-theme="dark" interval={null}>
+          <CarouselItem>
+            <div style={{width:"1110px"}}>
+              <div className="review-container row">
+                <div className="col" style={{height:"100%", alignItems:"flex-end"}}>
+                  <img className="rectangle-5" alt="Rectangle" src={human} />
+                </div>
+                <div className="col" style={{flexDirection:"column"}}>
+                  <p className="reviewer-quote">
+                    Remember to keep your presentation focused and engaging while providing a comprehensive overview of the
+                    topic. Water quality and pollution in the natural environment are critical issues, and your presentation can
+                    help raise awareness and promote responsible environmental stewardship.
+                  </p>
+                  <div className="star-rating-wrapper">
+                    <StarRating rating={4} width={200}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </CarouselItem>
+          <CarouselItem>
+            <div className="review-container row">
+              <div className="col" style={{height:"100%", alignItems:"flex-end"}}>
+                <img className="rectangle-5" alt="Rectangle" src={human} />
+              </div>
+              <div className="col" style={{flexDirection:"column"}}>
+                <p className="reviewer-quote">
+                  Remember to keep your presentation focused and engaging while providing a comprehensive overview of the
+                  topic. Water quality and pollution in the natural environment are critical issues, and your presentation can
+                  help raise awareness and promote responsible environmental stewardship.
+                </p>
+                <div className="star-rating-wrapper">
+                  <StarRating rating={4} width={200}/>
+                </div>
+              </div>
+            </div>
+          </CarouselItem>
+          <CarouselItem>
+            <div className="review-container row">
+              <div className="col" style={{height:"100%", alignItems:"flex-end"}}>
+                <img className="rectangle-5" alt="Rectangle" src={human} />
+              </div>
+              <div className="col" style={{flexDirection:"column"}}>
+                <p className="reviewer-quote">
+                  Remember to keep your presentation focused and engaging while providing a comprehensive overview of the
+                  topic. Water quality and pollution in the natural environment are critical issues, and your presentation can
+                  help raise awareness and promote responsible environmental stewardship.
+                </p>
+                <div className="star-rating-wrapper">
+                  <StarRating rating={4} width={200}/>
+                </div>
+              </div>
+            </div>
+          </CarouselItem>
+        </Carousel>
+      </div>
       {/* <div className="group-wrapper">
         <div className="group-2">
           <div className="overlap-group-2">
@@ -125,32 +185,9 @@ const AboutUs = () => {
           </div>
           <div className="text-wrapper-10">Our site’s results</div>
         </div>
-      </div>
-
-      <div className="overlap-4">
-        <div className="frame-5">
-          <div className="container">
-            <img className="rectangle-5" alt="Rectangle" src="rectangle-2847.png" />
-            <div className="group-3">
-              <img className="star" alt="Star" src="star-1.svg" />
-              <img className="star-2" alt="Star" src="star-2.svg" />
-              <img className="star-3" alt="Star" src="star-5.svg" />
-              <img className="star-4" alt="Star" src="star-3.svg" />
-              <img className="star-5" alt="Star" src="star-4.svg" />
-            </div>
-          </div>
-          <div className="carousel-2">
-            <div className="ellipse-2" />
-            <div className="ellipse-3" />
-            <div className="ellipse-4" />
-          </div>
-        </div>
-        <p className="text-wrapper-14">
-          Remember to keep your presentation focused and engaging while providing a comprehensive overview of the
-          topic. Water quality and pollution in the natural environment are critical issues, and your presentation can
-          help raise awareness and promote responsible environmental stewardship.
-        </p>
       </div> */}
+
+      
     </div>
   </div>
   );
