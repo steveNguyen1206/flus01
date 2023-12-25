@@ -1,4 +1,5 @@
-const authJwt = require('../middleware/authJwt.js')
+const {verifyToken} = require('../middleware/authJwt.js');
+const { isOwner, isMember } = require('../middleware/project.middleware.js');
 
 module.exports = app => {
     const project = require("../controllers/project.controller.js");
@@ -6,16 +7,19 @@ module.exports = app => {
     var router = require("express").Router();
   
     // Create a new Tutorial
-    router.post("/", project.create);
+    router.post("/",  project.create);
   
-    // Retrieve all projects
-    router.get("/", project.findAll);
+    // Retrieve project by id
+    router.get("/:id", [verifyToken, isMember], project.findMemberOne);
   
+    router.get("/own/:id", [verifyToken, isOwner], project.findOwnerOne);
+
+
     // Retrieve a single Tutorial with id
-    router.get("/:id", project.findOne);
+    // router.get("/:id", project.findOne);
   
     // Update a Tutorial with id
-    router.put("/:id", project.update);
+    router.put("/:id", [verifyToken], project.update);
   
     // Delete a Tutorial with id
     router.delete("/:id", project.delete);

@@ -28,6 +28,12 @@
     color: white !important;
   }
 
+  
+  .--color-green {
+    color: var(--green-primary) !important;
+  }
+
+
   .--color-black {
     color: black;
   }
@@ -702,5 +708,10 @@
     position: absolute;
     top: 23px;
     width: 78px;
+  }
+
+
+  .detail-container h4:hover {
+    cursor: pointer;
   }
   

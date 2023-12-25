@@ -2,6 +2,11 @@
 const { PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET } = process.env;
 const base = "https://api-m.sandbox.paypal.com";
 const fetch = require("node-fetch");
+const projectController = require("../controllers/project.controller.js");
+const db = require("../models");
+const Project = db.projects;
+
+
 
 const generateAccessToken = async () => {
   try {
@@ -225,6 +230,47 @@ exports.apiCreateOrders = async (req, res) => {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to create order." });
   }
+};
+
+exports.apiPrePaidCreateProject = async (req, res) => {
+  // console.log(req.body)
+  // if((req.body.tran_amount == req.body.budget && req.body.status == 2) 
+  //     || (req.body.tran_amount == req.body.budget * 30 / 100 && req.body.status == 1))
+  {
+
+    const projectId = req.body.id;
+    const project = await Project.findByPk(projectId)
+      .then(async (project_data ) => {
+        const project_status = project_data.status;
+        if((req.body.tran_amount == req.body.budget && req.body.status == 2 && project_status == 0) 
+        || (req.body.tran_amount == req.body.budget * 30 / 100 && req.body.status == 1 && project_status == 0)
+        || (req.body.tran_amount == req.body.budget * 70 / 100 && req.body.status == 2 && project_status == 1)
+        )
+        {
+          try {
+            const { orderID } = req.params;
+            // use the cart information passed from the front-end to calculate the order amount detals
+            // const data = req.body;
+            const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
+            const response = projectController.update(req, res);
+            // res.status(httpStatusCode).json(jsonResponse);
+          } catch (error) {
+            console.error("Failed to pay prepaid:", error);
+            res.status(500).json({ error: "Failed to pay prepaid" });
+          }
+        }
+        else res.status(400).json({ error: "Bad request, the amount paid dont match with configure of the project." });
+
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Project with id=" + id
+        });
+      });
+
+  }
+  // else res.status(400).json({ error: "Bad request, the amount paid dont match with configure of the project." });
+    
 };
 
 //   app.post("/api/orders/:orderID/capture",
