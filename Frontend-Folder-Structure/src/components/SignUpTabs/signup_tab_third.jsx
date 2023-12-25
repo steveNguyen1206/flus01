@@ -49,29 +49,26 @@ const SignUpTabThird = ({
     };
     console.log('frontend: ', smsMessage);
 
-    signin();
-    onSignUp();
-
     // signin();
     // onSignUp();
 
     
 // >>>>>>> 2d84f5e00b58bcfe84fcff8f6bb86f9c2c19944a
-//     smsAuthenService
-//       .verifyCode(smsMessage)
-//       .then((response) => {
-//         if (response.status == 200) {
-//           signin();
-//           onSignUp();
-//         } else {
-//           console.log('Error: ', response.message);
-//           error.code = 'Code is not correct, please try again';
-//         }
-//       })
-//       .catch((e) => {
-//         console.log('eRROR:', e.message);
-//         error.code = 'Code is not correct, please try again';
-//       });
+    smsAuthenService
+      .verifyCode(smsMessage)
+      .then((response) => {
+        if (response.status == 200) {
+          signin();
+          onSignUp();
+        } else {
+          console.log('Error: ', response.message);
+          error.code = 'Code is not correct, please try again';
+        }
+      })
+      .catch((e) => {
+        console.log('eRROR:', e.message);
+        error.code = 'Code is not correct, please try again';
+      });
   };
 
   return (

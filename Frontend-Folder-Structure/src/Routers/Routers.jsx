@@ -8,6 +8,8 @@ import { PostDetail } from '@/pages/FreelancerPost';
 // import CreateFreelancerPost from '@/pages/FindFreelancer/createFreelancerPost';
 // import UpdateFreelancerPost from '@/pages/FindFreelancer/updateFreelancerPost';
 // import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
+import { ProjectManagement } from '@/pages/ProjectManagement';
+import { UpdateProject, NewProject, Skill, Admin } from '@/pages';
 
 const Routers = () => {
   return (
