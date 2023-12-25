@@ -157,3 +157,28 @@ exports.findAllPublished = (req, res) => {
       });
     });
 };
+
+exports.createNull = (req, res) => {
+
+  // Create a Project
+  const project = {
+    project_name: '',
+    project_description: '',
+    start_date: '01/01/2001',
+    end_date: '02/02/2002',
+    budget: 0,
+    status: 0,
+  };
+
+  // Save Project in the database
+  Project.create(project)
+    .then(data => {
+      return res.json(data.id)
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Tutorial."
+      });
+    });
+};

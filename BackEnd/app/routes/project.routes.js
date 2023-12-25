@@ -22,6 +22,9 @@ module.exports = app => {
   
     // Delete all projects
     router.delete("/", project.deleteAll);
+
+    // Create a null project
+    router.post("/createNull", project.createNull);
   
     app.use('/api/project',  router);
   };
