@@ -11,12 +11,15 @@ import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
+import { WishlistTab } from '@/components/ProfileTabs/profile_tab';
 
 const profile = ({access_token}) => {
   console.log(access_token)
 
   const { id } = useParams();
   let navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+
 
   const initialProfileState = {
     id: '',
@@ -68,13 +71,19 @@ const profile = ({access_token}) => {
               <div className="cover-avatar-section">
                 <img className="rectangle" alt="Rectangle" src={profileCover} />
                 <div className="avatar-container">
-                  <img className="ellipse" alt="Ellipse" src={userProfile.avt_url} />
+                  <img
+                    className="ellipse"
+                    alt="Ellipse"
+                    src={userProfile.avt_url}
+                  />
                 </div>
               </div>
               <div className="information-section">
                 <div className="frame">
                   <p className="name-section">
-                    <span className="text-wrapper">{userProfile.profile_name} </span>
+                    <span className="text-wrapper">
+                      {userProfile.profile_name}{' '}
+                    </span>
                     <span className="span">({userProfile.account_name})</span>
                     <div
                       className="edit-container"
@@ -97,7 +106,12 @@ const profile = ({access_token}) => {
                 <div className="row social-row">
                   <div className="col ">
                     <img className="img" alt="Ellipse" src={facebookicon} />
-                    <Link className="text-wrapper-3" to={userProfile.social_link}>TrucVy</Link>
+                    <Link
+                      className="text-wrapper-3"
+                      to={userProfile.social_link}
+                    >
+                      TrucVy
+                    </Link>
                   </div>
                   <div className="col">
                     <img className="img" alt="Ellipse" src={instaicon} />
@@ -110,10 +124,7 @@ const profile = ({access_token}) => {
                 </div>
               </div>
               <div className="rating-bar">
-
-
                 <StarRating rating={4.6} width={160} />
-
 
                 <div className="text-wrapper-6">{4.6}</div>
               </div>
@@ -160,7 +171,8 @@ const profile = ({access_token}) => {
                     </div>
                   </div>
                   <div className="main-tab-container">
-                    <BankTab />
+                    <WishlistTab userID={id}/>
+                    {/* <BankTab /> */}
                   </div>
                 </div>
               </div>
@@ -169,9 +181,7 @@ const profile = ({access_token}) => {
         </div>
       ) : (
         <div>
-
           <SignUp />
-
         </div>
       )}
     </div>

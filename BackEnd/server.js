@@ -32,6 +32,9 @@ db.sequelize.sync()
 // db.sequelize.sync({ force: true }).then(() => {
 //   console.log("Drop and re-sync db.");
 // });
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 // simple route
 app.get("/", (req, res) => {
@@ -47,15 +50,17 @@ require("./app/routes/sms.routes")(app);
 require("./app/routes/gmail.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/project_post.routes")(app);
-require("./app/routes/project.routes")(app);
+
 require("./app/routes/project_report.routes")(app);
 require("./app/routes/project_notification.routes")(app);
 require("./app/routes/review.routes")(app);
 require("./app/routes/category.routes")(app);
 require("./app/routes/contact.routes")(app);
 require("./app/routes/subcategory.routes")(app);
-require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/project.routes")(app);
+require("./app/routes/wishlist.routes")(app);
+require("./app/routes/bid.routes")(app);
+require("./app/routes/comment.routes")(app);
 require("./app/routes/user_subcategory.routes")(app);
 
 // set port, listen for requests

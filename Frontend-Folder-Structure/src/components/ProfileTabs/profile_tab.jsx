@@ -1,21 +1,23 @@
-import React from 'react'
-import './profile_tab.css'
-import { SmallProj, WhiteButton } from '@/components'
-
+import React from 'react';
+import './profile_tab.css';
+import { SmallProj, WhiteButton } from '@/components';
+import projectPostWishlistServices from '@/services/projectPostWishlistServices';
 // import './profile.css'
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import WishlistPost from '../DisplayCard/wishlist';
 
 const EmptyTab = () => {
-    return(
-        <div className='tab'>
-            <SmallProj/>
-            <SmallProj/>
-            <SmallProj/>
-            <SmallProj/>
-            <SmallProj/>
-        </div>
-       
-    );
-}
+  return (
+    <div className="tab">
+      <SmallProj />
+      <SmallProj />
+      <SmallProj />
+      <SmallProj />
+      <SmallProj />
+    </div>
+  );
+};
 
 const BankTab = () => {
     return(
@@ -39,5 +41,42 @@ const BankTab = () => {
     );
 }
 
-export {EmptyTab, BankTab}
+const WishlistTab = ({ userID }) => {
+  console.log('user id: ', userID);
+  // get wishlist by user id
+  const [wishlist, setWishlist] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    projectPostWishlistServices.getWishlistByUserId(userID).then((response) => {
+      console.log('response: ', response.data);
+      setWishlist(response.data);
+    });
+  }, [userID]);
+
+  return (
+    <div className="wishlist-outline">
+      <div className="wishlist-tab">
+        {wishlist.map((item) => (
+          <WishlistPost
+            key={item.id}
+            projectId={item.id}
+            projectTitle={item.title}
+            projectTagsId={item.tag_id}
+            projectDetail={item.detail}
+            projectBudget={[item.budget_min, item.budget_max]}
+            userID={userID}
+            handleToProjectPostClick={() => {
+              console.log('navigate to project detail page');
+              navigate(`/project/${item.id}`);
+            }
+            }
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export { EmptyTab, BankTab, WishlistTab };
 

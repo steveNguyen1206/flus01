@@ -8,7 +8,7 @@ import dollar from '../../assets/dollars.png';
 import revision from '../../assets/revision.png';
 import delivery from '../../assets/delivery.png';
 import line from '../../assets/line.png';
-import Comment from '@/components/Comment/Comment';
+// import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
@@ -52,17 +52,14 @@ const PostDetail = () => {
     fetchProjectTags();
   }, [project.tag_id]);
 
+
+
   const fetchProjectTags = async () => {
     const projectTagsData = await categoryServices.getNamefromId(
       project.tag_id
     );
     console.log(projectTagsData.data.subcategory_name);
-
-    const projectTagsArray = projectTagsData.data.subcategory_name.includes(',')
-      ? projectTagsData.data.subcategory_name.split(',')
-      : [projectTagsData.data.subcategory_name];
-    setProjectTags(projectTagsArray);
-    // console.log('project tags array: ', projectTagsArray);
+    setProjectTags([projectTagsData.data.subcategory_name]);
   };
 
   const [owner, setOwner] = useState([]);
