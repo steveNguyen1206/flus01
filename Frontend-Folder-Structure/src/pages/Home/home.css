@@ -1,3 +1,4 @@
+@import url("../../assets/variables.css");
 .root{
     background-color: blue;   
 }
@@ -145,7 +146,7 @@
     display: flex;
   }
   
-  .homepage .category-wrapper {
+  .homepage .home-category-wrapper {
     border: 4px solid;
     border-color: #000000;
     border-radius: 20px;
@@ -216,4 +217,33 @@
     align-items: center;
     justify-content: center;
     margin-top: 30px;
+  }
+
+  .ProjectSection{
+    background-color: white;
+    position: relative;
+    min-height: 600px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .project-header{
+    position: absolute;
+    top: 2%;
+    left: 7%;
+    font-size: 30px;
+    font-family: "Inter-Black";
+    color: var(--primary);
+  }
+  .project-container{
+      margin-top: 5%;
+      height: 100%;
+      width: auto;
+      overflow-y: scroll;
+  }
+
+  .project-container > .post-container{
+    margin-top: 2%;
+    margin-bottom: 2%;
   }

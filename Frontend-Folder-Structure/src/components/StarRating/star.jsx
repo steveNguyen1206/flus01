@@ -6,10 +6,10 @@ import starEmpty from "../../assets/StarRating/starEmpty.png"
 
 
 
-const star = ({rating}) => {
+const star = ({rating, width}) => {
     // const percentage = (rating / 5) * 100;
     return(
-        <div className='rating-container' >
+        <div className="ratingContainer" style={{width:width}} >
             <Rating start={0} stop={5} step={1} fractions={10} 
             readonly={true}
             initialRating={rating}
@@ -17,6 +17,7 @@ const star = ({rating}) => {
             fullSymbol={<img src={starFull} className="icon" alt='star full' />}
             style={{fontSize:"100%"}}
             />
+            
         </div>
         
     );

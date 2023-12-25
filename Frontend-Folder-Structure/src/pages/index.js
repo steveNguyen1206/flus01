@@ -9,3 +9,8 @@ export { default as Login2 } from "./Login/login2";
 export {default as Profile} from "./Profile/profile"
 export {default as Skill} from "./Skill/skill"
 export {default as Admin} from "./Admin/admin"
+export {default as BidDetailPopup} from "./Bid/bidDetailPopup"
+export {default as FindFreelancer} from "./FindFreelancer/findFreelancer"
+export{default as Job} from "./Job/job"
+export{default as UpdateAvatarForm} from "./Profile/updateAvatarForm"
+export {default as offerDetailPopup} from "./FreelancerPost/offerDetailPopup"

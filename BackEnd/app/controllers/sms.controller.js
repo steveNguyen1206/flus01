@@ -27,6 +27,8 @@ const sendCode = async (req, res) => {
     // Generate OTP code
     const otp = generateOTP();
 
+    console.log("OTP: ", otp)
+
     // Store the generated OTP code in your database
     await OTP.create({ phone_number: phone_number, code: otp });
 

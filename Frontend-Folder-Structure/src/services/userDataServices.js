@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { media_upload, http } from "./http-common";
 
 const findAll = () => {
   return http.get("/user");
@@ -21,6 +21,13 @@ const update = (id, data) => {
   return http.put(`/user/${id}`, data);
 };
 
+const updateAvatar = (id, avatarFile) => {
+  const formData = new FormData();
+  formData.append('avatar', avatarFile);
+  console.log(avatarFile);
+  return media_upload.put(`/user/avatar/${id}`, formData);
+}
+
 
 
 // const removeAll = () => {
@@ -40,12 +47,18 @@ const findOnebyEmail = email => {
 };
 
 const findUsersbyPage = (page, size, searchKey) => {
+  console.log("findUsersbyPage: ", page, size, searchKey);
   return http.get(`/user/getusers/${page}&${size}&${searchKey}`);
 };
 
 const removeUserByAccName = (accountName) => {
   console.log("removeUserByAccName: ", accountName);
   return http.delete(`/user/deleteuser/${accountName}`);
+};
+
+
+const changeStatusByID = (id, status) => {
+  return http.put(`/user/status/${id}&${status}`);
 };
 
 const userDataService = {
@@ -58,6 +71,8 @@ const userDataService = {
   findOnebyEmail,
   findUsersbyPage,
   removeUserByAccName,
+  changeStatusByID, // Add the new service function here
 };
+
 
 export default userDataService;
