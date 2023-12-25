@@ -71,6 +71,10 @@ const findOwnerOnebyId = (id, access_token) => {
     }});
   }
 
+  const createNull = () => {
+    return http.post("/project/createNull");
+  };
+
   const projectService = {
     findMemberOnebyId,
     findOwnerOnebyId,
@@ -81,6 +85,7 @@ const findOwnerOnebyId = (id, access_token) => {
     acceptReport,
     updateReport,
     getALlNotifications,
+    createNull
   };
 
   export default projectService;

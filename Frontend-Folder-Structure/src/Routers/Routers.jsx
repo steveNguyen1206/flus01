@@ -1,10 +1,11 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job, UpdateAvatarForm} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job, UpdateAvatarForm, AboutUs} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import { PostDetail } from '@/pages/FreelancerPost';
+// import { AboutUs } from '@/pages/About';
 // import CreateFreelancerPost from '@/pages/FindFreelancer/createFreelancerPost';
 // import UpdateFreelancerPost from '@/pages/FindFreelancer/updateFreelancerPost';
 // import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
@@ -47,7 +48,7 @@ const Routers = () => {
           {/* <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} /> */}
           {/* <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} /> */}
           <Route path="/job" element={<Job />} />
-          {/* Add more routes as needed */}
+          <Route path='/aboutUs'  element={<AboutUs />} />
         </Routes>
         <Footer />
       </Router>

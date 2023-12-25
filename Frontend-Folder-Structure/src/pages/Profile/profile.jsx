@@ -6,7 +6,7 @@ import facebookicon from '../../assets/SocialIcon/facebook.png';
 import instaicon from '../../assets/SocialIcon/insta.png';
 import linkedinicon from '../../assets/SocialIcon/linkedin.png';
 import editIcon from '../../assets/editProfileIcon.png';
-import { EmptyTab, StarRating, Tag } from '@/components';
+import { BankTab, EmptyTab, StarRating, Tag, PopupUpdateProfile } from '@/components';
 import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
@@ -18,6 +18,8 @@ const profile = ({access_token}) => {
 
   const { id } = useParams();
   let navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+
 
   const initialProfileState = {
     id: '',
@@ -33,6 +35,11 @@ const profile = ({access_token}) => {
   };
 
   const [userProfile, setUserProfile] = useState(initialProfileState);
+  const [showUpdateProfile, setShowUpdateProfile] = useState(true);
+
+  const handleUpdateProfile = () => {
+    setShowUpdateProfile(true);
+  };
 
   const getUserProfile = (id) => {
     userDataService
@@ -52,7 +59,12 @@ const profile = ({access_token}) => {
 
   return (
     <div>
+      {/* Update Profile Popup */}
+      {showUpdateProfile && <PopupUpdateProfile  m_state={showUpdateProfile}
+            m_function={setShowUpdateProfile} user_profile={userProfile}/>}
+
       {userProfile ? (
+        
         <div className="profile">
           <div className="overlap">
             <div className="profile-info-section">
@@ -82,6 +94,7 @@ const profile = ({access_token}) => {
                         className="image"
                         alt="edit profile"
                         src={editIcon}
+                        onClick={handleUpdateProfile}
                       />
                     </div>
                   </p>
@@ -136,25 +149,30 @@ const profile = ({access_token}) => {
                 <div className="overlap-10">
                   <div className="rectangle-2" />
                   <div className="tab-container">
-                    <div className="group-6 active">
+                    <div className={`${activeTab === 0 ? 'active group-6' : 'group-6'}`}
+                    onClick={() => handleTabClick(0)}>
                       <div className="text-wrapper-11">My Jobs</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 1 ? 'group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(1)}>
                       <div className="text-wrapper-11">My Offers</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 2 ? ' group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(2)}>
                       <div className="text-wrapper-11">My Wishlist</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(3)}>
                       <div className="text-wrapper-11">My Calendar</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 4 ? 'active group-6' : 'group-6'}`}
+                    onClick={() => handleTabClick(4)}>
                       <div className="text-wrapper-11">My Payment Account</div>
                     </div>
                   </div>
                   <div className="main-tab-container">
                     <WishlistTab userID={id}/>
-                    {/* <EmptyTab /> */}
+                    {/* <BankTab /> */}
                   </div>
                 </div>
               </div>
