@@ -3,12 +3,13 @@ import { WhiteButton } from '@/components';
 import './hireFreelancer.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
-import projectServices from '@/services/projectPostServices';
+// import projectServices from '@/services/projectPostServices';
 import subcategoryService from '@/services/subcategoryService';
 import userDataService from '@/services/userDataServices';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
 import contactService from '@/services/contactServices';
 import gmailService from '@/services/gmailServices';
+import projectServices from '@/services/projectServices';
 
 const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
     const [showOverlay, setShowOverlay] = useState(isOpen);
@@ -51,6 +52,11 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         console.log('Done clicked.');
         // console.log(hireFreelancer);
         console.log("postId -----------> ", postId);
+        const projectIdData = await projectServices.createNull();
+        const projectId = projectIdData.data;
+        console.log("projectId -----------> ", projectId);
+        setHireFreelancer({ ...hireFreelancer, project_id: projectId });
+        console.log("hireFreelancer -----------> ", hireFreelancer);
         const emailData = await freelancer_post_Service.findFreelancerEmail(postId);
         const email = emailData.data;
         console.log("email -----------> ", email);
