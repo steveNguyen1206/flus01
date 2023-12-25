@@ -20,6 +20,7 @@
   --dark-text: #130E01;
   --green-accent: #12C418;
   --green-primary: #15A919;
+  --mid-text: #656564;
   --light-green: #ABF7AE;
 }
 
@@ -77,6 +78,10 @@ h1 {
   font-size: 16px;
 }
 
+.--button-green:hover {
+  background-color: var(--green-primary);
+}
+
 .--button-green {
   background-color: var(--green-accent);
   color: white;
@@ -84,5 +89,13 @@ h1 {
 
 .--button-gray {
   background-color: var(--light-text);
-  color: var(--dark-text);
+  color: white;
+}
+
+.--button-gray:hover {
+  background-color: var(--mid-text);
+}
+
+.--center {
+  text-align: center !important;
 }

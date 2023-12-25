@@ -1,10 +1,8 @@
 import React, {useState} from "react";
-import { ReactDOM } from "react";
 import { PayPalScriptProvider,  PayPalButtons } from "@paypal/react-paypal-js";
-import axios from "axios";
 import paymentServices from "@/services/paymentServices";
 import { getCurrentDateTime } from "@/helper/helper";
-import { Button } from "bootstrap";
+
 
 // const PayPalButton = paypal.Buttons.driver("react", { React, ReactDOM });
 
