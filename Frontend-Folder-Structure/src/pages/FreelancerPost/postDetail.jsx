@@ -10,6 +10,7 @@ import delivery from '../../assets/delivery.png';
 import line from '../../assets/line.png';
 // import Comment from '@/components/Comment/Comment';
 import { Bid } from '@/components';
+import { BidOffer } from '@/components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import freelancer_post_Service from '@/services/freelancer_post_Service';
@@ -199,7 +200,7 @@ const PostDetail = () => {
 
          
 
-          <div className="comments">
+          {/* <div className="comments">
             <div className="comment-title">
               <p>Comments</p>
               <div className="proj-comment-detail">
@@ -209,7 +210,7 @@ const PostDetail = () => {
             <div className="proj-line">
               <img src={line} alt="line" />
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="right-project">
           <button onClick={handleEditProject} className="button-edit">
@@ -253,7 +254,7 @@ const PostDetail = () => {
             <div className="proj-bid-list">
 
               {bidOnes.map((bidOne) => (
-                <Bid bidOne = {bidOne}/>
+                <BidOffer bidOne = {bidOne}/>
               ))}
               
               {/* <Bid />
