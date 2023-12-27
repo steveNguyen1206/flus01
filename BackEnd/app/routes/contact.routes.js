@@ -9,8 +9,12 @@ module.exports = app => {
     // Retrieve all Category
     router.get("/", contact.findAll);
 
+    // Retrieve all bid
     router.get("/allbids/:freelancer_post_id", contact.findAllBids);
     
+    // Retrive count of bid
+    router.get("/countbids/:freelancer_post_id", contact.countBids);
+
     // // Retrieve all published Category
     // router.get("/published", category.findAllPublished);
     

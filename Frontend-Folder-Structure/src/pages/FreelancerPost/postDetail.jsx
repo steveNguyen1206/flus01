@@ -102,7 +102,7 @@ const PostDetail = () => {
     setShowOfferPopup(true);
   };
 
-
+  const [numberOffer, setNumberOffer] = useState(0);
   const [bidOnes, setBidOnes] = useState([]);
   useEffect(() => {
     fetchBids();
@@ -112,7 +112,8 @@ const PostDetail = () => {
     try {
       const bidsData = await contactService.findAllBids(id);
       setBidOnes(bidsData.data);
-      console.log('data', bidsData.data);
+      const countBid = await contactService.countBids(id);
+      setNumberOffer(countBid.data);
     } catch (error) {
       console.error('Error fetching Bid:', error);
     }
@@ -250,7 +251,7 @@ const PostDetail = () => {
             <div className="view-detail" onClick={handleViewDetail}>
               <p>View details</p>
             </div>
-            <p>4 Offers</p>
+            <p>{numberOffer} Offers</p>
             <div className="proj-bid-list">
 
               {bidOnes.map((bidOne) => (
