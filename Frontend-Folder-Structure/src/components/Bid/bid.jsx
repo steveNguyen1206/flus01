@@ -32,8 +32,7 @@ const Bid = ({
     <div className="bid-cont">
       <div className="bid-header">
         <div className="image-profile">
-          {/* <img src={profileImage} alt="profile" /> */}
-          <img src={bidOne.user.avt_url} alt="profile" />
+          <img src={profileImage} alt="profile" />
         </div>
         <div className="bid-username">
           <h5>{username}</h5>

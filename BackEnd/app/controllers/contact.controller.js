@@ -313,3 +313,57 @@ exports.countBids = (req, res) => {
       });
     });
 }
+
+exports.changeContactStatus = (req, res) => {
+  const contact_id = req.params.contact_id;
+  const status = req.params.status;
+
+  console.log("contact_id: " + contact_id);
+  console.log("status: " + status);
+  Contact.update({ status: status }, { where: { id: contact_id } })
+      .then(data => {
+          res.status(200).send({
+              message: "Update contact status successfully."
+          });
+      })
+      .catch(err => {
+          res.status(500).send({
+              message:
+              err.message || "Some error occurred while updating contact status."
+          });
+      });
+}
+
+
+exports.findAllStatusZeroBids = (req, res) => {
+  const post_id = req.params.freelancer_post_id;
+  console.log(post_id)
+  // var condition = freelancer_post_id ? { freelancer_post_id: { [Op.like]: `${freelancer_post_id}%` } } : null;
+
+  Contact.findAll({
+    where: {
+      freelancer_post_id: {
+        [Op.eq]: post_id
+      },
+      status: {
+        [Op.eq]: 0
+      }
+    },
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
+      },
+    ],
+
+  })
+    .then(data => {
+
+      return res.json(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving findAllBids data."
+      });
+    });
+}

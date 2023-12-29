@@ -110,7 +110,7 @@ const PostDetail = () => {
 
   const fetchBids = async () => {
     try {
-      const bidsData = await contactService.findAllBids(id);
+      const bidsData = await contactService.findZeroStatusBids(id);
       setBidOnes(bidsData.data);
       const countBid = await contactService.countBids(id);
       setNumberOffer(countBid.data);
@@ -243,7 +243,8 @@ const PostDetail = () => {
             <div className="btn-hire">
               <button className="button-hire-project" onClick={handleHireProject}>Hire me</button>
               <div className="budget-wrapper">
-                {`$${100}`}
+                {/* {`$${100}`} */}
+                ${project.lowset_price}
               </div>
             </div>
           </div>

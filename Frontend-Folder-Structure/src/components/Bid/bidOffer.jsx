@@ -1,46 +1,23 @@
 import { useState } from 'react';
 import './bid.css';
 import profileImage from '../../assets/profile_image.png';
+import contactService from '@/services/contactServices';
 //name, skill, message, price, duration, accept, reject
 
 const BidOffer = ({ bidOne }) => {
-  // const uname = 'Nguyen Thi Truc';
-  // const userName = 'cogai20';
-  // const price = '100$';
   const skill = 'React, NodeJS';
-  // const message = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit iyrey ifhiu ewuyriu odfiuh o.';
-  // const duration = '5 days';
 
-  // const bidOne = {
-  //   "id": 2,
-  //   "client_name": "Vy Vy",
-  //   "client_company": "ZyZy",
-  //   "job_name": "Software",
-  //   "job_description": "You have to do software for me",
-  //   "start_date": "2020-12-31",
-  //   "end_date": "2024-01-20",
-  //   "budget": 3000,
-  //   "status": 0,
-  //   "project_id": 1,
-  //   "createdAt": "2023-12-21T14:17:03.000Z",
-  //   "updatedAt": "2023-12-21T14:17:03.000Z",
-  //   "freelancer_post_id": 3,
-  //   "client_id": 1,
-  //   "user": {
-  //     "id": 1,
-  //     "account_name": "hoavienvohoang",
-  //     "profile_name": "Vo Hoang Hoa Vien",
-  //     "avt_url": "https://res.cloudinary.com/dunbnutmw/image/upload/v1703227364/gqxx79jsybefqcvqcop2.jpg",
-  //     "email": "vohoanghoavien@gmail.com"
-  //   }
-  // }
-
-  const accept = () => {
+  const handleAccept = () => {
     console.log('accept');
   };
 
-  const reject = () => {
+  const handleReject = () => {
     console.log('reject');
+    console.log('bidOne.id: ', bidOne.id);
+    contactService.changeContactStatus(bidOne.id, -1).then((response) => {
+      console.log('response: ', response);
+      onChangeBid();
+    });
   };
 
   return (
@@ -69,10 +46,10 @@ const BidOffer = ({ bidOne }) => {
       </div>
 
       <div className="bid-button">
-        <button className="reject" onClick={reject}>
+        <button className="reject" onClick={handleReject}>
           Reject
         </button>
-        <button className="accept" onClick={accept}>
+        <button className="accept" onClick={handleAccept}>
           Accept
         </button>
       </div>
