@@ -25,6 +25,8 @@ module.exports = app => {
     
     // // Delete all Tutorials
     // router.delete("/", category.deleteAll);
+
+    router.get("/getDistinctClientIdsByStatus/:bid_status", contact.getDistinctClientIdsByStatus);
     
     app.use('/api/contact', router);
     }
