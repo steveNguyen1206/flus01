@@ -1,24 +1,28 @@
 const db = require("../models");
-const UserSubcategory = db.user_subcategory;
+const User = db.user;
 const Subcategory = db.subcategories;
 const Op = db.Sequelize.Op;
 
 // retrieve all subcategory of a user by user id
 exports.findAll = (req, res) => {
+  console.log("======== GET ALL TAGS OF A USER =========");
   const id = req.params.id;
-    console.log("id ", id);
 
-  UserSubcategory.findAll({
+  // console.log("User & Sub: " + UserSubcategory);
+  // console.log("Sub: " + Subcategory);
+
+  User.findAll({
     where: {
-        userId: id,
+        id: id,
     },
-    include: [
-      {
-        model: Subcategory,
-        as: "subcategory",
-        attributes: ["id", "subcategory_name", "categoryId"],
-      },
-    ],
+    include: Subcategory,
+    // [
+    //   {
+    //     model: Subcategory,
+    //     as: "subcategory",
+    //     attributes: ["id", "subcategory_name", "categoryId"],
+    //   },
+    // ],
   })
     .then((data) => {
       res.send(data);
