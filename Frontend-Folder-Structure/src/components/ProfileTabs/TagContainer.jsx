@@ -3,13 +3,13 @@ import './TagContainer.css';
 import { useState } from 'react';
 import { EditTag } from '..';
 
-const TagContainer = ({ list_tag }) => {
+const TagContainer = ( { userId, list_tag }) => {
     const [errorMessage, setErrorMessage] = useState('');
 
     return (
         <div className='tag-container'>
             {list_tag.map((tag) => (
-                <EditTag tag_name={tag} />
+                <EditTag tag_name={tag.name} tag_id={tag.id} user_id={userId}/>
             ))}
         </div>
     );
