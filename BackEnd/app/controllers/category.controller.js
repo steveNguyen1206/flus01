@@ -57,7 +57,7 @@ exports.create = async (req, res) => {
         name: req.body.name,
         img: img_url,
     };
-    console.log("category: ", category)
+    // console.log("category: ", category)
     // Save Category in the database
     Category.create(category)
         .then(data => {
