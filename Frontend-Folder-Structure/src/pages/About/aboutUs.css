@@ -261,15 +261,12 @@
   
   
   
-  .about-us .group-wrapper {
-    height: 865px;
-    left: 0;
-    position: absolute;
-    top: 2345px;
-    width: 1440px;
+  .about-us .StatisticSection {
+    height: 70%;
+    width: 100%;
   }
   
-  .about-us .group-2 {
+  .about-us .inner-post {
     height: 801px;
     left: 81px;
     position: relative;

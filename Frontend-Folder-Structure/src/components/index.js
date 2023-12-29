@@ -37,4 +37,4 @@ export {default as EditTag} from './ProfileTabs/EditTag'
 export {default as UpdateButton} from './ProfileTabs/UpdateButton'
 export {default as TagContainer} from './ProfileTabs/TagContainer'
 
-
+export {default as HorizonFreelancerPostCell} from './HorizontalPostCell/HorizonFreelancerPostCell'

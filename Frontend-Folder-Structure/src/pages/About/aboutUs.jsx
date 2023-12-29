@@ -168,9 +168,9 @@ const AboutUs = () => {
           </CarouselItem>
         </Carousel>
       </div>
-      {/* <div className="group-wrapper">
-        <div className="group-2">
-          <div className="overlap-group-2">
+      <div className="StatisticSection">
+        <div className="inner-post">
+          <div className="result container">
             <div className="carousel-icon">
               <div className="ellipse-2" />
               <div className="ellipse-3" />
@@ -185,7 +185,7 @@ const AboutUs = () => {
           </div>
           <div className="text-wrapper-10">Our site’s results</div>
         </div>
-      </div> */}
+      </div>
 
       
     </div>
