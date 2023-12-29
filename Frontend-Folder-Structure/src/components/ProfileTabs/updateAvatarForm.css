@@ -1,0 +1,13 @@
+@import url('../../assets/variables.css');
+
+.update-avatar-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    width: 60%;
+}
+
+.chose-file-button {
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}

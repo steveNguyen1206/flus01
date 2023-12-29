@@ -36,5 +36,5 @@ export {default as EditTextField} from './ProfileTabs/EditTextField'
 export {default as EditTag} from './ProfileTabs/EditTag'
 export {default as UpdateButton} from './ProfileTabs/UpdateButton'
 export {default as TagContainer} from './ProfileTabs/TagContainer'
-
+export{default as UpdateAvatarForm} from "./ProfileTabs/updateAvatarForm"
 

@@ -2,6 +2,7 @@ import React from 'react';
 import './update_avatar.css';
 import { useState } from 'react';
 import profileCover from '../../assets/profile_cover.jpg';
+import { UpdateAvatarForm } from '@/components';
 
 const UpdateAvartar = ({ user_id, avt_url }) => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -17,8 +18,10 @@ const UpdateAvartar = ({ user_id, avt_url }) => {
           <img className="update-ellipse" alt="Ellipse" src={avt_url} />
         </div>
 
+        <UpdateAvatarForm user_id={user_id} />
+
         <div className='update-avatar-text'>
-          Click to change profile picture
+          Select a photo to change profile picture
         </div>
       </div>  
     </div>
