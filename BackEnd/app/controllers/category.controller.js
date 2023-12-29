@@ -19,7 +19,7 @@ exports.getNameSubcategory = (req, res) => {
 // Create and Save a new Category
 exports.create = async (req, res) => {
   console.log("############ CREATE CATEGORY ############");
-  console.log("req: ", req);
+  // console.log("req: ", req);
   // Validate request
   if (!req.body.name) {
     res.status(400).send({
