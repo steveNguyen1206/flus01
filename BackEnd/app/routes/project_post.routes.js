@@ -13,8 +13,8 @@ module.exports = (app) => {
     // change status of many project_posts by list of project_post_id
     router.put("/changeStatus", projectPostController.changeStatus);
 
-    // Find and change status of project_posts by some criteria
-    router.put("/findAndChangeStatus/:userId&:status", projectPostController.findAndChangeStatus);
+    // Find and change status of project_post
+    router.put("/changeStatus/:project_post_id/:status", projectPostController.changeStatus);
 
     // Retrieve all Project_posts from the database
     router.get("/findAll", projectPostController.findAllProjectPosts);

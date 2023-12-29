@@ -7,7 +7,7 @@ import projectPostServices from '@/services/projectPostServices';
 import reviewServices from '@/services/reviewServices';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { NewProject } from '../Project/';
+import { NewProject } from '../ProjectPost';
 
 const Job = () => {
   const navigate = useNavigate();
@@ -66,7 +66,6 @@ const Job = () => {
     setSearchTitle(event.target.value);
   };
 
-
   const filteredProjects = projects.filter(
     (project) =>
       project.title.toLowerCase().includes(searchTitle.toLowerCase()) &&
@@ -102,8 +101,6 @@ const Job = () => {
   const handleRangeChange = (newSelectedRange) => {
     setSelectedRange(newSelectedRange);
   };
-
- 
 
   return (
     <>

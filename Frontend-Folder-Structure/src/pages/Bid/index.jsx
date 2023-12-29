@@ -74,6 +74,7 @@ const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
   const [bid, setBid] = useState(initState);
   const [error, setError] = useState(initError);
   const [tags, setTags] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     getTags();
@@ -118,7 +119,8 @@ const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
 
     if (!isValidMessage(bid.message)) {
       isValid = false;
-      errors.message = 'Invalid message. Message must have at least 10 letters.';
+      errors.message =
+        'Invalid message. Message must have at least 10 letters.';
     }
 
     if (!isValidPrice(bid.price)) {
@@ -149,13 +151,13 @@ const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
           onChange();
         })
         .catch((error) => {
+          setErrorMessage(error.response.data.message);
           console.error('Error submitting project:', error.message);
         });
     } else {
       console.log('Form has errors. Please fix them.');
     }
   };
-
 
   return (
     <>
@@ -259,7 +261,9 @@ const BidPopup = ({ isOpen, isClose, projectPostId, onChange }) => {
             <div className="error-message">{error.duration}</div>
           </div>
 
-          <WhiteButton name="Send" onClick={handleDoneClick} />
+          <div className="error-message">{errorMessage}</div>
+
+          <WhiteButton text="Send" onClick={handleDoneClick} />
         </div>
       </div>
     </>

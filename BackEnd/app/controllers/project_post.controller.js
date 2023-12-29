@@ -36,6 +36,16 @@ exports.create = async (req, res) => {
         return;
     }
 
+    // check the title is already exist, if yes, return error
+    const existingProject = await project_post.findOne({ where: { title: req.body.title } });
+    if (existingProject) {
+        res.status(400).send({
+            message: "Project title already exists."
+        });
+        return;
+    }
+    
+
     console.log("req.file: ", req.file);
 
     try {
@@ -54,6 +64,7 @@ exports.create = async (req, res) => {
             imgage_post_urls: img_url,
             user_id: req.body.user_id,
             tag_id: req.body.tag_id,
+            status: 1,
         };
 
         project_post.create(projectPost)
@@ -100,7 +111,11 @@ exports.findAndChangeStatus = (req, res) => {
 // Retrieve all Project_posts from the database.
 exports.findAllProjectPosts = (req, res) => {
     const {userId} = req.params;
-    const condition = userId ? { user_id: { [Op.eq]: `${userId}` } } : null;
+    const condition = userId ? 
+    { 
+        user_id: { [Op.eq]: `${userId}` },
+        status: { [Op.eq]: 1}
+    } : null;
 
     project_post.findAll({ where: condition })
         .then(data => {
@@ -116,22 +131,22 @@ exports.findAllProjectPosts = (req, res) => {
 
 // change status of many project_posts by list of project_post_id
 exports.changeStatus = (req, res) => {
-    const { project_post_id_list, status } = req.body;
-    project_post.update({ status: status }, { where: { id: project_post_id_list } })
+    const { status, project_post_id } = req.body;
+    project_post.update({ status: status }, { where: { id: project_post_id } })
         .then(num => {
-            if (num == 1) {
+            if (num > 0) {
                 res.send({
                     message: "project_post was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update project_post with id=${id}. Maybe project_post was not found or req.body is empty!`
+                    message: `Cannot update project_post with id=${project_post_id}. Maybe project_post was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-            message: "Error updating project_post with id=" + id
+            message: "Error updating project_post with id=" + project_post_id
             });
         });
 };
@@ -282,3 +297,4 @@ exports.update = async (req, res) => {
         });
     }
 };
+

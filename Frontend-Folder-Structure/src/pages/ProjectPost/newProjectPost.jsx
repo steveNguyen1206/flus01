@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WhiteButton } from '@/components';
-import './newproject.css';
+import './newProjectPost.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
 import projectPostServices from '@/services/projectPostServices';
@@ -28,7 +28,7 @@ const isValidTag = (tag) => {
   return true;
 };
 
-const NewProject = ({ isOpen, onClose, onUpdate }) => {
+const NewProjectPost = ({ isOpen, onClose, onUpdate }) => {
   const [showOverlay, setShowOverlay] = useState(isOpen);
   const [tags, setTags] = useState([]);
 
@@ -128,6 +128,7 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
 
   const [fileName, setFileName] = useState('');
   const [newProject, setNewProject] = useState(initState);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -153,13 +154,13 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
           }
         })
         .catch((error) => {
+          setErrorMessage(error.message);
           console.error('Error submitting project:', error.message);
         });
     } else {
       console.log('Form has errors. Please fix them.');
     }
   };
-  console.log(newProject);
 
   return (
     <>
@@ -280,6 +281,7 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
               <div className="error-message">{error.budgetMax}</div>
             </div>
           </div>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           <WhiteButton text="Done" onClick={handleDoneClick} />
         </div>
       </div>
@@ -287,4 +289,4 @@ const NewProject = ({ isOpen, onClose, onUpdate }) => {
   );
 };
 
-export default NewProject;
+export default NewProjectPost;

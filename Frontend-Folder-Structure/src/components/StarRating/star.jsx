@@ -2,6 +2,7 @@ import React from 'react'
 import Rating from 'react-rating';
 import starFull from "../../assets/StarRating/starFullGreen.png"
 import starEmpty from "../../assets/StarRating/starEmpty.png"
+import './star.css'
 
 
 

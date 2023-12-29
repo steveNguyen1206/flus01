@@ -3,6 +3,7 @@ const db = require("../models");
 const User = db.user;
 
 const sendEmail = (req, res) => {
+  console.log("req.body: ", req.body)
   const email = req.body.email;
   console.log("Email from sendEmail",email);
   // return  {

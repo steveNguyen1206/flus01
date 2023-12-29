@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { WhiteButton } from '@/components';
-import './updateproject.css';
+import './updateProjectPost.css';
 import exitButton from '../../assets/exitButton.png';
 import UploadIcon from '../../assets/UploadIcon.png';
 import projectPostServices from '@/services/projectPostServices';
@@ -317,7 +317,7 @@ const UpdateProject = ({ isOpen, onClose, projectId, onUpdate }) => {
             </div>
           </div>
 
-          <WhiteButton name="Update Project" onClick={handleUpdateClick} />
+          <WhiteButton text="Update Project" onClick={handleUpdateClick} />
         </div>
       </div>
     </>

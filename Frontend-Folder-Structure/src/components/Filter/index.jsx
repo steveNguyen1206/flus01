@@ -9,7 +9,11 @@ function valuetext(value) {
   return `${value} $`;
 }
 
-const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) => {
+const Filter = ({
+  selectedTags,
+  onSelectedTagsChange,
+  onSelectedRangeChange,
+}) => {
   const initialSkills = [
     {
       id: '',
@@ -57,11 +61,10 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
     onSelectedRangeChange([lower, upper]);
   };
 
-
   const getIdbyName = (name) => {
     for (let i = 0; i < skills.length; i++) {
       if (skills[i].subcategory_name === name) {
-        console.log("a", skills[i].id)
+        console.log('a', skills[i].id);
         return skills[i].id;
       }
     }
@@ -83,7 +86,6 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
     onSelectedTagsChange(
       selectedTags.filter((tagId) => tagId !== removedTagId)
     );
-
   };
 
   return (
@@ -91,8 +93,12 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
       <div className="header">
         <h2>Filter</h2>
       </div>
-      <select className="filter" onChange={handleFilterChange}>
-        <option value="Add skills" disabled selected>
+      <select
+        className="filter"
+        onChange={handleFilterChange}
+        defaultValue="Add skills"
+      >
+        <option value="Add skills" disabled>
           Add skills
         </option>
         {skills.map((skill) => (
@@ -103,7 +109,6 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
       </select>
       <div className="overlay-container">
         <div className="skill-container">
-          
           {selectedSkills.map((skill, index) => (
             <div className="skill" key={index}>
               <p className="skill-name">{skill}</p>
@@ -119,7 +124,7 @@ const Filter = ({ selectedTags, onSelectedTagsChange, onSelectedRangeChange }) =
       </div>
 
       <div className="salary-range">
-        <label for="inputRange" class="form-label">
+        <label htmlFor="inputRange" className="form-label">
           Salary Range
         </label>
         <Box sx={{ width: 250 }}>

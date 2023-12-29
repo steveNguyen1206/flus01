@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './bid.css';
 import bidServices from '@/services/bidServices';
+import gmailService from '@/services/gmailServices';
+import projectPostServices from '@/services/projectPostServices';
 
 const Bid = ({
   bidId,
@@ -9,19 +11,41 @@ const Bid = ({
   skill,
   profileImage,
   rating,
+  email,
+  projectId,
   onChangeBid,
 }) => {
   const handleAccept = () => {
-    // console.log('accept');
-    // bidServices.changeBidStatus(bidId, 1).then((response) => {
-    //   console.log('response: ', response);
-    //   // onChangeBid();
-    // });
+    console.log('accept');
+    bidServices.changeBidStatus(bidId, 1).then((response) => {
+      console.log('response: ', response);
+      // send email to freelancer
+      const emailJson = {
+        email: email,
+      };
+
+      gmailService.sendEmail(emailJson).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // change other bids to rejected
+      bidServices.changeOtherBidStatus(bidId, -1).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // change project post status
+      projectPostServices.changeStatus(projectId, 0).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // TODO: create project
+      // TODO: navigate to project detail page
+      onChangeBid();
+    });
   };
 
   const handleReject = () => {
     console.log('reject');
-    // change status of bid to rejected
     bidServices.changeBidStatus(bidId, -1).then((response) => {
       console.log('response: ', response);
       onChangeBid();
@@ -32,8 +56,7 @@ const Bid = ({
     <div className="bid-cont">
       <div className="bid-header">
         <div className="image-profile">
-          {/* <img src={profileImage} alt="profile" /> */}
-          <img src={bidOne.user.avt_url} alt="profile" />
+          <img src={profileImage} alt="profile" />
         </div>
         <div className="bid-username">
           <h5>{username}</h5>

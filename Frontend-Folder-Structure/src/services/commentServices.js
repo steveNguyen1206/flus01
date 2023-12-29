@@ -16,6 +16,15 @@ const findCommentByProjectId = project_id => {
     return http.get(`/comment/findCommentByProjectId/${project_id}`);
     }
 
+const findCommentByUserId = user_id => {
+    return http.get(`/comment/findCommentByUserId/${user_id}`);
+    }
+
+const deleteComment = id => {
+    return http.delete(`/comment/${id}`);
+    }
+
+
 
 
 export const commentService = {
@@ -23,6 +32,8 @@ export const commentService = {
     findAll,
     findOne,
     findCommentByProjectId,
+    findCommentByUserId,
+    deleteComment,
 };
 
 

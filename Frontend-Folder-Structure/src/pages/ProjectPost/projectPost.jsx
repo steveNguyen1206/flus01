@@ -4,7 +4,7 @@ import { StarRating, Bid } from '@/components';
 import WhiteButton from '@/components/Button/WhiteButton';
 import { BidDetailPopup, UpdateProject } from '..';
 import BidPopup from '../Bid';
-import CommentProject from '../../components/Comment/CommentProject';
+import CommentProject from '../../components/Comment/CommentProjectPost';
 
 import projectPostServices from '@/services/projectPostServices';
 import userDataService from '@/services/userDataServices';
@@ -18,7 +18,7 @@ import heart from '../../assets/heart-active.png';
 import unactiveHeart from '../../assets/heart-unactive.png';
 import dollar from '../../assets/dollars.png';
 import line from '../../assets/line.png';
-import './project.css';
+import './projectPost.css';
 
 const Project = () => {
   const { id } = useParams();
@@ -42,14 +42,14 @@ const Project = () => {
   // get user by id
   useEffect(() => {
     userDataService.findOnebyId(userId).then((response) => {
-      console.log('response: ', response);
+      // console.log('response: ', response);
       setUser(response.data);
     });
   }, []);
 
   useEffect(() => {
     projectPostServices.getProjectbyId(id).then((response) => {
-      console.log('response: ', response);
+      // console.log('response: ', response);
       setProject(response.data);
     });
   }, []);
@@ -65,17 +65,15 @@ const Project = () => {
   useEffect(() => {
     if (isChange) {
       projectPostServices.getProjectbyId(id).then((response) => {
-        console.log('response: ', response);
+        // console.log('response: ', response);
         setProject(response.data);
       });
       setIsChange(false);
     }
   }, [isChange]);
 
-
   const fetchProjectTags = async () => {
-    const projectTagsData = await categoryServices.getNamefromId(project.tag_id);
-    console.log(projectTagsData.data.subcategory_name);
+    const projectTagsData = await categoryServices.getNamefromId(id);
     setProjectTags([projectTagsData.data.subcategory_name]);
   };
 
@@ -128,7 +126,7 @@ const Project = () => {
         })
       );
       setBidProject(bidProjectWithUser);
-      console.log('bid project: ', bidProjectWithUser);
+      // console.log('bid project: ', bidProjectWithUser);
     } catch (error) {
       console.error('Error fetching projects:', error);
     }
@@ -140,7 +138,7 @@ const Project = () => {
     projectPostWishlistServices
       .isExisted(userId, id)
       .then((response) => {
-        console.log('response: ', response);
+        // console.log('response: ', response);
         if (response.data === true) {
           setIsLiked(heart);
         } else {
@@ -156,13 +154,13 @@ const Project = () => {
     if (isLiked === unactiveHeart) {
       projectPostWishlistServices.create(userId, id).then((response) => {
         setIsLiked(heart);
-        console.log('response: ', response);
+        // console.log('response: ', response);
       });
     }
     if (isLiked === heart) {
       projectPostWishlistServices.remove(userId, id).then((response) => {
         setIsLiked(unactiveHeart);
-        console.log('response: ', response);
+        // console.log('response: ', response);
       });
     }
   };
@@ -209,9 +207,7 @@ const Project = () => {
               </div>
             </div>
             <div className="tags">
-              {projectTags.map((tag) => (
-                <div className="tag">{tag}</div>
-              ))}
+              <div className="tag">{projectTags[0]}</div>
             </div>
             <div className="proj-post">
               <div className="proj-poster">
@@ -332,7 +328,6 @@ const Project = () => {
             </div>
             <p>{`${bidNum} Bids`}</p>
             <div className="proj-bid-list">
-              {/* const Bid = ({username, price, skill, profileImage, rating}) => { */}
               {bidProject.map((bid) => (
                 <Bid
                   key={bid.id}
@@ -342,6 +337,8 @@ const Project = () => {
                   skill={bid.skill}
                   profileImage={bid.user.avt_url}
                   rating={bid.user.averageStar}
+                  email={bid.user.email}
+                  projectId={id}
                   onChangeBid={onChangeBid}
                 />
               ))}

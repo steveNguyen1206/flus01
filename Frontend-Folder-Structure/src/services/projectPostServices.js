@@ -43,6 +43,10 @@ const getProjectbyId = id => {
     return http.get(`/project_post/${id}`);
 }
 
+const changeStatus = (id, status) => {
+    return http.put(`/project_post/changeStatus/${id}/${status}`);
+}
+
 
 
 const projectPostServices= {
@@ -51,7 +55,7 @@ const projectPostServices= {
     getProjectbyId,
     updateProject,
     findOnebyId,
-
+    changeStatus,
 };
 
 

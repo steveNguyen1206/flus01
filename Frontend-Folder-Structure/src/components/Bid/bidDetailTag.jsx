@@ -4,9 +4,12 @@ import flag from '../../assets/vietnam.png';
 import avatar from '../../assets/avatar_green.png';
 import { StarRating } from '@/components';
 import bidServices from '@/services/bidServices';
+import gmailService from '@/services/gmailServices';
+import projectPostServices from '@/services/projectPostServices';
+
 
 const BidDetailTag = ({
-    bidId,
+  bidId,
   accout_name,
   profileImage,
   username,
@@ -15,6 +18,8 @@ const BidDetailTag = ({
   endDate,
   avgRating,
   price,
+  email,
+  projectId,
   onChangeBid,
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -43,11 +48,32 @@ const BidDetailTag = ({
   };
 
   const handleAccept = () => {
-    // console.log('accept');
-    // bidServices.changeBidStatus(bidId, 1).then((response) => {
-    //   console.log('response: ', response);
-    //   // onChangeBid();
-    // });
+    console.log('accept');
+    bidServices.changeBidStatus(bidId, 1).then((response) => {
+      console.log('response: ', response);
+      // send email to freelancer
+      const emailJson = {
+        email: email,
+      };
+
+      gmailService.sendEmail(emailJson).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // change other bids to rejected
+      bidServices.changeOtherBidStatus(bidId, -1).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // change project post status
+      projectPostServices.changeStatus(projectId, 0).then((response) => {
+        console.log('response: ', response);
+      });
+
+      // TODO: create project
+      // TODO: navigate to project detail page
+      onChangeBid();
+    });
   };
 
   const handleReject = () => {
@@ -104,13 +130,11 @@ const BidDetailTag = ({
               {/* <Collapse in={expanded}> */}
               <div>
                 <span className="span" id="collapseSummary">
-                  {'BID.MESSAGE' + message}
+                  {message}
                 </span>
                 <div className="row" style={{ marginTop: '12px' }}>
                   <div className="col date-offer">Start Date: </div>
-                  <div className="col date-text">
-                    {startDate}{' '}
-                  </div>
+                  <div className="col date-text">{startDate} </div>
                   <div className="col date-offer">End Date: </div>
                   <div className="col date-text">{endDate} </div>
                 </div>

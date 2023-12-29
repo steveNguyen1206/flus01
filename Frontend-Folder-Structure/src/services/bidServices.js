@@ -37,6 +37,10 @@ const changeBidStatus = (bid_id, status) => {
     return http.put("/bid/changeBidStatus/" + bid_id + "/" + status);
 }
 
+const changeOtherBidStatus = (bid_id, status) => {
+    return http.put("/bid/changeOtherBidStatus/" + bid_id + "/" + status);
+}
+
 
 
 
@@ -50,6 +54,7 @@ const bidService = {
     rejectBid,
     getNumOfBid,
     changeBidStatus,
+    changeOtherBidStatus,
 };
 
 export default bidService;

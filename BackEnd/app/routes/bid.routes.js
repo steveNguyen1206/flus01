@@ -10,6 +10,9 @@ module.exports = (app) => {
 
     // change bid status
     router.put("/changeBidStatus/:bid_id/:status", bid.changeBidStatus);
+
+    // change other bid status
+    router.put("/changeOtherBidStatus/:bid_id/:status", bid.changeOtherBidStatus);
   
     app.use("/api/bid", router);
   };

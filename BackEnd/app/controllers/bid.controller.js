@@ -25,19 +25,29 @@ exports.create = (req, res) => {
         proj_post_id: req.body.proj_post_id,
     }
 
-    // save to database
-    Bid.create(bid)
-        .then(data => {
-            res.status(200).send({
-                message: "Create bid sucessfully."
-            });
+    Bid.findOne({ where: { user_id: bid.user_id, proj_post_id: bid.proj_post_id } })
+        .then(existingBid => {
+            if (existingBid) {
+                res.status(400).send({
+                    message: "You already bid this project."
+                });
+            }
+            else {
+                Bid.create(bid)
+                    .then(data => {
+                        res.status(200).send({
+                            message: "Create bid sucessfully."
+                        });
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            message:
+                            err.message || "Some error occurred while creating the Bid."
+                        });
+                    });
+            }
+        
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                err.message || "Some error occurred while creating the Bid."
-            });
-        });
 }
 
 exports.findBidByProjectId = (req, res) => {
@@ -69,6 +79,24 @@ exports.changeBidStatus = (req, res) => {
             res.status(500).send({
                 message:
                 err.message || "Some error occurred while updating bid status."
+            });
+        });
+}
+
+exports.changeOtherBidStatus = (req, res) => {
+    const bid_id = req.params.bid_id;
+    const status = req.params.status;
+
+    Bid.update({ status: status }, { where: { id: { [Op.not]: bid_id } } })
+        .then(data => {
+            res.status(200).send({
+                message: "Update other bid status successfully."
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while updating other bid status."
             });
         });
 }
