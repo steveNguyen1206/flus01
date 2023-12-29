@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import './home.css'
-import { Inputs, Modal, ToolTip } from '@/components'
+import { HorizonFreelancerPostCell, Inputs, Modal, ToolTip } from '@/components'
 import { Header, Footer, Navbar } from '@/layout'
 import banner from '../../assets/banner.jpg'
 import human from '../../assets/Human.png'
 import skill from '../../assets/skill.png'
 import { FreelancerPost, Post } from '@/components/JobPost'
 import freelancer_post_Service from '@/services/freelancer_post_Service'
+import Slider from 'react-slick'
 
 const index = () => {
 
@@ -18,14 +19,41 @@ const index = () => {
   const fetchPosts = async () => {
     try {
       const postsData = await freelancer_post_Service.allposts();
-      const sortedPosts = postsData.data.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
+      const sortedPosts = postsData.data
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 6);
       setPosts(sortedPosts);
       console.log('data', sortedPosts);
     } catch (error) {
       console.error('Error fetching projects:', error);
     }
+  };
+  const carousel_settings = {
+    dots: true,
+    infinite: true,
+    arrows: true, 
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -112,9 +140,9 @@ const index = () => {
         <div className='project-header'>
           Latest Freelancer Posts
         </div>
-        <div className='project-container'>
+        <Slider {...carousel_settings} className='project-container'>
           {posts.map(post => (
-            <FreelancerPost 
+            <HorizonFreelancerPostCell 
               key={post.id} post={post}
               post_id={post.id}
               freelancer_id={post.freelancer_id}
@@ -124,7 +152,7 @@ const index = () => {
               
             />
           ))}
-        </div>
+        </Slider>
       </div>
 
     </div>

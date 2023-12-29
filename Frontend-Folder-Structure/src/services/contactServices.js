@@ -17,12 +17,16 @@ const findAllBids = freelancer_post_id => {
   return http.get(`/contact/allbids/${freelancer_post_id}`);
 };
 
+const getDistinctClientIdsByStatus = status => {
+  return http.get(`/contact/getDistinctClientIdsByStatus/${status}`);
+};
 
 const contactService = {
     create,
     findAll,
     findOne,
-    findAllBids
+    findAllBids,
+    getDistinctClientIdsByStatus,    
 };
 
 export default contactService;
