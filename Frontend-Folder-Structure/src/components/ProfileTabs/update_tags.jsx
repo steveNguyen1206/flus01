@@ -64,18 +64,19 @@ const UpdateTags = ({ user_id }) => {
         setErrorMessage(e.message);
       });
 
-    console.log('SKILLS');
+    console.log('ALL SKILLS');
     console.log(skills);
   };
 
   const [selectingSkill, setSelectingSkill] = React.useState({});
 
   useEffect(() => {
-    console.log("SELECTING SKILL: " + selectingSkill);
+    console.log('SELECTING SKILL: ' + selectingSkill);
   }, [selectingSkill]);
 
   const handleSelectingSkillChange = (e) => {
-    console.log("TARGET: "+ e.target.value);
+    console.log('========== CHANGE SELECTED SKILLS ==========');
+    console.log('TARGET: ' + e.target.value);
     setSelectingSkill(e.target.value);
   };
 
@@ -103,6 +104,9 @@ const UpdateTags = ({ user_id }) => {
 
       <div className="add-a-tag">
         <select className="input-tag" onChange={handleSelectingSkillChange}>
+          <option value="" disabled="true">
+            Select a skill
+          </option>
           {skills.map((skill) => (
             <option value={skill.id}>{skill.subcategory_name}</option>
           ))}
@@ -114,10 +118,7 @@ const UpdateTags = ({ user_id }) => {
       <div className="current-tags">
         <TagContainer
           userId={user_id}
-          list_tag={[
-            { name: 'tag1', id: 1 },
-            { name: 'tag2', id: 2 },
-          ]}
+          list_tag= {userSkills}
         />
       </div>
     </div>

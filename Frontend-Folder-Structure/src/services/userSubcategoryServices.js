@@ -1,6 +1,7 @@
 import http from "./http-common";
 
 const create = (data) => {
+    console.log("======== ADD A TAG TO A USER =========");
     return http.post("/user_subcategory", data);
 };
 
