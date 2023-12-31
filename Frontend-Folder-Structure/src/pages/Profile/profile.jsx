@@ -35,7 +35,7 @@ const profile = ({access_token}) => {
   };
 
   const [userProfile, setUserProfile] = useState(initialProfileState);
-  const [showUpdateProfile, setShowUpdateProfile] = useState(true);
+  const [showUpdateProfile, setShowUpdateProfile] = useState(false);
 
   const handleUpdateProfile = () => {
     setShowUpdateProfile(true);
