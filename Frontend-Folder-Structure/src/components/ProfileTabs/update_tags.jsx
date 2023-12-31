@@ -6,20 +6,24 @@ import userSubcategoryService from '@/services/userSubcategoryServices';
 
 const UpdateTags = ({ user_id }) => {
   const [errorMessage, setErrorMessage] = useState('');
-
-  const initialSkills = [
-    {
-      id: '',
-      subcategory_name: '',
-    },
-  ];
+  const [successMessage, setSuccessMessage] = useState('');
+  const [refresh, setRefresh] = useState(0);
 
   // get skills by user id
-  const [userSkills, setUserSkills] = useState(initialSkills);
+  const [userSkills, setUserSkills] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [selectingSkill, setSelectingSkill] = useState('');
 
+  // get skills and user skills when refresh
   useEffect(() => {
+    setSelectingSkill('');
     getUserSkills();
-  }, []);
+  }, [refresh]);
+
+  // get all skills when user skills change
+  useEffect(() => {
+    getSkills();
+  }, [userSkills]);
 
   // get all skills of an user
   const getUserSkills = () => {
@@ -27,19 +31,12 @@ const UpdateTags = ({ user_id }) => {
       .findAll(user_id)
       .then((response) => {
         setUserSkills(response.data);
-        console.log(response.data);
+        setRefresh();
       })
       .catch((e) => {
-        console.log(e);
         setErrorMessage(e.message);
       });
   };
-
-  const [skills, setSkills] = useState(initialSkills);
-
-  useEffect(() => {
-    getSkills();
-  }, []);
 
   // get all skills in database
   const getSkills = () => {
@@ -55,32 +52,25 @@ const UpdateTags = ({ user_id }) => {
             )
         );
         setSkills(filteredSkills);
-
-        // setSkills(response.data);
-        // console.log(response.data);
       })
       .catch((e) => {
-        console.log(e);
         setErrorMessage(e.message);
       });
-
-    console.log('ALL SKILLS');
-    console.log(skills);
   };
 
-  const [selectingSkill, setSelectingSkill] = React.useState({});
-
-  useEffect(() => {
-    console.log('SELECTING SKILL: ' + selectingSkill);
-  }, [selectingSkill]);
-
   const handleSelectingSkillChange = (e) => {
-    console.log('========== CHANGE SELECTED SKILLS ==========');
-    console.log('TARGET: ' + e.target.value);
     setSelectingSkill(e.target.value);
   };
 
   const handleAddTag = () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+
+    if (selectingSkill === '') {
+      setErrorMessage('Please select a skill');
+      return;
+    }
+
     const data = {
       userId: user_id,
       subcategoryId: selectingSkill,
@@ -89,11 +79,10 @@ const UpdateTags = ({ user_id }) => {
     userSubcategoryService
       .create(data)
       .then((response) => {
-        console.log(response.data);
-        window.location.reload();
+        setRefresh(refresh ^ 1);
+        setSuccessMessage('Tag added successfully');
       })
       .catch((e) => {
-        console.log(e);
         setErrorMessage(e.message);
       });
   };
@@ -103,12 +92,18 @@ const UpdateTags = ({ user_id }) => {
       <div className="title">Job Tags</div>
 
       <div className="add-a-tag">
-        <select className="input-tag" onChange={handleSelectingSkillChange}>
-          <option value="" disabled="true">
+        <select
+          className="input-tag"
+          value={selectingSkill}
+          onChange={handleSelectingSkillChange}
+        >
+          <option value="" disabled>
             Select a skill
           </option>
           {skills.map((skill) => (
-            <option value={skill.id}>{skill.subcategory_name}</option>
+            <option key={skill.subcategory_name} value={skill.id}>
+              {skill.subcategory_name}
+            </option>
           ))}
         </select>
 
@@ -118,9 +113,17 @@ const UpdateTags = ({ user_id }) => {
       <div className="current-tags">
         <TagContainer
           userId={user_id}
-          list_tag= {userSkills}
+          list_tag={userSkills}
+          refreshFunction={() => {
+            setRefresh(refresh ^ 1);
+          }}
+          errorMessage={setErrorMessage}
+          successMessage={setSuccessMessage}
         />
       </div>
+
+      <div className="error-message">{errorMessage}</div>
+      <div className="success-message">{successMessage}</div>
     </div>
   );
 };

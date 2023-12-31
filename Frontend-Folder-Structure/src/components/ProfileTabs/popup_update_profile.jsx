@@ -5,19 +5,21 @@ import { RedCloseButton } from '@/components';
 import { UpdateAvartar, UpdateTags, UpdatePassword, UpdateNameContacts} from '@/components';
 
 const PopupUpdateProfile = ({ m_state, m_function, user_profile }) => {
-  // id: '',
-  // account_name: '',
-  // profile_name: '',
-  // phone_number: '',
-  // nationality: '',
-  // user_type: 0,
-  // email: '',
-  // avt_url: '',
-  // social_link: '',
+  // m_state - m_function: state and function to control popup (close/open)
+  // user_profile: user profile data, with:
+    // id: '',
+    // account_name: '',
+    // profile_name: '',
+    // phone_number: '',
+    // nationality: '',
+    // user_type: 0,
+    // email: '',
+    // avt_url: '',
+    // social_link: '',
 
-  const user_id = user_profile.id;
-  const [errorMessage, setErrorMessage] = useState('');
-
+  const user_id = user_profile.id || null;
+  console.log("DEBUG UPDATE TAG");
+  console.log(user_profile);
   const handleCloseIconClick = () => {
     m_function(false);
   };
@@ -40,10 +42,14 @@ const PopupUpdateProfile = ({ m_state, m_function, user_profile }) => {
           {/* Column 3.1: Tags & Password*/}
           <div className='col split-to-two-row'>
             {/* Row 3.1.1: Tags*/}
-            <div>
-              <UpdateTags user_id={user_id}/>
-            </div>
+            {/* if user_id != null to render UpdateTags */}
 
+            {user_id && 
+              (<div>
+                <UpdateTags user_id={user_id}/>
+              </div>)
+            }
+    
             {/* Row 3.1.2: Password */}
             <div>
               <UpdatePassword user_id={user_id}/>
