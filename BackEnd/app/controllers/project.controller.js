@@ -5,22 +5,24 @@ const User = db.Sequelize.user;
 const Transaction = db.transactions;
 const ProjectNoti = db.projects_notis;
 
-const {createTransaction} = require('../controllers/transaction.controller.js')
+const {
+  createTransaction,
+} = require("../controllers/transaction.controller.js");
 
-ADMIN_USER_ID  = 1
+ADMIN_USER_ID = 1;
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name ) {
+  if (!req.body.name) {
     res.status(400).send({
-      message: "Missing information!"
+      message: "Missing information!",
     });
     return;
   }
 
-//   const currentDate = new Date();
-//   const currentDateString = currentDate.toISOString().split('T')[0];
+  //   const currentDate = new Date();
+  //   const currentDateString = currentDate.toISOString().split('T')[0];
 
   // Create a Tutorial
   const project = {
@@ -38,48 +40,48 @@ exports.create = (req, res) => {
 
   // Save Tutorial in the database
   Project.create(project)
-    .then(project_data => {
+    .then((project_data) => {
       const notification = {
         title: "Project was created",
-        content: "This is the first begining of your project. Happy freelancing!",
-        creator_id:  req.body.owner,
-        project_id: project_data.id
-      }
+        content:
+          "This is the first begining of your project. Happy freelancing!",
+        creator_id: req.body.owner,
+        project_id: project_data.id,
+      };
 
       ProjectNoti.create(notification)
-        .then(noti_data=> {
+        .then((noti_data) => {
           res.send(project_data);
         })
-        .catch(err => {
+        .catch((err) => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while creating project notification."
+              err.message ||
+              "Some error occurred while creating project notification.",
           });
         });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Project."
+          err.message || "Some error occurred while creating the Project.",
       });
     });
 };
 
-
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  
-  const title = req.query.title;
-  var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+  const user_id = req.params.user_id;
+  var condition = user_id ? { user_id: user_id } : null;
 
   Project.findAll({ where: condition })
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving projects.",
       });
     });
 };
@@ -87,33 +89,35 @@ exports.findAll = (req, res) => {
 // Find a single Tutorial with an id
 exports.findMemberOne = (req, res) => {
   const id = req.params.id;
-  console.log("test")
+  console.log("test");
 
-  Project.findByPk(id,  {include: [
-    {
-      model: db.user,
-      as: 'member',
-      attributes: ['account_name']
-    },
-    {
-      model: db.user,
-      as: 'owner',
-      attributes: ['account_name']
-    }, 
-    ]})
-    .then(data => {
+  Project.findByPk(id, {
+    include: [
+      {
+        model: db.user,
+        as: "member",
+        attributes: ["account_name"],
+      },
+      {
+        model: db.user,
+        as: "owner",
+        attributes: ["account_name"],
+      },
+    ],
+  })
+    .then((data) => {
       if (data) {
-          console.log(req.userId)
-          res.send(data);
+        console.log(req.userId);
+        res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Project with id=${id}.`
+          message: `Cannot find Project with id=${id}.`,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Priject with id=" + id
+        message: "Error retrieving Priject with id=" + id,
       });
     });
 };
@@ -121,33 +125,35 @@ exports.findMemberOne = (req, res) => {
 // Find a single Tutorial with an id
 exports.findOwnerOne = (req, res) => {
   const id = req.params.id;
-  console.log("test")
+  console.log("test");
 
-  Project.findByPk(id,  {include: [
-    {
-      model: db.user,
-      as: 'member',
-      attributes: ['account_name', "email"]
-    },
-    {
-      model: db.user,
-      as: 'owner',
-      attributes: ['account_name', "email", "phone_number"]
-    }, 
-    ]})
-    .then(data => {
+  Project.findByPk(id, {
+    include: [
+      {
+        model: db.user,
+        as: "member",
+        attributes: ["account_name", "email"],
+      },
+      {
+        model: db.user,
+        as: "owner",
+        attributes: ["account_name", "email", "phone_number"],
+      },
+    ],
+  })
+    .then((data) => {
       if (data) {
-          console.log(req.userId)
-          res.send(data);
+        console.log(req.userId);
+        res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Project with id=${id}.`
+          message: `Cannot find Project with id=${id}.`,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Priject with id=" + id
+        message: "Error retrieving Priject with id=" + id,
       });
     });
 };
@@ -163,71 +169,67 @@ exports.update = (req, res) => {
     start_date: req.body.start_date,
     end_date: req.body.end_date,
     budget: req.body.budget,
-    status: req.body.status
-    };
+    status: req.body.status,
+  };
 
-  Project.findByPk(id)
-    .then(project_data => {
-        Project.update(update, {
-          where: { id: id }
-        })
-          .then(num => {
-            if (num == 1) {
-              
-              const transaction = {
-                amount: req.body.tran_amount,
-                sender_id: req.body.userId,
-                receiver_id: ADMIN_USER_ID,
+  Project.findByPk(id).then((project_data) => {
+    Project.update(update, {
+      where: { id: id },
+    })
+      .then((num) => {
+        if (num == 1) {
+          const transaction = {
+            amount: req.body.tran_amount,
+            sender_id: req.body.userId,
+            receiver_id: ADMIN_USER_ID,
+            project_id: project_data.id,
+            transactionId: req.body.orderID,
+            type: req.body.tran_type,
+          };
+
+          Transaction.create(transaction)
+            .then((trans_data) => {
+              const notification = {
+                title: req.body.noti_title,
+                content: req.body.noti_content,
+                creator_id: req.body.userId,
                 project_id: project_data.id,
-                transactionId: req.body.orderID,
-                type: req.body.tran_type
-              }
+              };
 
-              Transaction.create(transaction)
-                .then(trans_data=> {
-
-                  const notification = {
-                    title: req.body.noti_title,
-                    content: req.body.noti_content,
-                    creator_id: req.body.userId,
-                    project_id: project_data.id
-                  }
-            
-                  ProjectNoti.create(notification)
-                    .then(noti_data=> {
-                      // res.send(project_data);
-                      res.send({
-                        message: "Project was updated successfully."
-                      });
-                    })
-                    .catch(err => {
-                      res.status(500).send({
-                        message:
-                          err.message || "Some error occurred while creating project notification."
-                      });
-                    });
-                  
+              ProjectNoti.create(notification)
+                .then((noti_data) => {
+                  // res.send(project_data);
+                  res.send({
+                    message: "Project was updated successfully.",
+                  });
                 })
-                .catch(err => {
+                .catch((err) => {
                   res.status(500).send({
                     message:
-                      err.message || "Some error occurred while creating the Transaction."
+                      err.message ||
+                      "Some error occurred while creating project notification.",
                   });
                 });
-
-            } else {
-              res.send({
-                message: `Cannot update project with id=${id}. Maybe project was not found or req.body is empty!`
+            })
+            .catch((err) => {
+              res.status(500).send({
+                message:
+                  err.message ||
+                  "Some error occurred while creating the Transaction.",
               });
-            }
-          })
-          .catch(err => {
-            res.status(500).send({
-              message: "Error updating project with id=" + id
             });
+        } else {
+          res.send({
+            message: `Cannot update project with id=${id}. Maybe project was not found or req.body is empty!`,
           });
-  })
-  
+        }
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "Error updating project with id=" + id,
+        });
+      });
+  });
 };
 
 // Delete a Tutorial with the specified id in the request
@@ -235,22 +237,22 @@ exports.delete = (req, res) => {
   const id = req.params.id;
 
   Project.destroy({
-    where: { id: id }
+    where: { id: id },
   })
-    .then(num => {
+    .then((num) => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was deleted successfully!"
+          message: "Tutorial was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`
+          message: `Cannot delete Tutorial with id=${id}. Maybe Tutorial was not found!`,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: "Could not delete Tutorial with id=" + id
+        message: "Could not delete Tutorial with id=" + id,
       });
     });
 };
@@ -259,15 +261,15 @@ exports.delete = (req, res) => {
 exports.deleteAll = (req, res) => {
   Project.destroy({
     where: {},
-    truncate: false
+    truncate: false,
   })
-    .then(nums => {
+    .then((nums) => {
       res.send({ message: `${nums} Tutorials were deleted successfully!` });
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all tutorials."
+          err.message || "Some error occurred while removing all tutorials.",
       });
     });
 };
@@ -275,38 +277,37 @@ exports.deleteAll = (req, res) => {
 // find all published Tutorial
 exports.findAllPublished = (req, res) => {
   Project.findAll({ where: { published: true } })
-    .then(data => {
+    .then((data) => {
       res.send(data);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving tutorials.",
       });
     });
 };
 
 exports.createNull = (req, res) => {
-
   // Create a Project
   const project = {
-    project_name: '',
-    project_description: '',
-    start_date: '01/01/2001',
-    end_date: '02/02/2002',
+    project_name: "",
+    project_description: "",
+    start_date: "01/01/2001",
+    end_date: "02/02/2002",
     budget: 0,
     status: 0,
   };
 
   // Save Project in the database
   Project.create(project)
-    .then(data => {
-      return res.json(data.id)
+    .then((data) => {
+      return res.json(data.id);
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Tutorial."
+          err.message || "Some error occurred while creating the Tutorial.",
       });
     });
 };

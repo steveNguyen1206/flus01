@@ -341,7 +341,7 @@ exports.delete = (req, res) => {
 // };
 
 exports.findAllPosts = (req, res) => {
-    const freelancer_id = req.query.freelancer_id;
+    const freelancer_id = req.params.freelancer_id;
     var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
 
     Freelancer_post.findAll({

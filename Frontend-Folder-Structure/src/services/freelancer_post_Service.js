@@ -1,8 +1,8 @@
 import { media_upload, http } from "./http-common";
 
-const allposts = () => {
+const allposts = (freelancer_id) => {
   console.log("allposts");
-  return http.get("/freelancer_post/allposts");
+  return http.get(`/freelancer_post/allposts/${freelancer_id}`);
 }
 
 const findOnebyId = id => {

@@ -1,32 +1,36 @@
 const { authJwt, upload } = require("../middleware");
 module.exports = (app) => {
-    const projectPostController = require("../controllers/project_post.controller.js");
+  const projectPostController = require("../controllers/project_post.controller.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    // Create a new Project_post
-    router.post("/",upload.single("image_file"), projectPostController.create);
+  // Create a new Project_post
+  router.post("/", upload.single("image_file"), projectPostController.create);
 
-    // Retrieve all Project_posts (belongs to a user) from the database
-    router.get("/findAll/:userId", projectPostController.findAllProjectPosts);
-    
-    // change status of many project_posts by list of project_post_id
-    router.put("/changeStatus", projectPostController.changeStatus);
+  // Retrieve all Project_posts (belongs to a user) from the database
+  router.get("/findAll/:user_id", projectPostController.findAllProjectPosts);
+  router.get("/findAll/", projectPostController.findAllProjectPosts);
 
-    // Find and change status of project_posts by some criteria
-    router.put("/findAndChangeStatus/:userId&:status", projectPostController.findAndChangeStatus);
+  // change status of many project_posts by list of project_post_id
+  router.put("/changeStatus", projectPostController.changeStatus);
 
-    // Retrieve all Project_posts from the database
-    router.get("/findAll", projectPostController.findAllProjectPosts);
+  // Find and change status of project_posts by some criteria
+  router.put(
+    "/findAndChangeStatus/:userId&:status",
+    projectPostController.findAndChangeStatus
+  );
 
-    // get owner project `/project_post/owner/${id}`
-    router.get("/owner/:id", projectPostController.findOwnerProject);
+  // Retrieve all Project_posts from the database
+  router.get("/findAll", projectPostController.findAllProjectPosts);
 
-    // `/project_post/${id}`
-    router.get("/:id", projectPostController.findOne);
+  // get owner project `/project_post/owner/${id}`
+  router.get("/owner/:id", projectPostController.findOwnerProject);
 
-    // /project_post/update
-    router.put("/:id",upload.single("image_file"), projectPostController.update);
+  // `/project_post/${id}`
+  router.get("/:id", projectPostController.findOne);
 
-    app.use("/api/project_post", router);
-}
+  // /project_post/update
+  router.put("/:id", upload.single("image_file"), projectPostController.update);
+
+  app.use("/api/project_post", router);
+};
