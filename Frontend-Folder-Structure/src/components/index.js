@@ -38,3 +38,9 @@ export {default as UpdateButton} from './ProfileTabs/UpdateButton'
 export {default as TagContainer} from './ProfileTabs/TagContainer'
 export{default as UpdateAvatarForm} from "./ProfileTabs/updateAvatarForm"
 export {default as HorizonFreelancerPostCell} from './HorizontalPostCell/HorizonFreelancerPostCell'
+
+export {default as ProjectPostsTab} from './ProfileTabs/ProjectPostsTab'
+export {default as FreelancerPostsTab} from './ProfileTabs/FreelancerPostsTab'
+export {default as WishlistTab} from './ProfileTabs/WishlistTab'
+export {default as CalendarTab} from './ProfileTabs/CalendarTab'
+export {default as PaymentAccountTab} from './ProfileTabs/PaymentAccountTab'

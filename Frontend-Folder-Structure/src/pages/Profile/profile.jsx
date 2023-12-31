@@ -11,10 +11,10 @@ import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
-import { WishlistTab } from '@/components/ProfileTabs/profile_tab';
+import { ProjectPostsTab, FreelancerPostsTab, WishlistTab, CalendarTab, PaymentAccountTab } from '@/components';
 
 const profile = ({access_token}) => {
-  console.log(access_token)
+  console.log("ACCESS TOKEN: ", access_token)
 
   const { id } = useParams();
   let navigate = useNavigate();
@@ -56,6 +56,10 @@ const profile = ({access_token}) => {
   useEffect(() => {
     if (id) getUserProfile(id);
   }, [id]);
+
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  }
 
   return (
     <div>
@@ -151,11 +155,11 @@ const profile = ({access_token}) => {
                   <div className="tab-container">
                     <div className={`${activeTab === 0 ? 'active group-6' : 'group-6'}`}
                     onClick={() => handleTabClick(0)}>
-                      <div className="text-wrapper-11">My Jobs</div>
+                      <div className="text-wrapper-11">My Project Post</div>
                     </div>
                     <div className={`${activeTab === 1 ? 'group-6 active' : 'group-6'}`}
                     onClick={() => handleTabClick(1)}>
-                      <div className="text-wrapper-11">My Offers</div>
+                      <div className="text-wrapper-11">My Freelancer Post</div>
                     </div>
                     <div className={`${activeTab === 2 ? ' group-6 active' : 'group-6'}`}
                     onClick={() => handleTabClick(2)}>
@@ -171,8 +175,11 @@ const profile = ({access_token}) => {
                     </div>
                   </div>
                   <div className="main-tab-container">
-                    <WishlistTab userID={id}/>
-                    {/* <BankTab /> */}
+                    {activeTab === 0 && <ProjectPostsTab userId={userProfile.id}/>}
+                    {activeTab === 1 && <FreelancerPostsTab userId={userProfile.id}/>}
+                    {activeTab === 2 && <WishlistTab userId={userProfile.id}/>}
+                    {activeTab === 3 && <CalendarTab userId={userProfile.id}/>}
+                    {activeTab === 4 && <PaymentAccountTab userId={userProfile.id}/>}
                   </div>
                 </div>
               </div>

@@ -346,6 +346,8 @@
     margin-top: 20px;
     display: flex;
     align-items: center;
+    
+    cursor: pointer;
   }
 
   .profile .group-6.active {
@@ -356,6 +358,7 @@
       color: white;
       font-weight: 800;
     }
+    cursor: pointer;
   }
 
   .profile .text-wrapper-11 {
