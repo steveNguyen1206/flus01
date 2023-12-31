@@ -1,7 +1,5 @@
 const db = require("../models");
 const cloudinary = require("../config/cloudinary.config");
-const upload = require("../middleware/multer");
-const multer = require("multer");
 const Freelancer_post = db.freelancer_post;
 const User = db.user;
 const Subcategory = db.subcategories;

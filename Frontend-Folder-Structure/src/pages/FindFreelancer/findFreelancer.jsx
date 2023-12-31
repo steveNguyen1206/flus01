@@ -40,13 +40,13 @@ const FindFreelancer = () => {
   const hadleClickPost = (postId) => {
     navigate(`/freelancer_post/${postId}`)
   }
-  useEffect(() => {
-    // Fetch data from the API endpoint
-    fetch('http://localhost:8080/api/freelancer_post/allposts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
-      .catch(error => console.error('Error fetching data:', error));
-  }, []);
+  // useEffect(() => {
+  //   // Fetch data from the API endpoint
+  //   fetch('http://localhost:8080/api/freelancer_post/allposts')
+  //     .then(response => response.json())
+  //     .then(data => setPosts(data))
+  //     .catch(error => console.error('Error fetching data:', error));
+  // }, []);
 
 
   return (

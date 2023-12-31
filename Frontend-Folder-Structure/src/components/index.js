@@ -20,7 +20,7 @@ export {default as RedCloseButton} from "./Button/redCloseButton";
 export {default as DeleteButton} from "./Button/deleteButton";
 
 export {default as Bid} from './Bid/bid'
-export {default as bidDetailTag} from './Bid/bidDetail'
+export {default as bidDetailTag} from './Bid/bidDetailTag'
 export {default as AddCategory} from './Admin/admin_category_add'
 export {default as AddSubcategory} from './Admin/admin_subcategory_add'
 export {default as EditCategory} from './Admin/admin_category_edit'
@@ -37,4 +37,4 @@ export {default as EditTag} from './ProfileTabs/EditTag'
 export {default as UpdateButton} from './ProfileTabs/UpdateButton'
 export {default as TagContainer} from './ProfileTabs/TagContainer'
 export{default as UpdateAvatarForm} from "./ProfileTabs/updateAvatarForm"
-
+export {default as HorizonFreelancerPostCell} from './HorizontalPostCell/HorizonFreelancerPostCell'

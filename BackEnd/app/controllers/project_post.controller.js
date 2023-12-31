@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
             budget_max: req.body.budget_max,
             imgage_post_urls: img_url,
             user_id: req.body.user_id,
-            tag_id: 1,
+            tag_id: req.body.tag_id,
         };
 
         project_post.create(projectPost)

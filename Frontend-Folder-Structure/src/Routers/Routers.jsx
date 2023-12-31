@@ -1,10 +1,11 @@
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job} from '@/pages';
+import { Home, LogIn, Profile, Shop, SignUp, Project, FindFreelancer, Job, UpdateAvatarForm, AboutUs} from '@/pages';
 import { Footer, Header, Navbar } from '@/layout';
 import { PayPalDemo } from '@/pages/Payment';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Login2 } from '@/pages';
 import { PostDetail } from '@/pages/FreelancerPost';
+// import { AboutUs } from '@/pages/About';
 // import CreateFreelancerPost from '@/pages/FindFreelancer/createFreelancerPost';
 // import UpdateFreelancerPost from '@/pages/FindFreelancer/updateFreelancerPost';
 // import FindFreelancer from '@/pages/FindFreelancer/findFreelancer';
@@ -23,11 +24,12 @@ const Routers = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/myprofile/:id"  element={<Profile access_token={localStorage.getItem('AUTH_TOKEN')} />} />
-
-          <Route path="/project" element={<Project />} />
-          <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
-          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} />
+          {/* <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} /> */}
+          <Route path="/paypal-demo" element={<PayPalDemo />} />
+          <Route path="/project/:id" element={<Project />} />
+          <Route path="/findfreelancer" element={<FindFreelancer/>} />
+          <Route path="/job" element={<Job/>} />
+          <Route path="/project-manage" element={<ProjectManagement/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
@@ -37,11 +39,16 @@ const Routers = () => {
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/findFreelancer" element={<FindFreelancer />} />
           <Route path="/findFreelancer/:id" element={<PostDetail />} />
+          <Route path="/myprofile/:id"  element={<Profile access_token={localStorage.getItem('AUTH_TOKEN')} />} />
+
+          <Route path="/project" element={<Project />} />
+          <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
+          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} />
 
           {/* <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} /> */}
           {/* <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} /> */}
           <Route path="/job" element={<Job />} />
-          {/* Add more routes as needed */}
+          <Route path='/aboutUs'  element={<AboutUs />} />
         </Routes>
         <Footer />
       </Router>

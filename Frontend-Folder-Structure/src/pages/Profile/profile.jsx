@@ -6,17 +6,20 @@ import facebookicon from '../../assets/SocialIcon/facebook.png';
 import instaicon from '../../assets/SocialIcon/insta.png';
 import linkedinicon from '../../assets/SocialIcon/linkedin.png';
 import editIcon from '../../assets/editProfileIcon.png';
-import { EmptyTab, StarRating, Tag, PopupUpdateProfile } from '@/components';
+import { BankTab, EmptyTab, StarRating, Tag, PopupUpdateProfile } from '@/components';
 import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
+import { WishlistTab } from '@/components/ProfileTabs/profile_tab';
 
 const profile = ({access_token}) => {
   console.log(access_token)
 
   const { id } = useParams();
   let navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+
 
   const initialProfileState = {
     id: '',
@@ -68,13 +71,19 @@ const profile = ({access_token}) => {
               <div className="cover-avatar-section">
                 <img className="rectangle" alt="Rectangle" src={profileCover} />
                 <div className="avatar-container">
-                  <img className="ellipse" alt="Ellipse" src={userProfile.avt_url} />
+                  <img
+                    className="ellipse"
+                    alt="Ellipse"
+                    src={userProfile.avt_url}
+                  />
                 </div>
               </div>
               <div className="information-section">
                 <div className="frame">
                   <p className="name-section">
-                    <span className="text-wrapper">{userProfile.profile_name} </span>
+                    <span className="text-wrapper">
+                      {userProfile.profile_name}{' '}
+                    </span>
                     <span className="span">({userProfile.account_name})</span>
                     <div
                       className="edit-container"
@@ -97,7 +106,12 @@ const profile = ({access_token}) => {
                 <div className="row social-row">
                   <div className="col ">
                     <img className="img" alt="Ellipse" src={facebookicon} />
-                    <Link className="text-wrapper-3" to={userProfile.social_link}>TrucVy</Link>
+                    <Link
+                      className="text-wrapper-3"
+                      to={userProfile.social_link}
+                    >
+                      TrucVy
+                    </Link>
                   </div>
                   <div className="col">
                     <img className="img" alt="Ellipse" src={instaicon} />
@@ -110,10 +124,7 @@ const profile = ({access_token}) => {
                 </div>
               </div>
               <div className="rating-bar">
-
-
                 <StarRating rating={4.6} width={160} />
-
 
                 <div className="text-wrapper-6">{4.6}</div>
               </div>
@@ -138,24 +149,30 @@ const profile = ({access_token}) => {
                 <div className="overlap-10">
                   <div className="rectangle-2" />
                   <div className="tab-container">
-                    <div className="group-6 active">
+                    <div className={`${activeTab === 0 ? 'active group-6' : 'group-6'}`}
+                    onClick={() => handleTabClick(0)}>
                       <div className="text-wrapper-11">My Jobs</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 1 ? 'group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(1)}>
                       <div className="text-wrapper-11">My Offers</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 2 ? ' group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(2)}>
                       <div className="text-wrapper-11">My Wishlist</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(3)}>
                       <div className="text-wrapper-11">My Calendar</div>
                     </div>
-                    <div className="group-6">
+                    <div className={`${activeTab === 4 ? 'active group-6' : 'group-6'}`}
+                    onClick={() => handleTabClick(4)}>
                       <div className="text-wrapper-11">My Payment Account</div>
                     </div>
                   </div>
                   <div className="main-tab-container">
-                    <EmptyTab />
+                    <WishlistTab userID={id}/>
+                    {/* <BankTab /> */}
                   </div>
                 </div>
               </div>
@@ -164,9 +181,7 @@ const profile = ({access_token}) => {
         </div>
       ) : (
         <div>
-
           <SignUp />
-
         </div>
       )}
     </div>
