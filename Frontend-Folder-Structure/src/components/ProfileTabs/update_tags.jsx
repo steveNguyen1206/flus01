@@ -14,7 +14,7 @@ const UpdateTags = ({ user_id }) => {
   const [skills, setSkills] = useState([]);
   const [selectingSkill, setSelectingSkill] = useState('');
 
-  // get skills and user skills when refresh
+  // get skills and user skills when refresh change
   useEffect(() => {
     setSelectingSkill('');
     getUserSkills();
