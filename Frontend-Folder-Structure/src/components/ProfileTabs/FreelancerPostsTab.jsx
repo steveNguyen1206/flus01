@@ -20,7 +20,7 @@ const FreelancerPostsTab = ({ userId }) => {
   };
 
   return (
-    <div>
+    <div className='freelancer-posts-container'>
       {posts.map((post) => (
         <FreelancerPost
           key={post.id}

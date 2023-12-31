@@ -41,7 +41,7 @@ const ProjectPostsTab = ({ userId }) => {
   }, []);
 
   return (
-    <div>
+    <div className='project-posts-container'>
       {projects.map((project) => (
         <Post
           key={project.id}
