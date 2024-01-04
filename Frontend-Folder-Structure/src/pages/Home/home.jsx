@@ -8,6 +8,7 @@ import skill from '../../assets/skill.png'
 import { FreelancerPost, Post } from '@/components/JobPost'
 import freelancer_post_Service from '@/services/freelancer_post_Service'
 import Slider from 'react-slick'
+import categoryService from '@/services/categoryService'
 
 const index = () => {
 
@@ -55,6 +56,22 @@ const index = () => {
       },
     ],
   };
+  
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const categoriesData = await categoryService.findAll();
+      console.log('CATEGORIES', categoriesData.data);
+      setCategories(categoriesData.data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
 
   return (
     <div className='homepage'>
@@ -82,54 +99,21 @@ const index = () => {
           </div>
           <div className='container' id='category-container_201123' style={{height:"100%", width:"100%", padding:"2% 5% 2% 5%"}}>
             <div className='row row-cols-5' style={{height:"100%", width:"100%", margin:"0"}}>
-              <div className='col'>
+            {categories.map((category, index) => (
+                  <div className='col' key={index}>
+                    <div className="group-3">
+                      <img className="image" alt="Image" src={category.img} />
+                      <div className="text-wrapper-5">{category.name}</div>
+                      
+                    </div>
+                  </div>
+                ))}
+                 {/* <div className='col'>
                 <div className="group-3">
                   <div className="text-wrapper-5">Web Design</div>
                   <img className="image" alt="Image" src={skill} />
                 </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
-              <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

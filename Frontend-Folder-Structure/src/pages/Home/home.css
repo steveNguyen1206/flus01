@@ -190,7 +190,7 @@
     width: 138px;
     display: flex;
     justify-content: center;
-
+    flex-direction: column;
   }
   
   .homepage .text-wrapper-5 {
@@ -200,16 +200,16 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: normal;
-    position: absolute;
-    top: 136px;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+
   }
   
   .homepage .image {
     height: 129px;
-    left: 4px;
     object-fit: cover;
-    position: absolute;
-    top: 0;
+
     width: 129px;
   }
   .col{
