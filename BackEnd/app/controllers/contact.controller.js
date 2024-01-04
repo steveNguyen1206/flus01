@@ -293,6 +293,9 @@ exports.countBids = (req, res) => {
       freelancer_post_id: {
         [Op.eq]: post_id
       },
+      status: {
+        [Op.eq]: 0
+      }
     },
     include: [
       {
