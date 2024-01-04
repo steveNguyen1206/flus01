@@ -9,6 +9,11 @@ const BidOffer = ({ bidOne }) => {
 
   const handleAccept = () => {
     console.log('accept');
+    console.log('bidOne.id: ', bidOne.id);
+    contactService.changeContactStatus(bidOne.id, 1).then((response) => {
+      console.log('response: ', response);
+      // onChangeBid();
+    });
   };
 
   const handleReject = () => {
