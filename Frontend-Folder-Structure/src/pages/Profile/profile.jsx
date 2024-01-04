@@ -165,10 +165,10 @@ const profile = ({access_token}) => {
                     onClick={() => handleTabClick(2)}>
                       <div className="text-wrapper-11">My Wishlist</div>
                     </div>
-                    <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
+                    {/* <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
                     onClick={() => handleTabClick(3)}>
                       <div className="text-wrapper-11">My Calendar</div>
-                    </div>
+                    </div> */}
                     <div className={`${activeTab === 4 ? 'active group-6' : 'group-6'}`}
                     onClick={() => handleTabClick(4)}>
                       <div className="text-wrapper-11">My Payment Account</div>
