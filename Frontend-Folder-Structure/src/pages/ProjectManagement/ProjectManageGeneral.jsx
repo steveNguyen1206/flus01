@@ -13,20 +13,48 @@ import { createContext, useContext, useState } from 'react';
 import { useProjectManageContext } from './ProjectManageProvider';
 import { useEffect } from 'react';
 import projectService from '@/services/projectServices';
-
-
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const ProjectManageGeneral = () => {
-  const { project, setProject, isOwn, projectTab, setProjectTab } =
+  const { project, setProject, isOwn, projectTab, setProjectTab, notis, setNotis } =
     useProjectManageContext();
   const [error, setError] = useState(null);
   const [allProject, setAllProject] = useState([]);
+  let navigate = useNavigate();
 
-  const getMemberProject = (projectId) => {
-    projectService
+  const getNotis = (projectId) => {
+    console.log("noti: ", projectId);
+    projectService.getALlNotifications(projectId, localStorage.getItem("AUTH_TOKEN"))
+    .then( (notis_data) => {
+      setNotis(notis_data.data)
+    })
+    .catch( (error)=> {
+        console.log(error);
+        setError(error.response.data.message);
+    })
+  }
+
+  const getProject = (projectId) => {
+    if(isOwn) {
+      projectService
+        .findOwnerOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setProject(response.data);
+          getNotis(projectId);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
+    }
+    else {
+      projectService
       .findMemberOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
       .then((response) => {
         setProject(response.data);
+        getNotis(projectId);
         console.log(response.data);
         // console.log("test", isOwn);
       })
@@ -35,58 +63,51 @@ export const ProjectManageGeneral = () => {
         // console.log(e.response.data.message);
         console.log(e);
       });
-  };
-
-  const getOwnerProject = (projectId) => {
-    projectService
-      .findOwnerOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
-      .then((response) => {
-        setProject(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(e.response.data.message);
-      });
-  };
-
+    }
+  }
   const getAllProject = () => {
-    if(isOwn)
-    {
+    if (isOwn) {
       projectService
-      .getAllOwnProjects(localStorage.getItem('AUTH_TOKEN'))
-      .then((response) => {
-        setAllProject(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(e.response.data.message);
-      });
-    }
-    else
-    {
+        .getAllOwnProjects(localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setAllProject(response.data);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
+    } else {
       projectService
-      .getAllMemberProjects(localStorage.getItem('AUTH_TOKEN'))
-      .then((response) => {
-        setAllProject(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(e.response.data.message);
-      });
+        .getAllMemberProjects(localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setAllProject(response.data);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
     }
+  };
+
+  const navigateToProject = (projectId) => {
+    // Use the navigate function
+    console.log(projectId);
+    const url = ((isOwn) ? "/my-project-manage/" : "/project-manage/") + projectId;
+    console.log(url);
+    getProject(projectId);
+    navigate(url);
   };
 
   useEffect(() => {
     if (project.id) {
-      if (isOwn) getOwnerProject(project.id);
-      else getMemberProject(project.id);
+      getProject(project.id)
     }
     getAllProject();
     console.log(error);
   }, []);
+
 
   return (
     <div className="qun-l-d-n">
@@ -120,15 +141,22 @@ export const ProjectManageGeneral = () => {
         </div>
 
         <div className="all-project-container">
-          
-            {allProject.map((project) => (
-              <div className="all-project-item {--background-gradient}" style={{marginTop: '16px'}}>
-                <div className="project-img" />
-                <h4 className="title-text --size-16">{project.project_name}</h4>
-              </div>
-            ))}
+          {allProject.map((map_project) => (
+            <div
+              className={
+                'all-project-item' +
+                (project.id == map_project.id ? ' --background-gradient' : '')
+              }
+              style={{ marginTop: '16px' }}
+              onClick={()=> navigateToProject(map_project.id)}
+            >
+              <div className="project-img" />
+              <h4 className="title-text --size-16">
+                {map_project.project_name}
+              </h4>
+            </div>
+          ))}
         </div>
-
       </div>
 
       <div className="frame">
@@ -222,7 +250,7 @@ export const ProjectManageGeneral = () => {
             project.status == 2 ||
             project.status == 3 ||
             project.status == 4) &&
-          projectTab == 'complaint'&& <ProjectComplaint />}
+          projectTab == 'complaint' && <ProjectComplaint />}
 
         {error == null && projectTab == 'notification' && (
           <ProjectNotification />

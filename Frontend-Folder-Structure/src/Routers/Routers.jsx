@@ -24,10 +24,17 @@ const Routers = () => {
           <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/myprofile/:id"  element={<Profile access_token={localStorage.getItem('AUTH_TOKEN')} />} />
+
+          <Route path="/project" element={<Project />} />
+          <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
+          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} />
+          <Route path="/my-project-manage" element={<ProjectManagement own={true}/>} />
+          <Route path="/project-manage" element={<ProjectManagement own={false}/>} />
+
           {/* <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} /> */}
           <Route path="/paypal-demo" element={<PayPalDemo />} />
           <Route path="/project/:id" element={<Project />} />
-          <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
           <Route path="/project-manage" element={<ProjectManagement/>} />
           <Route path="/skill" element={<Skill />} />
@@ -36,18 +43,18 @@ const Routers = () => {
           <Route path="/admin" element={<Admin/>} />
             {/* Add more routes as needed */}
           <Route path="/profile/updateAvatar/:id" element={<UpdateAvatarForm />} />
-          <Route path="/paypal-demo" element={<PayPalDemo />} />
+          {/* <Route path="/paypal-demo" element={<PayPalDemo />} /> */}
           <Route path="/findFreelancer" element={<FindFreelancer />} />
           <Route path="/findFreelancer/:id" element={<PostDetail />} />
           <Route path="/myprofile/:id"  element={<Profile access_token={localStorage.getItem('AUTH_TOKEN')} />} />
-
+{/* 
           <Route path="/project" element={<Project />} />
           <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
-          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} />
+          <Route path="/my-project-manage/:id" element={<ProjectManagement own={true}/>} /> */}
 
           {/* <Route path="/createFreelancerPost" element={<CreateFreelancerPost />} /> */}
           {/* <Route path="/updateFreelancerPost/:id" element={<UpdateFreelancerPost />} /> */}
-          <Route path="/job" element={<Job />} />
+          {/* <Route path="/job" element={<Job />} /> */}
           <Route path='/aboutUs'  element={<AboutUs />} />
         </Routes>
         <Footer />
