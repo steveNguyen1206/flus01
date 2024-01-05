@@ -26,18 +26,35 @@ const PostDetail = () => {
   const { id } = useParams();
   console.log('id: ', id);
   const [project, setProject] = useState([]);
-
-  // const userId = localStorage.getItem('LOGINID')
-  const userId = 1;
+  const [userId, setUserId] = useState(0);
   const [user, setUser] = useState([]);
 
-  // get user by id
+  const fetchUserId = async () => {
+    try {
+      const userIdData = await freelancer_post_Service.findOnebyId(id);
+      setUserId(userIdData.data.freelancer_id);
+      console.log('userIdData.data.freelancer_id: ', userIdData.data.freelancer_id);
 
-  useEffect(() => {
-    userDataService.findOnebyId(userId).then((response) => {
+      // Gọi hàm để lấy thông tin user sau khi setUserId hoàn thành
+      fetchUserById(userIdData.data.freelancer_id);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
+
+  const fetchUserById = async (userId) => {
+    try {
+      const response = await userDataService.findOnebyId(userId);
+      console.log('userId: ', userId);
       console.log('response: ', response);
       setUser(response.data);
-    });
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserId();
   }, []);
 
   useEffect(() => {
@@ -126,11 +143,11 @@ const PostDetail = () => {
           isOpen={isEditPopupOpen}
           onClose={() => setIsEditPopupOpen(false)}
           projectId={id}
-          onUpdate={() => {setIsChange(!isChange)}}
+          onUpdate={() => { setIsChange(!isChange) }}
         />
       )}
-      {showHirePopup && <HireFreelancer setShowHirePopup={setShowHirePopup} /> }
-      {showOfferPopup && <OfferDetailPopup setPopUpAppear={setShowOfferPopup} /> }
+      {showHirePopup && <HireFreelancer setShowHirePopup={setShowHirePopup} />}
+      {showOfferPopup && <OfferDetailPopup setPopUpAppear={setShowOfferPopup} />}
       <div className="pproject">
         <div className="left-project">
           <div className="main-post">
@@ -158,7 +175,7 @@ const PostDetail = () => {
                       <img src={vietnam} alt="vietnam" />
                     </div>
                   </div>
-                  
+
                   <div className="proj-rating-left">
                     <StarRating rating={owner.averageStar} width={160} />
                     <div className="proj-stars-user">
@@ -167,8 +184,8 @@ const PostDetail = () => {
                   </div>
                 </div>
               </div>
-              
-              <div className="proj-detail" style={{textAlign:"left"}}>{project.skill_description}</div>
+
+              <div className="proj-detail" style={{ textAlign: "left" }}>{project.skill_description}</div>
               <div className="proj-body">
                 <div >
                   <div className="wrapper-project-image">
@@ -190,7 +207,7 @@ const PostDetail = () => {
                 About the seller
               </div>
               <div className='about-me-content'>
-                  {project.about_me}
+                {project.about_me}
               </div>
 
             </div>
@@ -199,7 +216,7 @@ const PostDetail = () => {
             </div>
           </div>
 
-         
+
 
           {/* <div className="comments">
             <div className="comment-title">
@@ -228,20 +245,25 @@ const PostDetail = () => {
                 <img src={revision} alt="revision" />
                 <p>{project.revision_number} Revision</p>
               </div>
-              
+
             </div>
             <div className="detail-img">
-                {/* <ul>
+              {/* <ul>
                   <li>1 concept included</li>
                   <li> Logo transparency</li>
                   <li>Vector file</li>
                   <li>Include social media kit</li>
                 </ul> */}
-                {project.delivery_description}
-              </div>
+              {project.delivery_description}
+            </div>
 
             <div className="btn-hire">
-              <button className="button-hire-project" onClick={handleHireProject}>Hire me</button>
+              <button
+                className="button-hire-project"
+                onClick={handleHireProject}>
+                Hire me
+              </button>
+
               <div className="budget-wrapper">
                 {/* {`$${100}`} */}
                 ${project.lowset_price}
@@ -256,9 +278,9 @@ const PostDetail = () => {
             <div className="proj-bid-list">
 
               {bidOnes.map((bidOne) => (
-                <BidOffer bidOne = {bidOne}/>
+                <BidOffer bidOne={bidOne} />
               ))}
-              
+
               {/* <Bid />
               <Bid />
               <Bid />

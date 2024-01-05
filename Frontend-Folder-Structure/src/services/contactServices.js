@@ -13,7 +13,7 @@ const findOne = id => {
   return http.get(`/contact/${id}`);
 };
 
-const findAllBids = freelancer_post_id => {
+const findAllBids = (freelancer_post_id) => {
   return http.get(`/contact/allbids/${freelancer_post_id}`);
 };
 
@@ -29,6 +29,9 @@ const changeContactStatus = (contact_id, status) => {
   return http.put("/contact/changeContactStatus/" + contact_id + "/" + status);
 }
 
+const showContactByContactId = contact_id => {
+  return http.get(`/contact/showContact/${contact_id}`);
+}
 
 
 const contactService = {
@@ -38,7 +41,8 @@ const contactService = {
     findAllBids,
     countBids,
     findZeroStatusBids,
-    changeContactStatus
+    changeContactStatus,
+    showContactByContactId
 };
 
 export default contactService;

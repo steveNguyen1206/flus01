@@ -29,9 +29,9 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         end_date: '01/20/2024',
         budget: 0,
         status: 0,
-        project_id: 2,
+        project_id: '',
         freelancer_post_id: postId,
-        client_id: 5
+        client_id: ''
     };
 
     const validateForm = () => {
@@ -48,6 +48,12 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
     };
     // console.log("mèo méo meo mèo meo")
     // const varCreate = 0
+
+    for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        console.log(key);
+      }
+    // console.log("userId from localStorage -----------> ", localStorage.getItem('LOGINID'));
     const handleDoneClick = async () => {
 
         console.log('Done clicked.');
@@ -56,7 +62,13 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         const projectIdData = await projectServices.createNull();
         const projectId = projectIdData.data;
         console.log("projectId -----------> ", projectId);
-        setHireFreelancer({ ...hireFreelancer, project_id: projectId });
+        
+        // await setHireFreelancer({ ...hireFreelancer, project_id: projectId });
+        setHireFreelancer(prevHireFreelancer => ({
+            ...prevHireFreelancer,
+            project_id: projectId + 1
+          }));
+
         console.log("hireFreelancer -----------> ", hireFreelancer);
         const emailData = await freelancer_post_Service.findFreelancerEmail(postId);
         const email = emailData.data;
@@ -68,9 +80,10 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         console.log("emailJson -----------> ", emailJson);
         if (validateForm()) {
             console.log("From validated successfully.")
+            hireFreelancer.client_id = localStorage.getItem('LOGINID');
             console.log("----------Hire freelancer------", hireFreelancer)
             await contactService
-
+                
                 .create(hireFreelancer)
                 .then(() => {
                     console.log('Form is valid. Post submitted successfully.');

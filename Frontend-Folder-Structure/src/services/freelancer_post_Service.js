@@ -27,7 +27,7 @@ const sendPost = async (data) => {
     formData.append('title', data.title)
     formData.append('image_file', data.image_file); // này để lấy file ảnh
     console.log("data.about_me", data.about_me);
-    formData.append('freelancer_id', "1");
+    formData.append('freelancer_id', data.freelancer_id);
     formData.append('about_me', data.about_me);
     formData.append('skill_description', data.skill_description);
     formData.append('lowset_price', data.lowset_price);

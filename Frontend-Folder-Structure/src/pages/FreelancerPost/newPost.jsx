@@ -52,6 +52,7 @@ const isValidRevisionNumber = (revision_number) => {
 
 
 const NewPost = ({ isOpen, onClose, onUpdate }) => {
+  const userId = localStorage.getItem('LOGINID');
   const [showOverlay, setShowOverlay] = useState(isOpen);
 
   const [errors, setErrors] = useState({
@@ -66,6 +67,7 @@ const NewPost = ({ isOpen, onClose, onUpdate }) => {
   });
 
   const initState = {
+    freelancer_id: userId,
     title: '',
     delivery_description: '',
     about_me: '',

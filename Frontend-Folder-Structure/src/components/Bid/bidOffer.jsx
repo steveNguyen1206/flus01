@@ -1,19 +1,66 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './bid.css';
 import profileImage from '../../assets/profile_image.png';
 import contactService from '@/services/contactServices';
+import projectService from '@/services/projectServices';
 //name, skill, message, price, duration, accept, reject
 
 const BidOffer = ({ bidOne }) => {
+  const navigate = useNavigate();
   const skill = 'React, NodeJS';
+  const initProject = {
+    name: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    budget: '',
+    tag_id: '',
+    contact_id: '',
+    owner: '',
+    member: ''
+  }
 
-  const handleAccept = () => {
+  const handleAccept = async () => {
     console.log('accept');
     console.log('bidOne.id: ', bidOne.id);
-    contactService.changeContactStatus(bidOne.id, 1).then((response) => {
+    await contactService.changeContactStatus(bidOne.id, 1).then((response) => {
       console.log('response: ', response);
       // onChangeBid();
     });
+
+    await contactService.showContactByContactId(bidOne.id).then((response) => {
+      console.log('response: ', response);
+      const contact = response.data[0];
+      console.log('contact: ', contact);
+      console.log("Freelancer Post:", contact.budget);
+
+      const project = initProject;
+      const projectId = contact.project_id;
+      console.log('projectId: ', projectId);
+      project.name = contact.job_name;
+      project.description = contact.job_description;
+      project.startDate = contact.start_date;
+      project.endDate = contact.end_date;
+      project.budget = contact.budget;
+      project.tag_id = contact.freelancer_post.skill_tag;
+      project.contact_id = contact.id;
+      project.owner = contact.client_id;
+      project.member = contact.freelancer_post.freelancer_id;
+      console.log('project: ', project);
+      projectService.createProject(project).then((response) => {
+        console.log('response: ', response);
+        console.log('project: ', project);
+        navigate(`/project-manage/${response.data.id}`)
+
+      });
+
+      // <Route path="/project-manage/:id" element={<ProjectManagement own={false}/>} />
+      // copilot :3 code navigate to project-manage/response.data.id
+      // window.location.href = `/project-manage/${response.data.id}`;
+      
+    });
+
   };
 
   const handleReject = () => {

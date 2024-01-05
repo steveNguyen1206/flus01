@@ -14,18 +14,7 @@ exports.create = (req, res) => {
     });
     return;
   }
-
-  // Thực hiện create project trước với các giá trị mặc định như sau:
-    // project_name: ""
-    // project_description: ""
-    // start_date: ""
-    // end_date: ""
-    // budget: 0
-    // status: 0
-    // client_id: 0
-    // freelancer_id: 0
-  // Thực hiện create Contact và lấy thông tin project_id vừa tạo
-  // Thực hiện update project với thông tin từ bảng Contact
+  console.log(req.body)
 
   // Create a Contact
   const contact = {
@@ -356,6 +345,66 @@ exports.findAllStatusZeroBids = (req, res) => {
       {
         model: User,
         attributes: ['id', 'account_name', 'profile_name', 'avt_url', 'email'],
+      },
+    ],
+
+  })
+    .then(data => {
+
+      return res.json(data)
+    })
+    .catch(err => {
+      res.status(500).send({
+          message: err.message || "Some error occurred while retrieving findAllBids data."
+      });
+    });
+}
+
+// exports.findContactByProjectId = (req, res) => {
+//   const project_id = req.params.project_id;
+//   console.log(project_id)
+//   // var condition = freelancer_post_id ? { freelancer_post_id: { [Op.like]: `${freelancer_post_id}%` } } : null;
+
+//   Contact.findAll({
+//     where: {
+//       project_id: {
+//         [Op.eq]: project_id
+//       },
+//     },
+//     include: [
+//       {
+//         model: Freelancer_post,
+//         attributes: ['freelancer_id', 'subcategory_id'],
+//       },
+//     ],
+
+//   })
+//     .then(data => {
+
+//       return res.json(data)
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//           message: err.message || "Some error occurred while retrieving findAllBids data."
+//       });
+//     });
+// }
+
+exports.showContactByContactId = (req, res) => {
+  const contact_id = req.params.contact_id;
+  console.log(contact_id)
+  // var condition = freelancer_post_id ? { freelancer_post_id: { [Op.like]: `${freelancer_post_id}%` } } : null;
+
+  Contact.findAll({
+    where: {
+      id: {
+        [Op.eq]: contact_id
+      },
+    },
+    include: [
+      {
+        model: Freelancer_post,
+        attributes: ['freelancer_id', 'skill_tag'],
       },
     ],
 

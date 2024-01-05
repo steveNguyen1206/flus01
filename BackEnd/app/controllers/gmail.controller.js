@@ -25,7 +25,7 @@ const sendEmailToFreelancer = (req, res) => {
         service: 'gmail',
         auth: {
           user: 'vohoang2023.01@gmail.com',
-          pass: "rwix tcbu cmmf sftr"
+          pass: "zvnd elqi faii hwuh"
         }
       });
 

@@ -4,8 +4,10 @@ module.exports = app => {
     var router = require("express").Router();
     
     // Create a new Category
-    router.post("/", contact.create);
-    
+    // router.post("/", contact.create);
+    // Tạo contact mới có access_token
+    router.post("/", contact.create)
+
     // Retrieve all Category
     router.get("/", contact.findAll);
 
@@ -33,7 +35,8 @@ module.exports = app => {
     // Update status of a contact with id
     router.put("/changeContactStatus/:contact_id/:status", contact.changeContactStatus);
 
-
+    // show contact by contact_id
+    router.get("/showContact/:contact_id", contact.showContactByContactId);
     // // Delete all Tutorials
     // router.delete("/", category.deleteAll);
     
