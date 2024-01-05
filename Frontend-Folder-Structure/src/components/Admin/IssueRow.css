@@ -6,13 +6,13 @@
   padding: 0;
 }
 
-.left-post {
-  width: 75%;
+.issue-container .left-post {
+  width: 88%;
 }
 
-.free-post-container{
+.issue-container{
   height: 280px;
-  width: 880px;
+  /* width: 880px; */
   border: 3px solid #000;
   border-radius: 12px;
   display: flex;
@@ -20,79 +20,72 @@
   margin-bottom: 2%;
 }
 
-.pheader{
+.issue-container .pheader{
     margin-top: 1%;
     margin-left: 3%;
 }
 
 
-.pprofile{
+.issue-container .pprofile{
   display: flex;
   align-items: center;
 }
 
-.pprofile img{
+.issue-container .pprofile img{
   height: 40px;
   object-fit: cover;
   width: auto;
 }
 
-.plocation img{
+.issue-container .plocation img{
   height: 10px;
   width: auto;
 }
 
-.pname {
+.issue-container .pname {
   margin-left: 10px;
 
 }
 
 
-.pname{
+.issue-container .pname{
   margin-right: 10px;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 600;
 }
 
-.content-container{
+.issue-container .content-container{
   width: 100%;
   padding-left: 40px;
   padding-right: 20px;
-  height: 100%;
+  margin-top: 3%;
 }
-.ptitle{
+.issue-container .ptitle{
   display: flex;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 700;
   font-size: 20px;
 }
-
-
-.post-tag{
-  margin-top: 0px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  border: 2px solid var(--accent, #12C418);
-  background: var(--WHITE, #FFF); 
-  color: var(--accent, #12C418);
-  text-align: center;
-  width: fit-content;
-  padding: 0px 5px;
+.issue-container .evidence{
+    font-size: 13px;
+    font-family: "Inter-Regular", Helvetica;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
 }
 
-.detail-content {
+
+.issue-container .detail-content {
   max-width: 600px;
   text-align: left;
-  display: -webkit-box;
-  -webkit-line-clamp: 5; /* number of lines to show */
-  -webkit-box-orient: vertical;
-  height: 100%;
+  /* height: 100%; */
   overflow: hidden;
 }
 
-.previews{
+.issue-container .previews{
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -100,27 +93,7 @@
   margin-top: 30px;
 }
 
-.rating-row{
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-  height: 15px;
-}
-
-.pstars{
-  width: 200px;
-}
-
-.pprice{
-  text-align: right;
-  color: #12C418;
-  font-size: var(--xlarge-font-size);
-  font-family: Inter-Bold, sans-serif;
-  font-weight: 700;
-}
-
-.btn-row{
+.issue-container .btn-row{
   margin-top: 15px;
   display: flex;
   text-align: center;
@@ -128,45 +101,45 @@
   justify-content: center;
 }
 
-.btn-bid button{
-  height: 40px;
-  width: 80px;
-  background-color: var(--primary);
+.issue-container .bid-button button{
   border: none;
   color: #FFF;
-  border-radius: 7px;
-  margin-bottom: 10px;
-}
 
-.btn-bid button:active{
-  background-color: #066409;
-}
-
-.rating img{
-  height: 15px;
-  width: 15px;
-}
-
-.rating p{
-  margin: 0;
 }
 
 
-.pbid{
+.issue-container .bid-button .accept, .reject{
+    width: 104px;
+    height: 25px;
+    border-radius: 8px;
+    border: none;
+    
+}
+
+.issue-container .bid-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.issue-container .accept{
+    background-color: #15A919;
+}
+
+.issue-container .reject{
+    background-color: #A91E15;
+    
+}
+
+
+
+.issue-container .pbid{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
-  margin-top: 70px;
   align-items: center;
-}
-
-.num-reviews-wrapper {
-    text-align: center;
-  }
-
-.btn-row img{
-  height: 40px;
-  object-fit: cover;
-  margin-left: 15px;
+  height: 100%;
 }

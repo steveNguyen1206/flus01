@@ -4,6 +4,8 @@ import Project from './pages/Project/project';
 import { AuthProvider, useAuth } from './AuthContext';
 
 
+
+
 function App() {
   const initialOptions = {
     clientId:

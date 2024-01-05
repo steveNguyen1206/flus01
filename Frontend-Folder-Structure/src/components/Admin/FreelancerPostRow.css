@@ -6,7 +6,7 @@
   padding: 0;
 }
 
-.left-post {
+.free-post-container .left-post {
   width: 75%;
 }
 
@@ -20,48 +20,48 @@
   margin-bottom: 2%;
 }
 
-.pheader{
+.free-post-container .pheader{
     margin-top: 1%;
     margin-left: 3%;
 }
 
 
-.pprofile{
+.free-post-container .pprofile{
   display: flex;
   align-items: center;
 }
 
-.pprofile img{
+.free-post-container .pprofile img{
   height: 40px;
   object-fit: cover;
   width: auto;
 }
 
-.plocation img{
+.free-post-container .plocation img{
   height: 10px;
   width: auto;
 }
 
-.pname {
+.free-post-container .pname {
   margin-left: 10px;
 
 }
 
 
-.pname{
+.free-post-container .pname{
   margin-right: 10px;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 600;
 }
 
-.content-container{
+.free-post-container .content-container{
   width: 100%;
   padding-left: 40px;
   padding-right: 20px;
   height: 100%;
 }
-.ptitle{
+.free-post-container .ptitle{
   display: flex;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
@@ -70,7 +70,7 @@
 }
 
 
-.post-tag{
+.free-post-container .post-tag{
   margin-top: 0px;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -82,7 +82,7 @@
   padding: 0px 5px;
 }
 
-.detail-content {
+.free-post-container .detail-content {
   max-width: 600px;
   text-align: left;
   display: -webkit-box;
@@ -92,7 +92,7 @@
   overflow: hidden;
 }
 
-.previews{
+.free-post-container .previews{
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -100,7 +100,7 @@
   margin-top: 30px;
 }
 
-.rating-row{
+.free-post-container .rating-row{
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -110,12 +110,12 @@
 
 
 
-.pstars{
+.free-post-container .pstars{
   width: 200px;
 }
 
 
-.pprice{
+.free-post-container .pprice{
   text-align: right;
   color: #12C418;
   font-size: var(--xlarge-font-size);
@@ -123,7 +123,7 @@
   font-weight: 700;
 }
 
-.btn-row{
+.free-post-container .btn-row{
   margin-top: 15px;
   display: flex;
   text-align: center;
@@ -131,7 +131,7 @@
   justify-content: center;
 }
 
-.btn-bid button{
+.free-post-container .btn-bid button{
   height: 40px;
   width: 80px;
   background-color: var(--primary);
@@ -141,21 +141,21 @@
   margin-bottom: 10px;
 }
 
-.btn-bid button:active{
+.free-post-container .btn-bid button:active{
   background-color: #066409;
 }
 
-.rating img{
+.free-post-container .rating img{
   height: 15px;
   width: 15px;
 }
 
-.rating p{
+.free-post-container .rating p{
   margin: 0;
 }
 
 
-.pbid{
+.free-post-container .pbid{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -164,11 +164,11 @@
   align-items: center;
 }
 
-.num-reviews-wrapper {
+.free-post-container .num-reviews-wrapper {
     text-align: center;
   }
 
-.btn-row img{
+.free-post-container .btn-row img{
   height: 40px;
   object-fit: cover;
   margin-left: 15px;

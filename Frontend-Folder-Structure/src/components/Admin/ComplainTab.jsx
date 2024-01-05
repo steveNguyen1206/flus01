@@ -6,6 +6,7 @@ import search from '../../assets/search.png';
 import cavet from '../../assets/cavet.png';
 import Pagination from '@mui/material/Pagination';
 import issueServices from "@/services/issueServices";
+import IssueRow from "./IssueRow";
 
 const ComplainTab = () => {
     const [issues, setIssues] = useState([]);
@@ -69,10 +70,9 @@ const ComplainTab = () => {
 
             <div className="overlap-5">
                 <div className="table-user">
-                    {/* {issues.map(user => (
-                        <UserRow key={user.id} user={user} refreshIssues={refreshIssues}
-                            setRefreshIssues={setRefreshIssues} />
-                    ))} */}
+                    {issues.map(issue => (
+                        <IssueRow key={issue.id} issue={issue} />
+                    ))}
                 </div>
 
             </div>

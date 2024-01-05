@@ -6,53 +6,108 @@ import {
   ProjectConfigure,
   ProjectReport,
   ProjectReportJudging,
-  ProjectNotification
+  ProjectNotification,
+  ProjectComplaint,
 } from '.';
 import { createContext, useContext, useState } from 'react';
 import { useProjectManageContext } from './ProjectManageProvider';
 import { useEffect } from 'react';
 import projectService from '@/services/projectServices';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export const ProjectManageGeneral = () => {
-  const { project, setProject, isOwn, projectTab, setProjectTab } =
+  const { project, setProject, isOwn, projectTab, setProjectTab, notis, setNotis } =
     useProjectManageContext();
   const [error, setError] = useState(null);
+  const [allProject, setAllProject] = useState([]);
+  let navigate = useNavigate();
 
-  const getMemberProject = (projectId) => {
-    projectService
+  const getNotis = (projectId) => {
+    console.log("noti: ", projectId);
+    projectService.getALlNotifications(projectId, localStorage.getItem("AUTH_TOKEN"))
+    .then( (notis_data) => {
+      setNotis(notis_data.data)
+    })
+    .catch( (error)=> {
+        console.log(error);
+        setError(error.response.data.message);
+    })
+  }
+
+  const getProject = (projectId) => {
+    if(isOwn) {
+      projectService
+        .findOwnerOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setProject(response.data);
+          getNotis(projectId);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
+    }
+    else {
+      projectService
       .findMemberOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
       .then((response) => {
         setProject(response.data);
+        getNotis(projectId);
         console.log(response.data);
         // console.log("test", isOwn);
       })
       .catch((e) => {
         setError(e.response.data.message);
-        console.log(e.response.data.message);
+        // console.log(e.response.data.message);
+        console.log(e);
       });
+    }
+  }
+  const getAllProject = () => {
+    if (isOwn) {
+      projectService
+        .getAllOwnProjects(localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setAllProject(response.data);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
+    } else {
+      projectService
+        .getAllMemberProjects(localStorage.getItem('AUTH_TOKEN'))
+        .then((response) => {
+          setAllProject(response.data);
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setError(e.response.data.message);
+        });
+    }
   };
 
-  const getOwnerProject = (projectId) => {
-    projectService
-      .findOwnerOnebyId(projectId, localStorage.getItem('AUTH_TOKEN'))
-      .then((response) => {
-        setProject(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-        setError(e.response.data.message);
-        console.log(error)
-      });
-    };
-    
-    useEffect(() => {
-      if (project.id) {
-        if (isOwn) getOwnerProject(project.id);
-        else getMemberProject(project.id);
-      }
-      console.log(error);
+  const navigateToProject = (projectId) => {
+    // Use the navigate function
+    console.log(projectId);
+    const url = ((isOwn) ? "/my-project-manage/" : "/project-manage/") + projectId;
+    console.log(url);
+    getProject(projectId);
+    navigate(url);
+  };
+
+  useEffect(() => {
+    if (project.id) {
+      getProject(project.id)
+    }
+    getAllProject();
+    console.log(error);
   }, []);
+
 
   return (
     <div className="qun-l-d-n">
@@ -86,37 +141,21 @@ export const ProjectManageGeneral = () => {
         </div>
 
         <div className="all-project-container">
-          <div className="all-project-item --background-gradient ">
-            <div className="project-img" />
-            <h4 className="title-text --size-16">Cao tốc Bắc Nam HD...</h4>
-          </div>
-          <div className="all-project-item">
-            <div className="project-img" />
-            <div className="title-text --size-16 --color-light">
-              Thủy điện Hòa Bình
+          {allProject.map((map_project) => (
+            <div
+              className={
+                'all-project-item' +
+                (project.id == map_project.id ? ' --background-gradient' : '')
+              }
+              style={{ marginTop: '16px' }}
+              onClick={()=> navigateToProject(map_project.id)}
+            >
+              <div className="project-img" />
+              <h4 className="title-text --size-16">
+                {map_project.project_name}
+              </h4>
             </div>
-          </div>
-
-          <div className="all-project-item">
-            <div className="project-img" />
-            <div className="title-text --size-16 --color-light">
-              Thủy điện Hòa Bình
-            </div>
-          </div>
-
-          <div className="all-project-item">
-            <div className="project-img" />
-            <div className="title-text  --size-16 --color-light">
-              Thủy điện Hòa Bình
-            </div>
-          </div>
-        </div>
-
-        <div className="all-project-item">
-          <div className="project-img" />
-          <div className="title-text  --size-16 --color-light">
-            Thủy điện Hòa Bình
-          </div>
+          ))}
         </div>
       </div>
 
@@ -144,7 +183,7 @@ export const ProjectManageGeneral = () => {
                 : 'function-text'
             }
             onClick={() => setProjectTab('report')}
-            disabled={project.status==0}
+            disabled={project.status == 0}
           >
             Report
           </h4>
@@ -155,7 +194,6 @@ export const ProjectManageGeneral = () => {
                 : 'function-text'
             }
             onClick={() => setProjectTab('notification')}
-
           >
             Notification
           </h4>
@@ -165,31 +203,58 @@ export const ProjectManageGeneral = () => {
                 ? 'function-text --color-green'
                 : 'function-text'
             }
+            onClick={() => setProjectTab('complaint')}
           >
-            Complain
+            Complaint
+          </h4>
+          <h4
+            className={
+              projectTab == 'review'
+                ? 'function-text --color-green'
+                : 'function-text'
+            }
+            onClick={() => setProjectTab('review')}
+          >
+            Review
           </h4>
         </div>
 
-        
         {error && <>{error}</>}
-        {error == null && project.status == 0 && projectTab != "notification" &&
+        {error == null &&
+          project.status == 0 &&
+          projectTab != 'notification' &&
           (isOwn ? (
             <ProjectConfigure />
-            ) : (
-              <>
+          ) : (
+            <>
               Project is under config. Contact your client for more infomation
             </>
           ))}
 
-        {error == null && (project.status == 1 || project.status == 2 || project.status == 3) &&
-          projectTab == 'general' && <ProjectContent/>}
-        {error == null && (project.status == 1 || project.status == 2  || project.status == 3) &&
+        {error == null &&
+          (project.status == 1 ||
+            project.status == 2 ||
+            project.status == 3 ||
+            project.status == 4) &&
+          projectTab == 'general' && <ProjectContent />}
+        {error == null &&
+          (project.status == 1 ||
+            project.status == 2 ||
+            project.status == 3 ||
+            project.status == 4) &&
           projectTab == 'report' &&
           (isOwn ? <ProjectReportJudging /> : <ProjectReport />)}
 
-        {error == null && (project.status == 1 || project.status == 2 || project.status == 0) &&
-          projectTab == 'notification' &&
-          <ProjectNotification/>}
+        {error == null &&
+          (project.status == 1 ||
+            project.status == 2 ||
+            project.status == 3 ||
+            project.status == 4) &&
+          projectTab == 'complaint' && <ProjectComplaint />}
+
+        {error == null && projectTab == 'notification' && (
+          <ProjectNotification />
+        )}
       </div>
     </div>
   );
