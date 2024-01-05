@@ -29,7 +29,7 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
         end_date: '01/20/2024',
         budget: 0,
         status: 0,
-        project_id: '',
+        project_id: 0,
         freelancer_post_id: postId,
         client_id: ''
     };
@@ -57,18 +57,7 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
     const handleDoneClick = async () => {
 
         console.log('Done clicked.');
-        // console.log(hireFreelancer);
         console.log("postId -----------> ", postId);
-        const projectIdData = await projectServices.createNull();
-        const projectId = projectIdData.data;
-        console.log("projectId -----------> ", projectId);
-        
-        // await setHireFreelancer({ ...hireFreelancer, project_id: projectId });
-        setHireFreelancer(prevHireFreelancer => ({
-            ...prevHireFreelancer,
-            project_id: projectId + 1
-          }));
-
         console.log("hireFreelancer -----------> ", hireFreelancer);
         const emailData = await freelancer_post_Service.findFreelancerEmail(postId);
         const email = emailData.data;
@@ -214,8 +203,8 @@ const HireFreelancer = ({ isOpen, onClose, onUpdate, setShowHirePopup }) => {
                         <div className="error-message">{error.duration}</div>
                     </div>
 
-                    {/* <WhiteButton text="Send" onClick={handleDoneClick} /> */}
-                    <button onClick={handleDoneClick}>Send</button>
+                    <WhiteButton text="Send" onClick={handleDoneClick} />
+                    {/* <button onClick={handleDoneClick}>Send</button> */}
                 </div>
             </div>
         </div>

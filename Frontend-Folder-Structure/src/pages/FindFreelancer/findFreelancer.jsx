@@ -14,6 +14,8 @@ import ApproveOffer from '@/pages/FreelancerPost/approveOffer';
 import { jwtDecode } from 'jwt-decode';
 
 const FindFreelancer = () => {
+  const userId = localStorage.getItem('LOGINID');
+  console.log('userId', userId);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     fetchPosts();
@@ -88,7 +90,7 @@ const FindFreelancer = () => {
 
   return (
     <>
-      {isOpen && <NewPost isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate={() => { setIsChange(true) }} />}
+      {(userId != null) && isOpen && <NewPost isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate={() => { setIsChange(true) }} />}
       {/* {isOpen && <ApproveOffer isOpen={isOpen} onClose={() => setIsOpen(false)} onUpdate = {() => {setIsChange(true)}} />} */}
       <div className="job-page">
         <div className="content">
@@ -96,7 +98,7 @@ const FindFreelancer = () => {
             <div className="topbar">
               <div className="button">
                 {/* <button className="btn-new-post" onClick={event =>  window.location.href='/createFreelancerPost'}>+ New Post</button> */}
-                <button className="btn-new-post" onClick={handleNewPost}>+ New Post</button>
+                {userId && (<button className="btn-new-post" onClick={handleNewPost}>+ New Post</button>)}
               </div>
               <Search 
                 onSearchChange={handleSearchChange} 

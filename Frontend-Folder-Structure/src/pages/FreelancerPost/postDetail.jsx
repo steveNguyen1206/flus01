@@ -29,6 +29,8 @@ const PostDetail = () => {
   const [userId, setUserId] = useState(0);
   const [user, setUser] = useState([]);
 
+
+
   const fetchUserId = async () => {
     try {
       const userIdData = await freelancer_post_Service.findOnebyId(id);
@@ -41,6 +43,19 @@ const PostDetail = () => {
       console.error('Error fetching projects:', error);
     }
   };
+
+  console.log('userId: ', userId);
+  // loginid from localStorage
+  const login_id = localStorage.getItem('LOGINID');
+  const check_type = (user_id, login_id) => {
+    if (!login_id) {
+      return 1; // not login
+    }
+    if (user_id == login_id) {
+      return 2; // login as owner
+    }
+    return 3; // login as other
+  }
 
   const fetchUserById = async (userId) => {
     try {
@@ -231,9 +246,9 @@ const PostDetail = () => {
           </div> */}
         </div>
         <div className="right-project">
-          <button onClick={handleEditProject} className="button-edit">
+          {check_type(userId, login_id) == 2 && <button onClick={handleEditProject} className="button-edit">
             Edit
-          </button>
+          </button>}
           <div className="project-info">
             <h4>More about my job</h4>
             <div className="project-detail-wrapper">
@@ -258,11 +273,11 @@ const PostDetail = () => {
             </div>
 
             <div className="btn-hire">
-              <button
+              {check_type(userId, login_id) == 3 && <button
                 className="button-hire-project"
                 onClick={handleHireProject}>
                 Hire me
-              </button>
+              </button>}
 
               <div className="budget-wrapper">
                 {/* {`$${100}`} */}
