@@ -14,7 +14,7 @@ import admin_comment_star_white from '../../assets/Admin/admin_comment_star_whit
 import admin_post_white from '../../assets/Admin/admin_post_white.png';
 import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
-import { FreelancerPostTab, ProjectPostTab, UserTab } from '@/components';
+import { ComplainTab, FreelancerPostTab, ProjectPostTab, UserTab } from '@/components';
 import { CategoryTab } from '@/components';
 import { useAuth } from '../../AuthContext';
 
@@ -79,12 +79,12 @@ const Admin = () => {
                             </div>
                         </div>
                         <div
-                            className={`group-14 row ${activeGroup === 'comments' ? 'active-container' : ''}`}
-                            onClick={() => handleGroupClick('comments')}
+                            className={`group-14 row ${activeGroup === 'complains' ? 'active-container' : ''}`}
+                            onClick={() => handleGroupClick('complains')}
                         >
-                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'comments' ? admin_comment_star_white : admin_comment_star} />
-                            <div className={`text-wrapper-31 col ${activeGroup === 'comments' ? 'text-wrapper-active' : ''}`}>
-                                Comments and ratings
+                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'complains' ? admin_comment_star_white : admin_comment_star} />
+                            <div className={`text-wrapper-31 col ${activeGroup === 'complains' ? 'text-wrapper-active' : ''}`}>
+                                Complains
                             </div>
                         </div>
                         <div
@@ -108,6 +108,7 @@ const Admin = () => {
                 {activeGroup === 'categories' && <CategoryTab />}
                 {activeGroup === 'projposts' && <ProjectPostTab />}
                 {activeGroup === 'freeposts' && <FreelancerPostTab />}
+                {activeGroup === 'complains' && <ComplainTab/>}
                 {/* Add new tab here */}
             </div>
 

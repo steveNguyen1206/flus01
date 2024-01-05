@@ -108,12 +108,6 @@ const index = () => {
                     </div>
                   </div>
                 ))}
-                 {/* <div className='col'>
-                <div className="group-3">
-                  <div className="text-wrapper-5">Web Design</div>
-                  <img className="image" alt="Image" src={skill} />
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

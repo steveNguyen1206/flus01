@@ -18,6 +18,7 @@ export {default as ProjectPostTab} from './Admin/ProjectPostTab'
 export {default as ProjectPostRow} from './Admin/ProjectPostRow'
 export {default as FreelancerPostTab} from './Admin/FreelancerPostTab'
 export {default as FreelancerPostRow} from './Admin/FreelancerPostRow'
+export {default as ComplainTab} from './Admin/ComplainTab'
 
 export {default as WhiteButton} from './Button/WhiteButton'
 export {default as RedCloseButton} from "./Button/redCloseButton";
