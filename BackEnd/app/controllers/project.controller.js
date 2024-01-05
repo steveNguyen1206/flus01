@@ -12,7 +12,7 @@ ADMIN_USER_ID = 1
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name || !req.body.description) {
+  if (!req.body.name || !req.body.description || !req.body.startDate || !req.body.endDate || ! req.body.budget || !req.body.owner || ! req.body.member) {
     res.status(400).send({
       message: "Missing information!"
     });
@@ -183,7 +183,7 @@ exports.findMemberAll = (req, res) => {
 
 // Find a single Tutorial with an id
 exports.findOwnerAll = (req, res) => {
-  const userId = req.params.projectId;
+  const userId = req.userId;
 
   Project.findAll({ where: { owner_id: userId }, attributes: ['id', 'project_name', 'start_date', 'end_date', 'budget', 'status'] })
     .then(data => {

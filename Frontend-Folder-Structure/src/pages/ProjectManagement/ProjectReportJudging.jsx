@@ -45,7 +45,7 @@ export const ProjectReportJudging = () => {
         setError(error.response.data.message);
         console.log(error.response.data.message);
       });
-  }, []);
+  }, [project]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -114,7 +114,7 @@ export const ProjectReportJudging = () => {
     if (project_status == 4) {
       noti_title = 'The report is rejected.';
       noti_message =
-        'The project owner reject this report. Dont wory, freelancer still have chance to fix it until end date of project. Good luck!';
+        'We are so sorry to say that the project owner has rejected this work. After five days, if there is no complaint, we fill refound 70% of budget to project owner, and 30% to freelancer. Please contact to us for refound issues in within five days.';
     } else {
       noti_title =
         'The report is particial passed and project is giving some extra time.';

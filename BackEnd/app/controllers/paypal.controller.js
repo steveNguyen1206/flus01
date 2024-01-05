@@ -134,60 +134,86 @@ const captureOrder = async (orderID) => {
 };
 
 
+const maxRetries = 100;
+const interval = 500;
+function fetchDataWithRetry(url, accessToken) {
+  return new Promise((resolve, reject) => {
+    function waitingForTransactionComplete() {
+      let retries = 0;
 
-const creatPayoutBatch = async (data) => {
-    const accessToken = await generateAccessToken();
-    const url = `${base}/v1/payments/payouts`;
-    const payload = {
-      sender_batch_header: {
-        sender_batch_id: data.batch_id,
-        recipient_type: "EMAIL",
-        email_subject: data.subject,
-        email_message: data.message
-      },
-      items: [
-        {
-          amount: {
-            value: data.cost,
-            currency: data.currency,
-          },
-          sender_item_id: data.sender_item_id,
-          recipient_wallet: "PAYPAL",
-          receiver: data.receiver
+      fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
-        // {
-        //   "amount": {
-        //     "value": "112.34",
-        //     "currency": "USD"
-        //   },
-        //   "sender_item_id": "201403140002",
-        //   "recipient_wallet": "PAYPAL",
-        //   "receiver": "<receiver2@example.com>"
-        // },
-        // {
-        //   "recipient_type": "PHONE",
-        //   "amount": {
-        //     "value": "5.32",
-        //     "currency": "USD"
-        //   },
-        //   "note": "Thanks for using our service!",
-        //   "sender_item_id": "201403140003",
-        //   "recipient_wallet": "VENMO",
-        //   "receiver": "<408-234-1234>"
-        // }
-      ]
-    };
-  
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-      method: "POST",
-      body: JSON.stringify(payload),
-    });
-  
-    return handleResponse(response);
+        method: "GET"
+      }).then(
+        data => data.json()
+      ).then(response => {
+        if (response.batch_header.batch_status == 'SUCCESS') {
+          // Request is successful, resolve the promise
+          resolve(response);
+        } else if (response.status == 200 && retries < maxRetries) {
+          // Request is accepted, but not complete yet, retry after the interval
+          retries++;
+          setTimeout(fetchData, interval);
+        } else {
+          // Request failed or exceeded max retries, reject the promise
+          reject(new Error(`Failed with status: ${response.status}`));
+        }
+      })
+        .catch(error => {
+          // Handle network errors
+          reject(error);
+        });
+    }
+
+    waitingForTransactionComplete();
+  });
+}
+const createPayoutBatch = async (data) => {
+  const accessToken = await generateAccessToken();
+  const url = `${base}/v1/payments/payouts`;
+  const payload = {
+    sender_batch_header: {
+      sender_batch_id: data.batch_id,
+      recipient_type: "EMAIL",
+      email_subject: data.subject,
+      email_message: data.message
+    },
+    items: [
+      {
+        amount: {
+          value: data.cost,
+          currency: data.currency,
+        },
+        sender_item_id: data.sender_item_id,
+        recipient_wallet: "PAYPAL",
+        receiver: data.receiver
+      }
+    ]
+  };
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  let jsonResponse;
+  let check;
+  jsonResponse = await response.json();
+
+  const batch_detail_url = url + `/${jsonResponse.batch_header.payout_batch_id}`
+  fetchDataWithRetry(batch_detail_url, accessToken)
+  .then(response => {
+    console.log('Data received:', response);
+    return response;
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error.message);
+  });
 }
 
 async function handleResponse(response) {
@@ -206,15 +232,12 @@ async function handleResponse(response) {
 
 
 exports.apiCreatePayoutBatch = async (req, res) => {
-  try
-  {
+  try {
     const data = req.body;
-    console.log(data)
-    const {httpStatusCode, batchData} = await creatPayoutBatch(data);
-    res.status(httpStatusCode).json(batchData);
+    const { jsonResponse, httpStatusCode } = await createPayoutBatch(data);
+    res.status(httpStatusCode).json(jsonResponse);
   }
-  catch (error)
-  {
+  catch (error) {
     console.error("Failed to create batch:", error);
     res.status(500).json({ error: "Failed to create batch." });
   }
@@ -242,23 +265,21 @@ exports.apiPrePaidCreateProject = async (req, res) => {
 
     const projectId = req.body.id;
     const project = await Project.findByPk(projectId)
-      .then(async (project_data ) => {
+      .then(async (project_data) => {
         const project_status = project_data.status;
-        if((req.body.tran_amount == req.body.budget && req.body.status == 2 && project_status == 0) 
-        || (req.body.tran_amount == req.body.budget * 30 / 100 && req.body.status == 1 && project_status == 0)
-        || (req.body.tran_amount == req.body.budget * 70 / 100 && req.body.status == 2 && project_status == 1)
-        )
-        {
+        if ((req.body.tran_amount == req.body.budget && req.body.status == 2 && project_status == 0)
+          || (req.body.tran_amount == req.body.budget * 30 / 100 && req.body.status == 1 && project_status == 0)
+          || (req.body.tran_amount == req.body.budget * 70 / 100 && req.body.status == 2 && project_status == 1)
+        ) {
           try {
             const { orderID } = req.params;
             // use the cart information passed from the front-end to calculate the order amount detals
             // const data = req.body;
             const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
             // const response = projectController.update(req, res);
-            if(httpStatusCode == 201)
-            {
-                const response = transactionController.createTransactionAndUpdateProject(req, res)
-            } 
+            if (httpStatusCode == 201) {
+              const response = transactionController.createTransactionAndUpdateProject(req, res)
+            }
             else res.status(500).json({ error: "Failed to pay prepaid" });
             // res.status(httpStatusCode).json(jsonResponse);
           } catch (error) {
@@ -277,7 +298,7 @@ exports.apiPrePaidCreateProject = async (req, res) => {
 
   }
   // else res.status(400).json({ error: "Bad request, the amount paid dont match with configure of the project." });
-    
+
 };
 
 //   app.post("/api/orders/:orderID/capture",
@@ -295,41 +316,38 @@ exports.apiCaptureOrder = async (req, res) => {
 exports.apiAcceptProject = async (req, res) => {
   try {
     const reportId = req.body.report_id;
-    ProjectReport.findByPk(reportId, {include: [{model: Project, as: "project", attributes: ['id', 'status']}]})
-    .then( async (projectReport_data) => {
-      console.log(projectReport_data);
-      if(projectReport_data.status == 0 && projectReport_data.project.status == 2)
-      {
-        PaymentAccount.findOne({where: {user_id: req.body.receiverId}})
-        .then(async (receiver) => {
-          if(receiver)
-          {
-            console.log(receiver)
-            req.body.receiver = receiver.account_address;
-            const data = req.body;
-            const {httpStatusCode, batchData} = await creatPayoutBatch(data);
-            if(httpStatusCode == 201)
-              projectReportController.accept(req, res);
-            else res.status(500).json({ error: "Failed to pay prepaid" });
-          }
-          else 
-          {
-            res.status(404).json({ error: "User payment account not found." });
-          }
-        })
-        .catch(err => {
-          res.status(500).send({
-            message: "Error retrieving user payment account."
-          });
+    ProjectReport.findByPk(reportId, { include: [{ model: Project, as: "project", attributes: ['id', 'status'] }] })
+      .then(async (projectReport_data) => {
+        console.log(projectReport_data);
+        if (projectReport_data.status == 0 && projectReport_data.project.status == 2) {
+          PaymentAccount.findOne({ where: { user_id: req.body.receiverId } })
+            .then(async (receiver) => {
+              if (receiver) {
+                console.log(receiver)
+                req.body.receiver = receiver.account_address;
+                const data = req.body;
+                const { httpStatusCode, batchData } = await createPayoutBatch(data);
+                if (httpStatusCode == 201)
+                  projectReportController.accept(req, res);
+                else res.status(500).json({ error: "Failed to pay prepaid" });
+              }
+              else {
+                res.status(404).json({ error: "User payment account not found." });
+              }
+            })
+            .catch(err => {
+              res.status(500).send({
+                message: "Error retrieving user payment account."
+              });
+            });
+        }
+        else res.status(400).json({ error: "Bad request, the project is not ready to be accepted or the report is invalid." });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving Project with id=" + id
         });
-      }
-      else res.status(400).json({ error: "Bad request, the project is not ready to be accepted or the report is invalid." });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving Project with id=" + id
       });
-    });
 
   }
   catch (error) {
