@@ -207,20 +207,12 @@ const profile = ({ access_token }) => {
                     >
                       <div className="text-wrapper-11">My Wishlist</div>
                     </div>
-                    <div
-                      className={`${
-                        activeTab === 3 ? 'group-6 active' : 'group-6'
-                      }`}
-                      onClick={() => handleTabClick(3)}
-                    >
+                    {/* <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
+                    onClick={() => handleTabClick(3)}>
                       <div className="text-wrapper-11">My Calendar</div>
-                    </div>
-                    <div
-                      className={`${
-                        activeTab === 4 ? 'active group-6' : 'group-6'
-                      }`}
-                      onClick={() => handleTabClick(4)}
-                    >
+                    </div> */}
+                    <div className={`${activeTab === 4 ? 'active group-6' : 'group-6'}`}
+                    onClick={() => handleTabClick(4)}>
                       <div className="text-wrapper-11">My Payment Account</div>
                     </div>
                   </div>

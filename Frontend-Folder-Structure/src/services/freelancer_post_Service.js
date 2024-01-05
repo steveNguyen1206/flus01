@@ -80,6 +80,20 @@ const sendPost = async (data) => {
 const findFreelancerEmail = id => {
     return http.get(`/freelancer_post/email/${id}`);
 }
+const findFreePostsByPage = (page, size, searchKey) => {
+  console.log("findFreePostsByPage: ", page, size, searchKey);
+  return http.get(`/freelancer_post/getfreeposts/${page}&${size}&${searchKey}`);
+};
+
+
+const changeStatusByID = (id, status) => {
+  return http.put(`/freelancer_post/status/${id}&${status}`);
+};
+
+const removePostById = (id) => {
+  console.log("removeUserByAccName: ", id);
+  return http.delete(`/freelancer_post/deletefreepost/${id}`);
+};
 
 const freelancer_post_Service = {
     // create,
@@ -89,6 +103,9 @@ const freelancer_post_Service = {
     updatePost,
     findOnebyId,
     findFreelancerEmail,
+    findFreePostsByPage,
+    changeStatusByID,
+    removePostById,
 };
 
 export default freelancer_post_Service;

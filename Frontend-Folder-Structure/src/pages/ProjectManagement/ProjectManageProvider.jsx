@@ -18,7 +18,11 @@ export const ProjectManageProvider = ({own, projectId, children }) => {
   const isOwn = own;
 
   const [project, setProject] = useState(initialProject);
-  const [projectTab, setProjectTab] = useState("general")
+  const [projectTab, setProjectTab] = useState("general");
+  const [reportId, setReportId] = useState(null);
+  const [error, setError] = useState(null);
+  const [notis, setNotis] = useState([])
+
 
 
   const contextValue = {
@@ -26,7 +30,10 @@ export const ProjectManageProvider = ({own, projectId, children }) => {
     setProject,
     isOwn,
     projectTab,
-    setProjectTab
+    setProjectTab,
+    reportId, setReportId,
+    error, setError,
+    notis, setNotis
   };
   console.log("project id", project.id);
 

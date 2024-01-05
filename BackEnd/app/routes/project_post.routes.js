@@ -32,5 +32,15 @@ module.exports = (app) => {
   // /project_post/update
   router.put("/:id", upload.single("image_file"), projectPostController.update);
 
+  // Route to get project_post by page and size
+  router.get('/getprojposts/:page&:size&:searchKey', projectPostController.findProjPostsByPage);
+  router.get('/getprojposts/:page&:size', projectPostController.findProjPostsByPage);
+
+  // Update the status of a Projpost by id and status param
+  router.put("/status/:id&:status", projectPostController.changeStatusByID);
+
+  // Delete a Projpost with id
+  router.delete("/deleteprojpost/:id", projectPostController.deleteById);
+
   app.use("/api/project_post", router);
 };

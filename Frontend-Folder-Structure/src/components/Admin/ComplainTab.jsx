@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import "./UserTab.css";
+import "./ComplainTab.css";
 import { UserRow } from "..";
 import userDataService from '@/services/userDataServices';
 import search from '../../assets/search.png';
 import cavet from '../../assets/cavet.png';
 import Pagination from '@mui/material/Pagination';
+import issueServices from "@/services/issueServices";
+import IssueRow from "./IssueRow";
 
-const UserTab = () => {
-    const [users, setUsers] = useState([]);
+const ComplainTab = () => {
+    const [issues, setIssues] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [refreshUsers, setRefreshUsers] = useState(false); // State to trigger refresh
+    const [refreshIssues, setRefreshIssues] = useState(false); // State to trigger refresh
     const [searchKey, setSearchKey] = useState(""); // State for search key
 
-    const fetchUsers = async () => {
+    const fetchIssues = async () => {
         try {
-            const response = await userDataService.findUsersbyPage(page, 6, searchKey.toString());
+            const response = await issueServices.findIssuesByPage(page, 6, searchKey.toString());
             console.log("RESPONSE: ", response.data);
-            const { users, totalPages } = response.data;
-            console.log("users: ", users);
+            const { issues, totalPages } = response.data;
+            console.log("issues: ", issues);
             console.log("totalPages: ", totalPages);
-            setUsers(users);
+            setIssues(issues);
             setTotalPages(totalPages);
         } catch (error) {
             console.error(error);
@@ -28,8 +30,8 @@ const UserTab = () => {
     };
 
     useEffect(() => {
-        fetchUsers();
-    }, [page, refreshUsers]); // Include searchKey in the dependency array
+        fetchIssues();
+    }, [page, refreshIssues]); // Include searchKey in the dependency array
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -37,7 +39,7 @@ const UserTab = () => {
 
     const handleSearch = (event) => {
         if (event.key === "Enter") {
-            fetchUsers();
+            fetchIssues();
         }
     };
 
@@ -46,12 +48,12 @@ const UserTab = () => {
     };
     useEffect(() => {
         if(searchKey === "") {
-            fetchUsers();
+            fetchIssues();
         }
     }, [searchKey]);
 
     return (
-        <div className='UserTab'>
+        <div className='ComplainTab'>
             <div className='search-section'>
                 <div className="search-area">
                     <input
@@ -62,27 +64,14 @@ const UserTab = () => {
                         onChange={handleSearchChange}
                         onKeyDown={handleSearch}
                     />
-                    <img className="search-icon-instance" onClick={ fetchUsers} src={search} alt="Search" />
-                </div>
-                <div className="gr-dropdown">
-                    <div className="filter-text">Reported times</div>
-                    <img className="caret-icon" src={cavet} alt="Caret" />
+                    <img className="search-icon-instance" onClick={ fetchIssues} src={search} alt="Search" />
                 </div>
             </div>
 
             <div className="overlap-5">
-                <div className="table-head row">
-                    <div className="col-1"></div>
-                    <div className="text-wrapper-27 col-3">User name</div>
-                    <div className="text-wrapper-27 col">Name</div>
-                    <div className="text-wrapper-27 col">Reported times</div>
-                    <div className="text-wrapper-27 col">Registration Date</div>
-                    <div className="col"></div>
-                </div>
                 <div className="table-user">
-                    {users.map(user => (
-                        <UserRow key={user.id} user={user} refreshUsers={refreshUsers}
-                            setRefreshUsers={setRefreshUsers} />
+                    {issues.map(issue => (
+                        <IssueRow key={issue.id} issue={issue} />
                     ))}
                 </div>
 
@@ -96,4 +85,4 @@ const UserTab = () => {
     );
 };
 
-export default UserTab;
+export default ComplainTab;

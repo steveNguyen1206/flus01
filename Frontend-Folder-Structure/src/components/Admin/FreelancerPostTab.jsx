@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import "./UserTab.css";
-import { UserRow } from "..";
-import userDataService from '@/services/userDataServices';
+import "./ProjectPostTab.css";
+import { FreelancerPostRow} from "..";
+import { useNavigate } from "react-router";
 import search from '../../assets/search.png';
 import cavet from '../../assets/cavet.png';
 import Pagination from '@mui/material/Pagination';
+import freelancer_post_Service from "@/services/freelancer_post_Service";
 
-const UserTab = () => {
-    const [users, setUsers] = useState([]);
+const FreelancerPostTab = () => {
+    const navigate = useNavigate();
+    const [freeposts, setFreePosts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [refreshUsers, setRefreshUsers] = useState(false); // State to trigger refresh
+    const [refreshFreePosts, setRefreshFreePosts] = useState(false); // State to trigger refresh
     const [searchKey, setSearchKey] = useState(""); // State for search key
 
-    const fetchUsers = async () => {
+    const fetchFreePosts = async () => {
         try {
-            const response = await userDataService.findUsersbyPage(page, 6, searchKey.toString());
+            const response = await freelancer_post_Service.findFreePostsByPage(page, 3, searchKey.toString());
             console.log("RESPONSE: ", response.data);
-            const { users, totalPages } = response.data;
-            console.log("users: ", users);
+            const { free_posts, totalPages } = response.data;
+            console.log("freeposts: ", free_posts);
             console.log("totalPages: ", totalPages);
-            setUsers(users);
+            setFreePosts(free_posts);
             setTotalPages(totalPages);
         } catch (error) {
             console.error(error);
@@ -28,8 +30,8 @@ const UserTab = () => {
     };
 
     useEffect(() => {
-        fetchUsers();
-    }, [page, refreshUsers]); // Include searchKey in the dependency array
+        fetchFreePosts();
+    }, [page, refreshFreePosts]); // Include searchKey in the dependency array
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -37,7 +39,7 @@ const UserTab = () => {
 
     const handleSearch = (event) => {
         if (event.key === "Enter") {
-            fetchUsers();
+            fetchFreePosts();
         }
     };
 
@@ -46,12 +48,12 @@ const UserTab = () => {
     };
     useEffect(() => {
         if(searchKey === "") {
-            fetchUsers();
+            fetchFreePosts();
         }
     }, [searchKey]);
 
     return (
-        <div className='UserTab'>
+        <div className='FreelancerPostTab'>
             <div className='search-section'>
                 <div className="search-area">
                     <input
@@ -62,7 +64,7 @@ const UserTab = () => {
                         onChange={handleSearchChange}
                         onKeyDown={handleSearch}
                     />
-                    <img className="search-icon-instance" onClick={ fetchUsers} src={search} alt="Search" />
+                    <img className="search-icon-instance" onClick={ fetchFreePosts} src={search} alt="Search" />
                 </div>
                 <div className="gr-dropdown">
                     <div className="filter-text">Reported times</div>
@@ -71,18 +73,30 @@ const UserTab = () => {
             </div>
 
             <div className="overlap-5">
-                <div className="table-head row">
+                {/* <div className="table-head row">
                     <div className="col-1"></div>
                     <div className="text-wrapper-27 col-3">User name</div>
                     <div className="text-wrapper-27 col">Name</div>
                     <div className="text-wrapper-27 col">Reported times</div>
                     <div className="text-wrapper-27 col">Registration Date</div>
                     <div className="col"></div>
-                </div>
-                <div className="table-user">
-                    {users.map(user => (
-                        <UserRow key={user.id} user={user} refreshUsers={refreshUsers}
-                            setRefreshUsers={setRefreshUsers} />
+                </div> */}
+                <div className="table-projpost">
+                    {freeposts.map(post => (
+                        <FreelancerPostRow 
+                        key={post.id}
+                        freepostId={post.id}
+                        freepostTitle={post.title}
+                        freepostTagsId={post.skill_tag}
+                        freepostDescription={post.skill_description}
+                        freepostBudget={post.lowest_price}
+                        userID={post.freelancer_id}
+                        setRefreshFreePosts={setRefreshFreePosts}
+                        handleViewClick={() => {
+                        console.log('navigate to findFreelancer detail page');
+
+                        navigate(`/findFreelancer/${post.id}`);
+                        }} />
                     ))}
                 </div>
 
@@ -96,4 +110,4 @@ const UserTab = () => {
     );
 };
 
-export default UserTab;
+export default FreelancerPostTab;
