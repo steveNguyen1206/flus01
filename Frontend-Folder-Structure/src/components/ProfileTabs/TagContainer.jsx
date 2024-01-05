@@ -11,7 +11,7 @@ const TagContainer = ({
   successMessage,
 }) => {
   return (
-    <div className="tag-container">
+    <div className="tags-container">
       {list_tag.map((tag) => (
         <EditTag
           tag_name={tag.subcategory_name}

@@ -144,7 +144,7 @@
     letter-spacing: 0;
     line-height: normal;
     text-decoration: underline;
-    margin-left: 10%;
+    margin-left: 10px;
   }
   
  
@@ -432,3 +432,27 @@
     width: 934px;
   }
   
+  .to-projects-manager {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .navigate-button {
+    margin-left: 5px;
+  }
+
+  .navigate-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .social-link {
+    margin: 5px;
+  }

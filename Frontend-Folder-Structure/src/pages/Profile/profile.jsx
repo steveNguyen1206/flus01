@@ -6,20 +6,32 @@ import facebookicon from '../../assets/SocialIcon/facebook.png';
 import instaicon from '../../assets/SocialIcon/insta.png';
 import linkedinicon from '../../assets/SocialIcon/linkedin.png';
 import editIcon from '../../assets/editProfileIcon.png';
-import { BankTab, EmptyTab, StarRating, Tag, PopupUpdateProfile } from '@/components';
+import {
+  BankTab,
+  EmptyTab,
+  StarRating,
+  Tag,
+  PopupUpdateProfile,
+  UpdateButton,
+} from '@/components';
 import { SignUp } from '@/pages';
 import { useParams, useNavigate } from 'react-router';
 import userDataService from '@/services/userDataServices';
 import { Link } from 'react-router-dom';
-import { ProjectPostsTab, FreelancerPostsTab, WishlistTab, CalendarTab, PaymentAccountTab } from '@/components';
+import {
+  ProjectPostsTab,
+  FreelancerPostsTab,
+  WishlistTab,
+  CalendarTab,
+  PaymentAccountTab,
+} from '@/components';
 
-const profile = ({access_token}) => {
-  console.log("ACCESS TOKEN: ", access_token)
+const profile = ({ access_token }) => {
+  console.log('ACCESS TOKEN: ', access_token);
 
   const { id } = useParams();
   let navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
-
 
   const initialProfileState = {
     id: '',
@@ -31,7 +43,6 @@ const profile = ({access_token}) => {
     email: '',
     avt_url: '',
     social_link: '',
-    
   };
 
   const [userProfile, setUserProfile] = useState(initialProfileState);
@@ -59,16 +70,28 @@ const profile = ({access_token}) => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-  }
+  };
+
+  const goToProjectsCreated = () => {
+    navigate(`/my-project-manage`);
+  };
+
+  const goToProjectsJoined = () => {
+    navigate(`/project-manage`);
+  };
 
   return (
     <div>
       {/* Update Profile Popup */}
-      {showUpdateProfile && <PopupUpdateProfile  m_state={showUpdateProfile}
-            m_function={setShowUpdateProfile} user_profile={userProfile}/>}
+      {showUpdateProfile && (
+        <PopupUpdateProfile
+          m_state={showUpdateProfile}
+          m_function={setShowUpdateProfile}
+          user_profile={userProfile}
+        />
+      )}
 
       {userProfile ? (
-        
         <div className="profile">
           <div className="overlap">
             <div className="profile-info-section">
@@ -107,9 +130,9 @@ const profile = ({access_token}) => {
                   </div>
                 </div>
 
-                <div className="row social-row">
-                  <div className="col ">
-                    <img className="img" alt="Ellipse" src={facebookicon} />
+                <div className="navigate-container">
+                  <div className="social-link">
+                    <img className="img" alt="Ellipse" src={linkedinicon} />
                     <Link
                       className="text-wrapper-3"
                       to={userProfile.social_link}
@@ -117,13 +140,20 @@ const profile = ({access_token}) => {
                       TrucVy
                     </Link>
                   </div>
-                  <div className="col">
-                    <img className="img" alt="Ellipse" src={instaicon} />
-                    <div className="text-wrapper-3">TrucVy</div>
-                  </div>
-                  <div className="col">
-                    <img className="img" alt="Ellipse" src={linkedinicon} />
-                    <div className="text-wrapper-3">TrucVy</div>
+
+                  <div className="to-projects-manager">
+                    <div className="navigate-button">
+                    <UpdateButton
+                      button_name={'Projects Created'}
+                      onClick={goToProjectsCreated}
+                      />
+                      </div>
+                      <div className="navigate-button">
+                    <UpdateButton
+                      button_name={'Projects Joined'}
+                      onClick={goToProjectsJoined}
+                      />
+                      </div>
                   </div>
                 </div>
               </div>
@@ -153,16 +183,28 @@ const profile = ({access_token}) => {
                 <div className="overlap-10">
                   <div className="rectangle-2" />
                   <div className="tab-container">
-                    <div className={`${activeTab === 0 ? 'active group-6' : 'group-6'}`}
-                    onClick={() => handleTabClick(0)}>
+                    <div
+                      className={`${
+                        activeTab === 0 ? 'active group-6' : 'group-6'
+                      }`}
+                      onClick={() => handleTabClick(0)}
+                    >
                       <div className="text-wrapper-11">My Project Post</div>
                     </div>
-                    <div className={`${activeTab === 1 ? 'group-6 active' : 'group-6'}`}
-                    onClick={() => handleTabClick(1)}>
+                    <div
+                      className={`${
+                        activeTab === 1 ? 'group-6 active' : 'group-6'
+                      }`}
+                      onClick={() => handleTabClick(1)}
+                    >
                       <div className="text-wrapper-11">My Freelancer Post</div>
                     </div>
-                    <div className={`${activeTab === 2 ? ' group-6 active' : 'group-6'}`}
-                    onClick={() => handleTabClick(2)}>
+                    <div
+                      className={`${
+                        activeTab === 2 ? ' group-6 active' : 'group-6'
+                      }`}
+                      onClick={() => handleTabClick(2)}
+                    >
                       <div className="text-wrapper-11">My Wishlist</div>
                     </div>
                     {/* <div className={`${activeTab === 3 ? 'group-6 active' : 'group-6'}`}
@@ -175,11 +217,17 @@ const profile = ({access_token}) => {
                     </div>
                   </div>
                   <div className="main-tab-container">
-                    {activeTab === 0 && <ProjectPostsTab userId={userProfile.id}/>}
-                    {activeTab === 1 && <FreelancerPostsTab userId={userProfile.id}/>}
-                    {activeTab === 2 && <WishlistTab userId={userProfile.id}/>}
-                    {activeTab === 3 && <CalendarTab userId={userProfile.id}/>}
-                    {activeTab === 4 && <PaymentAccountTab userId={userProfile.id}/>}
+                    {activeTab === 0 && (
+                      <ProjectPostsTab userId={userProfile.id} />
+                    )}
+                    {activeTab === 1 && (
+                      <FreelancerPostsTab userId={userProfile.id} />
+                    )}
+                    {activeTab === 2 && <WishlistTab userId={userProfile.id} />}
+                    {activeTab === 3 && <CalendarTab userId={userProfile.id} />}
+                    {activeTab === 4 && (
+                      <PaymentAccountTab userId={userProfile.id} />
+                    )}
                   </div>
                 </div>
               </div>
