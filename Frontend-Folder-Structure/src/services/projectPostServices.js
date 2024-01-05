@@ -34,6 +34,7 @@ const updateProject = async (data) => {
 };
 
 const getAllProjects = (user_id) => {
+  console.log('user_id: ', user_id);
   return http.get(`/project_post/findAll/${user_id}`);
 };
 

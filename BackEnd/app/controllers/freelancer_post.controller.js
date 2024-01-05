@@ -107,8 +107,9 @@ exports.findAndChangeStatus = (req, res) => {
 
 // Retrieve all Freelancer_post from the database.
 exports.findAll = (req, res) => {
-    const freelancer_id = req.query.freelancer_id;
-    var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
+    const freelancer_id = req.params.freelancer_id;
+    
+     var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
 
     Freelancer_post.findAll({ where: condition })
         .then(data => {
@@ -341,8 +342,14 @@ exports.delete = (req, res) => {
 // };
 
 exports.findAllPosts = (req, res) => {
-    const freelancer_id = req.query.freelancer_id;
-    var condition = freelancer_id ? { freelancer_id: { [Op.like]: `%${freelancer_id}%` } } : null;
+    const freelancer_id = req.params.freelancer_id;
+
+    console.log("#############################\n");
+    console.log("FIND ALL FREELANCER POSTS");
+    console.log("Params: ", req.params);
+    console.log("freelancer_id: ", freelancer_id);
+   
+    var condition = freelancer_id ? { freelancer_id: { [Op.eq]: `${freelancer_id}` } } : null;
 
     Freelancer_post.findAll({
         where: condition,
