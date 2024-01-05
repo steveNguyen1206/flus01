@@ -29,9 +29,9 @@ db.sequelize.sync()
   });
 
 // // drop the table if it already exists
-db.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync db.");
-});
+// db.sequelize.sync({ force: true }).then(() => {
+//   console.log("Drop and re-sync db.");
+// });
 
 // simple route
 app.get("/", (req, res) => {
@@ -56,6 +56,7 @@ require("./app/routes/category.routes")(app);
 require("./app/routes/subcategory.routes")(app);
 require("./app/routes/freelancer_post.routes")(app);
 require("./app/routes/project.routes")(app);
+require("./app/routes/project_issues.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
