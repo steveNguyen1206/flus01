@@ -41,12 +41,29 @@ const getProjectbyId = (id) => {
   return http.get(`/project_post/${id}`);
 };
 
+const findProjPostsByPage = (page, size, searchKey) => {
+  console.log("findProjPostsByPage: ", page, size, searchKey);
+  return http.get(`/project_post/getprojposts/${page}&${size}&${searchKey}`);
+};
+
+const changeStatusByID = (id, status) => {
+  return http.put(`/project_post/status/${id}&${status}`);
+};
+
+const removePostById = (id) => {
+  console.log("removeUserByAccName: ", id);
+  return http.delete(`/project_post/deleteprojpost/${id}`);
+};
+
 const projectPostServices = {
   sendProject,
   getAllProjects,
   getProjectbyId,
   updateProject,
   findOnebyId,
+  findProjPostsByPage,
+  changeStatusByID,
+  removePostById,
 };
 
 export default projectPostServices;

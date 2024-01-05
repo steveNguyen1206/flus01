@@ -14,7 +14,7 @@ import admin_comment_star_white from '../../assets/Admin/admin_comment_star_whit
 import admin_post_white from '../../assets/Admin/admin_post_white.png';
 import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
-import { UserTab } from '@/components';
+import { ProjectPostTab, UserTab } from '@/components';
 import { CategoryTab } from '@/components';
 import { useAuth } from '../../AuthContext';
 
@@ -24,6 +24,7 @@ const Admin = () => {
     const [activeGroup, setActiveGroup] = useState(null);
 
     const handleGroupClick = (group) => {
+        console.log(group);
         setActiveGroup(group);
     };
     const navigate = useNavigate();
@@ -60,21 +61,21 @@ const Admin = () => {
                             </div>
                         </div>
                         <div
-                            className={`group-14 row ${activeGroup === 'projects' ? 'active-container' : ''}`}
-                            onClick={() => handleGroupClick('projects')}
+                            className={`group-14 row ${activeGroup === 'projposts' ? 'active-container' : ''}`}
+                            onClick={() => handleGroupClick('projposts')}
                         >
-                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'projects' ? admin_project_white : admin_project} />
-                            <div className={`text-wrapper-31 col ${activeGroup === 'projects' ? 'text-wrapper-active' : ''}`}>
-                                Projects
+                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'projposts' ? admin_project_white : admin_project} />
+                            <div className={`text-wrapper-31 col ${activeGroup === 'projposts' ? 'text-wrapper-active' : ''}`}>
+                                Project Posts
                             </div>
                         </div>
                         <div
-                            className={`group-14 row ${activeGroup === 'posts' ? 'active-container' : ''}`}
-                            onClick={() => handleGroupClick('posts')}
+                            className={`group-14 row ${activeGroup === 'freeposts' ? 'active-container' : ''}`}
+                            onClick={() => handleGroupClick('freeposts')}
                         >
-                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'posts' ? admin_post_white : admin_post} />
-                            <div className={`text-wrapper-31 col ${activeGroup === 'posts' ? 'text-wrapper-active' : ''}`}>
-                                Posts
+                            <img className="image-2 col-md-auto" alt="Image" src={activeGroup === 'freeposts' ? admin_post_white : admin_post} />
+                            <div className={`text-wrapper-31 col ${activeGroup === 'freeposts' ? 'text-wrapper-active' : ''}`}>
+                                Freelancer Posts
                             </div>
                         </div>
                         <div
@@ -105,6 +106,7 @@ const Admin = () => {
             <div className='spare-space'>
                 {activeGroup === 'users' && <UserTab />}
                 {activeGroup === 'categories' && <CategoryTab />}
+                {activeGroup === 'projposts' && <ProjectPostTab />}
                 {/* Add new tab here */}
             </div>
 

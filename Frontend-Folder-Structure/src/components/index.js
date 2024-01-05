@@ -14,6 +14,8 @@ export {default as UserRow} from './Admin/UserRow'
 export {default as UserTab} from './Admin/UserTab'
 export {default as CategoryBlock} from './Admin/CategoryBlock'
 export {default as CategoryTab} from './Admin/CategoryTab'
+export {default as ProjectPostTab} from './Admin/ProjectPostTab'
+export {default as ProjectPostRow} from './Admin/ProjectPostRow'
 
 export {default as WhiteButton} from './Button/WhiteButton'
 export {default as RedCloseButton} from "./Button/redCloseButton";
@@ -44,3 +46,4 @@ export {default as FreelancerPostsTab} from './ProfileTabs/FreelancerPostsTab'
 export {default as WishlistTab} from './ProfileTabs/WishlistTab'
 export {default as CalendarTab} from './ProfileTabs/CalendarTab'
 export {default as PaymentAccountTab} from './ProfileTabs/PaymentAccountTab'
+
