@@ -14,7 +14,7 @@ import admin_comment_star_white from '../../assets/Admin/admin_comment_star_whit
 import admin_post_white from '../../assets/Admin/admin_post_white.png';
 import admin_project_white from '../../assets/Admin/admin_project_white.png';
 import admin_category_white from '../../assets/Admin/admin_category_white.png';
-import { ProjectPostTab, UserTab } from '@/components';
+import { FreelancerPostTab, ProjectPostTab, UserTab } from '@/components';
 import { CategoryTab } from '@/components';
 import { useAuth } from '../../AuthContext';
 
@@ -107,6 +107,7 @@ const Admin = () => {
                 {activeGroup === 'users' && <UserTab />}
                 {activeGroup === 'categories' && <CategoryTab />}
                 {activeGroup === 'projposts' && <ProjectPostTab />}
+                {activeGroup === 'freeposts' && <FreelancerPostTab />}
                 {/* Add new tab here */}
             </div>
 
