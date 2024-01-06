@@ -15,7 +15,7 @@ const UpdateAvartar = ({ user_id, avt_url }) => {
     <div> 
       <div className="update-avatar-section">
         <div className="update-avatar-container" onClick={handleAvatarClick}>
-          <img className="update-ellipse" alt="Ellipse" src={avt_url} />
+          <img className="update-ellipse" src={avt_url} />
         </div>
 
         <UpdateAvatarForm user_id={user_id} />

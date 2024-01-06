@@ -23,6 +23,7 @@ import {
   CalendarTab,
   PaymentAccountTab,
 } from '@/components';
+import { get } from 'jquery';
 
 const profile = () => {
   const this_id = localStorage.getItem('LOGINID');
@@ -32,6 +33,7 @@ const profile = () => {
 
   let navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
+  const [refresh, setRefresh] = useState(0);
 
   const initialProfileState = {
     id: '',
@@ -51,6 +53,11 @@ const profile = () => {
 
   const handleUpdateProfile = () => {
     setShowUpdateProfile(true);
+  };
+
+  const handleClosePopupUpdateProfile = () => {
+    setShowUpdateProfile(false);
+    setRefresh(1- refresh);
   };
 
   const getUserProfile = (id) => {
@@ -83,7 +90,7 @@ const profile = () => {
       getUserProfile(id);
       getUserSkills(id);
     }
-  }, [id]);
+  }, [id, refresh]);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -102,9 +109,10 @@ const profile = () => {
       {/* Update Profile Popup */}
       {showUpdateProfile && (
         <PopupUpdateProfile
-          m_state={showUpdateProfile}
-          m_function={setShowUpdateProfile}
+          // m_state={showUpdateProfile}
+          // m_function={setShowUpdateProfile}
           user_profile={userProfile}
+          handleCloseIconClick={handleClosePopupUpdateProfile}
         />
       )}
 
@@ -117,7 +125,7 @@ const profile = () => {
                 <div className="avatar-container">
                   <img
                     className="ellipse"
-                    alt="Ellipse"
+                    alt="Avatar"
                     src={userProfile.avt_url}
                   />
                 </div>
