@@ -1,20 +1,14 @@
 import React from 'react';
 import './update_avatar.css';
 import { useState } from 'react';
-import profileCover from '../../assets/profile_cover.jpg';
 import { UpdateAvatarForm } from '@/components';
 
 const UpdateAvartar = ({ user_id, avt_url }) => {
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleAvatarClick = () => {
-    // call API to update avatar
-  };
 
   return (
     <div> 
       <div className="update-avatar-section">
-        <div className="update-avatar-container" onClick={handleAvatarClick}>
+        <div className="update-avatar-container">
           <img className="update-ellipse" src={avt_url} />
         </div>
 

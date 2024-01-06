@@ -1,12 +1,9 @@
 import React from 'react';
 import './popup_update_profile.css';
-import { useState } from 'react';
 import { RedCloseButton } from '@/components';
 import { UpdateAvartar, UpdateTags, UpdatePassword, UpdateNameContacts} from '@/components';
 
-// const PopupUpdateProfile = ({ m_state, m_function, user_profile}) => {
 const PopupUpdateProfile = ({ user_profile, handleCloseIconClick }) => {
-  // m_state - m_function: state and function to control popup (close/open)
   // user_profile: user profile data, with:
     // id: '',
     // account_name: '',
@@ -19,12 +16,6 @@ const PopupUpdateProfile = ({ user_profile, handleCloseIconClick }) => {
     // social_link: '',
 
   const user_id = user_profile.id || null;
-  console.log("DEBUG UPDATE TAG");
-  console.log(user_profile);
-  // const handleCloseIconClick = () => {
-  //   m_function(false);
-
-  // };
 
   return (
     <div className="update-profile-container">

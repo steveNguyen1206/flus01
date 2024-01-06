@@ -4,8 +4,6 @@ import profileCover from '../../assets/profile_cover.jpg';
 import linkedinicon from '../../assets/SocialIcon/linkedin.png';
 import editIcon from '../../assets/editProfileIcon.png';
 import {
-  BankTab,
-  EmptyTab,
   StarRating,
   Tag,
   PopupUpdateProfile,
@@ -23,7 +21,6 @@ import {
   CalendarTab,
   PaymentAccountTab,
 } from '@/components';
-import { get } from 'jquery';
 
 const profile = () => {
   const this_id = localStorage.getItem('LOGINID');
