@@ -6,55 +6,62 @@
   padding: 0;
 }
 
-.post-container .left-post {
+.free-post-container .left-post {
   width: 75%;
 }
 
-.post-container{
+.free-post-container{
   height: 280px;
   width: 880px;
   border: 3px solid #000;
   border-radius: 12px;
   display: flex;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.free-post-container .pheader{
+    margin-top: 1%;
+    margin-left: 3%;
 }
 
 
-.post-container .pprofile{
+.free-post-container .pprofile{
   display: flex;
   align-items: center;
 }
 
-.post-container .pprofile img{
+.free-post-container .pprofile img{
   height: 40px;
   object-fit: cover;
   width: auto;
 }
 
-.post-container .plocation img{
+.free-post-container .plocation img{
   height: 10px;
   width: auto;
 }
 
-.post-container .pname {
+.free-post-container .pname {
   margin-left: 10px;
 
 }
 
 
-.post-container .pname{
+.free-post-container .pname{
   margin-right: 10px;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
   font-weight: 600;
 }
 
-.post-container .content-container{
+.free-post-container .content-container{
   width: 100%;
   padding-left: 40px;
   padding-right: 20px;
   height: 100%;
 }
-.post-container .ptitle{
+.free-post-container .ptitle{
   display: flex;
   font-size: var(--medium-font-size);
   font-family: Inter-Bold, sans-serif;
@@ -63,7 +70,7 @@
 }
 
 
-.post-container .post-tag{
+.free-post-container .post-tag{
   margin-top: 0px;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -75,7 +82,7 @@
   padding: 0px 5px;
 }
 
-.post-container .detail-content {
+.free-post-container .detail-content {
   max-width: 600px;
   text-align: left;
   display: -webkit-box;
@@ -85,7 +92,7 @@
   overflow: hidden;
 }
 
-.post-container .previews{
+.free-post-container .previews{
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -93,7 +100,7 @@
   margin-top: 30px;
 }
 
-.post-container .rating-row{
+.free-post-container .rating-row{
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -103,12 +110,12 @@
 
 
 
-.post-container .pstars{
+.free-post-container .pstars{
   width: 200px;
 }
 
 
-.post-container .pprice{
+.free-post-container .pprice{
   text-align: right;
   color: #12C418;
   font-size: var(--xlarge-font-size);
@@ -116,7 +123,7 @@
   font-weight: 700;
 }
 
-.post-container .btn-row{
+.free-post-container .btn-row{
   margin-top: 15px;
   display: flex;
   text-align: center;
@@ -124,7 +131,7 @@
   justify-content: center;
 }
 
-.post-container .btn-bid button{
+.free-post-container .btn-bid button{
   height: 40px;
   width: 80px;
   background-color: var(--primary);
@@ -134,21 +141,21 @@
   margin-bottom: 10px;
 }
 
-.post-container .btn-bid button:active{
+.free-post-container .btn-bid button:active{
   background-color: #066409;
 }
 
-.post-container .rating img{
+.free-post-container .rating img{
   height: 15px;
   width: 15px;
 }
 
-.post-container .rating p{
+.free-post-container .rating p{
   margin: 0;
 }
 
 
-.post-container .pbid{
+.free-post-container .pbid{
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -157,11 +164,11 @@
   align-items: center;
 }
 
-.post-container .num-reviews-wrapper {
+.free-post-container .num-reviews-wrapper {
     text-align: center;
   }
 
-.post-container .btn-row img{
+.free-post-container .btn-row img{
   height: 40px;
   object-fit: cover;
   margin-left: 15px;

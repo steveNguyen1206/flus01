@@ -30,6 +30,9 @@ const Routers = () => {
           <Route path="/findfreelancer" element={<FindFreelancer/>} />
           <Route path="/job" element={<Job/>} />
           <Route path="/project-manage" element={<ProjectManagement/>} />
+          <Route path="/my-project-manage" element={<ProjectManagement own={true}/>} />
+          <Route path="/my-project-manage" element={<ProjectManagement own={true}/>} />
+          <Route path="/project-manage" element={<ProjectManagement own={false}/>} />
           <Route path="/skill" element={<Skill />} />
           <Route path="/updateproject" element={<UpdateProject />} />
           <Route path="/newproject" element={<NewProject />} />
