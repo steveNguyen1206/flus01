@@ -12,7 +12,7 @@ const UpdateAvartar = ({ user_id, avt_url }) => {
           <img className="update-ellipse" src={avt_url} />
         </div>
 
-        <UpdateAvatarForm user_id={user_id} />
+        <UpdateAvatarForm userId={user_id} />
 
         <div className='update-avatar-text'>
           Select a photo to change profile picture

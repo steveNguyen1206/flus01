@@ -1,7 +1,7 @@
 import { media_upload, http } from "./http-common";
 
 const findAll = () => {
-  return http.get("/user");
+  return http.get("/user", );
 };
 
 // findOnebyId
@@ -62,23 +62,33 @@ const changeStatusByID = (id, status) => {
 };
 
 const changePassword = (data) => {
-  return http.put(`/user/change_password`, data);
+  const access_token = localStorage.getItem('AUTH_TOKEN');
+  return http.put(`/user/change_password`, data, {headers: {
+    "Content-type": "application/json",
+    "x-access-token": access_token,
+  }});
 };
 
 const updateNameAndSocialLink = (data) => {
-  return http.put(`/user/update_name_sociallink`, data);
+  const access_token = localStorage.getItem('AUTH_TOKEN');
+
+  return http.put(`/user/update_name_sociallink`, data, {headers: {
+    "Content-type": "application/json",
+    "x-access-token": access_token,
+  }});
 };
 
 const updateAvatar = (user_id, selectedFile) => {
+  const access_token = localStorage.getItem('AUTH_TOKEN');
+
   const formData = new FormData();
   formData.append('avatar', selectedFile);
   console.log(selectedFile);
 
-  for (let pair of formData.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
-
-  return media_upload.put(`/user/avatar/${user_id}`, formData);
+  return media_upload.put(`/user/avatar/${user_id}`, formData, {headers: {
+    "Content-type": "application/json",
+    "x-access-token": access_token,
+  }});
 }
 
 const userDataService = {

@@ -78,7 +78,8 @@ const profile = () => {
         setRefresh();
       })
       .catch((e) => {
-        setErrorMessage(e.message);
+        const message = e.response.data.message;
+        setErrorMessage(message);
       });
   };
 
