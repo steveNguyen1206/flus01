@@ -96,6 +96,7 @@ const LogIn = () => {
           );
           localStorage.setItem('LOGINID',result.data.id);
           localStorage.setItem('AUTH_TOKEN',result.data.accessToken);
+          // console.log("AVATAR GG", result.data.avt_url);
           localStorage.setItem('AVT', result.data.avt_url);
           console.log('Token: ' + result.data.accessToken + " " + result.data.id);
           setSignin(true);

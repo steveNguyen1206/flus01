@@ -9,13 +9,13 @@ const findOnebyId = id => {
   return http.get(`/user/${id}`);
 };
 
-const signup = data => {
-  return http.post("/auth/signup", data);
-};
+// const signup = data => {
+//   return http.post("/auth/signup", data);
+// };
 
-const signin = data => {
-  return http.post("/auth/signin", data);
-};
+// const signin = data => {
+//   return http.post("/auth/signin", data);
+// };
 
 const update = (id, data) => {
   return http.put(`/user/${id}`, data);
@@ -84,8 +84,8 @@ const updateAvatar = (user_id, selectedFile) => {
 const userDataService = {
   findAll,
   findOnebyId,
-  signup,
-  signin,
+  // signup,
+  // signin,
   update,
   findOnebyAccountName,
   findOnebyEmail,

@@ -6,10 +6,12 @@ import avatar_green from '../../assets/avatar_green.png'
 import { StarRating } from '@/components'
 import { useNavigate } from 'react-router';
 import { AuthProvider, useAuth } from '../../AuthContext';
+import authServices from '@/services/authServices'
 
 
 const Header = () => {
   const { signin, setSignin } = useAuth();
+  const [isAdmin, setIsAdmin] = useState(false);
   console.log("signin", signin);
   const handleSignOut = () => {
     localStorage.removeItem('AUTH_TOKEN');
@@ -17,10 +19,22 @@ const Header = () => {
     localStorage.removeItem('AVT');
     setSignin(false);
   }
-  // console.log("AVATER", localStorage.getItem('AVT'));
-  const avatarSrc = (localStorage.getItem('AVT') != 'undified' && localStorage.getItem('AVT') != 'https://imgur.com/gallery/ApNKGxs') ? localStorage.getItem('AVT') : avatar_green;
+  // console.log("AVATAR", localStorage.getItem('AVT'));
+  const avatarSrc = (localStorage.getItem('AVT') != undefined && localStorage.getItem('AVT') != 'https://imgur.com/gallery/ApNKGxs') ? localStorage.getItem('AVT') : avatar_green;
 
   const navigate = useNavigate();
+  // const auth_token = localStorage.getItem('AUTH_TOKEN');
+  // console.log("auth_token", auth_token);
+  authServices.checkIsAdmin(localStorage.getItem('AUTH_TOKEN')).then(res => {
+    if (res.status == 200) {
+      setIsAdmin(true);
+    }else{
+      setIsAdmin(false);
+    }
+  })
+  .catch(err => {
+    console.log(err);
+  })
 
 
   return (
@@ -31,7 +45,7 @@ const Header = () => {
         {signin && (
           <div className="sign-in-done" style={{height:"100%", width:"100%"}}>
             <img onClick={handleSignOut} src={avatarSrc}  style={{position:"inline", objectFit:"cover",height:"100%", margin:"1%",border: "1px solid #000", borderRadius:"50.964px", boxSizing:"border-box"}}/>
-            <div id='login_button-201123' className='btn btn-light'  onClick={() => navigate('/admin')} style={{marginLeft:"8%"}}>Admin</div>
+            {isAdmin && (<div id='login_button-201123' className='btn btn-light'  onClick={() => navigate('/admin')} style={{marginLeft:"8%"}}>Admin</div>)}
           </div>
          
         )}
