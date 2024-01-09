@@ -83,6 +83,7 @@ exports.signin = (req, res) => {
         email: user.email,
         roles: authorities,
         accessToken: token,
+        avt_url: user.avt_url,
       });
     })
     .catch((err) => {
