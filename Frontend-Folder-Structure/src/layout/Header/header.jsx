@@ -13,11 +13,13 @@ const Header = () => {
   const { signin, setSignin } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   console.log("signin", signin);
+  console.log("isAdmin", isAdmin);
   const handleSignOut = () => {
     localStorage.removeItem('AUTH_TOKEN');
     localStorage.removeItem('LOGINID');
     localStorage.removeItem('AVT');
     setSignin(false);
+    setIsAdmin(false);
     navigate('/');
   }
   // console.log("AVATAR", localStorage.getItem('AVT'));
