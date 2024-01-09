@@ -18,6 +18,7 @@ const Header = () => {
     localStorage.removeItem('LOGINID');
     localStorage.removeItem('AVT');
     setSignin(false);
+    navigate('/');
   }
   // console.log("AVATAR", localStorage.getItem('AVT'));
   const avatarSrc = (localStorage.getItem('AVT') != undefined && localStorage.getItem('AVT') != 'https://imgur.com/gallery/ApNKGxs') ? localStorage.getItem('AVT') : avatar_green;
